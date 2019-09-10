@@ -14,7 +14,7 @@ public class UserPreferences {
         this.context = context;
     }
 
-    SharedPreferences getAppPrefs() {
+    private SharedPreferences getAppPrefs() {
         if (prefs == null) {
             prefs = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         }

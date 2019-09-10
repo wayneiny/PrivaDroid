@@ -11,6 +11,8 @@ import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.UserPreferences;
 
+import java.lang.ref.WeakReference;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -25,30 +27,37 @@ public class MainActivity extends AppCompatActivity {
 
         userPreferences = new UserPreferences(this);
         if (userPreferences.getAdvertisingId().isEmpty()) {
-            new GetGAIDTask().execute();
+            new GetGoogleAdvertisingIdTask(this).execute();
         } else {
-            Log.d(TAG, "Read GAID from UserPreferences to be " + userPreferences.getAdvertisingId());
+            Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
         }
     }
 
-    private class GetGAIDTask extends AsyncTask<String, Integer, String> {
+    private static class GetGoogleAdvertisingIdTask extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<MainActivity> activityWeakReference;
+
+        GetGoogleAdvertisingIdTask(MainActivity context) {
+            activityWeakReference = new WeakReference<>(context);
+        }
 
         @Override
         protected String doInBackground(String... strings) {
             AdvertisingIdClient.Info adInfo = null;
             try {
-                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(MainActivity.this.getApplicationContext());
+                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(activityWeakReference.get().getApplicationContext());
             } catch (Exception e) {
                 Log.e(TAG, "Unable to read Google Advertising Id: " + e.getLocalizedMessage());
-                Toast.makeText(MainActivity.this.getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activityWeakReference.get().getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             return adInfo != null ? adInfo.getId() : "";
         }
 
         @Override
         protected void onPostExecute(String s) {
-            userPreferences.setAdvertisingId(s);
-            Log.d(TAG, "Updated GAID to be " + userPreferences.getAdvertisingId());
+            activityWeakReference.get().userPreferences.setAdvertisingId(s);
+            // Toast.makeText(activityWeakReference.get().getApplicationContext(), activityWeakReference.get().userPreferences.getAdvertisingId(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
         }
     }
 }
