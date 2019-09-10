@@ -32,4 +32,16 @@ public class UserPreferences {
         getAppPrefs().edit().putString(ADVERTISING_ID, advertisingId).apply();
     }
     // Mobile Ad Id [END]
+
+    // Consent [START]
+    private static final String CONSENT_GRANTED = "CONSENT_GRANTED";
+
+    public boolean getConsentGranted() {
+        return getAppPrefs().getBoolean(CONSENT_GRANTED, false);
+    }
+
+    public void setConsentGranted(boolean consentGranted) {
+        getAppPrefs().edit().putBoolean(CONSENT_GRANTED, consentGranted).apply();
+    }
+    // Consent [END]
 }

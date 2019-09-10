@@ -3,26 +3,45 @@ package com.weichengcao.privadroid.ui;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
+import com.google.android.material.button.MaterialButton;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.lang.ref.WeakReference;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    UserPreferences userPreferences;
+    private static final String TAG = SplashActivity.class.getSimpleName();
+
+    private UserPreferences userPreferences;
+    private MaterialButton mStartAppButton;
+    private CheckBox mAgreeToTermsCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        mStartAppButton = findViewById(R.id.start_using_app_button);
+        mStartAppButton.setEnabled(false);
+        mStartAppButton.setOnClickListener(this);
+
+        mAgreeToTermsCheckBox = findViewById(R.id.agree_to_terms_checkbox);
+        mAgreeToTermsCheckBox.setChecked(false);
+        mAgreeToTermsCheckBox.setOnCheckedChangeListener(this);
 
         MobileAds.initialize(this, "ca-app-pub-1063585474940344~2699806720");
 
@@ -34,11 +53,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        if (view == mStartAppButton) {
+            // write agree with terms in preferences
+            userPreferences.setConsentGranted(true);
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (compoundButton == mAgreeToTermsCheckBox) {
+            mStartAppButton.setEnabled(b);
+        }
+    }
+
     private static class GetGoogleAdvertisingIdTask extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<MainActivity> activityWeakReference;
+        private WeakReference<SplashActivity> activityWeakReference;
 
-        GetGoogleAdvertisingIdTask(MainActivity context) {
+        GetGoogleAdvertisingIdTask(SplashActivity context) {
             activityWeakReference = new WeakReference<>(context);
         }
 
