@@ -2,9 +2,10 @@ package com.weichengcao.privadroid.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             activityWeakReference.get().userPreferences.setAdvertisingId(s);
-            // Toast.makeText(activityWeakReference.get().getApplicationContext(), activityWeakReference.get().userPreferences.getAdvertisingId(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activityWeakReference.get().getApplicationContext(), activityWeakReference.get().userPreferences.getAdvertisingId(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
         }
     }
