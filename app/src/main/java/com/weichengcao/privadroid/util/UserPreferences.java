@@ -44,4 +44,16 @@ public class UserPreferences {
         getAppPrefs().edit().putBoolean(CONSENT_GRANTED, consentGranted).apply();
     }
     // Consent [END]
+
+    // Join event id in Firestore [Start]
+    private static final String FIRESTORE_JOIN_EVENT_ID = "FIRESTORE_JOIN_EVENT_ID";
+
+    public String getFirestoreJoinEventId() {
+        return getAppPrefs().getString(FIRESTORE_JOIN_EVENT_ID, "");
+    }
+
+    public void setFirestoreJoinEventId(String firestoreJoinEventId) {
+        getAppPrefs().edit().putString(FIRESTORE_JOIN_EVENT_ID, firestoreJoinEventId).apply();
+    }
+    // Join event id in Firestore [End]
 }
