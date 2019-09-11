@@ -11,7 +11,7 @@ import com.weichengcao.privadroid.R;
 
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private MaterialButton mSkipTutorialButton;
+    private MaterialButton mStartUsingAppButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,13 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
             getSupportActionBar().hide();
         }
 
-        mSkipTutorialButton = findViewById(R.id.skip_tutorial_button);
-        mSkipTutorialButton.setOnClickListener(this);
+        mStartUsingAppButton = findViewById(R.id.start_using_app_button);
+        mStartUsingAppButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view == mSkipTutorialButton) {
+        if (view == mStartUsingAppButton) {
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
             finish();

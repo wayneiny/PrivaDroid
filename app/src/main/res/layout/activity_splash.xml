@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/agree_to_terms"
-        app:layout_constraintBottom_toTopOf="@+id/start_using_app_button"
+        app:layout_constraintBottom_toTopOf="@+id/continue_app_setting_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -65,12 +65,12 @@
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/start_using_app_button"
+        android:id="@+id/continue_app_setting_button"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="@string/start_using_app_button"
+        android:text="@string/continue_app_settings_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

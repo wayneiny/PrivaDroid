@@ -24,7 +24,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = SplashActivity.class.getSimpleName();
 
     private UserPreferences userPreferences;
-    private MaterialButton mStartAppButton;
+    private MaterialButton mContinueAppSettingButton;
     private CheckBox mAgreeToTermsCheckBox;
 
     @Override
@@ -36,9 +36,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             getSupportActionBar().hide();
         }
 
-        mStartAppButton = findViewById(R.id.start_using_app_button);
-        mStartAppButton.setEnabled(false);
-        mStartAppButton.setOnClickListener(this);
+        mContinueAppSettingButton = findViewById(R.id.continue_app_setting_button);
+        mContinueAppSettingButton.setEnabled(false);
+        mContinueAppSettingButton.setOnClickListener(this);
 
         mAgreeToTermsCheckBox = findViewById(R.id.agree_to_terms_checkbox);
         mAgreeToTermsCheckBox.setChecked(false);
@@ -62,7 +62,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if (view == mStartAppButton) {
+        if (view == mContinueAppSettingButton) {
             // write agree with terms in preferences
             userPreferences.setConsentGranted(true);
 
@@ -75,7 +75,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         if (compoundButton == mAgreeToTermsCheckBox) {
-            mStartAppButton.setEnabled(b);
+            mContinueAppSettingButton.setEnabled(b);
         }
     }
 
