@@ -22,7 +22,10 @@
         </activity>
 
         <activity
-            android:name=".ui.UseInstructionsActivity"
+            android:name=".ui.TutorialActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MainScreenActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

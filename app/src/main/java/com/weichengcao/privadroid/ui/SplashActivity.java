@@ -1,5 +1,6 @@
 package com.weichengcao.privadroid.ui;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,6 +59,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         if (view == mStartAppButton) {
             // write agree with terms in preferences
             userPreferences.setConsentGranted(true);
+
+            Intent intent = new Intent(this, TutorialActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
