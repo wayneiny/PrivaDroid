@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/app_install"
+        android:icon="@drawable/ic_arrow_downward_white_24dp"
+        android:title="@string/app_install" />
+    <item
+        android:id="@+id/app_uninstall"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/app_uninstall" />
+    <item
+        android:id="@+id/permission"
+        android:icon="@drawable/ic_lock_open_white_24dp"
+        android:title="@string/permission" />
+    <item
+        android:id="@+id/global"
+        android:icon="@drawable/ic_people_white_24dp"
+        android:title="@string/community" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_account_circle_white_24dp"
+        android:title="@string/profile" />
+</menu>

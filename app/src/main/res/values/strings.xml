@@ -7,4 +7,10 @@
     <string name="terms_description">Terms description</string>
 
     <string name="skip_tutorial">Skip</string>
+
+    <string name="community">Community</string>
+    <string name="permission">Permission</string>
+    <string name="app_uninstall">App Uninstall</string>
+    <string name="app_install">App Install</string>
+    <string name="profile">Profile</string>
 </resources>

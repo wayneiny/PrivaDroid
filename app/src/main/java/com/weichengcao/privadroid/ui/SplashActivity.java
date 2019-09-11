@@ -52,6 +52,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         } else {
             Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
         }
+
+        if (userPreferences.getConsentGranted()) {
+            Intent intent = new Intent(this, MainScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
