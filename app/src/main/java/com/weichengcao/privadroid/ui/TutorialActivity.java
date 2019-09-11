@@ -1,7 +1,10 @@
 package com.weichengcao.privadroid.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,10 +17,16 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.util.FirestoreConstants.ANDROID_VERSION;
+import static com.weichengcao.privadroid.util.FirestoreConstants.CARRIER;
+import static com.weichengcao.privadroid.util.FirestoreConstants.LOGGED_TIME;
+import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MAKE;
+import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MODEL;
 import static com.weichengcao.privadroid.util.FirestoreConstants.USER_AD_ID;
 
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
@@ -73,6 +82,15 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         HashMap<String, String> event = new HashMap<>();
 
         event.put(USER_AD_ID, mUserPreferences.getAdvertisingId());
+        event.put(PHONE_MAKE, Build.MANUFACTURER);
+        event.put(PHONE_MODEL, Build.MODEL);
+        event.put(ANDROID_VERSION, Build.VERSION.RELEASE);
+        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (manager != null && manager.getNetworkOperatorName() != null) {
+            String carrierName = manager.getNetworkOperatorName();
+            event.put(CARRIER, carrierName);
+        }
+        event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 
         return event;
     }

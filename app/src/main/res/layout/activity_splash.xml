@@ -50,6 +50,7 @@
                 android:layout_marginRight="80dp"
                 android:text="@string/terms_title"
                 android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -60,7 +61,9 @@
                 android:layout_marginLeft="80dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="80dp"
-                android:text="@string/terms_description" />
+                android:text="@string/terms_description"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
         </LinearLayout>
     </ScrollView>
 

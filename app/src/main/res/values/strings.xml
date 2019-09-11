@@ -4,7 +4,11 @@
     <string name="agree_to_terms">Agree to terms above</string>
     <string name="continue_app_settings_button">Continue</string>
     <string name="terms_title">Terms</string>
-    <string name="terms_description">Terms description</string>
+    <string name="terms_description">
+        PrivaDroid is a community-based Android study app. It helps you keep track of the applications you install/remove from your device.
+        In addition, it captures the permission change you make. Joined users will form a community and users can see how other users are
+        join the app. The data is stored safely and will not be used for any commercial purpose.
+    </string>
 
     <string name="skip_tutorial">Skip</string>
     <string name="join_app">Start</string>

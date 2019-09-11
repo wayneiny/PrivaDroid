@@ -102,7 +102,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         protected void onPostExecute(String s) {
             activityWeakReference.get().userPreferences.setAdvertisingId(s);
-            Toast.makeText(activityWeakReference.get().getApplicationContext(), activityWeakReference.get().userPreferences.getAdvertisingId(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(activityWeakReference.get().getApplicationContext(), activityWeakReference.get().userPreferences.getAdvertisingId(), Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
         }
     }
