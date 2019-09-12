@@ -18,7 +18,7 @@ import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import static com.weichengcao.privadroid.util.ExperimentEventFactory.createJoinEvent;
-import static com.weichengcao.privadroid.util.FirestoreConstants.JOIN_EVENT_COLLECTION;
+import static com.weichengcao.privadroid.util.EventConstants.JOIN_EVENT_COLLECTION;
 
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
 

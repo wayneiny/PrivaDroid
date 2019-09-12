@@ -13,8 +13,10 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.util.FirestoreConstants.APP_INSTALL_COLLECTION;
-import static com.weichengcao.privadroid.util.FirestoreConstants.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_FILE_NAME;
+import static com.weichengcao.privadroid.util.EventConstants.APP_INSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventConstants.APP_UNINSTALL_COLLECTION;
 
 public class FirestoreProvider {
 
@@ -35,8 +37,9 @@ public class FirestoreProvider {
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
+                        // 2. write to local storage if not successful
                         if (!task.isSuccessful()) {
-                            // 2. if not successful, write to local storage
+                            OnDeviceStorageProvider.writeEventToFile(appInstallEvent, APP_INSTALL_FILE_NAME);
                         }
                     }
                 });
@@ -50,8 +53,9 @@ public class FirestoreProvider {
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
+                        // 2. write to local storage if not successful
                         if (!task.isSuccessful()) {
-                            // 2. if not successful, write to local storage
+                            OnDeviceStorageProvider.writeEventToFile(appUninstallEvent, APP_UNINSTALL_FILE_NAME);
                         }
                     }
                 });

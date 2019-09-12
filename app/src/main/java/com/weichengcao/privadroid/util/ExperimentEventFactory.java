@@ -8,15 +8,16 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.util.FirestoreConstants.ANDROID_VERSION;
-import static com.weichengcao.privadroid.util.FirestoreConstants.APP_NAME;
-import static com.weichengcao.privadroid.util.FirestoreConstants.APP_VERSION;
-import static com.weichengcao.privadroid.util.FirestoreConstants.CARRIER;
-import static com.weichengcao.privadroid.util.FirestoreConstants.LOGGED_TIME;
-import static com.weichengcao.privadroid.util.FirestoreConstants.PACKAGE_NAME;
-import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MAKE;
-import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MODEL;
-import static com.weichengcao.privadroid.util.FirestoreConstants.USER_AD_ID;
+import static com.weichengcao.privadroid.util.EventConstants.ANDROID_VERSION;
+import static com.weichengcao.privadroid.util.EventConstants.APP_NAME;
+import static com.weichengcao.privadroid.util.EventConstants.APP_VERSION;
+import static com.weichengcao.privadroid.util.EventConstants.CARRIER;
+import static com.weichengcao.privadroid.util.EventConstants.LOGGED_TIME;
+import static com.weichengcao.privadroid.util.EventConstants.PACKAGE_NAME;
+import static com.weichengcao.privadroid.util.EventConstants.PHONE_MAKE;
+import static com.weichengcao.privadroid.util.EventConstants.PHONE_MODEL;
+import static com.weichengcao.privadroid.util.EventConstants.SURVEYED;
+import static com.weichengcao.privadroid.util.EventConstants.USER_AD_ID;
 
 public class ExperimentEventFactory {
 
@@ -44,6 +45,8 @@ public class ExperimentEventFactory {
         event.put(PACKAGE_NAME, packageName);
         event.put(APP_VERSION, version);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        // TODO: currently don't survey the users
+        event.put(SURVEYED, Boolean.toString(false));
 
         return event;
     }
@@ -53,6 +56,8 @@ public class ExperimentEventFactory {
 
         event.put(PACKAGE_NAME, packageName);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        // TODO: currently don't survey the users
+        event.put(SURVEYED, Boolean.toString(false));
 
         return event;
     }
