@@ -1,10 +1,7 @@
 package com.weichengcao.privadroid.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,26 +13,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
-import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
-import java.util.HashMap;
-
-import static com.weichengcao.privadroid.util.FirestoreConstants.ANDROID_VERSION;
-import static com.weichengcao.privadroid.util.FirestoreConstants.CARRIER;
-import static com.weichengcao.privadroid.util.FirestoreConstants.LOGGED_TIME;
-import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MAKE;
-import static com.weichengcao.privadroid.util.FirestoreConstants.PHONE_MODEL;
-import static com.weichengcao.privadroid.util.FirestoreConstants.USER_AD_ID;
+import static com.weichengcao.privadroid.util.ExperimentEventFactory.createJoinEvent;
+import static com.weichengcao.privadroid.util.FirestoreConstants.JOIN_EVENT_COLLECTION;
 
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
 
     private MaterialButton mStartUsingAppButton;
     private UserPreferences mUserPreferences;
     private FirebaseFirestore mFirestore;
-
-    private static final String JOIN_EVENT_COLLECTION = "JOIN_EVENT_COLLECTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,34 +53,21 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
                         public void onComplete(@NonNull Task<DocumentReference> task) {
                             if (task.isSuccessful()) {
                                 DocumentReference documentReference = task.getResult();
+                                if (documentReference == null) {
+                                    return;
+                                }
                                 mUserPreferences.setFirestoreJoinEventId(documentReference.getId());
+
+                                // 2.1. Navigate to main screen
+                                Intent intent = new Intent(PrivaDroidApplication.getAppContext(), MainScreenActivity.class);
+                                startActivity(intent);
+                                finish();
                             } else {
-                                Toast.makeText(TutorialActivity.this, "Failed to join. Please Try again.", Toast.LENGTH_LONG).show();
+                                // 2.2 Display failed message
+                                Toast.makeText(PrivaDroidApplication.getAppContext(), "Failed to join. Please Try again.", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-
-            // 2. Navigate to main screen
-            Intent intent = new Intent(this, MainScreenActivity.class);
-            startActivity(intent);
-            finish();
         }
-    }
-
-    private HashMap<String, String> createJoinEvent() {
-        HashMap<String, String> event = new HashMap<>();
-
-        event.put(USER_AD_ID, mUserPreferences.getAdvertisingId());
-        event.put(PHONE_MAKE, Build.MANUFACTURER);
-        event.put(PHONE_MODEL, Build.MODEL);
-        event.put(ANDROID_VERSION, Build.VERSION.RELEASE);
-        TelephonyManager manager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        if (manager != null && manager.getNetworkOperatorName() != null) {
-            String carrierName = manager.getNetworkOperatorName();
-            event.put(CARRIER, carrierName);
-        }
-        event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
-
-        return event;
     }
 }

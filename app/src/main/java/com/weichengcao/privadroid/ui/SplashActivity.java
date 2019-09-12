@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
 import com.google.android.material.button.MaterialButton;
+import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.UserPreferences;
 
@@ -91,10 +92,10 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         protected String doInBackground(String... strings) {
             AdvertisingIdClient.Info adInfo = null;
             try {
-                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(activityWeakReference.get().getApplicationContext());
+                adInfo = AdvertisingIdClient.getAdvertisingIdInfo(PrivaDroidApplication.getAppContext());
             } catch (Exception e) {
                 Log.e(TAG, "Unable to read Google Advertising Id: " + e.getLocalizedMessage());
-                Toast.makeText(activityWeakReference.get().getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PrivaDroidApplication.getAppContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             return adInfo != null ? adInfo.getId() : "";
         }
