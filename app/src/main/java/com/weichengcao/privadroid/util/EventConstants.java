@@ -24,5 +24,8 @@ public class EventConstants {
     public static final String APP_UNINSTALL_COLLECTION = "APP_UNINSTALL_COLLECTION";
 
     // permission
-    public static final String PERMISSION = "PERMISSION";
+    public static final String PERMISSION_COLLECTION = "PERMISSION_COLLECTION";
+    public static final String PERMISSION_REQUESTED_NAME = "permission_requested";
+    public static final String GRANTED = "granted";
+    public static final String INITIATED_BY_USER = "user_initiated";
 }

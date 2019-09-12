@@ -15,8 +15,10 @@ import java.util.HashMap;
 
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventConstants.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventConstants.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventConstants.PERMISSION_COLLECTION;
 
 public class FirestoreProvider {
 
@@ -30,6 +32,7 @@ public class FirestoreProvider {
         mUserPreferences = new UserPreferences(mContext);
     }
 
+    // TODO: probably can collapse three methods into one?
     // send app install event [START]
     public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent) {
         // 1. Log a join event and send to FireStore
@@ -61,4 +64,20 @@ public class FirestoreProvider {
                 });
     }
     // send app uninstall event [END]
+
+    // send permission event [START]
+    public void sendPermissionEvent(final HashMap<String, String> permissionEvent) {
+        // 1. Log a join event and send to FireStore
+        mFirestore.collection(PERMISSION_COLLECTION).add(permissionEvent)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        // 2. write to local storage if not successful
+                        if (!task.isSuccessful()) {
+                            OnDeviceStorageProvider.writeEventToFile(permissionEvent, PERMISSION_FILE_NAME);
+                        }
+                    }
+                });
+    }
+    // send permission event [END]
 }
