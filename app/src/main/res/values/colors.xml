@@ -5,4 +5,5 @@
     <color name="colorAccent">#720D5D</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="done_green">#2ecc71</color>
 </resources>

@@ -54,7 +54,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
         }
 
-        if (userPreferences.getConsentGranted()) {
+        if (!userPreferences.getFirestoreJoinEventId().isEmpty()) {
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
             finish();

@@ -7,15 +7,45 @@
     <string name="terms_description">
         PrivaDroid is a community-based Android study app. It helps you keep track of the applications you install/remove from your device.
         In addition, it captures the permission change you make. Joined users will form a community and users can see how other users are
-        join the app. The data is stored safely and will not be used for any commercial purpose.
+        join the app. The data is stored safely and will not be used for any commercial purpose. Users are encouraged to answer the demographic
+        questions to help us better understand how users use Android.
     </string>
 
     <string name="skip_tutorial">Skip</string>
     <string name="join_app">Start</string>
+    <string name="set_up">Set up</string>
+    <string name="ok">OK</string>
+    <string name="done">Done</string>
+
+    <string name="tutorial_how_title">How to use?</string>
+    <string name="tutorial_how_description">
+        App Install shows a list of apps that were installed after PrivaDroid was installed. Similarly,
+        App Uninstall tab shows a list of apps that were uninstalled. Permission screen contains the grants/denys
+        you gave to permission requests. Community shows an aggregated data from all users of this app. You can view your
+        Advertisement ID and other information in the Profile tab.
+    </string>
+
+    <string name="tutorial_accessibility_service_title">Accessibility Service</string>
+    <string name="tutorial_accessibility_service_description">
+        Accessibility Service is required and used when the app needs to read the permission name and whether you grant/deny the
+        permission request from an app. For example, Camera app requests Location access to you through a dialog and PrivaDroid will
+        read the permission requested (Location) and whether you granted/denied it (Allow/Deny).
+    </string>
+    <string name="accessibility_rationale" description="Message shown to the user when toggling the accessibility permission for PrivaDroid">
+        This permission is needed for PrivaDroid to be able to read permission name and detect click events.
+    </string>
+
+    <string name="tutorial_app_usage_title">App Usage</string>
+    <string name="tutorial_app_usage_description">
+        Usage access allows PrivaDroid to track what other apps you are using and how often, as well as your carrier, language settings,
+        and other details.
+    </string>
 
     <string name="community">Community</string>
     <string name="permission">Permission</string>
     <string name="app_uninstall">App Uninstall</string>
     <string name="app_install">App Install</string>
     <string name="profile">Profile</string>
+
+    <string name="empty" />
 </resources>

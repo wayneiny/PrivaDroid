@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.util.Log;
 
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
