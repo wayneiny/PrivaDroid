@@ -32,7 +32,7 @@
         read the permission requested (Location) and whether you granted/denied it (Allow/Deny).
     </string>
     <string name="accessibility_rationale" description="Message shown to the user when toggling the accessibility permission for PrivaDroid">
-        This permission is needed for PrivaDroid to be able to read permission name and detect click events.
+        This permission is needed for PrivaDroid to be able to read permission name on the screen and detect click events when granting/denying permission requests.
     </string>
 
     <string name="tutorial_app_usage_title">App Usage</string>
