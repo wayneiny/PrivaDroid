@@ -1,7 +1,6 @@
 package com.weichengcao.privadroid.sensors;
 
 import android.accessibilityservice.AccessibilityService;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.util.Log;
@@ -21,6 +20,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.getApplicationVersion;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
@@ -85,7 +85,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
 
         CharSequence packageName = event.getPackageName();
-            int actionType = event.getAction();
+        int actionType = event.getAction();
         int eventType = event.getEventType();
         AccessibilityNodeInfo source = event.getSource();
         String className = event.getClassName().toString();
@@ -121,6 +121,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
     }
 
+    /**
+     * Extract permission and app name from runtime permission request dialog.
+     */
     private void extractInformationFromPermissionDialog(AccessibilityEvent event) {
         /**
          * Find the last active app package
@@ -142,7 +145,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                 if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
                         !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
                     // TODO: change to better algo, currently compare app name to every package app name and find the right package name
-                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName);
+                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
                 }
 
                 currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
@@ -151,6 +154,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
     }
 
+    /**
+     * Extract grant/deny decision from runtime permission request dialog.
+     */
     private void processPermissionDialogAction(AccessibilityNodeInfo source) {
         if (source == null || source.getText() == null) {
             return;
@@ -172,6 +178,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                 currentlyPermissionGranted, Boolean.toString(false)));
     }
 
+    /**
+     * Check if it's an action (deny/allow) in a runtime permission request dialog.
+     */
     private boolean isPermissionsDialogAction(AccessibilityNodeInfo source) {
         if (source == null || source.getText() == null) {
             return false;
@@ -181,21 +190,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         return source.getClassName().equals(BUTTON_CLASS_NAME) && (nodeTextLowercase.equals(ALLOW_KEYWORD) || nodeTextLowercase.equals(DENY_KEYWORD));
     }
 
-    private String findPackageNameFromAppName(String appName) {
-        packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
-        List<ApplicationInfo> packages = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
-
-        for (ApplicationInfo ai : packages) {
-            String packageName = ai.packageName;
-            String packageAppName = getApplicationNameFromPackageName(packageName, packageManager);
-            if (packageAppName != null && appName.toLowerCase().equals(packageAppName.toLowerCase())) {
-                return packageName;
-            }
-        }
-
-        return null;
-    }
-
+    /**
+     * Check if it's a runtime permission request dialog.
+     */
     private boolean isPermissionsDialog(AccessibilityNodeInfo source) {
         return (source != null &&
                 source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/permission_deny_button").size() > 0);

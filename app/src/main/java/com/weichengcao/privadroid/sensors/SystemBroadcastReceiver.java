@@ -12,6 +12,7 @@ import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SystemBroadcastReceiver extends BroadcastReceiver {
 
@@ -30,6 +31,10 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
 
 
     // util [START]
+
+    /**
+     * Extract package name from system broadcast intent.
+     */
     private String getPackageNameFromIntent(Intent intent) {
         Uri data = intent.getData();
         if (data == null || data.getEncodedSchemeSpecificPart() == null) {
@@ -38,6 +43,9 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         return data.getEncodedSchemeSpecificPart();
     }
 
+    /**
+     * Get application name from package name using package manager.
+     */
     public static String getApplicationNameFromPackageName(String packageName, PackageManager packageManager) {
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
@@ -47,6 +55,9 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * Find application version by package name.
+     */
     public static String getApplicationVersion(String packageName, PackageManager packageManager) {
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
@@ -54,6 +65,23 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
+    }
+
+    /**
+     * Find the package name using app name.
+     */
+    public static String findPackageNameFromAppName(String appName, PackageManager packageManager) {
+        List<ApplicationInfo> packages = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        for (ApplicationInfo ai : packages) {
+            String packageName = ai.packageName;
+            String packageAppName = getApplicationNameFromPackageName(packageName, packageManager);
+            if (packageAppName != null && appName.toLowerCase().equals(packageAppName.toLowerCase())) {
+                return packageName;
+            }
+        }
+
+        return null;
     }
     // util [END]
 
