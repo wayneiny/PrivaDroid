@@ -38,7 +38,7 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         return data.getEncodedSchemeSpecificPart();
     }
 
-    private String getApplicationNameFromPackageName(String packageName) {
+    public static String getApplicationNameFromPackageName(String packageName, PackageManager packageManager) {
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
             return applicationInfo.loadLabel(packageManager).toString();
@@ -47,7 +47,7 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private String getApplicationVersion(String packageName) {
+    public static String getApplicationVersion(String packageName, PackageManager packageManager) {
         try {
             PackageInfo packageInfo = packageManager.getPackageInfo(packageName, 0);
             return packageInfo.versionName;
@@ -67,8 +67,8 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         if (packageName == null) {
             return;
         }
-        String appName = getApplicationNameFromPackageName(packageName);
-        String version = getApplicationVersion(packageName);
+        String appName = getApplicationNameFromPackageName(packageName, packageManager);
+        String version = getApplicationVersion(packageName, packageManager);
 
         // 2. send event to Firestore
         FirestoreProvider fp = new FirestoreProvider();
