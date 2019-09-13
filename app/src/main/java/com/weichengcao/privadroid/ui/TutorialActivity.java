@@ -38,6 +38,8 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     private UserPreferences mUserPreferences;
     private FirebaseFirestore mFirestore;
 
+    private int currentCardIndex = HOW_TO_CARD_INDEX;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +105,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         }
 
         mViewPager.setAdapter(mCardAdapter);
+        mViewPager.setCurrentItem(currentCardIndex);
     }
 
     @Override
@@ -145,6 +148,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         public void onClick(View v) {
             AccessibilityAppUsageUtil.readHowTo = true;
             updateAccessibilityAppUsageButtons();
+            currentCardIndex = HOW_TO_CARD_INDEX;
         }
     });
 
@@ -161,6 +165,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
 
             Intent accessibilityActivityIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             startActivity(accessibilityActivityIntent);
+            currentCardIndex = ACCESSIBILITY_INDEX;
         }
     });
 
@@ -177,6 +182,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
 
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             startActivity(intent);
+            currentCardIndex = APP_USAGE_INDEX;
         }
     });
 }
