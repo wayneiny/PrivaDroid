@@ -45,7 +45,6 @@ public class OnDeviceStorageProvider {
 
     /**
      * Add synced:false to event. Only add this for local storage event.
-     * @param event
      */
     private static void addSyncedFlag(HashMap<String, String> event) {
         event.put(SYNCED, Boolean.toString(false));

@@ -20,6 +20,7 @@ import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import static com.weichengcao.privadroid.util.DatetimeUtil.convertIsoToReadableFormat;
+import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
 public class ProfileFragment extends Fragment {
 
@@ -48,7 +49,7 @@ public class ProfileFragment extends Fragment {
          */
         UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         mAdId.setText(userPreferences.getAdvertisingId());
-        mJoinDate.setText(convertIsoToReadableFormat(userPreferences.getJoinDate()));
+        mJoinDate.setText(userPreferences.getJoinDate().equals(UNKNOWN_DATE) ? UNKNOWN_DATE : convertIsoToReadableFormat(userPreferences.getJoinDate()));
 
         /**
          * Set up version number

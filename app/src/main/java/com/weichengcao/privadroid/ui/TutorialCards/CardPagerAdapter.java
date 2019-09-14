@@ -46,10 +46,6 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         return mViews.get(position);
     }
 
-    public CardItem getCardItemAt(int position) {
-        return mData.get(position);
-    }
-
     public void setCardItemAt(int position, CardItem item) {
         mData.set(position, item);
     }

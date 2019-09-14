@@ -1,7 +1,5 @@
 package com.weichengcao.privadroid.database;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,14 +20,12 @@ import static com.weichengcao.privadroid.util.EventConstants.PERMISSION_COLLECTI
 
 public class FirestoreProvider {
 
-    private Context mContext;
     private FirebaseFirestore mFirestore;
     private UserPreferences mUserPreferences;
 
     public FirestoreProvider() {
-        mContext = PrivaDroidApplication.getAppContext();
         mFirestore = FirebaseFirestore.getInstance();
-        mUserPreferences = new UserPreferences(mContext);
+        mUserPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
     }
 
     // TODO: probably can collapse three methods into one?

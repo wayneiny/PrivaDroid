@@ -57,8 +57,9 @@ public class UserPreferences {
         getAppPrefs().edit().putString(FIRESTORE_JOIN_EVENT_ID, firestoreJoinEventId).apply();
     }
 
+    public static final String UNKNOWN_DATE = "UNKNOWN_DATE";
     public String getJoinDate() {
-        return getAppPrefs().getString(JOIN_DATE, "PrivaDroid confused...");
+        return getAppPrefs().getString(JOIN_DATE, UNKNOWN_DATE);
     }
 
     public void setJoinDate(String joinDate) {
