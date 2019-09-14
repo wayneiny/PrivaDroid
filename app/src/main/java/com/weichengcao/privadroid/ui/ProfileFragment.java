@@ -19,9 +19,12 @@ import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
+import static com.weichengcao.privadroid.util.DatetimeUtil.convertIsoToReadableFormat;
+
 public class ProfileFragment extends Fragment {
 
     private TextView mAdId;
+    private TextView mJoinDate;
     private ImageView mAccessibilityIcon;
     private LinearLayout mAccessibilityLayout;
     private ImageView mUsageIcon;
@@ -34,6 +37,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         mAdId = view.findViewById(R.id.user_ad_id_value);
+        mJoinDate = view.findViewById(R.id.join_date_value);
         mAccessibilityIcon = view.findViewById(R.id.accessibility_status_icon);
         mAccessibilityLayout = view.findViewById(R.id.accessibility_status_container);
         mUsageIcon = view.findViewById(R.id.app_usage_status_icon);
@@ -44,6 +48,7 @@ public class ProfileFragment extends Fragment {
          */
         UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         mAdId.setText(userPreferences.getAdvertisingId());
+        mJoinDate.setText(convertIsoToReadableFormat(userPreferences.getJoinDate()));
 
         /**
          * Set up version number

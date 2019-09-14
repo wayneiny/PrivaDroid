@@ -21,12 +21,16 @@ import com.weichengcao.privadroid.ui.TutorialCards.CardItem;
 import com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter;
 import com.weichengcao.privadroid.ui.TutorialCards.ShadowTransformer;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
+import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
+
+import java.util.HashMap;
 
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.ACCESSIBILITY_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.APP_USAGE_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.HOW_TO_CARD_INDEX;
 import static com.weichengcao.privadroid.util.EventConstants.JOIN_EVENT_COLLECTION;
+import static com.weichengcao.privadroid.util.EventConstants.LOGGED_TIME;
 import static com.weichengcao.privadroid.util.ExperimentEventFactory.createJoinEvent;
 
 public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
@@ -117,7 +121,8 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
             }
 
             // 1. Log a join event and send to FireStore
-            mFirestore.collection(JOIN_EVENT_COLLECTION).add(createJoinEvent())
+            final HashMap<String, String> joinEvent = createJoinEvent();
+            mFirestore.collection(JOIN_EVENT_COLLECTION).add(joinEvent)
                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
@@ -127,6 +132,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
                                     return;
                                 }
                                 mUserPreferences.setFirestoreJoinEventId(documentReference.getId());
+                                mUserPreferences.setJoinDate(joinEvent.get(LOGGED_TIME));
 
                                 // 2.1. Navigate to main screen
                                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), MainScreenActivity.class);

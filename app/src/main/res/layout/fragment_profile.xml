@@ -51,6 +51,38 @@
                 android:background="@color/light_gray" />
 
             <LinearLayout
+                android:id="@+id/join_date_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/join_date_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="bottom"
+                    android:text="@string/join_date"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/join_date_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="top"
+                    android:text="@string/empty"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
                 android:id="@+id/accessibility_status_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/profile_banner_height"

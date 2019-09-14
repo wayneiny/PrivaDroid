@@ -47,6 +47,7 @@ public class UserPreferences {
 
     // Join event id in Firestore [Start]
     private static final String FIRESTORE_JOIN_EVENT_ID = "FIRESTORE_JOIN_EVENT_ID";
+    private static final String JOIN_DATE = "JOIN_DATE";
 
     public String getFirestoreJoinEventId() {
         return getAppPrefs().getString(FIRESTORE_JOIN_EVENT_ID, "");
@@ -54,6 +55,14 @@ public class UserPreferences {
 
     public void setFirestoreJoinEventId(String firestoreJoinEventId) {
         getAppPrefs().edit().putString(FIRESTORE_JOIN_EVENT_ID, firestoreJoinEventId).apply();
+    }
+
+    public String getJoinDate() {
+        return getAppPrefs().getString(JOIN_DATE, "PrivaDroid confused...");
+    }
+
+    public void setJoinDate(String joinDate) {
+        getAppPrefs().edit().putString(JOIN_DATE, joinDate).apply();
     }
     // Join event id in Firestore [End]
 }
