@@ -110,7 +110,7 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         if (view == mStartUsingAppButton) {
             if (!AccessibilityAppUsageUtil.isAccessibilitySettingsOn() || !AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
-                Toast.makeText(this, "Enable Accessibility and App Usage services to use the app.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Finish setting up accessibility and usage services to use the app.", Toast.LENGTH_LONG).show();
                 return;
             } else {
                 Toast.makeText(this, "Congratulations!", Toast.LENGTH_SHORT).show();
