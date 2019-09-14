@@ -38,8 +38,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     private UserPreferences mUserPreferences;
     private FirebaseFirestore mFirestore;
 
-    private int currentCardIndex = HOW_TO_CARD_INDEX;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +57,11 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         mCardAdapter.addCardItem(mAccessibilityCard);
         mCardAdapter.addCardItem(mUsageCard);
 
+        ShadowTransformer mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
+        mCardShadowTransformer.enableScaling(true);
+        mViewPager.setPageTransformer(false, mCardShadowTransformer);
+        mViewPager.setOffscreenPageLimit(3);
+
         mUserPreferences = new UserPreferences(this);
 
         mFirestore = FirebaseFirestore.getInstance();
@@ -68,11 +71,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
 
-        ShadowTransformer mCardShadowTransformer = new ShadowTransformer(mViewPager, mCardAdapter);
-        mCardShadowTransformer.enableScaling(true);
-        mViewPager.setPageTransformer(false, mCardShadowTransformer);
-        mViewPager.setOffscreenPageLimit(3);
-
         updateAccessibilityAppUsageButtons();
     }
 
@@ -80,32 +78,32 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         /**
          * Update app usage button
          */
-        if (AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
-            CardItem item = mUsageCard;
-            item.setButtonToComplete();
-            mCardAdapter.setCardItemAt(APP_USAGE_INDEX, item);
+        if (AccessibilityAppUsageUtil.isAppUsageSettingsOn() && !mUsageCard.isSetUpComplete()) {
+            mUsageCard.setButtonToComplete(true);
+            mCardAdapter.setCardItemAt(APP_USAGE_INDEX, mUsageCard);
+        } else if (!AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
+            mUsageCard.setButtonToComplete(false);
         }
 
         /**
          * Update accessibility button
          */
-        if (AccessibilityAppUsageUtil.isAccessibilitySettingsOn()) {
-            CardItem item = mAccessibilityCard;
-            item.setButtonToComplete();
-            mCardAdapter.setCardItemAt(ACCESSIBILITY_INDEX, item);
+        if (AccessibilityAppUsageUtil.isAccessibilitySettingsOn() && !mAccessibilityCard.isSetUpComplete()) {
+            mAccessibilityCard.setButtonToComplete(true);
+            mCardAdapter.setCardItemAt(ACCESSIBILITY_INDEX, mAccessibilityCard);
+        } else if (!AccessibilityAppUsageUtil.isAccessibilitySettingsOn()) {
+            mAccessibilityCard.setButtonToComplete(false);
         }
 
         /**
          * Update how to button
          */
-        if (AccessibilityAppUsageUtil.readHowTo) {
-            CardItem item = mHowToCard;
-            item.setButtonToComplete();
-            mCardAdapter.setCardItemAt(HOW_TO_CARD_INDEX, item);
+        if (AccessibilityAppUsageUtil.readHowTo && !mHowToCard.isSetUpComplete()) {
+            mHowToCard.setButtonToComplete(true);
+            mCardAdapter.setCardItemAt(HOW_TO_CARD_INDEX, mHowToCard);
         }
 
         mViewPager.setAdapter(mCardAdapter);
-        mViewPager.setCurrentItem(currentCardIndex);
     }
 
     @Override
@@ -148,7 +146,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
         public void onClick(View v) {
             AccessibilityAppUsageUtil.readHowTo = true;
             updateAccessibilityAppUsageButtons();
-            currentCardIndex = HOW_TO_CARD_INDEX;
         }
     });
 
@@ -165,7 +162,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
 
             Intent accessibilityActivityIntent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
             startActivity(accessibilityActivityIntent);
-            currentCardIndex = ACCESSIBILITY_INDEX;
         }
     });
 
@@ -182,7 +178,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
 
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
             startActivity(intent);
-            currentCardIndex = APP_USAGE_INDEX;
         }
     });
 }

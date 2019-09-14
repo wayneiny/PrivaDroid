@@ -88,7 +88,6 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         int actionType = event.getAction();
         int eventType = event.getEventType();
         AccessibilityNodeInfo source = event.getSource();
-        String className = event.getClassName().toString();
         packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {

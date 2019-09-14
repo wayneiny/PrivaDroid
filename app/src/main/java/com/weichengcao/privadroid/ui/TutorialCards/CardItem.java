@@ -34,8 +34,8 @@ public class CardItem {
         return setUpComplete;
     }
 
-    public void setButtonToComplete() {
-        setUpComplete = true;
+    public void setButtonToComplete(boolean completed) {
+        setUpComplete = completed;
     }
 
     public View.OnClickListener getButtonListener() {
