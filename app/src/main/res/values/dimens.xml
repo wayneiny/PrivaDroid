@@ -2,4 +2,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+
+    <dimen name="profile_banner_height" tools:override="true">40dp</dimen>
+    <dimen name="profile_banner_height_half" tools:override="true">20dp</dimen>
+    <dimen name="profile_banner_left_right_padding" tools:override="true">30dp</dimen>
+    <dimen name="profile_banner_icon_size" tools:override="true">20dp</dimen>
+    <dimen name="divider_margin" tools:override="true">20dp</dimen>
 </resources>

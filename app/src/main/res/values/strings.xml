@@ -47,5 +47,7 @@
     <string name="app_install">App Install</string>
     <string name="profile">Profile</string>
 
+    <string name="your_id">Your ID</string>
+
     <string name="empty" />
 </resources>

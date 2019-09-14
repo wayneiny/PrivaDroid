@@ -30,7 +30,6 @@ public class MainScreenActivity extends AppCompatActivity {
         }
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        removePaddingsOfBottomNavigationBar();
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -40,6 +39,13 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         pushFragment(new AppInstallFragment());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        removePaddingsOfBottomNavigationBar();
     }
 
     private void selectFragment(MenuItem menuItem) {
