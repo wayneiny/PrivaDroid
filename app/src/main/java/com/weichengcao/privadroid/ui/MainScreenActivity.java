@@ -2,8 +2,6 @@ package com.weichengcao.privadroid.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,8 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.weichengcao.privadroid.R;
 
@@ -39,13 +35,6 @@ public class MainScreenActivity extends AppCompatActivity {
         });
 
         pushFragment(new AppInstallFragment());
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        removePaddingsOfBottomNavigationBar();
     }
 
     private void selectFragment(MenuItem menuItem) {
@@ -84,16 +73,5 @@ public class MainScreenActivity extends AppCompatActivity {
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.main_screen_content_frame, fragment);
         ft.commit();
-    }
-
-    private void removePaddingsOfBottomNavigationBar() {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNavigationView.getChildAt(0);
-        for (int i = 0; i < menuView.getChildCount(); i++) {
-            BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-            View activeLabel = item.findViewById(R.id.largeLabel);
-            if (activeLabel instanceof TextView) {
-                activeLabel.setPadding(0, 0, 0, 0);
-            }
-        }
     }
 }

@@ -19,8 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/colorPrimary"
-        app:itemIconTint="@color/white"
+        app:itemIconTint="@color/bnv_item_background"
         app:itemTextColor="@color/white"
+        app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_menu" />
 
 </FrameLayout>
