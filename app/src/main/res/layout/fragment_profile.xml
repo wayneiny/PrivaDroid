@@ -13,12 +13,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/divider_margin"
-            app:srcCompat="@drawable/pd_dribble_circle_cropped" />
+        <TextView
+            android:id="@+id/profile_screen_title"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:elevation="4dp"
+            android:background="@color/white"
+            android:text="@string/profile_screen_title"
+            android:paddingTop="@dimen/divider_margin"
+            android:paddingBottom="@dimen/divider_margin"
+            android:paddingStart="@dimen/profile_banner_left_right_padding"
+            android:paddingEnd="@dimen/profile_banner_left_right_padding"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/divider_margin"
+            android:layout_marginStart="@dimen/divider_margin"
+            android:layout_marginEnd="@dimen/divider_margin"/>
 
         <LinearLayout
             android:id="@+id/user_ad_id_container"

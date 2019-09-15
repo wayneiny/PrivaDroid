@@ -47,6 +47,7 @@
     <string name="app_install">App Install</string>
     <string name="profile">Profile</string>
 
+    <string name="profile_screen_title">Profile</string>
     <string name="your_id">PrivaDroid ID</string>
     <string name="join_date">Join Date</string>
 
