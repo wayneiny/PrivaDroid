@@ -10,6 +10,6 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="done_green">#2ecc71</color>
+    <color name="done_green">#00838f</color>
     <color name="light_gray">#D3D3D3</color>
 </resources>

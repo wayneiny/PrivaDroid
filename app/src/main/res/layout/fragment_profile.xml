@@ -119,7 +119,7 @@
                 android:layout_width="@dimen/profile_banner_icon_size"
                 android:layout_height="@dimen/profile_banner_icon_size"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/red_cross" />
+                app:srcCompat="@drawable/ic_cancel_accent_24dp" />
         </LinearLayout>
 
         <View
@@ -151,7 +151,7 @@
                 android:layout_width="@dimen/profile_banner_icon_size"
                 android:layout_height="@dimen/profile_banner_icon_size"
                 android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/green_check" />
+                app:srcCompat="@drawable/ic_check_circle_accent_24dp" />
         </LinearLayout>
 
         <View

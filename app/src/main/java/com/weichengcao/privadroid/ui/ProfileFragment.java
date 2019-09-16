@@ -70,8 +70,8 @@ public class ProfileFragment extends Fragment {
         boolean isAccessibilityOn = AccessibilityAppUsageUtil.isAccessibilitySettingsOn();
         boolean isUsageOn = AccessibilityAppUsageUtil.isAppUsageSettingsOn();
 
-        mAccessibilityIcon.setImageResource(isAccessibilityOn ? R.drawable.green_check : R.drawable.red_cross);
-        mUsageIcon.setImageResource(isUsageOn ? R.drawable.green_check : R.drawable.red_cross);
+        mAccessibilityIcon.setImageResource(isAccessibilityOn ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
+        mUsageIcon.setImageResource(isUsageOn ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
 
         mAccessibilityLayout.setOnClickListener(isAccessibilityOn ? null : new View.OnClickListener() {
             @Override
