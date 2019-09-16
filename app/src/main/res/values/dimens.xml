@@ -8,4 +8,6 @@
     <dimen name="profile_banner_left_right_padding" tools:override="true">30dp</dimen>
     <dimen name="profile_banner_icon_size" tools:override="true">20dp</dimen>
     <dimen name="divider_margin" tools:override="true">20dp</dimen>
+
+    <dimen name="screen_title_size" tools:override="true">20sp</dimen>
 </resources>
