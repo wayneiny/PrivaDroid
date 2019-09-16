@@ -53,6 +53,8 @@
 
     <string name="app_install_screen_title">App Install</string>
     <string name="app_uninstall_screen_title">App Uninstall</string>
+    <string name="community_screen_title">Community</string>
+    <string name="permission_screen_title">Permission</string>
     <string name="surveyed">Surveyed</string>
     <string name="unsurveyed">Unsurveyed</string>
     <string name="summary">Summary</string>

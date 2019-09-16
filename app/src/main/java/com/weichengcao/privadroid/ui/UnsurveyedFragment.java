@@ -1,4 +1,4 @@
-package com.weichengcao.privadroid.ui.EventsPagers;
+package com.weichengcao.privadroid.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,6 @@ import androidx.fragment.app.Fragment;
 import com.weichengcao.privadroid.R;
 
 public class UnsurveyedFragment extends Fragment {
-
-    public UnsurveyedFragment() {
-
-    }
 
     @Nullable
     @Override

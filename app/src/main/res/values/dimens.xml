@@ -3,11 +3,16 @@
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
 
-    <dimen name="profile_banner_height" tools:override="true">40dp</dimen>
-    <dimen name="profile_banner_height_half" tools:override="true">20dp</dimen>
-    <dimen name="profile_banner_left_right_padding" tools:override="true">30dp</dimen>
-    <dimen name="profile_banner_icon_size" tools:override="true">20dp</dimen>
-    <dimen name="divider_margin" tools:override="true">20dp</dimen>
+    <dimen name="profile_banner_height">40dp</dimen>
+    <dimen name="profile_banner_height_half">20dp</dimen>
+    <dimen name="profile_banner_left_right_padding">30dp</dimen>
+    <dimen name="profile_banner_icon_size">20dp</dimen>
+    <dimen name="divider_margin">20dp</dimen>
 
-    <dimen name="screen_title_size" tools:override="true">20sp</dimen>
+    <dimen name="screen_title_size">20sp</dimen>
+
+    <dimen name="material_card_spacing" tools:override="true">10dp</dimen>
+
+    <dimen name="surveyed_unsurveyed_card_title_size">14sp</dimen>
+    <dimen name="surveyed_unsurveyed_card_count_size">10sp</dimen>
 </resources>

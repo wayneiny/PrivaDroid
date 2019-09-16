@@ -1,182 +1,194 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/profile_screen_title"
-            android:layout_width="match_parent"
-            android:gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="@dimen/screen_title_size"
-            android:elevation="4dp"
-            android:background="@color/white"
-            android:text="@string/profile_screen_title"
-            android:paddingTop="@dimen/divider_margin"
-            android:paddingBottom="@dimen/divider_margin"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/divider_margin"
-            android:layout_marginStart="@dimen/divider_margin"
-            android:layout_marginEnd="@dimen/divider_margin"/>
+        android:layout_marginTop="@dimen/divider_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_screen_title">
 
         <LinearLayout
-            android:id="@+id/user_ad_id_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/profile_banner_height"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding">
-
-            <TextView
-                android:id="@+id/user_ad_id_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_banner_height_half"
-                android:gravity="bottom"
-                android:text="@string/your_id"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/user_ad_id_value"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_banner_height_half"
-                android:gravity="top"
-                android:text="@string/empty"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/divider_margin"
-            android:background="@color/light_gray" />
-
-        <LinearLayout
-            android:id="@+id/join_date_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/profile_banner_height"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding">
-
-            <TextView
-                android:id="@+id/join_date_title"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_banner_height_half"
-                android:gravity="bottom"
-                android:text="@string/join_date"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/join_date_value"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_banner_height_half"
-                android:gravity="top"
-                android:text="@string/empty"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/divider_margin"
-            android:background="@color/light_gray" />
-
-        <LinearLayout
-            android:id="@+id/accessibility_status_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/profile_banner_height"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding">
-
-            <TextView
-                android:id="@+id/accessibility_status_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/tutorial_accessibility_service_title"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/accessibility_status_icon"
-                android:layout_width="@dimen/profile_banner_icon_size"
-                android:layout_height="@dimen/profile_banner_icon_size"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_cancel_accent_24dp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/divider_margin"
-            android:background="@color/light_gray" />
-
-        <LinearLayout
-            android:id="@+id/app_usage_status_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/profile_banner_height"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding">
-
-            <TextView
-                android:id="@+id/app_usage_status_title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@string/tutorial_app_usage_title"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/app_usage_status_icon"
-                android:layout_width="@dimen/profile_banner_icon_size"
-                android:layout_height="@dimen/profile_banner_icon_size"
-                android:layout_gravity="center_vertical"
-                app:srcCompat="@drawable/ic_check_circle_accent_24dp" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/divider_margin"
-            android:background="@color/light_gray" />
-
-        <LinearLayout
-            android:id="@+id/version_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/version_value"
+            <LinearLayout
+                android:id="@+id/user_ad_id_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/user_ad_id_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="bottom"
+                    android:text="@string/your_id"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/user_ad_id_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="top"
+                    android:text="@string/empty"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/join_date_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/join_date_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="bottom"
+                    android:text="@string/join_date"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/join_date_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_banner_height_half"
+                    android:gravity="top"
+                    android:text="@string/empty"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/accessibility_status_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/accessibility_status_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/tutorial_accessibility_service_title"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/accessibility_status_icon"
+                    android:layout_width="@dimen/profile_banner_icon_size"
+                    android:layout_height="@dimen/profile_banner_icon_size"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_cancel_accent_24dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/app_usage_status_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/app_usage_status_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/tutorial_app_usage_title"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/app_usage_status_icon"
+                    android:layout_width="@dimen/profile_banner_icon_size"
+                    android:layout_height="@dimen/profile_banner_icon_size"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_check_circle_accent_24dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
+                android:id="@+id/version_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/empty"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
 
-    </LinearLayout>
-</ScrollView>
+                <TextView
+                    android:id="@+id/version_value"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/empty"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/divider_margin"
+                android:layout_marginEnd="@dimen/divider_margin"
+                android:layout_marginBottom="@dimen/divider_margin" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/profile_screen_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/profile_banner_left_right_padding"
+        android:paddingTop="@dimen/divider_margin"
+        android:paddingEnd="@dimen/profile_banner_left_right_padding"
+        android:paddingBottom="@dimen/divider_margin"
+        android:text="@string/profile_screen_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/screen_title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

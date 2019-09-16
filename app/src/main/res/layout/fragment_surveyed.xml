@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/surveyed_card_view"
+        style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:layout_marginLeft="@dimen/material_card_spacing"
+        android:layout_marginRight="@dimen/material_card_spacing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        card_view:cardElevation="5dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/surveyed_card_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/surveyed" />
-    </LinearLayout>
-</ScrollView>
+            android:padding="10dp"
+            android:text="@string/surveyed"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/surveyed_unsurveyed_card_title_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/surveyed_card_count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:text="@string/empty"
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorAccentContrast"
+            android:textSize="@dimen/surveyed_unsurveyed_card_count_size"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
