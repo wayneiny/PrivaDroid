@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +21,6 @@ import com.weichengcao.privadroid.ui.TutorialCards.CardItem;
 import com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter;
 import com.weichengcao.privadroid.ui.TutorialCards.ShadowTransformer;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
-import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
@@ -33,7 +32,7 @@ import static com.weichengcao.privadroid.util.EventConstants.JOIN_EVENT_COLLECTI
 import static com.weichengcao.privadroid.util.EventConstants.LOGGED_TIME;
 import static com.weichengcao.privadroid.util.ExperimentEventFactory.createJoinEvent;
 
-public class TutorialActivity extends AppCompatActivity implements View.OnClickListener {
+public class TutorialActivity extends FragmentActivity implements View.OnClickListener {
 
     private MaterialButton mStartUsingAppButton;
     private ViewPager mViewPager;
@@ -46,10 +45,6 @@ public class TutorialActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
 
         mStartUsingAppButton = findViewById(R.id.start_using_app_button);
         mStartUsingAppButton.setOnClickListener(this);

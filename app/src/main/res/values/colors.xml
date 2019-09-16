@@ -8,6 +8,8 @@
     <color name="colorAccentDark">#005662</color>
     <color name="colorAccentLight">#4fb3bf</color>
 
+    <color name="colorAccentContrast">#bf360c</color>
+
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="done_green">#00838f</color>

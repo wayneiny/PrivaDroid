@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.identifier.AdvertisingIdClient;
@@ -20,7 +20,7 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.lang.ref.WeakReference;
 
-public class SplashActivity extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SplashActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
 
@@ -32,10 +32,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
 
         mContinueAppSettingButton = findViewById(R.id.continue_app_setting_button);
         mContinueAppSettingButton.setEnabled(false);
