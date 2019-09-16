@@ -12,16 +12,28 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.ui.EventsPagers.EventPagerAdapter;
+import com.weichengcao.privadroid.ui.EventsPagers.SummaryFragment;
+import com.weichengcao.privadroid.ui.EventsPagers.SurveyedFragment;
+import com.weichengcao.privadroid.ui.EventsPagers.UnsurveyedFragment;
 
 import static androidx.fragment.app.FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT;
 import static com.weichengcao.privadroid.ui.EventsPagers.EventPagerAdapter.APP_INSTALL_EVENT_TYPE;
-import static com.weichengcao.privadroid.ui.EventsPagers.EventPagerAdapter.TOTAL_TABS;
 
 public class AppInstallFragment extends Fragment {
 
     TabLayout mTabLayout;
     ViewPager mViewPager;
     EventPagerAdapter mEventPagerAdapter;
+
+    public AppInstallFragment() {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
 
     @Nullable
     @Override
@@ -31,26 +43,13 @@ public class AppInstallFragment extends Fragment {
         mTabLayout = view.findViewById(R.id.app_install_tabs);
         mViewPager = view.findViewById(R.id.app_install_view_pager);
 
-        mEventPagerAdapter = new EventPagerAdapter(getFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, TOTAL_TABS, APP_INSTALL_EVENT_TYPE);
+        mEventPagerAdapter = new EventPagerAdapter(getChildFragmentManager(), BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, APP_INSTALL_EVENT_TYPE);
+        mEventPagerAdapter.add(new SurveyedFragment());
+        mEventPagerAdapter.add(new UnsurveyedFragment());
+        mEventPagerAdapter.add(new SummaryFragment());
+
         mViewPager.setAdapter(mEventPagerAdapter);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        mTabLayout.setupWithViewPager(mViewPager);
 
         return view;
     }

@@ -12,6 +12,10 @@ import com.weichengcao.privadroid.R;
 
 public class UnsurveyedFragment extends Fragment {
 
+    public UnsurveyedFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -12,6 +12,10 @@ import com.weichengcao.privadroid.R;
 
 public class SummaryFragment extends Fragment {
 
+    public SummaryFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

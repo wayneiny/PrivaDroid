@@ -12,6 +12,10 @@ import com.weichengcao.privadroid.R;
 
 public class SurveyedFragment extends Fragment {
 
+    public SurveyedFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
