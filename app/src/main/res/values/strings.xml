@@ -60,5 +60,8 @@
     <string name="summary">Summary</string>
     <string name="view_data">View Data</string>
 
+    <string name="surveyed_events_activity_title">Surveyed Events</string>
+    <string name="unsurveyed_events_activity_title">Unsurveyed Events</string>
+
     <string name="empty" />
 </resources>

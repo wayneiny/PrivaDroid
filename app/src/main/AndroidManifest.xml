@@ -28,6 +28,12 @@
         <activity
             android:name=".ui.MainScreenActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SurveyedEventsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UnsurveyedEventsActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

@@ -20,7 +20,7 @@
 
             <fragment
                 android:id="@+id/permission_surveyed_fragment"
-                android:name="com.weichengcao.privadroid.ui.SurveyedFragment"
+                android:name="com.weichengcao.privadroid.ui.SurveyedCardFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_card_spacing"
@@ -30,7 +30,7 @@
 
             <fragment
                 android:id="@+id/permission_unsurveyed_fragment"
-                android:name="com.weichengcao.privadroid.ui.UnsurveyedFragment"
+                android:name="com.weichengcao.privadroid.ui.UnsurveyedCardFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_card_spacing"
