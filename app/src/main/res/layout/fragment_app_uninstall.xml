@@ -5,8 +5,10 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/app_uninstall_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/skip_bnv_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_uninstall_screen_title">
@@ -16,6 +18,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <fragment
+                android:id="@+id/app_uninstall_surveyed_fragment"
+                android:name="com.weichengcao.privadroid.ui.SurveyedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_card_spacing"
+                android:orientation="vertical">
+
+            </fragment>
+
+            <fragment
+                android:id="@+id/app_uninstall_unsurveyed_fragment"
+                android:name="com.weichengcao.privadroid.ui.UnsurveyedFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_card_spacing"
+                android:orientation="vertical">
+
+            </fragment>
         </LinearLayout>
     </ScrollView>
 

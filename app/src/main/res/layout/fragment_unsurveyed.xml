@@ -16,28 +16,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        card_view:cardElevation="5dp">
+        card_view:cardElevation="@dimen/material_card_spacing">
 
-        <TextView
-            android:id="@+id/unsurveyed_card_title"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:text="@string/unsurveyed"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="@dimen/surveyed_unsurveyed_card_title_size"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/unsurveyed_card_count"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:text="@string/empty"
-            android:textAlignment="textEnd"
-            android:textColor="@color/colorAccentContrast"
-            android:textSize="@dimen/surveyed_unsurveyed_card_count_size"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/unsurveyed_card_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="27dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/unsurveyed"
+                android:textColor="@color/black"
+                android:textSize="@dimen/surveyed_unsurveyed_card_title_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/unsurveyed_card_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="27dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:text="@string/unsurveyed"
+                android:textSize="@dimen/surveyed_unsurveyed_card_description_size" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/unsurveyed_card_button"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/view_data" />
+        </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

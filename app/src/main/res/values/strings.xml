@@ -58,6 +58,7 @@
     <string name="surveyed">Surveyed</string>
     <string name="unsurveyed">Unsurveyed</string>
     <string name="summary">Summary</string>
+    <string name="view_data">View Data</string>
 
     <string name="empty" />
 </resources>
