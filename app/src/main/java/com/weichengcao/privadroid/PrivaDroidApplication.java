@@ -5,6 +5,8 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
+
 public class PrivaDroidApplication extends Application {
 
     private static PrivaDroidApplication instance;
@@ -29,6 +31,19 @@ public class PrivaDroidApplication extends Application {
 
         this.setAppContext(getApplicationContext());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
+    /**
+     * Store currently handled event type.
+     */
+    private static int currentyHandledEventType = APP_INSTALL_EVENT_TYPE;
+
+    public static void setCurrentyHandledEventType(int eventType) {
+        currentyHandledEventType = eventType;
+    }
+
+    public static int getCurrentyHandledEventType() {
+        return currentyHandledEventType;
     }
 
     /**

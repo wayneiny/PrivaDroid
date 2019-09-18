@@ -17,21 +17,17 @@ import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
 
 public class SurveyedCardFragment extends Fragment {
 
-    private Bundle args;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_surveyed, container, false);
-
-        args = getArguments();
 
         MaterialButton viewData = view.findViewById(R.id.surveyed_card_button);
         viewData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), SurveyedEventsActivity.class);
-                intent.putExtra(EVENT_TYPE, args.getInt(EVENT_TYPE));
+                intent.putExtra(EVENT_TYPE, PrivaDroidApplication.getCurrentyHandledEventType());
                 startActivity(intent);
             }
         });

@@ -17,8 +17,6 @@ import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
 
 public class UnsurveyedCardFragment extends Fragment {
 
-    private Bundle args;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +27,7 @@ public class UnsurveyedCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), UnsurveyedEventsActivity.class);
-                intent.putExtra(EVENT_TYPE, args.getInt(EVENT_TYPE));
+                intent.putExtra(EVENT_TYPE, PrivaDroidApplication.getCurrentyHandledEventType());
                 startActivity(intent);
             }
         });

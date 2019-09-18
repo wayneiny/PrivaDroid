@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 
 public class MainScreenActivity extends FragmentActivity {
@@ -45,6 +46,7 @@ public class MainScreenActivity extends FragmentActivity {
         });
 
         pushFragment(new AppInstallFragment());
+        PrivaDroidApplication.setCurrentyHandledEventType(APP_INSTALL_EVENT_TYPE);
     }
 
     private void selectFragment(MenuItem menuItem) {
@@ -53,12 +55,15 @@ public class MainScreenActivity extends FragmentActivity {
         switch (menuItem.getItemId()) {
             case R.id.app_install:
                 pushFragment(new AppInstallFragment());
+                PrivaDroidApplication.setCurrentyHandledEventType(APP_INSTALL_EVENT_TYPE);
                 break;
             case R.id.app_uninstall:
                 pushFragment(new AppUninstallFragment());
+                PrivaDroidApplication.setCurrentyHandledEventType(APP_UNINSTALL_EVENT_TYPE);
                 break;
             case R.id.permission:
                 pushFragment(new PermissionFragment());
+                PrivaDroidApplication.setCurrentyHandledEventType(PERMISSION_EVENT_TYPE);
                 break;
             case R.id.global:
                 pushFragment(new CommunityFragment());
