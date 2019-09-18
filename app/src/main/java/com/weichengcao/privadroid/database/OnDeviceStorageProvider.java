@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.util.EventConstants.SYNCED;
+import static com.weichengcao.privadroid.util.EventUtil.SYNCED;
 
 public class OnDeviceStorageProvider {
 

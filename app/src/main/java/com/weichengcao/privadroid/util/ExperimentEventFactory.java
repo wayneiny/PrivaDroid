@@ -8,19 +8,19 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.util.EventConstants.ANDROID_VERSION;
-import static com.weichengcao.privadroid.util.EventConstants.APP_NAME;
-import static com.weichengcao.privadroid.util.EventConstants.APP_VERSION;
-import static com.weichengcao.privadroid.util.EventConstants.CARRIER;
-import static com.weichengcao.privadroid.util.EventConstants.GRANTED;
-import static com.weichengcao.privadroid.util.EventConstants.INITIATED_BY_USER;
-import static com.weichengcao.privadroid.util.EventConstants.LOGGED_TIME;
-import static com.weichengcao.privadroid.util.EventConstants.PACKAGE_NAME;
-import static com.weichengcao.privadroid.util.EventConstants.PERMISSION_REQUESTED_NAME;
-import static com.weichengcao.privadroid.util.EventConstants.PHONE_MAKE;
-import static com.weichengcao.privadroid.util.EventConstants.PHONE_MODEL;
-import static com.weichengcao.privadroid.util.EventConstants.SURVEYED;
-import static com.weichengcao.privadroid.util.EventConstants.USER_AD_ID;
+import static com.weichengcao.privadroid.util.EventUtil.ANDROID_VERSION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_NAME;
+import static com.weichengcao.privadroid.util.EventUtil.APP_VERSION;
+import static com.weichengcao.privadroid.util.EventUtil.CARRIER;
+import static com.weichengcao.privadroid.util.EventUtil.GRANTED;
+import static com.weichengcao.privadroid.util.EventUtil.INITIATED_BY_USER;
+import static com.weichengcao.privadroid.util.EventUtil.LOGGED_TIME;
+import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
+import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_REQUESTED_NAME;
+import static com.weichengcao.privadroid.util.EventUtil.PHONE_MAKE;
+import static com.weichengcao.privadroid.util.EventUtil.PHONE_MODEL;
+import static com.weichengcao.privadroid.util.EventUtil.SURVEYED;
+import static com.weichengcao.privadroid.util.EventUtil.USER_AD_ID;
 
 public class ExperimentEventFactory {
 

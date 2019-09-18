@@ -25,13 +25,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:paddingStart="@dimen/profile_banner_left_right_padding"
+            android:paddingStart="10dp"
             android:paddingTop="@dimen/divider_margin"
-            android:paddingEnd="@dimen/profile_banner_left_right_padding"
+            android:paddingEnd="20dp"
             android:paddingBottom="@dimen/divider_margin"
             android:text="@string/unsurveyed_events"
             android:textColor="@color/black"
             android:textSize="@dimen/screen_title_size"
             android:textStyle="bold" />
+
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_unsurveyed_events_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="80dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/activity_unsurveyed_events_head_bar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

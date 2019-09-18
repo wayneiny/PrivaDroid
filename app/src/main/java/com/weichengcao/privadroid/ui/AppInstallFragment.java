@@ -22,16 +22,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.AppInstallServerEvent;
-import com.weichengcao.privadroid.util.EventConstants;
+import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.appInstallServerSurveyedEvents;
-import static com.weichengcao.privadroid.PrivaDroidApplication.appInstallServerUnsurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerSurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.createEventTypeFragmentBundle;
-import static com.weichengcao.privadroid.util.EventConstants.APP_INSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 
 public class AppInstallFragment extends Fragment {
 
@@ -60,33 +60,36 @@ public class AppInstallFragment extends Fragment {
          */
         UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
-        Query query = collectionReference.whereEqualTo(EventConstants.USER_AD_ID, userPreferences.getAdvertisingId());
+        Query query = collectionReference.whereEqualTo(EventUtil.USER_AD_ID, userPreferences.getAdvertisingId());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    appInstallServerSurveyedEvents = new ArrayList<>();
-                    appInstallServerUnsurveyedEvents = new ArrayList<>();
+                    serverId2appInstallServerSurveyedEvents = new HashMap<>();
+                    serverId2appInstallServerUnsurveyedEvents = new HashMap<>();
 
                     if (task.getResult() != null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String adId = document.getString(EventConstants.USER_AD_ID);
-                            String appName = document.getString(EventConstants.APP_NAME);
-                            String appVersion = document.getString(EventConstants.APP_VERSION);
-                            String loggedTime = document.getString(EventConstants.LOGGED_TIME);
-                            String packageName = document.getString(EventConstants.PACKAGE_NAME);
-                            String surveyed = document.getString(EventConstants.SURVEYED);
-                            AppInstallServerEvent event = new AppInstallServerEvent(adId, appName, appVersion, loggedTime, packageName, surveyed);
+                            String adId = document.getString(EventUtil.USER_AD_ID);
+                            String appName = document.getString(EventUtil.APP_NAME);
+                            String appVersion = document.getString(EventUtil.APP_VERSION);
+                            String loggedTime = document.getString(EventUtil.LOGGED_TIME);
+                            String packageName = document.getString(EventUtil.PACKAGE_NAME);
+                            String surveyed = document.getString(EventUtil.SURVEYED);
+                            String serverId = document.getId();
+                            AppInstallServerEvent event = new AppInstallServerEvent(
+                                    serverId, adId, appName, appVersion, loggedTime,
+                                    packageName, surveyed, APP_INSTALL_EVENT_TYPE);
 
                             if (event.isEventSurveyed()) {
-                                appInstallServerSurveyedEvents.add(event);
+                                serverId2appInstallServerSurveyedEvents.put(serverId, event);
                             } else {
-                                appInstallServerUnsurveyedEvents.add(event);
+                                serverId2appInstallServerUnsurveyedEvents.put(serverId, event);
                             }
                         }
 
                         if (surveyedCardFragment.getView() != null) {
-                            int surveyedSize = appInstallServerSurveyedEvents.size();
+                            int surveyedSize = serverId2appInstallServerSurveyedEvents.size();
                             ((TextView) surveyedCardFragment.getView()
                                     .findViewById(R.id.surveyed_card_description))
                                     .setText(getResources().getQuantityString(
@@ -94,14 +97,14 @@ public class AppInstallFragment extends Fragment {
                                             surveyedSize,
                                             surveyedSize));
 
-                            if (appInstallServerSurveyedEvents.isEmpty()) {
+                            if (serverId2appInstallServerSurveyedEvents.isEmpty()) {
                                 surveyedCardFragment.getView()
                                         .findViewById(R.id.surveyed_card_button)
                                         .setEnabled(false);
                             }
                         }
                         if (unsurveyedCardFragment.getView() != null) {
-                            int unsurveyedSize = appInstallServerUnsurveyedEvents.size();
+                            int unsurveyedSize = serverId2appInstallServerUnsurveyedEvents.size();
                             ((TextView) unsurveyedCardFragment.getView()
                                     .findViewById(R.id.unsurveyed_card_description))
                                     .setText(getResources().getQuantityString(
@@ -109,7 +112,7 @@ public class AppInstallFragment extends Fragment {
                                             unsurveyedSize,
                                             unsurveyedSize));
 
-                            if (appInstallServerUnsurveyedEvents.isEmpty()) {
+                            if (serverId2appInstallServerUnsurveyedEvents.isEmpty()) {
                                 unsurveyedCardFragment.getView()
                                         .findViewById(R.id.unsurveyed_card_button)
                                         .setEnabled(false);

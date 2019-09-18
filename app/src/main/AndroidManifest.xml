@@ -29,10 +29,10 @@
             android:name=".ui.MainScreenActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.SurveyedEventsActivity"
+            android:name=".ui.Events.SurveyedEventsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.UnsurveyedEventsActivity"
+            android:name=".ui.Events.UnsurveyedEventsActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

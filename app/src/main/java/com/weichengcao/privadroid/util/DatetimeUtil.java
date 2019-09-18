@@ -16,9 +16,23 @@ public class DatetimeUtil {
         return fmt.print(dt);
     }
 
+    /**
+     * Get e.g. 2019/09/15
+     */
     public static String convertIsoToReadableFormat(String iso) {
         DateTime parsedDate = new DateTime(iso);
         DateTimeFormatter dtfOut = DateTimeFormat.forPattern("yyyy/MM/dd");
         return dtfOut.print(parsedDate);
+    }
+
+    /**
+     * Compare 2 iso date formats.
+     */
+    public static boolean aLaterThanBIso(String a, String b) {
+        DateTimeFormatter parser = ISODateTimeFormat.dateTimeParser();
+        DateTime A = parser.parseDateTime(a);
+        DateTime B = parser.parseDateTime(b);
+
+        return A.isAfter(B);
     }
 }

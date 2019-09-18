@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.weichengcao.privadroid.database.BaseServerEvent;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
 
@@ -53,9 +53,9 @@ public class PrivaDroidApplication extends Application {
     /**
      * TODO: Store queried app install, app uninstall and permission data.
      */
-    public static ArrayList<BaseServerEvent> appInstallServerSurveyedEvents = new ArrayList<>();
-    public static ArrayList<BaseServerEvent> appInstallServerUnsurveyedEvents = new ArrayList<>();
+    public static HashMap<String, BaseServerEvent> serverId2appInstallServerSurveyedEvents = new HashMap<>();
+    public static HashMap<String, BaseServerEvent> serverId2appInstallServerUnsurveyedEvents = new HashMap<>();
 
-    public static ArrayList<BaseServerEvent> appUninstallServerSurveyedEvents = new ArrayList<>();
-    public static ArrayList<BaseServerEvent> appUninstallServerUnsurveyedEvents = new ArrayList<>();
+    public static HashMap<String, BaseServerEvent> serverId2appUninstallServerSurveyedEvents = new HashMap<>();
+    public static HashMap<String, BaseServerEvent> serverId2appUninstallServerUnsurveyedEvents = new HashMap<>();
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.ui.Events.SurveyedEventsActivity;
 
 import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
 

@@ -28,8 +28,8 @@ import java.util.HashMap;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.ACCESSIBILITY_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.APP_USAGE_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.HOW_TO_CARD_INDEX;
-import static com.weichengcao.privadroid.util.EventConstants.JOIN_EVENT_COLLECTION;
-import static com.weichengcao.privadroid.util.EventConstants.LOGGED_TIME;
+import static com.weichengcao.privadroid.util.EventUtil.JOIN_EVENT_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.LOGGED_TIME;
 import static com.weichengcao.privadroid.util.ExperimentEventFactory.createJoinEvent;
 
 public class TutorialActivity extends FragmentActivity implements View.OnClickListener {

@@ -58,7 +58,7 @@
     <string name="surveyed">Surveyed</string>
     <string name="surveyed_events">Surveyed Events</string>
     <string name="unsurveyed">Unsurveyed</string>
-    <string name="unsurveyed_events">Unsurveyed Event</string>
+    <string name="unsurveyed_events">Unsurveyed Events</string>
     <string name="summary">Summary</string>
     <string name="view_data">View Data</string>
 
@@ -86,4 +86,7 @@
     </plurals>
 
     <string name="empty" />
+
+    <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
+    <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
 </resources>

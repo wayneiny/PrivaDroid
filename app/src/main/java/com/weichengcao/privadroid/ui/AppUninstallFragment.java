@@ -22,16 +22,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.AppUninstallServerEvent;
-import com.weichengcao.privadroid.util.EventConstants;
+import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.appUninstallServerSurveyedEvents;
-import static com.weichengcao.privadroid.PrivaDroidApplication.appUninstallServerUnsurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.createEventTypeFragmentBundle;
-import static com.weichengcao.privadroid.util.EventConstants.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
 
 public class AppUninstallFragment extends Fragment {
 
@@ -60,33 +60,36 @@ public class AppUninstallFragment extends Fragment {
          */
         UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
-        Query query = collectionReference.whereEqualTo(EventConstants.USER_AD_ID, userPreferences.getAdvertisingId());
+        Query query = collectionReference.whereEqualTo(EventUtil.USER_AD_ID, userPreferences.getAdvertisingId());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    appUninstallServerSurveyedEvents = new ArrayList<>();
-                    appUninstallServerUnsurveyedEvents = new ArrayList<>();
+                    serverId2appUninstallServerSurveyedEvents = new HashMap<>();
+                    serverId2appUninstallServerUnsurveyedEvents = new HashMap<>();
 
                     if (task.getResult() != null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String adId = document.getString(EventConstants.USER_AD_ID);
-                            String appName = document.getString(EventConstants.APP_NAME);
-                            String appVersion = document.getString(EventConstants.APP_VERSION);
-                            String loggedTime = document.getString(EventConstants.LOGGED_TIME);
-                            String packageName = document.getString(EventConstants.PACKAGE_NAME);
-                            String surveyed = document.getString(EventConstants.SURVEYED);
-                            AppUninstallServerEvent event = new AppUninstallServerEvent(adId, appName, appVersion, loggedTime, packageName, surveyed);
+                            String adId = document.getString(EventUtil.USER_AD_ID);
+                            String appName = document.getString(EventUtil.APP_NAME);
+                            String appVersion = document.getString(EventUtil.APP_VERSION);
+                            String loggedTime = document.getString(EventUtil.LOGGED_TIME);
+                            String packageName = document.getString(EventUtil.PACKAGE_NAME);
+                            String surveyed = document.getString(EventUtil.SURVEYED);
+                            String serverId = document.getId();
+                            AppUninstallServerEvent event = new AppUninstallServerEvent(
+                                    serverId, adId, appName, appVersion, loggedTime,
+                                    packageName, surveyed, APP_UNINSTALL_EVENT_TYPE);
 
                             if (event.isEventSurveyed()) {
-                                appUninstallServerSurveyedEvents.add(event);
+                                serverId2appUninstallServerSurveyedEvents.put(serverId, event);
                             } else {
-                                appUninstallServerUnsurveyedEvents.add(event);
+                                serverId2appUninstallServerUnsurveyedEvents.put(serverId, event);
                             }
                         }
 
                         if (surveyedCardFragment.getView() != null) {
-                            int surveyedSize = appUninstallServerSurveyedEvents.size();
+                            int surveyedSize = serverId2appUninstallServerSurveyedEvents.size();
                             ((TextView) surveyedCardFragment.getView()
                                     .findViewById(R.id.surveyed_card_description))
                                     .setText(getResources().getQuantityString(
@@ -94,14 +97,14 @@ public class AppUninstallFragment extends Fragment {
                                             surveyedSize,
                                             surveyedSize));
 
-                            if (appUninstallServerSurveyedEvents.isEmpty()) {
+                            if (serverId2appUninstallServerSurveyedEvents.isEmpty()) {
                                 surveyedCardFragment.getView()
                                         .findViewById(R.id.surveyed_card_button)
                                         .setEnabled(false);
                             }
                         }
                         if (unsurveyedCardFragment.getView() != null) {
-                            int unsurveyedSize = appUninstallServerUnsurveyedEvents.size();
+                            int unsurveyedSize = serverId2appUninstallServerUnsurveyedEvents.size();
                             ((TextView) unsurveyedCardFragment.getView()
                                     .findViewById(R.id.unsurveyed_card_description))
                                     .setText(getResources().getQuantityString(
@@ -109,7 +112,7 @@ public class AppUninstallFragment extends Fragment {
                                             unsurveyedSize,
                                             unsurveyedSize));
 
-                            if (appUninstallServerUnsurveyedEvents.isEmpty()) {
+                            if (serverId2appUninstallServerUnsurveyedEvents.isEmpty()) {
                                 unsurveyedCardFragment.getView()
                                         .findViewById(R.id.unsurveyed_card_button)
                                         .setEnabled(false);
