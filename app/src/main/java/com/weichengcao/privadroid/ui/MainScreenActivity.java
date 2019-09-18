@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
 public class MainScreenActivity extends FragmentActivity {
 
@@ -45,8 +46,20 @@ public class MainScreenActivity extends FragmentActivity {
             }
         });
 
+        /**
+         * Show the app install screen by default.
+         */
         pushFragment(new AppInstallFragment());
         PrivaDroidApplication.setCurrentyHandledEventType(APP_INSTALL_EVENT_TYPE);
+
+        /**
+         * Cache app info if not already.
+         */
+        ApplicationInfoPreferences applicationInfoPreferences = new ApplicationInfoPreferences(this);
+        if (!applicationInfoPreferences.getCachedAppInfo()) {
+            applicationInfoPreferences.cacheAppInfo();
+            applicationInfoPreferences.setCachedAppInfo(true);
+        }
     }
 
     private void selectFragment(MenuItem menuItem) {

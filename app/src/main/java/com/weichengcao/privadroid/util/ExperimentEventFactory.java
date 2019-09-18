@@ -56,11 +56,13 @@ public class ExperimentEventFactory {
         return event;
     }
 
-    public static HashMap<String, String> createAppUninstallEvent(String packageName) {
+    public static HashMap<String, String> createAppUninstallEvent(String packageName, String appName, String version) {
         HashMap<String, String> event = new HashMap<>();
 
         event.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
         event.put(PACKAGE_NAME, packageName);
+        event.put(APP_VERSION, version);
+        event.put(APP_NAME, appName);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 
         // TODO: currently don't survey the users

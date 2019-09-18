@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import com.weichengcao.privadroid.database.FirestoreProvider;
+import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 
 import java.util.HashMap;
@@ -98,6 +99,13 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
         String appName = getApplicationNameFromPackageName(packageName, packageManager);
         String version = getApplicationVersion(packageName, packageManager);
 
+        /**
+         * 1.1 Store new app info to ApplicationInfoPreferences.
+         */
+        ApplicationInfoPreferences applicationInfoPreferences = new ApplicationInfoPreferences(context);
+        applicationInfoPreferences.setApplicationVersion(packageName, version);
+        applicationInfoPreferences.setApplicationName(packageName, appName);
+
         // 2. send event to Firestore
         FirestoreProvider fp = new FirestoreProvider();
         HashMap<String, String> event = ExperimentEventFactory.createAppInstallEvent(appName, packageName, version);
@@ -113,9 +121,13 @@ public class SystemBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
+        ApplicationInfoPreferences applicationInfoPreferences = new ApplicationInfoPreferences(context);
+        String appName = applicationInfoPreferences.getApplicationName(packageName);
+        String appVersion = applicationInfoPreferences.getApplicationVersion(packageName);
+
         // 2. send event to Firestore
         FirestoreProvider fp = new FirestoreProvider();
-        HashMap<String, String> event = ExperimentEventFactory.createAppUninstallEvent(packageName);
+        HashMap<String, String> event = ExperimentEventFactory.createAppUninstallEvent(packageName, appName, appVersion);
         fp.sendAppUninstallEvent(event);
     }
     // log events and send to Firestore [END]
