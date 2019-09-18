@@ -56,7 +56,9 @@
     <string name="community_screen_title">Community</string>
     <string name="permission_screen_title">Permission</string>
     <string name="surveyed">Surveyed</string>
+    <string name="surveyed_events">Surveyed Events</string>
     <string name="unsurveyed">Unsurveyed</string>
+    <string name="unsurveyed_events">Unsurveyed Event</string>
     <string name="summary">Summary</string>
     <string name="view_data">View Data</string>
 
