@@ -16,6 +16,20 @@ public class MainScreenActivity extends FragmentActivity {
 
     private BottomNavigationView mBottomNavigationView;
 
+    /**
+     * Common to App Install/App Uninstall/Permission
+     */
+    public static final String EVENT_TYPE = "EVENT_TYPE";
+    public static final int APP_INSTALL_EVENT_TYPE = 0;
+    public static final int APP_UNINSTALL_EVENT_TYPE = 1;
+    public static final int PERMISSION_EVENT_TYPE = 2;
+
+    public static Bundle createEventTypeFragmentBundle(int eventType) {
+        Bundle res = new Bundle();
+        res.putInt(EVENT_TYPE, eventType);
+        return res;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

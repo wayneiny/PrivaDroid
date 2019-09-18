@@ -13,7 +13,11 @@ import com.google.android.material.button.MaterialButton;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 
+import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
+
 public class UnsurveyedCardFragment extends Fragment {
+
+    private Bundle args;
 
     @Nullable
     @Override
@@ -25,6 +29,7 @@ public class UnsurveyedCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), UnsurveyedEventsActivity.class);
+                intent.putExtra(EVENT_TYPE, args.getInt(EVENT_TYPE));
                 startActivity(intent);
             }
         });

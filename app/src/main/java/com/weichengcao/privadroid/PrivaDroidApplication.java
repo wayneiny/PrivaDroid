@@ -30,4 +30,8 @@ public class PrivaDroidApplication extends Application {
         this.setAppContext(getApplicationContext());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
+
+    /**
+     * TODO: Store queried app install, app uninstall and permission data.
+     */
 }
