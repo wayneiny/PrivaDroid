@@ -5,6 +5,10 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.weichengcao.privadroid.database.BaseServerEvent;
+
+import java.util.ArrayList;
+
 import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
 
 public class PrivaDroidApplication extends Application {
@@ -49,4 +53,9 @@ public class PrivaDroidApplication extends Application {
     /**
      * TODO: Store queried app install, app uninstall and permission data.
      */
+    public static ArrayList<BaseServerEvent> appInstallServerSurveyedEvents = new ArrayList<>();
+    public static ArrayList<BaseServerEvent> appInstallServerUnsurveyedEvents = new ArrayList<>();
+
+    public static ArrayList<BaseServerEvent> appUninstallServerSurveyedEvents = new ArrayList<>();
+    public static ArrayList<BaseServerEvent> appUninstallServerUnsurveyedEvents = new ArrayList<>();
 }

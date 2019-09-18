@@ -42,7 +42,7 @@
                 android:paddingStart="27dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="20dp"
-                android:text="@string/unsurveyed"
+                android:text="@string/empty"
                 android:textSize="@dimen/surveyed_unsurveyed_card_description_size" />
 
             <com.google.android.material.button.MaterialButton

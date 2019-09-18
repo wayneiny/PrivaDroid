@@ -61,7 +61,27 @@
     <string name="view_data">View Data</string>
 
     <string name="surveyed_events_activity_title">Surveyed Events</string>
-    <string name="unsurveyed_events_activity_title">Unsurveyed Events</string>
+    <string name="unsurveyed_events_activity_title">Unsurveyed Events</string>]
+
+    <plurals name="number_of_app_install_surveyed_events_card_description">
+        <item quantity="one">You have %d surveyed app install event.</item>
+        <item quantity="other">You have %d surveyed app install events.</item>
+    </plurals>
+
+    <plurals name="number_of_app_install_unsurveyed_events_card_description">
+        <item quantity="one">You have %d unsurveyed app install event.</item>
+        <item quantity="other">You have %d unsurveyed app install events.</item>
+    </plurals>
+
+    <plurals name="number_of_app_uninstall_surveyed_events_card_description">
+        <item quantity="one">You have %d surveyed app uninstall event.</item>
+        <item quantity="other">You have %d surveyed app uninstall events.</item>
+    </plurals>
+
+    <plurals name="number_of_app_uninstall_unsurveyed_events_card_description">
+        <item quantity="one">You have %d unsurveyed app uninstall event.</item>
+        <item quantity="other">You have %d unsurveyed app uninstall events.</item>
+    </plurals>
 
     <string name="empty" />
 </resources>
