@@ -93,6 +93,12 @@ public class AppInstallFragment extends Fragment {
                                             R.plurals.number_of_app_install_surveyed_events_card_description,
                                             surveyedSize,
                                             surveyedSize));
+
+                            if (appInstallServerSurveyedEvents.isEmpty()) {
+                                surveyedCardFragment.getView()
+                                        .findViewById(R.id.surveyed_card_button)
+                                        .setEnabled(false);
+                            }
                         }
                         if (unsurveyedCardFragment.getView() != null) {
                             int unsurveyedSize = appInstallServerUnsurveyedEvents.size();
@@ -102,6 +108,12 @@ public class AppInstallFragment extends Fragment {
                                             R.plurals.number_of_app_install_unsurveyed_events_card_description,
                                             unsurveyedSize,
                                             unsurveyedSize));
+
+                            if (appInstallServerUnsurveyedEvents.isEmpty()) {
+                                unsurveyedCardFragment.getView()
+                                        .findViewById(R.id.unsurveyed_card_button)
+                                        .setEnabled(false);
+                            }
                         }
                     }
                 }

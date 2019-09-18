@@ -93,6 +93,12 @@ public class AppUninstallFragment extends Fragment {
                                             R.plurals.number_of_app_uninstall_surveyed_events_card_description,
                                             surveyedSize,
                                             surveyedSize));
+
+                            if (appUninstallServerSurveyedEvents.isEmpty()) {
+                                surveyedCardFragment.getView()
+                                        .findViewById(R.id.surveyed_card_button)
+                                        .setEnabled(false);
+                            }
                         }
                         if (unsurveyedCardFragment.getView() != null) {
                             int unsurveyedSize = appUninstallServerUnsurveyedEvents.size();
@@ -102,6 +108,12 @@ public class AppUninstallFragment extends Fragment {
                                             R.plurals.number_of_app_uninstall_unsurveyed_events_card_description,
                                             unsurveyedSize,
                                             unsurveyedSize));
+
+                            if (appUninstallServerUnsurveyedEvents.isEmpty()) {
+                                unsurveyedCardFragment.getView()
+                                        .findViewById(R.id.unsurveyed_card_button)
+                                        .setEnabled(false);
+                            }
                         }
                     }
                 }
