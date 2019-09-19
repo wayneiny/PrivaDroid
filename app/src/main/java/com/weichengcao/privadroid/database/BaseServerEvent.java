@@ -5,23 +5,23 @@ public class BaseServerEvent {
     /**
      * Member variable names == EventUtil columns
      */
-    private String ad_id;
-    private String app_name;
-    private String app_version;
-    private String logged_time;
-    private String package_name;
+    private String adId;
+    private String appName;
+    private String appVersion;
+    private String loggedTime;
+    private String packageName;
     private String surveyed;
 
     private String serverId;
     private int eventType;
 
-    public BaseServerEvent(String serverId, String ad_id, String app_name, String app_version,
-                           String logged_time, String package_name, String surveyed, int eventType) {
-        this.ad_id = ad_id;
-        this.app_name = app_name;
-        this.app_version = app_version;
-        this.logged_time = logged_time;
-        this.package_name = package_name;
+    public BaseServerEvent(String serverId, String adId, String appName, String appVersion,
+                           String loggedTime, String packageName, String surveyed, int eventType) {
+        this.adId = adId;
+        this.appName = appName;
+        this.appVersion = appVersion;
+        this.loggedTime = loggedTime;
+        this.packageName = packageName;
         this.surveyed = surveyed;
         this.eventType = eventType;
         this.serverId = serverId;
@@ -31,24 +31,24 @@ public class BaseServerEvent {
         return Boolean.parseBoolean(surveyed);
     }
 
-    public String getAd_id() {
-        return ad_id;
+    public String getAdId() {
+        return adId;
     }
 
-    public String getApp_name() {
-        return app_name;
+    public String getAppName() {
+        return appName;
     }
 
-    public String getApp_version() {
-        return app_version;
+    public String getAppVersion() {
+        return appVersion;
     }
 
-    public String getLogged_time() {
-        return logged_time;
+    public String getLoggedTime() {
+        return loggedTime;
     }
 
-    public String getPackage_name() {
-        return package_name;
+    public String getPackageName() {
+        return packageName;
     }
 
     public String getSurveyed() {

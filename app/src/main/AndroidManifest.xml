@@ -7,7 +7,7 @@
         android:name=".PrivaDroidApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -30,9 +30,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Events.SurveyedEventsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
         <activity
             android:name=".ui.Events.UnsurveyedEventsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".ui.DemographicActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
@@ -52,7 +57,7 @@
         </receiver>
         <service
             android:name=".sensors.AccessibilityEventMonitorService"
-            android:label="@string/app_name"
+            android:label="@string/appName"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
 
             <intent-filter>

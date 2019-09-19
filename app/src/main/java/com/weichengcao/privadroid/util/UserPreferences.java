@@ -58,6 +58,7 @@ public class UserPreferences {
     }
 
     public static final String UNKNOWN_DATE = "UNKNOWN_DATE";
+
     public String getJoinDate() {
         return getAppPrefs().getString(JOIN_DATE, UNKNOWN_DATE);
     }
@@ -66,4 +67,17 @@ public class UserPreferences {
         getAppPrefs().edit().putString(JOIN_DATE, joinDate).apply();
     }
     // Join event id in Firestore [End]
+
+    /**
+     * Demographic survey.
+     */
+    public static final String ANSWERED_DEMOGRAPHIC_SURVEY = "ANSWERED_DEMOGRAPHIC_SURVEY";
+
+    public boolean getAnsweredDemographicSurvey() {
+        return getAppPrefs().getBoolean(ANSWERED_DEMOGRAPHIC_SURVEY, false);
+    }
+
+    public void setAnsweredDemographicSurvey(boolean answeredDemographicSurvey) {
+        getAppPrefs().edit().putBoolean(ANSWERED_DEMOGRAPHIC_SURVEY, answeredDemographicSurvey).apply();
+    }
 }

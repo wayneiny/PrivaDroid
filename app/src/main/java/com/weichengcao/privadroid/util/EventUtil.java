@@ -44,6 +44,19 @@ public class EventUtil {
     public static final String INITIATED_BY_USER = "user_initiated";
 
     /**
+     * Demographic event.
+     */
+    public static final String DEMOGRAPHIC_COLLECTION = "DEMOGRAPHIC_COLLECTION";
+    public static final String EDUCATION = "education";
+    public static final String INCOME = "income";
+    public static final String AGE = "age";
+    public static final String GENDER = "gender";
+    public static final String INDUSTRY = "industry";
+    public static final String DAILY_USAGE= "daily_usage";
+    public static final String STATUS = "status";
+    public static final String COUNTRY = "country";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {
@@ -51,7 +64,7 @@ public class EventUtil {
         Collections.sort(res, new Comparator<BaseServerEvent>() {
             @Override
             public int compare(BaseServerEvent s1, BaseServerEvent s2) {
-                boolean s1LaterThans2 = DatetimeUtil.aLaterThanBIso(s1.getLogged_time(), s2.getLogged_time());
+                boolean s1LaterThans2 = DatetimeUtil.aLaterThanBIso(s1.getLoggedTime(), s2.getLoggedTime());
                 if (chronological) {
                     return s1LaterThans2 ? 1 : 0;
                 } else {

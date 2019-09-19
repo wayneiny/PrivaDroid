@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">PrivaDroid</string>
+    <string name="appName">PrivaDroid</string>
 
     <string name="agree_to_terms">Agree to terms above</string>
     <string name="continue_app_settings_button">Continue</string>
+    <string name="submit">Submit</string>
     <string name="terms_title">Terms</string>
     <string name="terms_description">
         PrivaDroid is a community-based Android study app. It helps you keep track of the applications you install/remove from your device.
@@ -61,6 +62,7 @@
     <string name="unsurveyed_events">Unsurveyed Events</string>
     <string name="summary">Summary</string>
     <string name="view_data">View Data</string>
+    <string name="demographic_screen_title">Demographic Survey</string>
 
     <string name="surveyed_events_activity_title">Surveyed Events</string>
     <string name="unsurveyed_events_activity_title">Unsurveyed Events</string>]
@@ -89,4 +91,306 @@
 
     <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
     <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
+
+    <!--  Survey question select an option  -->
+    <string name="select_an_option">Select an option</string>
+
+    <!--  Demographic questions  -->
+    <string name="demographic_question_age">1. What is your age?</string>
+    <array name="demographic_age_options">
+        <item>Select an option</item>
+        <item>Below 20</item>
+        <item>Between 20 and 30</item>
+        <item>Between 30 and 40</item>
+        <item>Between 40 and 50</item>
+        <item>Between 50 and 60</item>
+        <item>Above 60</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_gender">2. What is your gender?</string>
+    <array name="demographic_gender_options">
+        <item>Select an option</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_country">3. Which country do you live in?</string>
+    <array name="demographic_country_options">
+        <item>Select an option</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua &amp; Deps</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>Brunei</item>
+        <item>Bulgaria</item>
+        <item>Burkina</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Cape Verde</item>
+        <item>Central African Rep</item>
+        <item>Chad</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo</item>
+        <item>Congo {Democratic Rep}</item>
+        <item>Costa Rica</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>East Timor</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Gabon</item>
+        <item>Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Greece</item>
+        <item>Grenada</item>
+        <item>Guatemala</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland {Republic}</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Ivory Coast</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kiribati</item>
+        <item>Korea North</item>
+        <item>Korea South</item>
+        <item>Kosovo</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macedonia</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Maldives</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Myanmar, {Burma}</item>
+        <item>Namibia</item>
+        <item>Nauru</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russian Federation</item>
+        <item>Rwanda</item>
+        <item>St Kitts &amp; Nevis</item>
+        <item>St Lucia</item>
+        <item>Saint Vincent &amp; the Grenadines</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Sao Tome &amp; Principe</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>South Africa</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>Taiwan</item>
+        <item>Tajikistan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad &amp; Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turkmenistan</item>
+        <item>Tuvalu</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Vanuatu</item>
+        <item>Vatican City</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_income">4. What is your income level in USD?</string>
+    <array name="demographic_income_options">
+        <item>Select an option</item>
+        <item>$0</item>
+        <item>$1 - $9999</item>
+        <item>$10000 - $24999</item>
+        <item>$25000 - $49999</item>
+        <item>$50000 - $74999</item>
+        <item>$75000 - $99999</item>
+        <item>$100000 - $149999</item>
+        <item>$150000 and above</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_education">5. What is the highest degree or level of school you have completed?</string>
+    <array name="demographic_education_options">
+        <item>Select an option</item>
+        <item>Less than a high school diploma</item>
+        <item>High school degree or equivalent</item>
+        <item>Bachelor\'s degree (e.g. BA, BS)</item>
+        <item>Master\'s degree (e.g. MA, MS)</item>
+        <item>Doctorate (e.g. PhD)</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_industry">6. Which of the following categories best describes the industry you primarily work in?</string>
+    <array name="demographic_industry_options">
+        <item>Select an option</item>
+        <item>Agriculture, Forestry, Fishing and Hunting</item>
+        <item>Arts, Entertainment, and Recreation</item>
+        <item>College, University, and Adult Education</item>
+        <item>Computer and Electronics Manufacturing</item>
+        <item>Construction</item>
+        <item>Finance and Insurance</item>
+        <item>Government and Public Administration</item>
+        <item>Health Care and Social Assistance</item>
+        <item>Hotel and Food Services</item>
+        <item>Legal Services</item>
+        <item>Manufacturing</item>
+        <item>Others</item>
+        <item>Real Estate, Rental and Leasing</item>
+        <item>Retail</item>
+        <item>Scientific or Technical Services</item>
+        <item>Software</item>
+        <item>Transportation and Warehousing</item>
+        <item>Unemployed</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_status">7. What is your current employment status?</string>
+    <array name="demographic_status_options">
+        <item>Select an option</item>
+        <item>Employed full time (40 or more hours per week)</item>
+        <item>Employed part time (up to 39 hours per week)</item>
+        <item>Unemployed and currently looking for work</item>
+        <item>Unemployed and not currently looking for work</item>
+        <item>Student</item>
+        <item>Retired</item>
+        <item>Self-employed</item>
+        <item>Unable to work</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_usage">8. How much time do you spend on your phone daily?</string>
+    <array name="demographic_usage_options">
+        <item>Select an option</item>
+        <item>Less than an hour</item>
+        <item>Between 1 and 2 hours</item>
+        <item>Between 2 and 3 hours</item>
+        <item>Between 3 and 4 hours</item>
+        <item>Between 4 and 5 hours</item>
+        <item>Between 5 and 6 hours</item>
+        <item>Over 6 hours</item>
+        <item>Prefer not to say</item>
+    </array>
+
+    <string name="answered_on_prefix">Answered on </string>
+
+    <!--  Toast  -->
+    <string name="finish_all_demographic_questions_toast">Please finish all demographic questions.</string>
 </resources>

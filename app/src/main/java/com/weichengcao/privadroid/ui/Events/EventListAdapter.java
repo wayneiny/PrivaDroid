@@ -31,16 +31,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         }
 
         void bind(final BaseServerEvent event, final Context context) {
-            title.setText(event.getApp_name());
+            title.setText(event.getAppName());
 
             switch (event.getEventType()) {
                 case APP_INSTALL_EVENT_TYPE:
                     description.setText(context.getString(R.string.why_install_app_on_date_list_item_description,
-                            event.getApp_name(), DatetimeUtil.convertIsoToReadableFormat(event.getLogged_time())));
+                            event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime())));
                     break;
                 case APP_UNINSTALL_EVENT_TYPE:
                     description.setText(context.getString(R.string.why_uninstall_app_on_date_list_item_description,
-                            event.getApp_name(), DatetimeUtil.convertIsoToReadableFormat(event.getLogged_time())));
+                            event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime())));
                     break;
             }
         }

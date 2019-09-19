@@ -30,7 +30,11 @@ public class ProfileFragment extends Fragment {
     private LinearLayout mAccessibilityLayout;
     private ImageView mUsageIcon;
     private LinearLayout mUsageLayout;
+    private LinearLayout mDemographicLayout;
+    private ImageView mDemographicStatusIcon;
     private TextView mVersion;
+
+    private UserPreferences userPreferences;
 
     @Nullable
     @Override
@@ -47,7 +51,7 @@ public class ProfileFragment extends Fragment {
         /**
          * Set up ad id
          */
-        UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+        userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         mAdId.setText(userPreferences.getAdvertisingId());
         mJoinDate.setText(userPreferences.getJoinDate().equals(UNKNOWN_DATE) ? UNKNOWN_DATE : convertIsoToReadableFormat(userPreferences.getJoinDate()));
 
@@ -56,6 +60,12 @@ public class ProfileFragment extends Fragment {
          */
         mVersion = view.findViewById(R.id.version_value);
         mVersion.setText(String.format("V %s", BuildConfig.VERSION_NAME));
+
+        /**
+         * Set up demographic status
+         */
+        mDemographicLayout = view.findViewById(R.id.demographic_status_container);
+        mDemographicStatusIcon = view.findViewById(R.id.demographic_status_icon);
 
         return view;
     }
@@ -85,6 +95,15 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                startActivity(intent);
+            }
+        });
+
+        mDemographicStatusIcon.setImageResource(userPreferences.getAnsweredDemographicSurvey() ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
+        mDemographicLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrivaDroidApplication.getAppContext(), DemographicActivity.class);
                 startActivity(intent);
             }
         });

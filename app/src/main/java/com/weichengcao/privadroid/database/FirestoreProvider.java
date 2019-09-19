@@ -16,6 +16,7 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UN
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 
 public class FirestoreProvider {
@@ -78,4 +79,22 @@ public class FirestoreProvider {
                 });
     }
     // send permission event [END]
+
+    /**
+     * Send demographic event.
+     */
+    public void sendDemographicEvent(final HashMap<String, String> demographicEvent) {
+        mFirestore.collection(DEMOGRAPHIC_COLLECTION).add(demographicEvent)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (!task.isSuccessful()) {
+                            mUserPreferences.setAnsweredDemographicSurvey(true);
+                        } else {
+                            mUserPreferences.setAnsweredDemographicSurvey(false);
+                            OnDeviceStorageProvider.writeDemographicEventToFile(demographicEvent);
+                        }
+                    }
+                });
+    }
 }

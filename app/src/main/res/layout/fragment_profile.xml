@@ -146,6 +146,38 @@
                 android:background="@color/light_gray" />
 
             <LinearLayout
+                android:id="@+id/demographic_status_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_banner_height"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/profile_banner_left_right_padding"
+                android:paddingEnd="@dimen/profile_banner_left_right_padding">
+
+                <TextView
+                    android:id="@+id/demographic_status_title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/demographic_screen_title"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/demographic_status_icon"
+                    android:layout_width="@dimen/profile_banner_icon_size"
+                    android:layout_height="@dimen/profile_banner_icon_size"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_cancel_accent_24dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="@dimen/divider_margin"
+                android:background="@color/light_gray" />
+
+            <LinearLayout
                 android:id="@+id/version_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

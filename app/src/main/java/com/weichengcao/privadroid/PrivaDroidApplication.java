@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import com.weichengcao.privadroid.database.BaseServerEvent;
+import com.weichengcao.privadroid.database.DemographicEvent;
 
 import java.util.HashMap;
 
@@ -51,11 +52,13 @@ public class PrivaDroidApplication extends Application {
     }
 
     /**
-     * TODO: Store queried app install, app uninstall and permission data.
+     * TODO: Store queried app install, demographic, app uninstall and permission data.
      */
     public static HashMap<String, BaseServerEvent> serverId2appInstallServerSurveyedEvents = new HashMap<>();
     public static HashMap<String, BaseServerEvent> serverId2appInstallServerUnsurveyedEvents = new HashMap<>();
 
     public static HashMap<String, BaseServerEvent> serverId2appUninstallServerSurveyedEvents = new HashMap<>();
     public static HashMap<String, BaseServerEvent> serverId2appUninstallServerUnsurveyedEvents = new HashMap<>();
+
+    public static DemographicEvent demographicEvent = null;
 }
