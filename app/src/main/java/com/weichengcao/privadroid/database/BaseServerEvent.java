@@ -10,25 +10,25 @@ public class BaseServerEvent {
     private String appVersion;
     private String loggedTime;
     private String packageName;
-    private String surveyed;
+    private String surveyId;
 
     private String serverId;
     private int eventType;
 
     public BaseServerEvent(String serverId, String adId, String appName, String appVersion,
-                           String loggedTime, String packageName, String surveyed, int eventType) {
+                           String loggedTime, String packageName, String surveyId, int eventType) {
         this.adId = adId;
         this.appName = appName;
         this.appVersion = appVersion;
         this.loggedTime = loggedTime;
         this.packageName = packageName;
-        this.surveyed = surveyed;
+        this.surveyId = surveyId;
         this.eventType = eventType;
         this.serverId = serverId;
     }
 
     public boolean isEventSurveyed() {
-        return Boolean.parseBoolean(surveyed);
+        return !surveyId.isEmpty();
     }
 
     public String getAdId() {
@@ -51,8 +51,8 @@ public class BaseServerEvent {
         return packageName;
     }
 
-    public String getSurveyed() {
-        return surveyed;
+    public String getSurveyId() {
+        return surveyId;
     }
 
     public int getEventType() {

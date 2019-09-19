@@ -27,7 +27,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_REQUESTED_NAM
 import static com.weichengcao.privadroid.util.EventUtil.PHONE_MAKE;
 import static com.weichengcao.privadroid.util.EventUtil.PHONE_MODEL;
 import static com.weichengcao.privadroid.util.EventUtil.STATUS;
-import static com.weichengcao.privadroid.util.EventUtil.SURVEYED;
+import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
 import static com.weichengcao.privadroid.util.EventUtil.USER_AD_ID;
 
 public class ExperimentEventFactory {
@@ -59,7 +59,7 @@ public class ExperimentEventFactory {
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 
         // TODO: currently don't survey the users
-        event.put(SURVEYED, Boolean.toString(false));
+        event.put(SURVEY_ID, Boolean.toString(false));
 
         return event;
     }
@@ -74,7 +74,7 @@ public class ExperimentEventFactory {
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 
         // TODO: currently don't survey the users
-        event.put(SURVEYED, Boolean.toString(false));
+        event.put(SURVEY_ID, Boolean.toString(false));
 
         return event;
     }
@@ -93,7 +93,7 @@ public class ExperimentEventFactory {
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 
         // TODO: currently don't survey the users
-        event.put(SURVEYED, Boolean.toString(false));
+        event.put(SURVEY_ID, Boolean.toString(false));
 
         return event;
     }

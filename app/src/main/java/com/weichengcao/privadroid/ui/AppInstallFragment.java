@@ -75,11 +75,11 @@ public class AppInstallFragment extends Fragment {
                             String appVersion = document.getString(EventUtil.APP_VERSION);
                             String loggedTime = document.getString(EventUtil.LOGGED_TIME);
                             String packageName = document.getString(EventUtil.PACKAGE_NAME);
-                            String surveyed = document.getString(EventUtil.SURVEYED);
+                            String surveyId = document.getString(EventUtil.SURVEY_ID);
                             String serverId = document.getId();
                             AppInstallServerEvent event = new AppInstallServerEvent(
                                     serverId, adId, appName, appVersion, loggedTime,
-                                    packageName, surveyed, APP_INSTALL_EVENT_TYPE);
+                                    packageName, surveyId, APP_INSTALL_EVENT_TYPE);
 
                             if (event.isEventSurveyed()) {
                                 serverId2appInstallServerSurveyedEvents.put(serverId, event);

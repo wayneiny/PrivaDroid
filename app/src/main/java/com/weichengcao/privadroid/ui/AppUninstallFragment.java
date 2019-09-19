@@ -75,11 +75,11 @@ public class AppUninstallFragment extends Fragment {
                             String appVersion = document.getString(EventUtil.APP_VERSION);
                             String loggedTime = document.getString(EventUtil.LOGGED_TIME);
                             String packageName = document.getString(EventUtil.PACKAGE_NAME);
-                            String surveyed = document.getString(EventUtil.SURVEYED);
+                            String surveyId = document.getString(EventUtil.SURVEY_ID);
                             String serverId = document.getId();
                             AppUninstallServerEvent event = new AppUninstallServerEvent(
                                     serverId, adId, appName, appVersion, loggedTime,
-                                    packageName, surveyed, APP_UNINSTALL_EVENT_TYPE);
+                                    packageName, surveyId, APP_UNINSTALL_EVENT_TYPE);
 
                             if (event.isEventSurveyed()) {
                                 serverId2appUninstallServerSurveyedEvents.put(serverId, event);
