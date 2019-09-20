@@ -2,6 +2,7 @@ package com.weichengcao.privadroid.ui.Events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.BaseServerEvent;
+import com.weichengcao.privadroid.notifications.BaseNotificationProvider;
 import com.weichengcao.privadroid.ui.SurveyQuestions.AppInstallSurveyActivity;
 import com.weichengcao.privadroid.ui.SurveyQuestions.AppUninstallSurveyActivity;
 import com.weichengcao.privadroid.util.DatetimeUtil;
@@ -47,7 +49,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(context, AppInstallSurveyActivity.class);
-                            intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
+                            Bundle bundle = new Bundle();
+                            bundle.putString(EVENT_ID_INTENT_KEY, event.getServerId());
+                            intent.putExtra(BaseNotificationProvider.NOTIFICATION_INTENT_PAYLOAD, bundle);
                             context.startActivity(intent);
                         }
                     });
@@ -59,7 +63,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(context, AppUninstallSurveyActivity.class);
-                            intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
+                            Bundle bundle = new Bundle();
+                            bundle.putString(EVENT_ID_INTENT_KEY, event.getServerId());
+                            intent.putExtra(BaseNotificationProvider.NOTIFICATION_INTENT_PAYLOAD, bundle);
                             context.startActivity(intent);
                         }
                     });

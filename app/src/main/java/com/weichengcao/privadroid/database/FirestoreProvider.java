@@ -1,14 +1,18 @@
 package com.weichengcao.privadroid.database;
 
 import android.content.Context;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.notifications.MarshmallowNotificationProvider;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
@@ -20,13 +24,16 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UN
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
-import static com.weichengcao.privadroid.util.EventUtil.KNOW_PERMISSION_REQUIRED;
+import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
 
 public class FirestoreProvider {
 
@@ -54,6 +61,27 @@ public class FirestoreProvider {
                         // 2. write to local storage if not successful
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(appInstallEvent, APP_INSTALL_FILE_NAME);
+                        } else {
+                            DocumentReference doc = task.getResult();
+                            if (doc == null) {
+                                return;
+                            }
+
+                            /**
+                             * Create AppInstallServerEvent.
+                             */
+                            AppInstallServerEvent event = new AppInstallServerEvent(doc.getId(),
+                                    appInstallEvent.get(EventUtil.USER_AD_ID), appInstallEvent.get(EventUtil.APP_NAME),
+                                    appInstallEvent.get(EventUtil.APP_VERSION), appInstallEvent.get(EventUtil.LOGGED_TIME),
+                                    appInstallEvent.get(EventUtil.PACKAGE_NAME), appInstallEvent.get(EventUtil.SURVEY_ID),
+                                    APP_INSTALL_EVENT_TYPE);
+
+                            /**
+                             * Create notification for users to answer based on Android version.
+                             */
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                                new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForInstallEventSurvey(event);
+                            }
                         }
                     }
                 });
@@ -71,6 +99,27 @@ public class FirestoreProvider {
                         // 2. write to local storage if not successful
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(appUninstallEvent, APP_UNINSTALL_FILE_NAME);
+                        } else {
+                            DocumentReference doc = task.getResult();
+                            if (doc == null) {
+                                return;
+                            }
+
+                            /**
+                             * Create AppUninstallServerEvent.
+                             */
+                            AppUninstallServerEvent event = new AppUninstallServerEvent(doc.getId(),
+                                    appUninstallEvent.get(EventUtil.USER_AD_ID), appUninstallEvent.get(EventUtil.APP_NAME),
+                                    appUninstallEvent.get(EventUtil.APP_VERSION), appUninstallEvent.get(EventUtil.LOGGED_TIME),
+                                    appUninstallEvent.get(PACKAGE_NAME), appUninstallEvent.get(SURVEY_ID),
+                                    APP_UNINSTALL_EVENT_TYPE);
+
+                            /**
+                             * Create notification for users to answer based on Android version.
+                             */
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                                new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForUninstallEventSurvey(event);
+                            }
                         }
                     }
                 });
@@ -124,42 +173,33 @@ public class FirestoreProvider {
                         } else {
                             /**
                              * 1. Get the server app install survey document.
+                             * 2. Query Firebase for the corresponding install event.
                              */
-                            DocumentReference doc = task.getResult();
-                            final AppInstallServerEvent appInstallServerEvent = (AppInstallServerEvent) PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents.get(appInstallSurvey.get(EVENT_SERVER_ID));
-                            if (appInstallServerEvent == null || doc == null) {
-                                return;
-                            }
+                            final DocumentReference surveyDoc = task.getResult();
+                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
+                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(appInstallSurvey.get(EVENT_SERVER_ID));
+                            eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot eventDoc = task.getResult();
+                                        if (eventDoc.exists()) {
+                                            final AppInstallServerEvent appInstallServerEvent = new AppInstallServerEvent(eventDoc.getId(),
+                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                    eventDoc.getString(EventUtil.PACKAGE_NAME), eventDoc.getString(EventUtil.SURVEY_ID),
+                                                    APP_INSTALL_EVENT_TYPE);
 
-                            /**
-                             * 2. Create AppInstallServerSurvey and put in hash map.
-                             */
-                            AppInstallServerSurvey appInstallServerSurvey = new AppInstallServerSurvey(
-                                    appInstallSurvey.get(EventUtil.USER_AD_ID), appInstallSurvey.get(EventUtil.LOGGED_TIME),
-                                    EventUtil.APP_INSTALL_EVENT_TYPE, appInstallSurvey.get(EventUtil.WHY_INSTALL),
-                                    appInstallSurvey.get(EventUtil.INSTALL_FACTORS), appInstallSurvey.get(KNOW_PERMISSION_REQUIRED),
-                                    appInstallSurvey.get(EventUtil.PERMISSIONS_THINK_REQUIRED), appInstallServerEvent.getServerId(),
-                                    doc.getId());
-                            PrivaDroidApplication.serverId2appInstallSurveys.put(doc.getId(), appInstallServerSurvey);
-
-                            /**
-                             * 3. Update its corresponding app install event.
-                             */
-                            appInstallServerEvent.setSurveyId(doc.getId());
-                            mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
-                                    .update(createAppInstallEventHashMapFromObject(appInstallServerEvent))
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                /**
-                                                 * Move this app install event to surveyed map.
-                                                 */
-                                                PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents.remove(appInstallServerEvent.getServerId());
-                                                PrivaDroidApplication.serverId2appInstallServerSurveyedEvents.put(appInstallServerEvent.getServerId(), appInstallServerEvent);
-                                            }
+                                            /**
+                                             * 3. Update its corresponding app install event.
+                                             */
+                                            appInstallServerEvent.setSurveyId(surveyDoc.getId());
+                                            mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
+                                                    .update(createAppInstallEventHashMapFromObject(appInstallServerEvent));
                                         }
-                                    });
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -178,41 +218,33 @@ public class FirestoreProvider {
                         } else {
                             /**
                              * 1. Get the server app uninstall survey document.
+                             * 2. Query Firebase for the corresponding uninstall event.
                              */
-                            DocumentReference doc = task.getResult();
-                            final AppUninstallServerEvent appUninstallServerEvent = (AppUninstallServerEvent) PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents.get(appUninstallSurvey.get(EVENT_SERVER_ID));
-                            if (appUninstallServerEvent == null || doc == null) {
-                                return;
-                            }
+                            final DocumentReference surveyDoc = task.getResult();
+                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
+                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(appUninstallSurvey.get(EVENT_SERVER_ID));
+                            eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot eventDoc = task.getResult();
+                                        if (eventDoc.exists()) {
+                                            final AppUninstallServerEvent appUninstallServerEvent = new AppUninstallServerEvent(eventDoc.getId(),
+                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                    eventDoc.getString(PACKAGE_NAME), eventDoc.getString(SURVEY_ID),
+                                                    APP_UNINSTALL_EVENT_TYPE);
 
-                            /**
-                             * 2. Create AppUninstallServerSurvey and put in hash map.
-                             */
-                            AppUninstallServerSurvey appUninstallServerSurvey = new AppUninstallServerSurvey(
-                                    appUninstallSurvey.get(EventUtil.USER_AD_ID), appUninstallSurvey.get(EventUtil.LOGGED_TIME),
-                                    EventUtil.APP_UNINSTALL_EVENT_TYPE, appUninstallSurvey.get(EventUtil.WHY_UNINSTALL),
-                                    appUninstallSurvey.get(EventUtil.PERMISSION_REMEMBERED_REQUESTED), appUninstallServerEvent.getServerId(),
-                                    doc.getId());
-                            PrivaDroidApplication.serverId2appUninstallSurveys.put(doc.getId(), appUninstallServerSurvey);
-
-                            /**
-                             * 3. Update its corresponding app uninstall event.
-                             */
-                            appUninstallServerEvent.setSurveyId(doc.getId());
-                            mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
-                                    .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent))
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                /**
-                                                 * Move this app install event to surveyed map.
-                                                 */
-                                                PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents.remove(appUninstallServerEvent.getServerId());
-                                                PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents.put(appUninstallServerEvent.getServerId(), appUninstallServerEvent);
-                                            }
+                                            /**
+                                             * 3. Update its corresponding app uninstall event.
+                                             */
+                                            appUninstallServerEvent.setSurveyId(surveyDoc.getId());
+                                            mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
+                                                    .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent));
                                         }
-                                    });
+                                    }
+                                }
+                            });
                         }
                     }
                 });

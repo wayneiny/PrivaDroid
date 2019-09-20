@@ -35,4 +35,12 @@ public class DatetimeUtil {
 
         return A.isAfter(B);
     }
+
+    /**
+     * Hash the iso format date.
+     */
+    public static int getIsoHash(String iso) {
+        DateTime parsedDate = new DateTime(iso);
+        return parsedDate.hashCode();
+    }
 }
