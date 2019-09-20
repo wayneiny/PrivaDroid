@@ -23,8 +23,9 @@
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
-        android:src="@drawable/pd_dribble_circle_cropped"
+        android:src="@drawable/logo_v2_transparent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@android:color/transparent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +54,7 @@
                 android:layout_marginRight="80dp"
                 android:text="@string/terms_title"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorAccent"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
