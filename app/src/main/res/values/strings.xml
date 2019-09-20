@@ -91,8 +91,8 @@
 
     <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
     <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
-    <string name="why_install_app_description">Wjy did you install %1$s?</string>
-    <string name="why_uninstall_app_description">Wjy did you uninstall %1$s?</string>
+    <string name="why_install_app_description">Why did you install %1$s?</string>
+    <string name="why_uninstall_app_description">Why did you uninstall %1$s?</string>
 
     <!--  App uninstall survey questions  -->
     <string name="app_uninstall_question_why">1. Why did you uninstall the app?</string>
