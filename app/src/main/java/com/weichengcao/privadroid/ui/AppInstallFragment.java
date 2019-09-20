@@ -29,9 +29,9 @@ import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerSurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.createEventTypeFragmentBundle;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 
 public class AppInstallFragment extends Fragment {
 

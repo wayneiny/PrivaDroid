@@ -1,6 +1,7 @@
 package com.weichengcao.privadroid.ui.Events;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.BaseServerEvent;
+import com.weichengcao.privadroid.ui.SurveyQuestions.AppInstallSurveyActivity;
+import com.weichengcao.privadroid.ui.SurveyQuestions.AppUninstallSurveyActivity;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 
 import java.util.ArrayList;
 
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_UNINSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_ALREADY_SURVEYED_INTENT_KEY;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_ID_INTENT_KEY;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventListItemViewHolder> {
 
     public static class EventListItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public TextView description;
+        TextView title;
+        TextView description;
+        public View view;
 
-        public EventListItemViewHolder(View itemView) {
+        EventListItemViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             title = itemView.findViewById(R.id.event_list_item_card_title);
             description = itemView.findViewById(R.id.event_list_item_card_description);
         }
@@ -37,10 +44,28 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                 case APP_INSTALL_EVENT_TYPE:
                     description.setText(context.getString(R.string.why_install_app_on_date_list_item_description,
                             event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime())));
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, AppInstallSurveyActivity.class);
+                            intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
+                            intent.putExtra(EVENT_ALREADY_SURVEYED_INTENT_KEY, event.isEventSurveyed());
+                            context.startActivity(intent);
+                        }
+                    });
                     break;
                 case APP_UNINSTALL_EVENT_TYPE:
                     description.setText(context.getString(R.string.why_uninstall_app_on_date_list_item_description,
                             event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime())));
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, AppUninstallSurveyActivity.class);
+                            intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
+                            intent.putExtra(EVENT_ALREADY_SURVEYED_INTENT_KEY, event.isEventSurveyed());
+                            context.startActivity(intent);
+                        }
+                    });
                     break;
             }
         }
@@ -48,17 +73,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     private Context mContext;
     private ArrayList<BaseServerEvent> mDataset;
-    private int mEventType;
 
-    public EventListAdapter(Context context, ArrayList<BaseServerEvent> events, int eventType) {
+    public EventListAdapter(Context context, ArrayList<BaseServerEvent> events) {
         mContext = context;
         mDataset = events;
-        mEventType = eventType;
     }
 
+    @NonNull
     @Override
     public EventListAdapter.EventListItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list_item, parent, false);
         return new EventListItemViewHolder(v);
     }

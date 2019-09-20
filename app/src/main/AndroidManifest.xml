@@ -39,6 +39,14 @@
         <activity
             android:name=".ui.DemographicActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.SurveyQuestions.AppInstallSurveyActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".ui.SurveyQuestions.AppUninstallSurveyActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="InnerclassSeparator" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

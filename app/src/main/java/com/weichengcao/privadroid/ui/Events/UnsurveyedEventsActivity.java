@@ -17,8 +17,8 @@ import com.weichengcao.privadroid.util.EventUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.UNSURVEYED_EVENT;
 import static com.weichengcao.privadroid.util.EventUtil.getProperDataHashMap;
 
@@ -43,7 +43,7 @@ public class UnsurveyedEventsActivity extends AppCompatActivity {
         if (intent != null) {
             mCurrentEventType = intent.getIntExtra(EVENT_TYPE, APP_INSTALL_EVENT_TYPE);
         } else {
-            Toast.makeText(this, "No event type. Exiting.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.invalid_event_type, Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -63,7 +63,7 @@ public class UnsurveyedEventsActivity extends AppCompatActivity {
         HashMap<String, BaseServerEvent> properEventsMap = getProperDataHashMap(mCurrentEventType, UNSURVEYED_EVENT);
         if (properEventsMap != null) {
             ArrayList<BaseServerEvent> sortedEvents = EventUtil.sortEventsBasedOnTime(properEventsMap, false);
-            mAdapter = new EventListAdapter(this, sortedEvents, mCurrentEventType);
+            mAdapter = new EventListAdapter(this, sortedEvents);
             mEventsView.setAdapter(mAdapter);
         }
     }

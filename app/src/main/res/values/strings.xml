@@ -92,6 +92,62 @@
     <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
     <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
 
+    <!--  App install survey questions  -->
+    <string name="app_install_question_why">1. Why did you install the app?</string>
+    <array name="app_install_options_why">
+        <item>Select an option</item>
+        <item>I want to try it out</item>
+        <item>The app is useful</item>
+        <item>The app is part of a product/service I use</item>
+        <item>The app is cool or fun to use</item>
+        <item>I trust the app or the company making the app</item>
+        <item>My friends/family use it</item>
+        <item>It was the only app of its kind (no other apps provide the same functionality)</item>
+        <item>I was required to install it</item>
+        <item>I was offered something in return (e.g. credits, monetary rewards, discount)</item>
+        <item>The app has fewer permissions than other apps like it</item>
+        <item>I don’t know</item>
+        <item>None of the above</item>
+    </array>
+
+    <string name="app_install_question_factors">2. Which factors influenced your decision to install the app?</string>
+    <array name="app_install_options_factors">
+        <item>Select an option</item>
+        <item>App rating</item>
+        <item>App popularity</item>
+        <item>Individual user reviews</item>
+        <item>Requested permission</item>
+        <item>The company creating the app</item>
+        <item>The app is free / price is reasonable</item>
+        <item>App functionality</item>
+        <item>None of the above</item>
+    </array>
+
+    <string name="app_install_question_know_permission">3. Do you know what permissions this app requires?</string>
+    <array name="app_install_options_know_permission">
+        <item>Select an option</item>
+        <item>Yes</item>
+        <item>No</item>
+        <item>I\'m not sure</item>
+    </array>
+
+    <string name="app_install_question_which_permission_think">4. Which of the following permission do you think the app requires?</string>
+    <array name="app_install_options_which_permission_think">
+        <item>Select an option</item>
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t know</item>
+    </array>
+
     <!--  Survey question select an option  -->
     <string name="select_an_option">Select an option</string>
 
@@ -393,4 +449,7 @@
 
     <!--  Toast  -->
     <string name="finish_all_demographic_questions_toast">Please finish all demographic questions.</string>
+    <string name="finish_all_event_survey_questions_toast">Please finish all survey questions.</string>
+    <string name="finished_survey_toast">Submitted!</string>
+    <string name="invalid_event_type">Invalid event type.</string>
 </resources>

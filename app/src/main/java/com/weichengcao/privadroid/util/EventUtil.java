@@ -11,11 +11,21 @@ import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInsta
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_INSTALL_EVENT_TYPE;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_UNINSTALL_EVENT_TYPE;
 
 public class EventUtil {
-    // common
+    /**
+     * Intent keys
+     */
+    public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
+    public static final String EVENT_ALREADY_SURVEYED_INTENT_KEY = "EVENT_ALREADY_SURVEYED_INTENT_KEY";
+
+    /**
+     * Common to App Install/App Uninstall/Permission
+     */
+    public static final String EVENT_TYPE = "EVENT_TYPE";
+    public static final int APP_INSTALL_EVENT_TYPE = 0;
+    public static final int APP_UNINSTALL_EVENT_TYPE = 1;
+    public static final int PERMISSION_EVENT_TYPE = 2;
     public static final String USER_AD_ID = "ad_id";
     public static final String LOGGED_TIME = "logged_time";
     public static final String APP_NAME = "app_name";
@@ -23,6 +33,7 @@ public class EventUtil {
     public static final String APP_VERSION = "app_version";
     public static final String SURVEY_ID = "survey_id";
     public static final String SYNCED = "synced";   // synced to Firestore storage, only used in local storage
+    public static final String MULTIPLE_CHOICES_DELIMITER = "_";
 
     // join event
     public static final String JOIN_EVENT_COLLECTION = "JOIN_EVENT_COLLECTION";
@@ -31,8 +42,20 @@ public class EventUtil {
     public static final String ANDROID_VERSION = "android_version";
     public static final String CARRIER = "carrier";
 
-    // app install
+    /**
+     * App install survey
+     */
+    public static final String WHY_INSTALL = "why_install";
+    public static final String KNOW_PERMISSION_REQUIRED = "know_permission_required";
+    public static final String INSTALL_FACTORS = "install_factors";
+    public static final String PERMISSIONS_THINK_REQUIRED = "permission_think_required";
+    public static final String EVENT_SERVER_ID = "event_server_id";
+
+    /**
+     * App install
+     */
     public static final String APP_INSTALL_COLLECTION = "APP_INSTALL_COLLECTION";
+    public static final String APP_INSTALL_SURVEY_COLLECTION = "APP_INSTALL_SURVEY_COLLECTION";
 
     // app uninstall
     public static final String APP_UNINSTALL_COLLECTION = "APP_UNINSTALL_COLLECTION";
@@ -52,7 +75,7 @@ public class EventUtil {
     public static final String AGE = "age";
     public static final String GENDER = "gender";
     public static final String INDUSTRY = "industry";
-    public static final String DAILY_USAGE= "daily_usage";
+    public static final String DAILY_USAGE = "daily_usage";
     public static final String STATUS = "status";
     public static final String COUNTRY = "country";
 

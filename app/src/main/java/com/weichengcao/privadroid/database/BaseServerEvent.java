@@ -58,4 +58,12 @@ public class BaseServerEvent {
     public int getEventType() {
         return eventType;
     }
+
+    public String getServerId() {
+        return serverId;
+    }
+
+    public void setSurveyId(String surveyId) {
+        this.surveyId = surveyId;
+    }
 }

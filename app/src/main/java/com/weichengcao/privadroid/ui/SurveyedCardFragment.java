@@ -14,7 +14,7 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.ui.Events.SurveyedEventsActivity;
 
-import static com.weichengcao.privadroid.ui.MainScreenActivity.EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_TYPE;
 
 public class SurveyedCardFragment extends Fragment {
 
@@ -28,7 +28,7 @@ public class SurveyedCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), SurveyedEventsActivity.class);
-                intent.putExtra(EVENT_TYPE, PrivaDroidApplication.getCurrentyHandledEventType());
+                intent.putExtra(EVENT_TYPE, PrivaDroidApplication.getCurrentlyHandledEventType());
                 startActivity(intent);
             }
         });

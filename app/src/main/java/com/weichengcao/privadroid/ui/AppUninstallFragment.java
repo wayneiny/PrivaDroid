@@ -29,9 +29,9 @@ import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents;
-import static com.weichengcao.privadroid.ui.MainScreenActivity.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.createEventTypeFragmentBundle;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 
 public class AppUninstallFragment extends Fragment {
 

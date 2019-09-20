@@ -57,9 +57,7 @@ public class ExperimentEventFactory {
         event.put(PACKAGE_NAME, packageName);
         event.put(APP_VERSION, version);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
-
-        // TODO: currently don't survey the users
-        event.put(SURVEY_ID, Boolean.toString(false));
+        event.put(SURVEY_ID, "");
 
         return event;
     }
@@ -72,9 +70,7 @@ public class ExperimentEventFactory {
         event.put(APP_VERSION, version);
         event.put(APP_NAME, appName);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
-
-        // TODO: currently don't survey the users
-        event.put(SURVEY_ID, Boolean.toString(false));
+        event.put(SURVEY_ID, "");
 
         return event;
     }
@@ -91,9 +87,7 @@ public class ExperimentEventFactory {
         event.put(GRANTED, granted);
         event.put(INITIATED_BY_USER, userInitiated);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
-
-        // TODO: currently don't survey the users
-        event.put(SURVEY_ID, Boolean.toString(false));
+        event.put(SURVEY_ID, "");
 
         return event;
     }
@@ -115,5 +109,22 @@ public class ExperimentEventFactory {
         event.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
 
         return event;
+    }
+
+    public static HashMap<String, String> createAppInstallSurveyEvent(String why, String factors,
+                                                                      String knowPermission,
+                                                                      String thinkPermissions,
+                                                                      String eventServerId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.WHY_INSTALL, why);
+        res.put(EventUtil.INSTALL_FACTORS, factors);
+        res.put(EventUtil.KNOW_PERMISSION_REQUIRED, knowPermission);
+        res.put(EventUtil.PERMISSIONS_THINK_REQUIRED, thinkPermissions);
+        res.put(EventUtil.EVENT_SERVER_ID, eventServerId);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+
+        return res;
     }
 }

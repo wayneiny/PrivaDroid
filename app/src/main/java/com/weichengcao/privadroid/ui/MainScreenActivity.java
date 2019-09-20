@@ -14,17 +14,14 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
+
 public class MainScreenActivity extends FragmentActivity {
 
     private BottomNavigationView mBottomNavigationView;
-
-    /**
-     * Common to App Install/App Uninstall/Permission
-     */
-    public static final String EVENT_TYPE = "EVENT_TYPE";
-    public static final int APP_INSTALL_EVENT_TYPE = 0;
-    public static final int APP_UNINSTALL_EVENT_TYPE = 1;
-    public static final int PERMISSION_EVENT_TYPE = 2;
 
     public static Bundle createEventTypeFragmentBundle(int eventType) {
         Bundle res = new Bundle();
@@ -50,7 +47,7 @@ public class MainScreenActivity extends FragmentActivity {
          * Show the app install screen by default.
          */
         pushFragment(new AppInstallFragment());
-        PrivaDroidApplication.setCurrentyHandledEventType(APP_INSTALL_EVENT_TYPE);
+        PrivaDroidApplication.setCurrentlyHandledEventType(APP_INSTALL_EVENT_TYPE);
 
         /**
          * Cache app info if not already.
@@ -68,15 +65,15 @@ public class MainScreenActivity extends FragmentActivity {
         switch (menuItem.getItemId()) {
             case R.id.app_install:
                 pushFragment(new AppInstallFragment());
-                PrivaDroidApplication.setCurrentyHandledEventType(APP_INSTALL_EVENT_TYPE);
+                PrivaDroidApplication.setCurrentlyHandledEventType(APP_INSTALL_EVENT_TYPE);
                 break;
             case R.id.app_uninstall:
                 pushFragment(new AppUninstallFragment());
-                PrivaDroidApplication.setCurrentyHandledEventType(APP_UNINSTALL_EVENT_TYPE);
+                PrivaDroidApplication.setCurrentlyHandledEventType(APP_UNINSTALL_EVENT_TYPE);
                 break;
             case R.id.permission:
                 pushFragment(new PermissionFragment());
-                PrivaDroidApplication.setCurrentyHandledEventType(PERMISSION_EVENT_TYPE);
+                PrivaDroidApplication.setCurrentlyHandledEventType(PERMISSION_EVENT_TYPE);
                 break;
             case R.id.global:
                 pushFragment(new CommunityFragment());

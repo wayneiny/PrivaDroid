@@ -29,6 +29,7 @@ public class OnDeviceStorageProvider {
     public static final String APP_UNINSTALL_FILE_NAME = "app_uninstall_events.json";
     public static final String PERMISSION_FILE_NAME = "permission_events.json";
     public static final String DEMOGRAPHIC_FILE_NAME = "demographic_event.json";
+    public static final String APP_INSTALL_SURVEY_FILE_NAME = "app_install_survey_events.json";
 
     private static JSONObject readJsonEventFromFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
