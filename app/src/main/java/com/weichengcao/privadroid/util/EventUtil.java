@@ -14,13 +14,13 @@ import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUnins
 
 public class EventUtil {
     /**
-     * Intent keys
+     * Intent keys.
      */
     public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
     public static final String EVENT_ALREADY_SURVEYED_INTENT_KEY = "EVENT_ALREADY_SURVEYED_INTENT_KEY";
 
     /**
-     * Common to App Install/App Uninstall/Permission
+     * Common to App Install/App Uninstall/Permission.
      */
     public static final String EVENT_TYPE = "EVENT_TYPE";
     public static final int APP_INSTALL_EVENT_TYPE = 0;
@@ -43,7 +43,7 @@ public class EventUtil {
     public static final String CARRIER = "carrier";
 
     /**
-     * App install survey
+     * App install survey.
      */
     public static final String WHY_INSTALL = "why_install";
     public static final String KNOW_PERMISSION_REQUIRED = "know_permission_required";
@@ -52,13 +52,22 @@ public class EventUtil {
     public static final String EVENT_SERVER_ID = "event_server_id";
 
     /**
-     * App install
+     * App uninstall survey.
+     */
+    public static final String WHY_UNINSTALL = "why_uninstall";
+    public static final String PERMISSION_REMEMBERED_REQUESTED = "permission_remembered_requested";
+
+    /**
+     * App install.
      */
     public static final String APP_INSTALL_COLLECTION = "APP_INSTALL_COLLECTION";
     public static final String APP_INSTALL_SURVEY_COLLECTION = "APP_INSTALL_SURVEY_COLLECTION";
 
-    // app uninstall
+    /**
+     * App uninstall.
+     */
     public static final String APP_UNINSTALL_COLLECTION = "APP_UNINSTALL_COLLECTION";
+    public static final String APP_UNINSTALL_SURVEY_COLLECTION = "APP_UNINSTALL_SURVEY_COLLECTION";
 
     // permission
     public static final String PERMISSION_COLLECTION = "PERMISSION_COLLECTION";

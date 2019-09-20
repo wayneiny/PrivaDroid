@@ -92,6 +92,39 @@
     <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
     <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
 
+    <!--  App uninstall survey questions  -->
+    <string name="app_uninstall_question_why">1. Why did you uninstall the app?</string>
+    <array name="app_uninstall_options_why">
+        <item>Select an option</item>
+        <item>I no longer use the app</item>
+        <item>To free up space or speed up my device</item>
+        <item>I didn\’t like the app</item>
+        <item>The app is not working as expected</item>
+        <item>The app is crashing/very slow</item>
+        <item>Because of advertisements in the app</item>
+        <item>Because of in-app purchases</item>
+        <item>The app required permissions I wasn\’t comfortable granting</item>
+        <item>I don\’t know</item>
+        <item>None of the above</item>
+    </array>
+
+    <string name="app_uninstall_question_permission_remembered_requested">2. Do you remember if the app requires any of the following permissions?</string>
+    <array name="app_uninstall_options_permission_remembered_requested">
+        <item>Select an option</item>
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t remember</item>
+    </array>
+
     <!--  App install survey questions  -->
     <string name="app_install_question_why">1. Why did you install the app?</string>
     <array name="app_install_options_why">

@@ -16,6 +16,7 @@ import static com.weichengcao.privadroid.util.EventUtil.CARRIER;
 import static com.weichengcao.privadroid.util.EventUtil.COUNTRY;
 import static com.weichengcao.privadroid.util.EventUtil.DAILY_USAGE;
 import static com.weichengcao.privadroid.util.EventUtil.EDUCATION;
+import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
 import static com.weichengcao.privadroid.util.EventUtil.GENDER;
 import static com.weichengcao.privadroid.util.EventUtil.GRANTED;
 import static com.weichengcao.privadroid.util.EventUtil.INCOME;
@@ -122,6 +123,19 @@ public class ExperimentEventFactory {
         res.put(EventUtil.KNOW_PERMISSION_REQUIRED, knowPermission);
         res.put(EventUtil.PERMISSIONS_THINK_REQUIRED, thinkPermissions);
         res.put(EventUtil.EVENT_SERVER_ID, eventServerId);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+
+        return res;
+    }
+
+    public static HashMap<String, String> createAppUninstallSurveyEvent(String why, String permissionsRememberedRequested,
+                                                                        String eventServerId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.WHY_UNINSTALL, why);
+        res.put(EventUtil.PERMISSION_REMEMBERED_REQUESTED, permissionsRememberedRequested);
+        res.put(EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
 
