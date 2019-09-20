@@ -53,7 +53,7 @@
             android:value="ca-app-pub-1063585474940344~2699806720" />
 
         <receiver
-            android:name=".sensors.SystemBroadcastReceiver"
+            android:name=".sensors.AppPackagesBroadcastReceiver"
             android:enabled="true">
 
             <intent-filter>

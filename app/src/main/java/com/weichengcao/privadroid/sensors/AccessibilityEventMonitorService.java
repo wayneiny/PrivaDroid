@@ -20,9 +20,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.findPackageNameFromAppName;
-import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.getApplicationNameFromPackageName;
-import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.getApplicationVersion;
+import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
+import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
+import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
 
 public class AccessibilityEventMonitorService extends AccessibilityService {

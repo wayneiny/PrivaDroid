@@ -9,7 +9,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import static com.weichengcao.privadroid.sensors.SystemBroadcastReceiver.getApplicationNameFromPackageName;
+import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 
 public class ApplicationInfoPreferences {
 

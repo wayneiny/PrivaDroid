@@ -15,9 +15,9 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.HashMap;
 import java.util.List;
 
-public class SystemBroadcastReceiver extends BroadcastReceiver {
+public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String TAG = SystemBroadcastReceiver.class.getSimpleName();
+    private static final String TAG = AppPackagesBroadcastReceiver.class.getSimpleName();
 
     private PackageManager packageManager;
 
