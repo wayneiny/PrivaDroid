@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
-import static com.weichengcao.privadroid.util.EventUtil.EVENT_ALREADY_SURVEYED_INTENT_KEY;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_ID_INTENT_KEY;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventListItemViewHolder> {
@@ -49,7 +48,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         public void onClick(View v) {
                             Intent intent = new Intent(context, AppInstallSurveyActivity.class);
                             intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
-                            intent.putExtra(EVENT_ALREADY_SURVEYED_INTENT_KEY, event.isEventSurveyed());
                             context.startActivity(intent);
                         }
                     });
@@ -62,7 +60,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         public void onClick(View v) {
                             Intent intent = new Intent(context, AppUninstallSurveyActivity.class);
                             intent.putExtra(EVENT_ID_INTENT_KEY, event.getServerId());
-                            intent.putExtra(EVENT_ALREADY_SURVEYED_INTENT_KEY, event.isEventSurveyed());
                             context.startActivity(intent);
                         }
                     });

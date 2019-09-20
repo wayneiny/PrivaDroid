@@ -1,5 +1,7 @@
 package com.weichengcao.privadroid.database;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,10 +34,12 @@ public class FirestoreProvider {
 
     private FirebaseFirestore mFirestore;
     private UserPreferences mUserPreferences;
+    private Context mContext;
 
     public FirestoreProvider() {
         mFirestore = FirebaseFirestore.getInstance();
         mUserPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+        mContext = PrivaDroidApplication.getAppContext();
     }
 
     /**

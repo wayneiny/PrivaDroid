@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,6 +34,8 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.KNOW_PERMISSION_REQUIRED;
 
@@ -65,81 +69,95 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
             }
         });
 
+        mTitle = findViewById(R.id.activity_app_install_survey_title);
+        mAnsweredOn = findViewById(R.id.app_install_survey_answered_on);
+
         Intent intent = getIntent();
         if (intent != null) {
             String eventServerId = intent.getStringExtra(EventUtil.EVENT_ID_INTENT_KEY);
-            boolean surveyed = intent.getBooleanExtra(EventUtil.EVENT_ALREADY_SURVEYED_INTENT_KEY, false);
 
             /**
-             * Get proper event from proper hash map.
+             * Get proper event from Firestore.
              */
-            if (surveyed) {
-                currentAppInstallServerEvent = (AppInstallServerEvent) PrivaDroidApplication.serverId2appInstallServerSurveyedEvents.get(eventServerId);
-            } else {
-                currentAppInstallServerEvent = (AppInstallServerEvent) PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents.get(eventServerId);
-            }
+            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
+            DocumentReference eventDocRef = appInstallEventCollectionRef.document(eventServerId);
+            eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if (doc.exists()) {
+                            currentAppInstallServerEvent = new AppInstallServerEvent(doc.getId(),
+                                    doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.APP_NAME),
+                                    doc.getString(EventUtil.APP_VERSION), doc.getString(EventUtil.LOGGED_TIME),
+                                    doc.getString(EventUtil.PACKAGE_NAME), doc.getString(EventUtil.SURVEY_ID),
+                                    APP_INSTALL_EVENT_TYPE);
 
-            /**
-             * Set up UI elements.
-             */
-            mTitle = findViewById(R.id.activity_app_install_survey_title);
-            mTitle.setText(currentAppInstallServerEvent.getAppName());
-            mAnsweredOn = findViewById(R.id.app_install_survey_answered_on);
-
-            /**
-             * Get survey from server if surveyed.
-             */
-            if (surveyed) {
-                CollectionReference appInstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_SURVEY_COLLECTION);
-                Query query = appInstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppInstallServerEvent.getServerId());
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            AppInstallServerSurvey appInstallServerSurvey = null;
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                appInstallServerSurvey = new AppInstallServerSurvey(
-                                        doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.LOGGED_TIME),
-                                        EventUtil.APP_INSTALL_EVENT_TYPE, doc.getString(EventUtil.WHY_INSTALL),
-                                        doc.getString(EventUtil.INSTALL_FACTORS), doc.getString(KNOW_PERMISSION_REQUIRED),
-                                        doc.getString(EventUtil.PERMISSIONS_THINK_REQUIRED), currentAppInstallServerEvent.getServerId(),
-                                        doc.getId());
-                            }
-                            if (appInstallServerSurvey == null) {
-                                return;
-                            }
+                            boolean surveyed = currentAppInstallServerEvent.isEventSurveyed();
 
                             /**
-                             * Set the survey for the current app install event
+                             * Set up UI elements.
                              */
-                            currentAppInstallServerSurvey = appInstallServerSurvey;
-                            PrivaDroidApplication.serverId2appInstallSurveys.put(appInstallServerSurvey.getServerId(), appInstallServerSurvey);
+                            mTitle.setText(currentAppInstallServerEvent.getAppName());
 
                             /**
-                             * Populate answers and set up answered on
+                             * Get survey from server if surveyed.
                              */
-                            mAnsweredOn.setVisibility(View.VISIBLE);
-                            mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
-                                    DatetimeUtil.convertIsoToReadableFormat(appInstallServerSurvey.getLoggedTime())));
+                            if (surveyed) {
+                                CollectionReference appInstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_SURVEY_COLLECTION);
+                                Query query = appInstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppInstallServerEvent.getServerId());
+                                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            AppInstallServerSurvey appInstallServerSurvey = null;
+                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                appInstallServerSurvey = new AppInstallServerSurvey(
+                                                        doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.LOGGED_TIME),
+                                                        EventUtil.APP_INSTALL_EVENT_TYPE, doc.getString(EventUtil.WHY_INSTALL),
+                                                        doc.getString(EventUtil.INSTALL_FACTORS), doc.getString(KNOW_PERMISSION_REQUIRED),
+                                                        doc.getString(EventUtil.PERMISSIONS_THINK_REQUIRED), currentAppInstallServerEvent.getServerId(),
+                                                        doc.getId());
+                                            }
+                                            if (appInstallServerSurvey == null) {
+                                                return;
+                                            }
 
-                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_why);
-                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_factors);
-                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_know_permission);
-                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_which_permissions);
+                                            /**
+                                             * Set the survey for the current app install event
+                                             */
+                                            currentAppInstallServerSurvey = appInstallServerSurvey;
+                                            PrivaDroidApplication.serverId2appInstallSurveys.put(appInstallServerSurvey.getServerId(), appInstallServerSurvey);
+
+                                            /**
+                                             * Populate answers and set up answered on
+                                             */
+                                            mAnsweredOn.setVisibility(View.VISIBLE);
+                                            mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
+                                                    DatetimeUtil.convertIsoToReadableFormat(appInstallServerSurvey.getLoggedTime())));
+
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_why);
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_factors);
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_know_permission);
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_install_spinner_which_permissions);
+                                        }
+                                    }
+                                });
+                            } else {
+                                /**
+                                 * Event not surveyed:
+                                 * 1. Render submit button and hide answered on.
+                                 * 2. Validate answers.
+                                 * 3. Send to Firestore.
+                                 */
+                                mAnsweredOn.setVisibility(View.GONE);
+                            }
+
+                            setUpSubmit();
                         }
                     }
-                });
-            } else {
-                /**
-                 * Event not surveyed:
-                 * 1. Render submit button and hide answered on.
-                 * 2. Validate answers.
-                 * 3. Send to Firestore.
-                 */
-                mAnsweredOn.setVisibility(View.GONE);
-            }
-
-            setUpSubmit();
+                }
+            });
         }
     }
 

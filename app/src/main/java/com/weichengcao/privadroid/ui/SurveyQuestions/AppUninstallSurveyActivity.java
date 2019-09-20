@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -32,6 +34,8 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
 
 public class AppUninstallSurveyActivity extends AppCompatActivity {
@@ -64,78 +68,92 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
             }
         });
 
+        mTitle = findViewById(R.id.activity_app_uninstall_survey_title);
+        mAnsweredOn = findViewById(R.id.app_uninstall_survey_answered_on);
+
         Intent intent = getIntent();
         if (intent != null) {
             String eventServerId = intent.getStringExtra(EventUtil.EVENT_ID_INTENT_KEY);
-            boolean surveyed = intent.getBooleanExtra(EventUtil.EVENT_ALREADY_SURVEYED_INTENT_KEY, false);
 
             /**
-             * Get proper event from proper hash map.
+             * Get proper event from Firestore.
              */
-            if (surveyed) {
-                currentAppUninstallServerEvent = (AppUninstallServerEvent) PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents.get(eventServerId);
-            } else {
-                currentAppUninstallServerEvent = (AppUninstallServerEvent) PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents.get(eventServerId);
-            }
+            CollectionReference appUninstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
+            DocumentReference eventDocRef = appUninstallEventCollectionRef.document(eventServerId);
+            eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot doc = task.getResult();
+                        if (doc.exists()) {
+                            currentAppUninstallServerEvent = new AppUninstallServerEvent(doc.getId(),
+                                    doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.APP_NAME),
+                                    doc.getString(EventUtil.APP_VERSION), doc.getString(EventUtil.LOGGED_TIME),
+                                    doc.getString(EventUtil.PACKAGE_NAME), doc.getString(EventUtil.SURVEY_ID),
+                                    APP_UNINSTALL_EVENT_TYPE);
 
-            /**
-             * Set up UI elements.
-             */
-            mTitle = findViewById(R.id.activity_app_uninstall_survey_title);
-            mTitle.setText(currentAppUninstallServerEvent.getAppName());
-            mAnsweredOn = findViewById(R.id.app_uninstall_survey_answered_on);
-
-            /**
-             * Get survey from server if surveyed.
-             */
-            if (surveyed) {
-                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_SURVEY_COLLECTION);
-                Query query = appUninstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppUninstallServerEvent.getServerId());
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            AppUninstallServerSurvey appUninstallServerSurvey = null;
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                appUninstallServerSurvey = new AppUninstallServerSurvey(
-                                        doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.LOGGED_TIME),
-                                        EventUtil.APP_UNINSTALL_EVENT_TYPE, doc.getString(EventUtil.WHY_UNINSTALL),
-                                        doc.getString(EventUtil.PERMISSION_REMEMBERED_REQUESTED), currentAppUninstallServerEvent.getServerId(),
-                                        doc.getId());
-                            }
-                            if (appUninstallServerSurvey == null) {
-                                return;
-                            }
+                            boolean surveyed = currentAppUninstallServerEvent.isEventSurveyed();
 
                             /**
-                             * Set the survey for the current app uninstall event
+                             * Set up UI elements.
                              */
-                            currentAppUninstallServerSurvey = appUninstallServerSurvey;
-                            PrivaDroidApplication.serverId2appUninstallSurveys.put(appUninstallServerSurvey.getServerId(), appUninstallServerSurvey);
+                            mTitle.setText(currentAppUninstallServerEvent.getAppName());
 
                             /**
-                             * Populate answers and set up answered on
+                             * Get survey from server if surveyed.
                              */
-                            mAnsweredOn.setVisibility(View.VISIBLE);
-                            mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
-                                    DatetimeUtil.convertIsoToReadableFormat(appUninstallServerSurvey.getLoggedTime())));
+                            if (surveyed) {
+                                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_SURVEY_COLLECTION);
+                                Query query = appUninstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppUninstallServerEvent.getServerId());
+                                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful() && task.getResult() != null) {
+                                            AppUninstallServerSurvey appUninstallServerSurvey = null;
+                                            for (QueryDocumentSnapshot doc : task.getResult()) {
+                                                appUninstallServerSurvey = new AppUninstallServerSurvey(
+                                                        doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.LOGGED_TIME),
+                                                        EventUtil.APP_UNINSTALL_EVENT_TYPE, doc.getString(EventUtil.WHY_UNINSTALL),
+                                                        doc.getString(EventUtil.PERMISSION_REMEMBERED_REQUESTED), currentAppUninstallServerEvent.getServerId(),
+                                                        doc.getId());
+                                            }
+                                            if (appUninstallServerSurvey == null) {
+                                                return;
+                                            }
 
-                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_why);
-                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_permission_remembered_requested);
+                                            /**
+                                             * Set the survey for the current app uninstall event
+                                             */
+                                            currentAppUninstallServerSurvey = appUninstallServerSurvey;
+                                            PrivaDroidApplication.serverId2appUninstallSurveys.put(appUninstallServerSurvey.getServerId(), appUninstallServerSurvey);
+
+                                            /**
+                                             * Populate answers and set up answered on
+                                             */
+                                            mAnsweredOn.setVisibility(View.VISIBLE);
+                                            mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
+                                                    DatetimeUtil.convertIsoToReadableFormat(appUninstallServerSurvey.getLoggedTime())));
+
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_why);
+                                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_permission_remembered_requested);
+                                        }
+                                    }
+                                });
+                            } else {
+                                /**
+                                 * Event not surveyed:
+                                 * 1. Render submit button and hide answered on.
+                                 * 2. Validate answers.
+                                 * 3. Send to Firestore.
+                                 */
+                                mAnsweredOn.setVisibility(View.GONE);
+                            }
+
+                            setUpSubmit();
                         }
                     }
-                });
-            } else {
-                /**
-                 * Event not surveyed:
-                 * 1. Render submit button and hide answered on.
-                 * 2. Validate answers.
-                 * 3. Send to Firestore.
-                 */
-                mAnsweredOn.setVisibility(View.GONE);
-            }
-
-            setUpSubmit();
+                }
+            });
         }
     }
 
