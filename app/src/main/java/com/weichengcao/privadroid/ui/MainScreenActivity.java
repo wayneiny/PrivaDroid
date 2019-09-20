@@ -1,5 +1,9 @@
 package com.weichengcao.privadroid.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.sensors.SystemBroadcastReceiver;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
@@ -57,6 +62,15 @@ public class MainScreenActivity extends FragmentActivity {
             applicationInfoPreferences.cacheAppInfo();
             applicationInfoPreferences.setCachedAppInfo(true);
         }
+
+//        /**
+//         * Register broadcast receiver for app install and app uninstall.
+//         */
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
+//        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
+//        intentFilter.addDataScheme("package");
+//        registerReceiver(new SystemBroadcastReceiver(), intentFilter);
     }
 
     private void selectFragment(MenuItem menuItem) {
