@@ -487,4 +487,10 @@
     <string name="finish_all_event_survey_questions_toast">Please finish all survey questions.</string>
     <string name="finished_survey_toast">Submitted!</string>
     <string name="invalid_event_type">Invalid event type.</string>
+
+    <!--  Accessibility screen texts  -->
+    <string name="apps_screen_text">Apps</string>
+    <string name="app_permissions_screen_text">App permissions</string>
+    <string name="permission_switch_status_on_screen_text">ON</string>
+    <string name="permission_switch_status_off_screen_text">OFF</string>
 </resources>
