@@ -56,6 +56,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+            Log.d(TAG, "Received M accessibility event.");
             MarshmallowAccessibilityHandler.processAccessiblityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
             Log.i(TAG, "Accessibility Event in N:24 version");

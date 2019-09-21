@@ -11,6 +11,7 @@ import com.weichengcao.privadroid.util.AndroidSdkConstants;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.RuntimePermissionAppUtil;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,6 +35,9 @@ public class MarshmallowAccessibilityHandler {
      * UI ids.
      */
     private static final String APP_NAME_ID_IN_APP_PERMISSIONS_SCREEN = "com.android.packageinstaller:id/name";
+    private static final String PERMISSION_RECYCLER_VIEW_ID_IN_APP_PERMISSIONS_SCREEN = "com.android.packageinstaller:id/list";
+    private static final String PERMISSION_TEXT_VIEW_ID_IN_APP_PERMISSIONS_LIST_SINGLE_ROW = "android:id/title";
+    private static final String PERMISSION_SWITCH_ID_IN_APP_PERMISSIONS_LIST_SINGLE_ROW = "com.android.packageinstaller:id/switchWidget";
 
     private static String currentlyHandledAppPackage = null;
     private static String currentlyHandledAppName = null;
@@ -45,6 +49,10 @@ public class MarshmallowAccessibilityHandler {
     private static boolean insideSettingsAppListScreenOrChildren = false;
     private static boolean insideSettingsAppPermissionsScreen = false;
 
+    private static boolean runIntoPermissionDenyWarning = false;
+    private static final String BASIC_FEATURE_PERMISSION_DISABLE_MESSAGE_VIEW_ID = "android:id/message";
+    private static HashMap<String, String> permissionNames2permissionSwitchStatus = new HashMap<>();
+
     public static void processAccessiblityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         AccessibilityNodeInfo source = event.getSource();
@@ -55,6 +63,7 @@ public class MarshmallowAccessibilityHandler {
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
                     insideSettingsAppListScreenOrChildren = true;
+                    runIntoPermissionDenyWarning = false;
 
                     currentlyHandledAppName = null;
                     currentlyHandledAppPackage = null;
@@ -64,25 +73,100 @@ public class MarshmallowAccessibilityHandler {
                     currentlyPermissionGranted = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
                     insideSettingsAppPermissionsScreen = true;
+                    runIntoPermissionDenyWarning = false;
 
-                    currentlyHandledAppName = null;
-                    currentlyHandledAppPackage = null;
-                    currentlyHandledAppVersion = null;
-                    currentlyHandledPermission = null;
-                    currentlyInitiatedByUser = null;
-                    currentlyPermissionGranted = null;
-
-                    extractAppNameFromSettingsAppPermissionsScreen(source);
+                    extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
+                } else if (isPermissionDenyWarningDialog(source)) {
+                    runIntoPermissionDenyWarning = true;
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
-                if (isPermissionsDialogAction(source)) {
+                if (!runIntoPermissionDenyWarning && isPermissionsDialogAction(source)) {
                     processPermissionDialogAction(source);
+
+                    sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
+                    /**
+                     * Only send the permission event to server if not encountering permission deny warning dialog.
+                     * NOTE: Detection of permission deny warning happens after detection of click, causing incorrect permission grant event. Can log the permission settings when inside App permissions screen?
+                     */
+                    if (!runIntoPermissionDenyWarning && !ifClickedPermissionDidNotChangeDueToDenyAlert()) {
+
+                        // Update permission name to switch status map
+                        permissionNames2permissionSwitchStatus.put(currentlyHandledPermission, Boolean.parseBoolean(currentlyPermissionGranted) ?
+                                PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text) :
+                                PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_off_screen_text));
+
+                        sendPermissionEventToFirebase(true);
+                    }
+                } else if (runIntoPermissionDenyWarning && isDenyingInPermissionDenyWarningDialog(source)) {
+                    runIntoPermissionDenyWarning = false;
+
+                    // Update permission name to switch status map
+                    permissionNames2permissionSwitchStatus.put(currentlyHandledPermission, Boolean.parseBoolean(currentlyPermissionGranted) ?
+                            PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text) :
+                            PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_off_screen_text));
+
                     sendPermissionEventToFirebase(true);
                 }
                 break;
         }
+    }
+
+    private static boolean ifClickedPermissionDidNotChangeDueToDenyAlert() {
+        if (permissionNames2permissionSwitchStatus == null || !permissionNames2permissionSwitchStatus.containsKey(currentlyHandledPermission)) {
+            return false;
+        }
+
+        return Boolean.parseBoolean(currentlyPermissionGranted) && permissionNames2permissionSwitchStatus.get(currentlyHandledPermission)
+                .equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text));
+    }
+
+    /**
+     * Detecting if user is denying the permission deny warning dialog.
+     */
+    private static boolean isDenyingInPermissionDenyWarningDialog(AccessibilityNodeInfo source) {
+        if (source == null) {
+            return false;
+        }
+
+        if (source.getPackageName() != null && source.getClassName() != null && source.getText() != null) {
+            String packageName = source.getPackageName().toString();
+            String className = source.getClassName().toString();
+            if ((packageName.equals(AndroidSdkConstants.PACKAGE_INSTALLER_PACKAGE)
+                    || packageName.equals(AndroidSdkConstants.GOOGLE_PACKAGE_INSTALLER_PACKAGE))
+                    && className.equals(AndroidSdkConstants.BUTTON_CLASS_NAME)) {
+                String text = source.getText().toString();
+                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.deny_in_permission_deny_warning_dialog_screen_text).toLowerCase())) {
+                    currentlyPermissionGranted = Boolean.toString(false);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Detecting if the permission deny warning dialog ("basic features disabled") shows up.
+     * Don't trigger the subsequently detected toggling permission switch because it's always ON and
+     * we should wait for users' decision on the warning dialog.
+     */
+    private static boolean isPermissionDenyWarningDialog(AccessibilityNodeInfo source) {
+        if (source == null || !insideSettingsAppPermissionsScreen) {
+            return false;
+        }
+
+        List<AccessibilityNodeInfo> warningMessageNodes = source.findAccessibilityNodeInfosByViewId(BASIC_FEATURE_PERMISSION_DISABLE_MESSAGE_VIEW_ID);
+        if (warningMessageNodes != null && warningMessageNodes.size() == 1) {
+            AccessibilityNodeInfo warningMessage = warningMessageNodes.get(0);
+            String warning = warningMessage.getText().toString();
+            if (warning.toLowerCase().contains(PrivaDroidApplication.getAppContext().getString(R.string.basic_feature_in_message_screen_text).toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -128,9 +212,10 @@ public class MarshmallowAccessibilityHandler {
     }
 
     /**
-     * Extract app name from Settings -> Apps -> App info -> App permissions screen.
+     * Extract app name from Settings -> Apps -> App info -> App permissions screen and record the
+     * current permission settings.
      */
-    private static void extractAppNameFromSettingsAppPermissionsScreen(AccessibilityNodeInfo source) {
+    private static void extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(AccessibilityNodeInfo source) {
         if (source == null || !insideSettingsAppPermissionsScreen) {
             return;
         }
@@ -145,6 +230,39 @@ public class MarshmallowAccessibilityHandler {
              */
             currentlyHandledAppPackage = AppPackagesBroadcastReceiver.findPackageNameFromAppName(currentlyHandledAppName, packageManager);
             currentlyHandledAppVersion = AppPackagesBroadcastReceiver.getApplicationVersion(currentlyHandledAppPackage, packageManager);
+        }
+
+        /**
+         * NOTE: Record the permission settings for later permission deny warning use.
+         */
+        List<AccessibilityNodeInfo> permissionRecyclerViews = source.findAccessibilityNodeInfosByViewId(PERMISSION_RECYCLER_VIEW_ID_IN_APP_PERMISSIONS_SCREEN);
+        if (permissionRecyclerViews != null && !permissionRecyclerViews.isEmpty()) {
+            AccessibilityNodeInfo recyclerView = permissionRecyclerViews.get(0);
+            int childCount = recyclerView.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                AccessibilityNodeInfo child = recyclerView.getChild(i);
+                if (child == null || child.getPackageName() == null || child.getClassName() == null) {
+                    continue;
+                }
+                /**
+                 * This level is the LinearLayout for a permission name and its switch.
+                 */
+                List<AccessibilityNodeInfo> permissionTitles = child.findAccessibilityNodeInfosByViewId(PERMISSION_TEXT_VIEW_ID_IN_APP_PERMISSIONS_LIST_SINGLE_ROW);
+                AccessibilityNodeInfo permissionTitleNode = null;
+                if (permissionTitles != null && !permissionTitles.isEmpty()) {
+                    permissionTitleNode = permissionTitles.get(0);
+
+                }
+                List<AccessibilityNodeInfo> switchTexts = child.findAccessibilityNodeInfosByViewId(PERMISSION_SWITCH_ID_IN_APP_PERMISSIONS_LIST_SINGLE_ROW);
+                AccessibilityNodeInfo switchTextNode = null;
+                if (switchTexts != null && !switchTexts.isEmpty()) {
+                    switchTextNode = switchTexts.get(0);
+                }
+                if (permissionTitleNode != null && permissionTitleNode.getText() != null
+                        && switchTextNode != null && switchTextNode.getText() != null) {
+                    permissionNames2permissionSwitchStatus.put(permissionTitleNode.getText().toString(), switchTextNode.getText().toString());
+                }
+            }
         }
     }
 
@@ -234,7 +352,7 @@ public class MarshmallowAccessibilityHandler {
                 // check if app name belongs to package name
                 if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
                         !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
-                    // TODO: change to better algo, currently compare app name to every package app name and find the right package name
+                    // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
                     currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
                 }
 
@@ -257,6 +375,9 @@ public class MarshmallowAccessibilityHandler {
         firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                 currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                 currentlyPermissionGranted, Boolean.toString(initiatedByUser)));
+
+        currentlyHandledPermission = null;
+        currentlyPermissionGranted = null;
     }
 
     /**
@@ -276,8 +397,6 @@ public class MarshmallowAccessibilityHandler {
         } else if (actionTextLower.equals(DENY_KEYWORD)) {
             currentlyPermissionGranted = Boolean.toString(false);
         }
-
-        sendPermissionEventToFirebase(false);
     }
 
     /**
