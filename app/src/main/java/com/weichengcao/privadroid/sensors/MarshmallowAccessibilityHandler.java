@@ -1,6 +1,7 @@
 package com.weichengcao.privadroid.sensors;
 
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -23,6 +24,8 @@ import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_N
 
 public class MarshmallowAccessibilityHandler {
 
+    private final static String TAG = MarshmallowAccessibilityHandler.class.getSimpleName();
+
     private final static PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
     /**
@@ -42,6 +45,7 @@ public class MarshmallowAccessibilityHandler {
     private static String currentlyHandledAppPackage = null;
     private static String currentlyHandledAppName = null;
     private static String currentlyHandledPermission = null;
+    private static String currentlyHandledSubsequentPermission = null;
     private static String currentlyHandledAppVersion = null;
     private static String currentlyInitiatedByUser = null;
     private static String currentlyPermissionGranted = null;
@@ -69,6 +73,7 @@ public class MarshmallowAccessibilityHandler {
                     currentlyHandledAppPackage = null;
                     currentlyHandledAppVersion = null;
                     currentlyHandledPermission = null;
+                    currentlyHandledSubsequentPermission = null;
                     currentlyInitiatedByUser = null;
                     currentlyPermissionGranted = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
@@ -79,6 +84,13 @@ public class MarshmallowAccessibilityHandler {
                 } else if (isPermissionDenyWarningDialog(source)) {
                     runIntoPermissionDenyWarning = true;
                 }
+                break;
+            case AccessibilityEvent.TYPE_ANNOUNCEMENT:
+                /**
+                 * NOTE: A consecutive second permission request dialog happens.
+                 */
+                processConsecutivePermissionRequestByAnApp(event);
+                Log.d(TAG, "A consecutive second permission request dialog happens.");
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (!runIntoPermissionDenyWarning && isPermissionsDialogAction(source)) {
@@ -111,6 +123,41 @@ public class MarshmallowAccessibilityHandler {
                 }
                 break;
         }
+    }
+
+    private static void extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(AccessibilityEvent event, boolean isFirstPermissionRequest) {
+        for (CharSequence eventSubText : event.getText()) {
+            Pattern permissionRegex = Pattern.compile("Allow (.*) to (.*)\\?");
+            Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
+            if (permissionMatcher.find()) {
+                String permissionText = permissionMatcher.group(2);
+                if (isFirstPermissionRequest) {
+                    currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
+                } else {
+                    currentlyHandledSubsequentPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
+                }
+                currentlyHandledAppName = permissionMatcher.group(1);
+
+                // check if app name belongs to package name
+                if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
+                        !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
+                    // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
+                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
+                }
+
+                currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
+                break;
+            }
+        }
+    }
+
+    private static void processConsecutivePermissionRequestByAnApp(AccessibilityEvent event) {
+        List<CharSequence> eventText = event.getText();
+        if (eventText == null || eventText.isEmpty()) {
+            return;
+        }
+
+        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, false);
     }
 
     private static boolean ifClickedPermissionDidNotChangeDueToDenyAlert() {
@@ -341,25 +388,7 @@ public class MarshmallowAccessibilityHandler {
         /**
          * Extract permission name and app name from dialog text
          */
-        for (CharSequence eventSubText : event.getText()) {
-            Pattern permissionRegex = Pattern.compile("Allow (.*) to (.*)\\?");
-            Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
-            if (permissionMatcher.find()) {
-                String permissionText = permissionMatcher.group(2);
-                currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                currentlyHandledAppName = permissionMatcher.group(1);
-
-                // check if app name belongs to package name
-                if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
-                        !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
-                    // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
-                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
-                }
-
-                currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-                break;
-            }
-        }
+        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, true);
     }
 
     private static void sendPermissionEventToFirebase(boolean initiatedByUser) {
@@ -376,8 +405,9 @@ public class MarshmallowAccessibilityHandler {
                 currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                 currentlyPermissionGranted, Boolean.toString(initiatedByUser)));
 
-        currentlyHandledPermission = null;
+        currentlyHandledPermission = currentlyHandledSubsequentPermission;
         currentlyPermissionGranted = null;
+        currentlyHandledSubsequentPermission = null;
     }
 
     /**
