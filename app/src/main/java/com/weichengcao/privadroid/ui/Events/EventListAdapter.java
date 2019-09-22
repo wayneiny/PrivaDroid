@@ -73,6 +73,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                             context.startActivity(intent);
                         }
                     });
+                    break;
                 case PERMISSION_EVENT_TYPE:
                     final PermissionServerEvent permissionServerEvent = (PermissionServerEvent) event;
                     String permissionName = permissionServerEvent.getPermissionName();
