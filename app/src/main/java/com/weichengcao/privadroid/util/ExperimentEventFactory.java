@@ -141,4 +141,34 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createPermissionGrantSurveyEvent(String whyGrant, String expected,
+                                                                           String comfortable,
+                                                                           String eventServerId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.WHY_GRANT, whyGrant);
+        res.put(EventUtil.EXPECTED_PERMISSION_REQUEST, expected);
+        res.put(EventUtil.COMFORT_LEVEL,comfortable);
+        res.put(EVENT_SERVER_ID, eventServerId);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+
+        return res;
+    }
+
+    public static HashMap<String, String> createPermissionDenySurveyEvent(String whyDeny, String expected,
+                                                                           String comfortable,
+                                                                           String eventServerId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.WHY_GRANT, whyDeny);
+        res.put(EventUtil.EXPECTED_PERMISSION_REQUEST, expected);
+        res.put(EventUtil.COMFORT_LEVEL,comfortable);
+        res.put(EVENT_SERVER_ID, eventServerId);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+
+        return res;
+    }
 }

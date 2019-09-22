@@ -18,25 +18,25 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/permission_surveyed_fragment"
-                android:name="com.weichengcao.privadroid.ui.SurveyedCardFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_card_spacing"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-            </fragment>
+            </FrameLayout>
 
-            <fragment
+            <FrameLayout
                 android:id="@+id/permission_unsurveyed_fragment"
-                android:name="com.weichengcao.privadroid.ui.UnsurveyedCardFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/material_card_spacing"
+                android:background="@color/white"
                 android:orientation="vertical">
 
-            </fragment>
+            </FrameLayout>
         </LinearLayout>
     </ScrollView>
 

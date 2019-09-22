@@ -11,6 +11,8 @@ import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInsta
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerSurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appUninstallServerUnsurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2permissionServerSurveyedEvents;
+import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2permissionServerUnsurveyedEvents;
 
 public class EventUtil {
     /**
@@ -58,6 +60,14 @@ public class EventUtil {
     public static final String PERMISSION_REMEMBERED_REQUESTED = "permission_remembered_requested";
 
     /**
+     * Permission grant/deny survey.
+     */
+    public static final String WHY_GRANT = "why_grant";
+    public static final String WHY_DENY = "why_deny";
+    public static final String EXPECTED_PERMISSION_REQUEST = "expected_request";
+    public static final String COMFORT_LEVEL = "comfort_level";
+
+    /**
      * App install.
      */
     public static final String APP_INSTALL_COLLECTION = "APP_INSTALL_COLLECTION";
@@ -69,8 +79,12 @@ public class EventUtil {
     public static final String APP_UNINSTALL_COLLECTION = "APP_UNINSTALL_COLLECTION";
     public static final String APP_UNINSTALL_SURVEY_COLLECTION = "APP_UNINSTALL_SURVEY_COLLECTION";
 
-    // permission
+    /**
+     * Permission.
+     */
     public static final String PERMISSION_COLLECTION = "PERMISSION_COLLECTION";
+    public static final String PERMISSION_GRANT_SURVEY_COLLECTION = "PERMISSION_GRANT_SURVEY_COLLECTION";
+    public static final String PERMISSION_DENY_SURVEY_COLLECTION = "PERMISSION_DENY_SURVEY_COLLECTION";
     public static final String PERMISSION_REQUESTED_NAME = "permission_requested";
     public static final String GRANTED = "granted";
     public static final String INITIATED_BY_USER = "user_initiated";
@@ -121,6 +135,9 @@ public class EventUtil {
             case APP_UNINSTALL_EVENT_TYPE:
                 return surveyedType == SURVEYED_EVENT ? serverId2appUninstallServerSurveyedEvents :
                         serverId2appUninstallServerUnsurveyedEvents;
+            case PERMISSION_EVENT_TYPE:
+                return surveyedType == SURVEYED_EVENT ? serverId2permissionServerSurveyedEvents :
+                        serverId2permissionServerUnsurveyedEvents;
             default:
                 return null;
         }

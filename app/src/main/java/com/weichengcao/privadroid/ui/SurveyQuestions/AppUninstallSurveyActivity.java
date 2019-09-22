@@ -124,13 +124,13 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
                                             }
 
                                             /**
-                                             * Set the survey for the current app uninstall event
+                                             * Set the survey for the current app uninstall event.
                                              */
                                             currentAppUninstallServerSurvey = appUninstallServerSurvey;
                                             PrivaDroidApplication.serverId2appUninstallSurveys.put(appUninstallServerSurvey.getServerId(), appUninstallServerSurvey);
 
                                             /**
-                                             * Populate answers and set up answered on
+                                             * Populate answers and set up answered on.
                                              */
                                             mAnsweredOn.setVisibility(View.VISIBLE);
                                             mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),

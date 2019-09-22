@@ -126,13 +126,13 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
                                             }
 
                                             /**
-                                             * Set the survey for the current app install event
+                                             * Set the survey for the current app install event.
                                              */
                                             currentAppInstallServerSurvey = appInstallServerSurvey;
                                             PrivaDroidApplication.serverId2appInstallSurveys.put(appInstallServerSurvey.getServerId(), appInstallServerSurvey);
 
                                             /**
-                                             * Populate answers and set up answered on
+                                             * Populate answers and set up answered on.
                                              */
                                             mAnsweredOn.setVisibility(View.VISIBLE);
                                             mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),

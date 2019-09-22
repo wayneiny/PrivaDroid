@@ -22,7 +22,9 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_IN
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_SURVEY_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_DENY_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_GRANT_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
@@ -33,6 +35,8 @@ import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
 
 public class FirestoreProvider {
@@ -137,6 +141,75 @@ public class FirestoreProvider {
                         // 2. write to local storage if not successful
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(permissionEvent, PERMISSION_FILE_NAME);
+                        } else {
+                            DocumentReference doc = task.getResult();
+                            if (doc == null) {
+                                return;
+                            }
+
+                            /**
+                             * Create PermissionGrantServerEvent or PermissionDenyServerEvent.
+                             */
+                            PermissionServerEvent event = new PermissionServerEvent(doc.getId(), permissionEvent.get(EventUtil.USER_AD_ID),
+                                    permissionEvent.get(EventUtil.APP_NAME), permissionEvent.get(EventUtil.APP_VERSION),
+                                    permissionEvent.get(EventUtil.LOGGED_TIME), permissionEvent.get(PACKAGE_NAME),
+                                    permissionEvent.get(SURVEY_ID), PERMISSION_EVENT_TYPE,
+                                    permissionEvent.get(EventUtil.INITIATED_BY_USER), permissionEvent.get(EventUtil.PERMISSION_REQUESTED_NAME),
+                                    permissionEvent.get(EventUtil.GRANTED));
+
+                            /**
+                             * Create notification for users to answer based on Android version.
+                             */
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+                                new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForPermissionEventSurvey(event);
+                            }
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Send PermissionGrantServerSurvey to Firebase.
+     */
+    public void sendPermissionServerSurveyEvent(final HashMap<String, String> permissionGrantSurvey, boolean isGrantSurvey) {
+        String surveyCollection = isGrantSurvey ? EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION : EventUtil.PERMISSION_DENY_SURVEY_COLLECTION;
+        final String surveyLocalFile = isGrantSurvey ? PERMISSION_GRANT_SURVEY_FILE_NAME : PERMISSION_DENY_SURVEY_FILE_NAME;
+        mFirestore.collection(surveyCollection).add(permissionGrantSurvey)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (!task.isSuccessful()) {
+                            OnDeviceStorageProvider.writeEventToFile(permissionGrantSurvey, surveyLocalFile);
+                        } else {
+                            /**
+                             * 1. Get the server permission grant survey document.
+                             * 2. Query Firebase for the corresponding permission event.
+                             */
+                            final DocumentReference surveyDoc = task.getResult();
+                            CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance().collection(PERMISSION_COLLECTION);
+                            DocumentReference eventDocRef = permissionEventCollectionRef.document(permissionGrantSurvey.get(EVENT_SERVER_ID));
+                            eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot eventDoc = task.getResult();
+                                        if (eventDoc.exists()) {
+                                            final PermissionServerEvent permissionServerEvent = new PermissionServerEvent(eventDoc.getId(),
+                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                    eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(), PERMISSION_EVENT_TYPE,
+                                                    eventDoc.getString(EventUtil.INITIATED_BY_USER), eventDoc.getString(EventUtil.PERMISSION_REQUESTED_NAME),
+                                                    eventDoc.getString(EventUtil.GRANTED));
+
+                                            /**
+                                             * 3. Update its corresponding permission event.
+                                             */
+                                            mFirestore.collection(PERMISSION_COLLECTION).document(permissionServerEvent.getServerId())
+                                                    .update(createPermissionServerEventHashMapFromObject(permissionServerEvent));
+                                        }
+                                    }
+                                }
+                            });
                         }
                     }
                 });
@@ -187,13 +260,12 @@ public class FirestoreProvider {
                                             final AppInstallServerEvent appInstallServerEvent = new AppInstallServerEvent(eventDoc.getId(),
                                                     eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
                                                     eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
-                                                    eventDoc.getString(EventUtil.PACKAGE_NAME), eventDoc.getString(EventUtil.SURVEY_ID),
+                                                    eventDoc.getString(EventUtil.PACKAGE_NAME), surveyDoc.getId(),
                                                     APP_INSTALL_EVENT_TYPE);
 
                                             /**
                                              * 3. Update its corresponding app install event.
                                              */
-                                            appInstallServerEvent.setSurveyId(surveyDoc.getId());
                                             mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
                                                     .update(createAppInstallEventHashMapFromObject(appInstallServerEvent));
                                         }
@@ -232,13 +304,12 @@ public class FirestoreProvider {
                                             final AppUninstallServerEvent appUninstallServerEvent = new AppUninstallServerEvent(eventDoc.getId(),
                                                     eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
                                                     eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
-                                                    eventDoc.getString(PACKAGE_NAME), eventDoc.getString(SURVEY_ID),
+                                                    eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(),
                                                     APP_UNINSTALL_EVENT_TYPE);
 
                                             /**
                                              * 3. Update its corresponding app uninstall event.
                                              */
-                                            appUninstallServerEvent.setSurveyId(surveyDoc.getId());
                                             mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
                                                     .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent));
                                         }
@@ -277,6 +348,25 @@ public class FirestoreProvider {
         map.put(EventUtil.APP_NAME, event.getAppName());
         map.put(EventUtil.PACKAGE_NAME, event.getPackageName());
         map.put(EventUtil.APP_VERSION, event.getAppVersion());
+        map.put(EventUtil.SURVEY_ID, event.getSurveyId());
+
+        return map;
+    }
+
+    /**
+     * Transformation from PermissionServerEvent to HashMap.
+     */
+    private static HashMap<String, Object> createPermissionServerEventHashMapFromObject(PermissionServerEvent event) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put(EventUtil.USER_AD_ID, event.getAdId());
+        map.put(EventUtil.LOGGED_TIME, event.getLoggedTime());
+        map.put(EventUtil.APP_NAME, event.getAppName());
+        map.put(EventUtil.PACKAGE_NAME, event.getPackageName());
+        map.put(EventUtil.APP_VERSION, event.getAppVersion());
+        map.put(EventUtil.INITIATED_BY_USER, event.getInitiatedByUser());
+        map.put(EventUtil.PERMISSION_REQUESTED_NAME, event.getPermissionName());
+        map.put(EventUtil.GRANTED, event.getRequestGranted());
         map.put(EventUtil.SURVEY_ID, event.getSurveyId());
 
         return map;
