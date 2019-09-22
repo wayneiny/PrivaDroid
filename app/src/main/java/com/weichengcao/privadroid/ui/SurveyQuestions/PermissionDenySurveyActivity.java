@@ -39,7 +39,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_DENY_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 
-public class PermissionDenySurveyActivity extends AppCompatActivity {
+public class PermissionDenySurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
 
 
     private PermissionServerEvent currentPermissionServerEvent;
@@ -163,7 +163,8 @@ public class PermissionDenySurveyActivity extends AppCompatActivity {
         }
     }
 
-    void setUpAnswerBasedOnSpinnerId(int spinnerId) {
+    @Override
+    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
         Spinner spinner = findViewById(spinnerId);
         String[] options;
         switch (spinnerId) {
@@ -185,7 +186,8 @@ public class PermissionDenySurveyActivity extends AppCompatActivity {
         spinner.setEnabled(false);
     }
 
-    boolean validateAnswerBasedOnQuestionId(int questionId) {
+    @Override
+    public boolean validateAnswerBasedOnQuestionId(int questionId) {
         Spinner spinner;
         TextView question;
         switch (questionId) {
@@ -213,7 +215,8 @@ public class PermissionDenySurveyActivity extends AppCompatActivity {
         return true;
     }
 
-    HashMap<String, String> gatherResponse() {
+    @Override
+    public HashMap<String, String> gatherResponse() {
         Spinner whySpinner = findViewById(R.id.permission_deny_spinner_why);
         String whyDeny = whySpinner.getSelectedItem().toString();
 
@@ -228,7 +231,8 @@ public class PermissionDenySurveyActivity extends AppCompatActivity {
         return ExperimentEventFactory.createPermissionDenySurveyEvent(whyDeny, expected, comfort, eventServerId);
     }
 
-    void setUpSubmit() {
+    @Override
+    public void setUpSubmit() {
         mSubmit = findViewById(R.id.permission_deny_submit_button);
         if (currentPermissionServerEvent.getSurveyId().isEmpty()) {
             mSubmit.setVisibility(View.VISIBLE);

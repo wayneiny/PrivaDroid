@@ -37,6 +37,7 @@ public class CardPagerAdapter extends PagerAdapter implements CardAdapter {
         mData.add(item);
     }
 
+    @Override
     public float getBaseElevation() {
         return mBaseElevation;
     }

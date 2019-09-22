@@ -39,7 +39,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION;
 
-public class PermissionGrantSurveyActivity extends AppCompatActivity {
+public class PermissionGrantSurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
 
     private PermissionServerEvent currentPermissionServerEvent;
     private PermissionGrantServerSurvey currentPermissionGrantServerSurvey;
@@ -162,7 +162,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity {
         }
     }
 
-    void setUpAnswerBasedOnSpinnerId(int spinnerId) {
+    @Override
+    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
         Spinner spinner = findViewById(spinnerId);
         String[] options;
         switch (spinnerId) {
@@ -184,7 +185,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity {
         spinner.setEnabled(false);
     }
 
-    boolean validateAnswerBasedOnQuestionId(int questionId) {
+    @Override
+    public boolean validateAnswerBasedOnQuestionId(int questionId) {
         Spinner spinner;
         TextView question;
         switch (questionId) {
@@ -212,7 +214,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity {
         return true;
     }
 
-    HashMap<String, String> gatherResponse() {
+    @Override
+    public HashMap<String, String> gatherResponse() {
         Spinner whySpinner = findViewById(R.id.permission_grant_spinner_why);
         String whyGrant = whySpinner.getSelectedItem().toString();
 
@@ -227,7 +230,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity {
         return ExperimentEventFactory.createPermissionGrantSurveyEvent(whyGrant, expected, comfort, eventServerId);
     }
 
-    void setUpSubmit() {
+    @Override
+    public void setUpSubmit() {
         mSubmit = findViewById(R.id.permission_grant_survey_submit_button);
         if (currentPermissionServerEvent.getSurveyId().isEmpty()) {
             mSubmit.setVisibility(View.VISIBLE);

@@ -39,7 +39,7 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
 
-public class AppUninstallSurveyActivity extends AppCompatActivity {
+public class AppUninstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
 
     private final static String TAG = AppInstallSurveyActivity.class.getSimpleName();
 
@@ -160,9 +160,10 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
     }
 
     /**
-     * Validate answer
+     * Validate answers.
      */
-    boolean validateAnswerBasedOnQuestionId(int questionId) {
+    @Override
+    public boolean validateAnswerBasedOnQuestionId(int questionId) {
         Spinner spinner;
         TextView question;
         switch (questionId) {
@@ -189,9 +190,10 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
     }
 
     /**
-     * Set up answer from survey event
+     * Set up answers from survey event.
      */
-    void setUpAnswerBasedOnSpinnerId(int spinnerId) {
+    @Override
+    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
         Spinner spinner = findViewById(spinnerId);
         String[] options;
         switch (spinnerId) {
@@ -210,7 +212,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
         spinner.setEnabled(false);
     }
 
-    HashMap<String, String> gatherResponse() {
+    @Override
+    public HashMap<String, String> gatherResponse() {
         Spinner whySpinner = findViewById(R.id.app_uninstall_spinner_why);
         String why = whySpinner.getSelectedItem().toString();
 
@@ -223,7 +226,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity {
         return ExperimentEventFactory.createAppUninstallSurveyEvent(why, permissionRememberedRequested, eventServerId);
     }
 
-    void setUpSubmit() {
+    @Override
+    public void setUpSubmit() {
         mSubmit = findViewById(R.id.app_uninstall_survey_submit_button);
         if (currentAppUninstallServerEvent.getSurveyId().isEmpty()) {
             mSubmit.setVisibility(View.VISIBLE);

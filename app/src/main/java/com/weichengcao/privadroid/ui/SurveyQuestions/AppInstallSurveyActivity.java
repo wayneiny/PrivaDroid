@@ -40,7 +40,7 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.KNOW_PERMISSION_REQUIRED;
 
-public class AppInstallSurveyActivity extends AppCompatActivity {
+public class AppInstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
 
     private final static String TAG = AppInstallSurveyActivity.class.getSimpleName();
 
@@ -164,9 +164,10 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
     }
 
     /**
-     * Validate answer
+     * Validate answers.
      */
-    boolean validateAnswerBasedOnQuestionId(int questionId) {
+    @Override
+    public boolean validateAnswerBasedOnQuestionId(int questionId) {
         Spinner spinner;
         TextView question;
         switch (questionId) {
@@ -202,9 +203,10 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
     }
 
     /**
-     * Set up answer from survey event
+     * Set up answers from survey event.
      */
-    void setUpAnswerBasedOnSpinnerId(int spinnerId) {
+    @Override
+    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
         Spinner spinner = findViewById(spinnerId);
         String[] options;
         switch (spinnerId) {
@@ -232,7 +234,8 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
         spinner.setEnabled(false);
     }
 
-    HashMap<String, String> gatherResponse() {
+    @Override
+    public HashMap<String, String> gatherResponse() {
         Spinner whySpinner = findViewById(R.id.app_install_spinner_why);
         String why = whySpinner.getSelectedItem().toString();
 
@@ -252,7 +255,8 @@ public class AppInstallSurveyActivity extends AppCompatActivity {
         return ExperimentEventFactory.createAppInstallSurveyEvent(why, factors, knowPermission, thinkPermissions, eventServerId);
     }
 
-    void setUpSubmit() {
+    @Override
+    public void setUpSubmit() {
         mSubmit = findViewById(R.id.app_install_survey_submit_button);
         if (currentAppInstallServerEvent.getSurveyId().isEmpty()) {
             mSubmit.setVisibility(View.VISIBLE);
