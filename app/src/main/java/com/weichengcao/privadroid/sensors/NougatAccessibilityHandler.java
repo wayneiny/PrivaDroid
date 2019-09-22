@@ -22,7 +22,7 @@ import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.ge
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
 
-public class MarshmallowAccessibilityHandler {
+public class NougatAccessibilityHandler {
 
     private final static String TAG = MarshmallowAccessibilityHandler.class.getSimpleName();
 
@@ -184,7 +184,7 @@ public class MarshmallowAccessibilityHandler {
                     || packageName.equals(AndroidSdkConstants.GOOGLE_PACKAGE_INSTALLER_PACKAGE))
                     && className.equals(AndroidSdkConstants.BUTTON_CLASS_NAME)) {
                 String text = source.getText().toString();
-                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.android_m_deny_in_permission_deny_warning_dialog_screen_text).toLowerCase())) {
+                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text).toLowerCase())) {
                     currentlyPermissionGranted = Boolean.toString(false);
                     return true;
                 }

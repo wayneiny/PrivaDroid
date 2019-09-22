@@ -557,5 +557,6 @@
     <string name="permission_switch_status_on_screen_text">ON</string>
     <string name="permission_switch_status_off_screen_text">OFF</string>
     <string name="basic_feature_in_message_screen_text">basic feature</string>
-    <string name="deny_in_permission_deny_warning_dialog_screen_text">Deny</string>
+    <string name="android_m_deny_in_permission_deny_warning_dialog_screen_text">Deny</string>
+    <string name="android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text">Deny Anyway</string>
 </resources>

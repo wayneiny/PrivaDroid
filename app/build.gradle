@@ -10,7 +10,7 @@ android {
         applicationId "com.weichengcao.privadroid"
         minSdkVersion 23
         // TODO: Android API 26 and above does not support registering system broadcasts in Manifest
-        targetSdkVersion 25
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

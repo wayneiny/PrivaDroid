@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.notifications.MarshmallowNotificationProvider;
+import com.weichengcao.privadroid.notifications.NougatNotificationProvider;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
@@ -36,7 +37,6 @@ import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
-import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
 
 public class FirestoreProvider {
@@ -85,6 +85,8 @@ public class FirestoreProvider {
                              */
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForInstallEventSurvey(event);
+                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                                new NougatNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForInstallEventSurvey(event);
                             }
                         }
                     }
@@ -123,6 +125,8 @@ public class FirestoreProvider {
                              */
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForUninstallEventSurvey(event);
+                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                                new NougatNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForUninstallEventSurvey(event);
                             }
                         }
                     }
@@ -162,6 +166,8 @@ public class FirestoreProvider {
                              */
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForPermissionEventSurvey(event);
+                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
+                                new NougatNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForPermissionEventSurvey(event);
                             }
                         }
                     }
