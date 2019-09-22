@@ -3,11 +3,16 @@ package com.weichengcao.privadroid.util;
 public class AndroidSdkConstants {
 
     /**
-     * UI
+     * M.
      */
     public static final String TEXTVIEW_CLASS_NAME = "android.widget.TextView";
     public static final String BUTTON_CLASS_NAME = "android.widget.Button";
     public static final String SWITCH_CLASS_NAME = "android.widget.Switch";
+
+    /**
+     * N.
+     */
+    public static final String DRAWER_LAYOUT_CLASS_NAME = "android.support.v4.widget.DrawerLayout";
 
     /**
      * Activity

@@ -13,7 +13,9 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.RuntimePermissionAppUtil;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -353,22 +355,39 @@ public class NougatAccessibilityHandler {
             return false;
         }
 
-        int childCount = source.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            AccessibilityNodeInfo child = source.getChild(i);
-            if (child == null || child.getPackageName() == null || child.getClassName() == null) {
-                continue;
-            }
-            String packageName = child.getPackageName().toString();
-            String className = child.getClassName().toString();
-            if (packageName.equals(AndroidSdkConstants.SETTINGS_PACKAGE) && className.equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME)) {
-                if (child.getText() == null) {
-                    continue;
-                }
-                String text = child.getText().toString();
-                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.apps_screen_text).toLowerCase())) {
-                    insideSettingsAppListScreenOrChildren = true;
-                    return true;
+        /**
+         * com.android.settings:id/content_parent LinearLayout holds "Apps" and list of app names.
+         */
+        List<AccessibilityNodeInfo> appsLists = source.findAccessibilityNodeInfosByViewId("com.android.settings:id/content_parent");
+        if (appsLists != null && !appsLists.isEmpty()) {
+            AccessibilityNodeInfo appsScreenLinearLayout = appsLists.get(0);
+
+            Queue<AccessibilityNodeInfo> allChildren = new LinkedList<>();
+            allChildren.add(appsScreenLinearLayout);
+
+            while (!allChildren.isEmpty()) {
+                AccessibilityNodeInfo cur = allChildren.poll();
+                /**
+                 * Add its children.
+                 */
+                if (cur != null) {
+                    int childCount = cur.getChildCount();
+                    for (int i = 0; i < childCount; i++) {
+                        allChildren.add(cur.getChild(i));
+                    }
+
+                    /**
+                     * Check current node.
+                     */
+                    if (cur.getText() != null && cur.getClassName() != null) {
+                        String text = cur.getText().toString();
+                        String className = cur.getClassName().toString();
+                        if (className.toLowerCase().equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME.toLowerCase()) &&
+                                text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.apps_screen_text).toLowerCase())) {
+                            insideSettingsAppListScreenOrChildren = true;
+                            return true;
+                        }
+                    }
                 }
             }
         }
