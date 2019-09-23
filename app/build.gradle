@@ -9,7 +9,8 @@ android {
     defaultConfig {
         applicationId "com.weichengcao.privadroid"
         minSdkVersion 23
-        // TODO: Android API 26 and above does not support registering system broadcasts in Manifest
+        // NOTE: Android API 26 and above does not support registering system broadcasts in Manifest
+        // Changed to use a foreground service to register the package listener
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

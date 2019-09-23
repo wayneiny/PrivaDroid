@@ -14,6 +14,7 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.startSystemBroadcastForegroundService;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_TYPE;
@@ -57,6 +58,11 @@ public class MainScreenActivity extends FragmentActivity {
             applicationInfoPreferences.cacheAppInfo();
             applicationInfoPreferences.setCachedAppInfo(true);
         }
+
+        /**
+         * Start SystemChangeEventReceiver if >= Oreo.
+         */
+        startSystemBroadcastForegroundService();
 
 //        /**
 //         * Register broadcast receiver for app install and app uninstall.

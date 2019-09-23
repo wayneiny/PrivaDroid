@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.util.Log;
 
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
@@ -24,14 +25,13 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (isPackageRemoved(context, intent)) {
+            Log.d(TAG, "Detected package removed.");
             logPackageUninstallEvent(context, intent);
         } else if (isPackageAdded(context, intent)) {
+            Log.d(TAG, "Detected package installed.");
             logPackageInstallEvent(context, intent);
         }
     }
-
-
-    // util [START]
 
     /**
      * Extract package name from system broadcast intent.
@@ -84,8 +84,6 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
 
         return null;
     }
-    // util [END]
-
 
     // log events and send to Firestore [START]
     private void logPackageInstallEvent(Context context, Intent intent) {
