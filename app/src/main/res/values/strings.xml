@@ -559,4 +559,20 @@
     <string name="basic_feature_in_message_screen_text">basic feature</string>
     <string name="android_m_deny_in_permission_deny_warning_dialog_screen_text">Deny</string>
     <string name="android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text">Deny Anyway</string>
+    <string name="android_o_app_info_screen_text">App info</string>
+    <string name="android_o_app_permissions_screen_text">App permissions</string>
+    <string name="android_o_apps_and_notifications_screen_text">Apps &amp; notifications</string>
+
+    <array name="android_permission_categories">
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Storage</item>
+        <item>Body Sensors</item>
+        <item>Calendar</item>
+        <item>SMS</item>
+        <item>Call Logs</item>
+    </array>
 </resources>
