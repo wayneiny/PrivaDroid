@@ -62,12 +62,11 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
             NougatMR1AccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
-            Log.d(TAG, "Accessibility Event in O:26 version.");
             OreoAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1) {
-            Log.i(TAG, "Accessibility Event in O_MR1:27 version");
+            OreoMR1AccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
-            Log.i(TAG, "Accessibility Event in P:28 version");
+            PieAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
             Log.i(TAG, "Accessibility Event in Q:29 version");
         } else {

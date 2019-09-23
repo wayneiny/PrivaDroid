@@ -562,6 +562,10 @@
     <string name="android_o_app_info_screen_text">App info</string>
     <string name="android_o_app_permissions_screen_text">App permissions</string>
     <string name="android_o_apps_and_notifications_screen_text">Apps &amp; notifications</string>
+    <string name="android_permissions_screen_text">Permissions</string>
+    <string name="android_storage_screen_text">Storage</string>
+    <string name="android_camera_screen_text">Camera</string>
+    <string name="android_body_sensors_screen_text">Body Sensors</string>
 
     <array name="android_permission_categories">
         <item>Camera</item>
