@@ -10,16 +10,6 @@ public class AndroidSdkConstants {
     public static final String SWITCH_CLASS_NAME = "android.widget.Switch";
 
     /**
-     * N.
-     */
-    public static final String DRAWER_LAYOUT_CLASS_NAME = "android.support.v4.widget.DrawerLayout";
-
-    /**
-     * Activity
-     */
-    public static final String GRANT_PERMISSION_ACTIVITY = "com.android.packageinstaller.permission.ui.GrantPermissionsActivity";
-
-    /**
      * Packages
      */
     public static final String GOOGLE_PACKAGE_INSTALLER_PACKAGE = "com.google.android.packageinstaller";
