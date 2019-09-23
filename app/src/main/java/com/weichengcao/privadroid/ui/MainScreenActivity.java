@@ -14,7 +14,7 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
-import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.startSystemBroadcastForegroundService;
+import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.startSystemBroadcastForegroundService;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_TYPE;
@@ -63,15 +63,6 @@ public class MainScreenActivity extends FragmentActivity {
          * Start SystemChangeEventReceiver if >= Oreo.
          */
         startSystemBroadcastForegroundService();
-
-//        /**
-//         * Register broadcast receiver for app install and app uninstall.
-//         */
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
-//        intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-//        intentFilter.addDataScheme("package");
-//        registerReceiver(new AppPackagesBroadcastReceiver(), intentFilter);
     }
 
     private void selectFragment(MenuItem menuItem) {

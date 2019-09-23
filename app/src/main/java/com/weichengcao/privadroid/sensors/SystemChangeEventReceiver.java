@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.weichengcao.privadroid.notifications.BaseNotificationProvider;
-
-import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.PRIVADROID_PACKAGE_NAME;
+import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.PRIVADROID_PACKAGE_NAME;
+import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.startSystemBroadcastForegroundService;
 
 public class SystemChangeEventReceiver extends BroadcastReceiver {
 
@@ -29,7 +28,7 @@ public class SystemChangeEventReceiver extends BroadcastReceiver {
                     /**
                      * Create notification for SystemBroadcastForegroundService to listen to package install, uninstall.
                      */
-                    BaseNotificationProvider.startSystemBroadcastForegroundService();
+                    startSystemBroadcastForegroundService();
                 }
             }
         }
