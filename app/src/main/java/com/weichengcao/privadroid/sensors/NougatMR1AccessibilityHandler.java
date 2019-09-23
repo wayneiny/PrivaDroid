@@ -59,7 +59,7 @@ public class NougatMR1AccessibilityHandler {
     private static final String BASIC_FEATURE_PERMISSION_DISABLE_MESSAGE_VIEW_ID = "android:id/message";
     private static HashMap<String, String> permissionNames2permissionSwitchStatus = new HashMap<>();
 
-    public static void processAccessiblityEvent(AccessibilityEvent event) {
+    public static void processAccessibilityEvent(AccessibilityEvent event) {
         int eventType = event.getEventType();
         AccessibilityNodeInfo source = event.getSource();
 
