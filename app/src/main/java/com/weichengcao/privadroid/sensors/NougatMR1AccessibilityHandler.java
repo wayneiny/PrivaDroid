@@ -66,8 +66,10 @@ public class NougatMR1AccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
+                    Log.d(TAG, "We are in a runtime permission dialog.");
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
+                    Log.d(TAG, "We are in the Settings -> Apps screen.");
                     insideSettingsAppListScreenOrChildren = true;
                     runIntoPermissionDenyWarning = false;
 
@@ -79,11 +81,13 @@ public class NougatMR1AccessibilityHandler {
                     currentlyInitiatedByUser = null;
                     currentlyPermissionGranted = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
+                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsScreen = true;
                     runIntoPermissionDenyWarning = false;
 
                     extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
                 } else if (isPermissionDenyWarningDialog(source)) {
+                    Log.d(TAG, "We ran in to a permission deny warning dialog in App permissions screen.");
                     runIntoPermissionDenyWarning = true;
                 }
                 break;
@@ -96,15 +100,18 @@ public class NougatMR1AccessibilityHandler {
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (!runIntoPermissionDenyWarning && isPermissionsDialogAction(source)) {
+                    Log.d(TAG, "We acted in a runtime permission request dialog.");
                     processPermissionDialogAction(source);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
+                    Log.d(TAG, "We toggled a switch in App permissions screen.");
                     /**
                      * Only send the permission event to server if not encountering permission deny warning dialog.
                      * NOTE: Detection of permission deny warning happens after detection of click, causing incorrect permission grant event. Can log the permission settings when inside App permissions screen?
                      */
                     if (!runIntoPermissionDenyWarning && !ifClickedPermissionDidNotChangeDueToDenyAlert()) {
+                        Log.d(TAG, "No permission deny warning dialog popped up. We effectively toggled switch.");
 
                         // Update permission name to switch status map
                         permissionNames2permissionSwitchStatus.put(currentlyHandledPermission, Boolean.parseBoolean(currentlyPermissionGranted) ?
@@ -114,6 +121,7 @@ public class NougatMR1AccessibilityHandler {
                         sendPermissionEventToFirebase(true);
                     }
                 } else if (runIntoPermissionDenyWarning && isDenyingInPermissionDenyWarningDialog(source)) {
+                    Log.d(TAG, "We still denied the permission in the permission deny warning dialog.");
                     runIntoPermissionDenyWarning = false;
 
                     // Update permission name to switch status map

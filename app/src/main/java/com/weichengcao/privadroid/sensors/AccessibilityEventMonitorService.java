@@ -56,13 +56,10 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
 
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            Log.d(TAG, "Received M accessibility event.");
             MarshmallowAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
-            Log.d(TAG, "Accessibility Event in N:24 version.");
             NougatAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1) {
-            Log.d(TAG, "Accessibility Event in N_MR1:25 version.");
             NougatMR1AccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.O) {
             Log.i(TAG, "Accessibility Event in O:26 version");
