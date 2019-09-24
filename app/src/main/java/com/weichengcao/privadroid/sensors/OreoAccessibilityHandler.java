@@ -30,12 +30,6 @@ public class OreoAccessibilityHandler {
 
     private final static PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
-    /**
-     * Runtime permission dialog texts
-     */
-    private static final String ALLOW_KEYWORD = "allow";
-    private static final String DENY_KEYWORD = "deny";
-
     private static String currentlyHandledAppPackage = null;
     private static String currentlyHandledAppName = null;
     private static String currentlyHandledPermission = null;
@@ -151,6 +145,7 @@ public class OreoAccessibilityHandler {
                             PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_off_screen_text));
 
                     sendPermissionEventToFirebase(true);
+                    // TODO: change this to Oreo MR1 and Pie style
                 } else if (insideSettingsAppAndNotificationsScreen && isClickingIntoAppInfoOption(source)) {
                     Log.d(TAG, "Detected a click on App info in Apps & notifications.");
                     insideSettingsAppAndNotificationsScreen = false;
@@ -634,9 +629,9 @@ public class OreoAccessibilityHandler {
          * Extract action option and send to Firestore
          */
         String actionTextLower = source.getText().toString().toLowerCase();
-        if (actionTextLower.equals(ALLOW_KEYWORD)) {
+        if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(true);
-        } else if (actionTextLower.equals(DENY_KEYWORD)) {
+        } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(false);
         }
     }
@@ -650,7 +645,9 @@ public class OreoAccessibilityHandler {
         }
 
         String nodeTextLowercase = source.getText().toString().toLowerCase();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) && (nodeTextLowercase.equals(ALLOW_KEYWORD) || nodeTextLowercase.equals(DENY_KEYWORD));
+        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+                (nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase()) ||
+                        nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase()));
     }
 
     /**
