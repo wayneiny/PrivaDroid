@@ -31,12 +31,6 @@ public class OreoMR1AccessibilityHandler {
 
     private final static PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
-    /**
-     * Runtime permission dialog texts
-     */
-    private static final String ALLOW_KEYWORD = "allow";
-    private static final String DENY_KEYWORD = "deny";
-
     private static String currentlyHandledAppPackage = null;
     private static String currentlyHandledAppName = null;
     private static String currentlyHandledPermission = null;
@@ -53,11 +47,6 @@ public class OreoMR1AccessibilityHandler {
      * If we are inside the screen of a single app info.
      */
     private static boolean insideAppInfoOfSingleAppScreen = false;
-
-    /**
-     * IF we are inside the all permissions categories to their apps screen.
-     */
-    private static boolean insidePermissionCategoriesToAppsScreen = false;
 
     /**
      * This screen represents a single permission and all the apps that ask for this permission and
@@ -115,11 +104,9 @@ public class OreoMR1AccessibilityHandler {
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
                 if (insideSettingsAppPermissionsForAnAppScreen && permissionNames2permissionSwitchStatus != null && !permissionNames2permissionSwitchStatus.isEmpty()) {
                     findDifferenceBetweenPermissionNameToSwitchStatusAndSendEvents(source);
-                } else if (isPermissionsCategoriesToAppsScreen(source)) {
-                    Log.d(TAG, "We are in App permissions (list of all permission) in window content change.");
-                    appNames2PermissionSwitchStatus = new HashMap<>();
                 } else if (insideSinglePermissionToAllAppsSettingsScreen && appNames2PermissionSwitchStatus != null && !appNames2PermissionSwitchStatus.isEmpty()) {
                     findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(source);
+                    extractAppNameToSinglePermissionSwitchStatus(source);
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
@@ -565,9 +552,9 @@ public class OreoMR1AccessibilityHandler {
          * Extract action option and send to Firestore
          */
         String actionTextLower = source.getText().toString().toLowerCase();
-        if (actionTextLower.equals(ALLOW_KEYWORD)) {
+        if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(true);
-        } else if (actionTextLower.equals(DENY_KEYWORD)) {
+        } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(false);
         }
     }
@@ -581,7 +568,9 @@ public class OreoMR1AccessibilityHandler {
         }
 
         String nodeTextLowercase = source.getText().toString().toLowerCase();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) && (nodeTextLowercase.equals(ALLOW_KEYWORD) || nodeTextLowercase.equals(DENY_KEYWORD));
+        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+                (nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase()) ||
+                        nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase()));
     }
 
     /**
