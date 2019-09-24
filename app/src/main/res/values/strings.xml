@@ -566,6 +566,8 @@
     <string name="android_storage_screen_text">Storage</string>
     <string name="android_camera_screen_text">Camera</string>
     <string name="android_body_sensors_screen_text">Body Sensors</string>
+    <string name="android_dialog_allow_screen_text">Allow</string>
+    <string name="android_dialog_deny_screen_text">Deny</string>
 
     <array name="android_permission_categories">
         <item>Camera</item>

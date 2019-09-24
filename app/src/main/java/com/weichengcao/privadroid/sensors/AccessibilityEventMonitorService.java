@@ -28,6 +28,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
             "Call Logs"
     );
 
+    // TODO: Need to translate this
     public static final Map<String, String> PERMISSION_DIALOG_STRINGS = new HashMap<>();
 
     static {
@@ -42,6 +43,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         PERMISSION_DIALOG_STRINGS.put("access your calendar", "Calendar");
         PERMISSION_DIALOG_STRINGS.put("send and view SMS messages", "SMS");
         PERMISSION_DIALOG_STRINGS.put("access your call logs", "Call Logs");
+        PERMISSION_DIALOG_STRINGS.put("access your phone call logs", "Call Logs");
     }
 
     @Override
