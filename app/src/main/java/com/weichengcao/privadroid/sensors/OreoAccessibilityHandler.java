@@ -651,10 +651,14 @@ public class OreoAccessibilityHandler {
     }
 
     /**
-     * Check if it's a runtime permission request dialog.
+     * GOOD: Check if it's a runtime permission request dialog.
      */
     private static boolean isPermissionsDialog(AccessibilityNodeInfo source) {
-        return (source != null &&
-                source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/permission_deny_button").size() > 0);
+        if (source == null) {
+            return false;
+        }
+
+        List<AccessibilityNodeInfo> permissionDenyButton = source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/permission_deny_button");
+        return permissionDenyButton != null && permissionDenyButton.size() > 0;
     }
 }
