@@ -556,7 +556,7 @@
     <string name="app_permissions_screen_text">App permissions</string>
     <string name="permission_switch_status_on_screen_text">ON</string>
     <string name="permission_switch_status_off_screen_text">OFF</string>
-    <string name="basic_feature_in_message_screen_text">basic feature</string>
+    <string name="android_basic_feature_in_message_screen_text">basic feature</string>
     <string name="android_m_deny_in_permission_deny_warning_dialog_screen_text">Deny</string>
     <string name="android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text">Deny Anyway</string>
     <string name="android_o_app_info_screen_text">App info</string>
@@ -568,6 +568,7 @@
     <string name="android_body_sensors_screen_text">Body Sensors</string>
     <string name="android_dialog_allow_screen_text">Allow</string>
     <string name="android_dialog_deny_screen_text">Deny</string>
+    <string name="android_allow_x_to_x_screen_regex">Allow (.*) to (.*)\?</string>
 
     <array name="android_permission_categories">
         <item>Camera</item>

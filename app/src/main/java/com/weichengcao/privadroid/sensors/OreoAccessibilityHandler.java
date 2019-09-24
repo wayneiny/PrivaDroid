@@ -443,7 +443,7 @@ public class OreoAccessibilityHandler {
         if (warningMessageNodes != null && warningMessageNodes.size() == 1) {
             AccessibilityNodeInfo warningMessage = warningMessageNodes.get(0);
             String warning = warningMessage.getText().toString();
-            if (warning.toLowerCase().contains(PrivaDroidApplication.getAppContext().getString(R.string.basic_feature_in_message_screen_text).toLowerCase())) {
+            if (warning.toLowerCase().contains(PrivaDroidApplication.getAppContext().getString(R.string.android_basic_feature_in_message_screen_text).toLowerCase())) {
                 return true;
             }
         }
