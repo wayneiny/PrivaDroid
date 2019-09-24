@@ -29,12 +29,6 @@ public class MarshmallowAccessibilityHandler {
     private final static PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
     /**
-     * Runtime permission dialog texts
-     */
-    private static final String ALLOW_KEYWORD = "allow";
-    private static final String DENY_KEYWORD = "deny";
-
-    /**
      * UI ids.
      */
     private static final String APP_NAME_ID_IN_APP_PERMISSIONS_SCREEN = "com.android.packageinstaller:id/name";
@@ -430,9 +424,9 @@ public class MarshmallowAccessibilityHandler {
          * Extract action option and send to Firestore
          */
         String actionTextLower = source.getText().toString().toLowerCase();
-        if (actionTextLower.equals(ALLOW_KEYWORD)) {
+        if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(true);
-        } else if (actionTextLower.equals(DENY_KEYWORD)) {
+        } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(false);
         }
     }
@@ -446,7 +440,9 @@ public class MarshmallowAccessibilityHandler {
         }
 
         String nodeTextLowercase = source.getText().toString().toLowerCase();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) && (nodeTextLowercase.equals(ALLOW_KEYWORD) || nodeTextLowercase.equals(DENY_KEYWORD));
+        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+                (nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase()) ||
+                        nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase()));
     }
 
     /**
