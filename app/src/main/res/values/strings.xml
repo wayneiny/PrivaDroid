@@ -1,6 +1,10 @@
 <resources>
     <string name="appName">PrivaDroid</string>
 
+    <string name="congratulations">Congratulations!</string>
+    <string name="finish_setting_up_accessibility_and_app_usage">Finish setting up accessibility and usage services to use the app.</string>
+    <string name="failed_to_join_make_sure_network">Failed to join. Make sure you are connected to the internet.</string>
+
     <string name="agree_to_terms">Agree to terms above</string>
     <string name="continue_app_settings_button">Continue</string>
     <string name="submit">Submit</string>

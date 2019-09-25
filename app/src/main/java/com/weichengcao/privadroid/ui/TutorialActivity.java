@@ -109,10 +109,8 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
     public void onClick(View view) {
         if (view == mStartUsingAppButton) {
             if (!AccessibilityAppUsageUtil.isAccessibilitySettingsOn() || !AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
-                Toast.makeText(this, "Finish setting up accessibility and usage services to use the app.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.finish_setting_up_accessibility_and_app_usage, Toast.LENGTH_LONG).show();
                 return;
-            } else {
-                Toast.makeText(this, "Congratulations!", Toast.LENGTH_SHORT).show();
             }
 
             // 1. Log a join event and send to FireStore
@@ -130,12 +128,13 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                                 mUserPreferences.setJoinDate(joinEvent.get(LOGGED_TIME));
 
                                 // 2.1. Navigate to main screen
+                                Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.congratulations, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), MainScreenActivity.class);
                                 startActivity(intent);
                                 finish();
                             } else {
                                 // 2.2 Display failed message
-                                Toast.makeText(PrivaDroidApplication.getAppContext(), "Failed to join. Please Try again.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.failed_to_join_make_sure_network, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
