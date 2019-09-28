@@ -461,20 +461,27 @@ class NougatAccessibilityHandler {
                 /**
                  * This level is the LinearLayout for a permission name and its switch.
                  */
-                List<AccessibilityNodeInfo> permissionTitles = child.findAccessibilityNodeInfosByViewId("android:id/title");
                 AccessibilityNodeInfo permissionTitleNode = null;
-                if (permissionTitles != null && !permissionTitles.isEmpty()) {
+                List<AccessibilityNodeInfo> permissionTitles = child.findAccessibilityNodeInfosByViewId("android:id/title");
+                if (permissionTitles.isEmpty()) {
+                    permissionTitles = child.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/name");
+                }
+                if (permissionTitles.size() > 0) {
                     permissionTitleNode = permissionTitles.get(0);
+                }
 
-                }
-                List<AccessibilityNodeInfo> switchTexts = child.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/switchWidget");
-                if (switchTexts == null || switchTexts.isEmpty()) {
-                    switchTexts = child.findAccessibilityNodeInfosByViewId("android:id/switch_widget");
-                }
                 AccessibilityNodeInfo switchTextNode = null;
-                if (switchTexts != null && !switchTexts.isEmpty()) {
+                List<AccessibilityNodeInfo> switchTexts = child.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/switchWidget");
+                if (switchTexts.isEmpty()) {
+                    switchTexts = child.findAccessibilityNodeInfosByViewId("android:id/switch_widget");
+                    if (switchTexts.isEmpty()) {
+                        switchTexts = child.findAccessibilityNodeInfosByViewId("android:id/switchWidget");
+                    }
+                }
+                if (switchTexts.size() > 0) {
                     switchTextNode = switchTexts.get(0);
                 }
+
                 if (permissionTitleNode != null && permissionTitleNode.getText() != null
                         && switchTextNode != null && switchTextNode.getText() != null) {
                     permissionNames2permissionSwitchStatus.put(permissionTitleNode.getText().toString(), switchTextNode.getText().toString());
