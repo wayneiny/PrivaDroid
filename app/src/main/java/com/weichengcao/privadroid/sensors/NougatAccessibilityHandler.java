@@ -46,7 +46,6 @@ class NougatAccessibilityHandler {
     private static String currentlyProactivePermissionRequestRationaleGranted = null;
     private static String currentlyProactivePermissionRequestEventCorrelationId = null;
 
-    private static boolean insideSettingsAppListScreenOrChildren = false;
     private static boolean insideSettingsAppPermissionsScreen = false;
 
     private static boolean runIntoPermissionDenyWarning = false;
@@ -64,7 +63,6 @@ class NougatAccessibilityHandler {
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
                     Log.d(TAG, "We are in the Settings -> Apps screen.");
-                    insideSettingsAppListScreenOrChildren = true;
                     runIntoPermissionDenyWarning = false;
 
                     currentlyHandledAppName = null;
@@ -145,6 +143,8 @@ class NougatAccessibilityHandler {
             source.recycle();
         }
     }
+
+    //region Proactive permission requests
 
     /**
      * Process and extract the decision of proactive permission request.
@@ -300,53 +300,9 @@ class NougatAccessibilityHandler {
 
         return foundButtons && foundRationaleKeywords;
     }
+    //endregion
 
-    private static void extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(AccessibilityEvent event, boolean isFirstPermissionRequest) {
-        for (CharSequence eventSubText : event.getText()) {
-            Pattern permissionRegex = Pattern.compile(PrivaDroidApplication.getAppContext().getString(R.string.android_allow_x_to_x_screen_regex));
-            Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
-            if (permissionMatcher.find()) {
-                if (!isFirstPermissionRequest) {
-                    Log.d(TAG, "A consecutive second permission request dialog happens.");
-                } else {
-                    Log.d(TAG, "A first permission request dialog happens.");
-                }
-                currentlyHandledAppName = permissionMatcher.group(1);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
-
-                String permissionText = permissionMatcher.group(2);
-                if (isFirstPermissionRequest) {
-                    currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
-                } else {
-                    currentlyHandledSubsequentPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
-                }
-
-                // check if app name belongs to package name
-                if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
-                        !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
-                    // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
-                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
-                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
-                }
-
-                currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
-                break;
-            }
-        }
-    }
-
-    private static void processConsecutivePermissionRequestByAnApp(AccessibilityEvent event) {
-        List<CharSequence> eventText = event.getText();
-        if (eventText == null || eventText.isEmpty()) {
-            return;
-        }
-
-        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, false);
-    }
-
+    //region Permission warning dialog
     private static boolean ifClickedPermissionDidNotChangeDueToDenyAlert() {
         if (permissionNames2permissionSwitchStatus == null ||
                 !permissionNames2permissionSwitchStatus.containsKey(currentlyHandledPermission) ||
@@ -406,6 +362,9 @@ class NougatAccessibilityHandler {
 
         return false;
     }
+    //endregion
+
+    //region App permissions list screen
 
     /**
      * Detecting if user is effectively toggling permission toggle inside Settings -> Apps -> App info -> App permissions.
@@ -531,33 +490,25 @@ class NougatAccessibilityHandler {
      * Detecting if we arrive at the "App permissions" screen containing permission settings of an app.
      */
     private static boolean isSettingsAppPermissionsScreen(AccessibilityNodeInfo source) {
-        if (source == null || !insideSettingsAppListScreenOrChildren) {
+        if (source == null) {
             return false;
         }
 
-        int childCount = source.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            AccessibilityNodeInfo child = source.getChild(i);
-            if (child == null || child.getClassName() == null || child.getPackageName() == null) {
-                continue;
-            }
-            String packageName = child.getPackageName().toString();
-            String className = child.getClassName().toString();
-            if ((packageName.equals(AndroidSdkConstants.GOOGLE_PACKAGE_INSTALLER_PACKAGE) ||
-                    packageName.equals(AndroidSdkConstants.PACKAGE_INSTALLER_PACKAGE))
-                    && className.equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME)) {
-                if (child.getText() == null) {
-                    continue;
-                }
-                String text = child.getText().toString();
-                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.app_permissions_screen_text).toLowerCase())) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        return (
+                source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/name").size() > 0 ||
+                        // This changed in Android N
+                        source.findAccessibilityNodeInfosByViewId("android:id/title").size() > 0
+        ) && (
+                source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/switchWidget").size() > 0 ||
+                        // This changed in Android N
+                        source.findAccessibilityNodeInfosByViewId("android:id/switch_widget").size() > 0 ||
+                        // This was a recent update for Nexus phones
+                        source.findAccessibilityNodeInfosByViewId("android:id/switchWidget").size() > 0
+        );
     }
+    //endregion
+
+    //region App list in Settings
 
     /**
      * Detecting if we arrive at the "Apps" screen containing a list of all apps.
@@ -596,7 +547,6 @@ class NougatAccessibilityHandler {
                         String className = cur.getClassName().toString();
                         if (className.toLowerCase().equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME.toLowerCase()) &&
                                 text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.apps_screen_text).toLowerCase())) {
-                            insideSettingsAppListScreenOrChildren = true;
                             return true;
                         }
                     }
@@ -606,27 +556,16 @@ class NougatAccessibilityHandler {
 
         return false;
     }
+    //endregion
+
+    //region Send events to Firebase
 
     /**
-     * Extract permission and app name from runtime permission request dialog.
+     * Checks if required parameters for PermissionServerEvent are there and send event to Firebase.
+     * Reset the rationale data after sending the permission event associated with it.
+     *
+     * @param initiatedByUser if the permission change is done by the user or initiated by the system
      */
-    private static void extractInformationFromPermissionDialog(AccessibilityEvent event) {
-        /**
-         * Find the last active app package
-         */
-        currentlyHandledAppPackage = RuntimePermissionAppUtil.getLastActiveAppPackageName();
-        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
-
-        if (currentlyHandledAppPackage == null || currentlyHandledAppPackage.isEmpty()) {
-            return;
-        }
-
-        /**
-         * Extract permission name and app name from dialog text
-         */
-        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, true);
-    }
-
     private static void sendPermissionEventToFirebase(boolean initiatedByUser) {
         if (currentlyPermissionGranted == null || currentlyPermissionGranted.isEmpty()
                 || currentlyHandledPermission == null || currentlyHandledPermission.isEmpty()
@@ -652,6 +591,10 @@ class NougatAccessibilityHandler {
         currentlyProactivePermissionRequestEventCorrelationId = null;
     }
 
+    /**
+     * Checks if required parameters for ProactivePermissionServerEvent are there and send the event to Firebase. Reset rationale data
+     * after detecting user denied the proactive permission request.
+     */
     private static void sendProactivePermissionRequestEventToFirebase() {
         if (currentlyHandledAppVersion == null || currentlyHandledAppVersion.isEmpty() ||
                 currentlyHandledAppName == null || currentlyHandledAppName.isEmpty() ||
@@ -677,9 +620,93 @@ class NougatAccessibilityHandler {
             currentlyProactivePermissionRequestEventCorrelationId = null;
         }
     }
+    //endregion
+
+    //region Runtime permission dialog
 
     /**
-     * Extract grant/deny decision from runtime permission request dialog.
+     * Extract the all name and permission name from a runtime permission dialog.
+     *
+     * @param event                    accessibility event
+     * @param isFirstPermissionRequest if this is the first permission request in a series of requests
+     */
+    private static void extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(AccessibilityEvent event, boolean isFirstPermissionRequest) {
+        for (CharSequence eventSubText : event.getText()) {
+            Pattern permissionRegex = Pattern.compile(PrivaDroidApplication.getAppContext().getString(R.string.android_allow_x_to_x_screen_regex));
+            Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
+            if (permissionMatcher.find()) {
+                if (!isFirstPermissionRequest) {
+                    Log.d(TAG, "A consecutive second permission request dialog happens.");
+                } else {
+                    Log.d(TAG, "A first permission request dialog happens.");
+                }
+                currentlyHandledAppName = permissionMatcher.group(1);
+                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
+
+                String permissionText = permissionMatcher.group(2);
+                if (isFirstPermissionRequest) {
+                    currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
+                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
+                } else {
+                    currentlyHandledSubsequentPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
+                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
+                }
+
+                // check if app name belongs to package name
+                if (currentlyHandledAppPackage != null && currentlyHandledAppName != null &&
+                        !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
+                    // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
+                    currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
+                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
+                }
+
+                currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
+                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
+                break;
+            }
+        }
+    }
+
+    /**
+     * Process the subsequent runtime permission requests after the first one in a series of
+     * consecutive permission requests.
+     *
+     * @param event accessibility event
+     */
+    private static void processConsecutivePermissionRequestByAnApp(AccessibilityEvent event) {
+        List<CharSequence> eventText = event.getText();
+        if (eventText == null || eventText.isEmpty()) {
+            return;
+        }
+
+        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, false);
+    }
+
+    /**
+     * Extract permission and app name from runtime permission request dialog.
+     *
+     * @param event the accessibility event associated with the runtime permission dialog
+     */
+    private static void extractInformationFromPermissionDialog(AccessibilityEvent event) {
+        /**
+         * Find the last active app package
+         */
+        currentlyHandledAppPackage = RuntimePermissionAppUtil.getLastActiveAppPackageName();
+        if (currentlyHandledAppPackage == null || currentlyHandledAppPackage.isEmpty()) {
+            return;
+        }
+        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
+
+        /**
+         * Extract permission name and app name from dialog text
+         */
+        extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(event, true);
+    }
+
+    /**
+     * Extract Allow/Deny decision from runtime permission request dialog.
+     *
+     * @param source source node of the action event
      */
     private static void processPermissionDialogAction(AccessibilityNodeInfo source) {
         if (source == null || source.getText() == null) {
@@ -687,7 +714,7 @@ class NougatAccessibilityHandler {
         }
 
         /**
-         * Extract action option and send to Firestore
+         * Extract action option, Allow or Deny.
          */
         String actionTextLower = source.getText().toString().toLowerCase();
         if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
@@ -701,6 +728,9 @@ class NougatAccessibilityHandler {
 
     /**
      * Check if it's an action (deny/allow) in a runtime permission request dialog.
+     *
+     * @param source source node of the event
+     * @return true if user clicks Allow or Deny
      */
     private static boolean isPermissionsDialogAction(AccessibilityNodeInfo source) {
         if (source == null || source.getText() == null || source.getPackageName() == null || runIntoPermissionDenyWarning) {
@@ -719,7 +749,11 @@ class NougatAccessibilityHandler {
     }
 
     /**
-     * Check if it's a runtime permission request dialog.
+     * Checks if the system is showing a runtime permission request dialog, spawned by an app to ask
+     * for a runtime permission.
+     *
+     * @param source source node of the event
+     * @return true if it is a runtime permission dialog
      */
     private static boolean isPermissionsDialog(AccessibilityNodeInfo source) {
         if (source == null) {
@@ -729,4 +763,5 @@ class NougatAccessibilityHandler {
         List<AccessibilityNodeInfo> permissionDenyButton = source.findAccessibilityNodeInfosByViewId("com.android.packageinstaller:id/permission_deny_button");
         return permissionDenyButton != null && permissionDenyButton.size() > 0;
     }
+    //endregion
 }
