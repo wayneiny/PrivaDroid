@@ -19,7 +19,6 @@ public class EventUtil {
      * Intent keys.
      */
     public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
-    public static final String EVENT_ALREADY_SURVEYED_INTENT_KEY = "EVENT_ALREADY_SURVEYED_INTENT_KEY";
 
     /**
      * Common to App Install/App Uninstall/Permission.
@@ -35,7 +34,7 @@ public class EventUtil {
     public static final String APP_VERSION = "app_version";
     public static final String SURVEY_ID = "survey_id";
     public static final String SYNCED = "synced";   // synced to Firestore storage, only used in local storage
-    public static final String MULTIPLE_CHOICES_DELIMITER = "_";
+    public static final String MULTIPLE_CHOICES_DELIMITER = ";";
 
     // join event
     public static final String JOIN_EVENT_COLLECTION = "JOIN_EVENT_COLLECTION";
@@ -88,6 +87,14 @@ public class EventUtil {
     public static final String PERMISSION_REQUESTED_NAME = "permission_requested";
     public static final String GRANTED = "granted";
     public static final String INITIATED_BY_USER = "user_initiated";
+
+    /**
+     * Proactive permission request event.
+     */
+    public static final String PROACTIVE_RATIONALE_COLLECTION = "PROACTIVE_RATIONALE_COLLECTION";
+    public static final String PROACTIVE_RATIONALE_MESSAGE = "rationale_message";
+    public static final String PROACTIVE_REQUEST_GRANTED = "granted";
+    public static final String PROACTIVE_REQUEST_PERMISSION_EVENT_CORRELATION_ID = "event_correlation_id";
 
     /**
      * Demographic event.

@@ -33,20 +33,7 @@ public class OnDeviceStorageProvider {
     public static final String APP_UNINSTALL_SURVEY_FILE_NAME = "app_uninstall_survey_events.json";
     public static final String PERMISSION_GRANT_SURVEY_FILE_NAME = "permission_grant_survey_events.json";
     public static final String PERMISSION_DENY_SURVEY_FILE_NAME = "permission_deny_survey_events.json";
-
-    private static JSONObject readJsonEventFromFile(String fileName) {
-        File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
-        try {
-            byte[] bytes = new byte[(int) file.length()];
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-            DataInputStream dis = new DataInputStream(bis);
-            dis.readFully(bytes);
-            String jsonString = new String(bytes, StandardCharsets.UTF_8);
-            return new JSONObject(jsonString);
-        } catch (JSONException | IOException e) {
-            return new JSONObject();
-        }
-    }
+    public static final String PROACTIVE_PERMISSION_FILE_NAME = "proactive_permission_events.json";
 
     private static JSONArray readJsonEventsFromFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);

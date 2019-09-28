@@ -19,7 +19,7 @@ public class RuntimePermissionAppUtil {
 
     private static final long LOOK_BACK_PERIOD = 60000;
 
-    public static final HashSet<String> EXCLUDED_ACTIVE_APPS = new HashSet<>(Arrays.asList(
+    private static final HashSet<String> EXCLUDED_ACTIVE_APPS = new HashSet<>(Arrays.asList(
             GOOGLE_PACKAGE_INSTALLER_PACKAGE,
             PACKAGE_INSTALLER_PACKAGE,
             M_LAUNCHER_PACKAGE,
@@ -30,14 +30,19 @@ public class RuntimePermissionAppUtil {
         UsageStatsManager usageStatsManager = (UsageStatsManager) PrivaDroidApplication.getAppContext().getSystemService(Context.USAGE_STATS_SERVICE);
         long now = System.currentTimeMillis();
         // We get usage stats for the last 5 seconds
-        List<UsageStats> stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, now - LOOK_BACK_PERIOD, now);
+        List<UsageStats> stats = null;
+        if (usageStatsManager != null) {
+            stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, now - LOOK_BACK_PERIOD, now);
+        }
         // Get the next-to-last app from this list.
         String lastUsedApp = null;
         long lastUsedTime = 0;
-        for (UsageStats appStats : stats) {
-            if (appStats.getLastTimeUsed() > lastUsedTime && !EXCLUDED_ACTIVE_APPS.contains(appStats.getPackageName())) {
-                lastUsedTime = appStats.getLastTimeUsed();
-                lastUsedApp = appStats.getPackageName();
+        if (stats != null) {
+            for (UsageStats appStats : stats) {
+                if (appStats.getLastTimeUsed() > lastUsedTime && !EXCLUDED_ACTIVE_APPS.contains(appStats.getPackageName())) {
+                    lastUsedTime = appStats.getLastTimeUsed();
+                    lastUsedApp = appStats.getPackageName();
+                }
             }
         }
         return lastUsedApp;

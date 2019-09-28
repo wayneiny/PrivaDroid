@@ -572,7 +572,7 @@
     <string name="android_body_sensors_screen_text">Body Sensors</string>
     <string name="android_dialog_allow_screen_text">Allow</string>
     <string name="android_dialog_deny_screen_text">Deny</string>
-    <string name="android_allow_x_to_x_screen_regex">Allow (.*) to (.*)\?</string>
+    <string name="android_allow_x_to_x_screen_regex">Allow (.*) to (.*)\\?</string>
 
     <array name="android_permission_categories">
         <item>Camera</item>
@@ -586,4 +586,71 @@
         <item>SMS</item>
         <item>Call Logs</item>
     </array>
+
+    <!--  Permission related keywords  -->
+    <array name="permission_related_keywords">
+        <item>access</item>
+        <item>allow</item>
+        <item>body sensors</item>
+        <item>camera</item>
+        <item>calendar</item>
+        <item>call logs</item>
+        <item>contacts</item>
+        <item>device</item>
+        <item>disable</item>
+        <item>enable</item>
+        <item>file</item>
+        <item>id</item>
+        <item>import</item>
+        <item>inspect</item>
+        <item>location</item>
+        <item>microphone</item>
+        <item>phone</item>
+        <item>storage</item>
+        <item>sms</item>
+    </array>
+
+    <!--  Proactive permission request dialogs  -->
+    <array name="proactive_permission_request_dialog_grant_button_texts">
+        <item>allow</item>
+        <item>enable</item>
+        <item>grant</item>
+        <item>ok</item>
+        <item>okay</item>
+        <item>permit</item>
+        <item>set up</item>
+        <item>setup</item>
+        <item>sounds good</item>
+        <item>sure</item>
+        <item>turn on</item>
+    </array>
+    <array name="proactive_permission_request_dialog_deny_button_texts">
+        <item>cancel</item>
+        <item>deny</item>
+        <item>deny anyway</item>
+        <item>discard</item>
+        <item>done</item>
+        <item>later</item>
+        <item>no</item>
+        <item>not now</item>
+        <item>no thanks</item>
+        <item>maybe later</item>
+        <item>set up later</item>
+        <item>setup later</item>
+        <item>skip</item>
+    </array>
+
+    <!--  permission dialog strings  -->
+    <string name="permission_dialog_string_camera">take pictures and record video</string>
+    <string name="permission_dialog_string_contacts">access your contacts</string>
+    <string name="permission_dialog_string_location">access this device\'s location</string>
+    <string name="permission_dialog_string_microphone">record audio</string>
+    <string name="permission_dialog_string_phone">make and manage phone calls</string>
+    <string name="permission_dialog_string_storage_one">access photos, media, and files on your device</string>
+    <string name="permission_dialog_string_storage_two">access photos, media and files on your device</string>
+    <string name="permission_dialog_string_body_sensors">access sensor data about your vital signs</string>
+    <string name="permission_dialog_string_calendar">access your calendar</string>
+    <string name="permission_dialog_string_sms">send and view SMS messages</string>
+    <string name="permission_dialog_string_call_logs_one">access your call logs</string>
+    <string name="permission_dialog_string_call_logs_two">access your phone call logs</string>
 </resources>

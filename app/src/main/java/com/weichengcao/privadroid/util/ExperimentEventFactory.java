@@ -77,7 +77,8 @@ public class ExperimentEventFactory {
     }
 
     public static HashMap<String, String> createPermissionEvent(String appName, String packageName, String version,
-                                                                String permissionName, String granted, String userInitiated) {
+                                                                String permissionName, String granted, String userInitiated,
+                                                                String rationaleMessage, String proactivePermissionRequestCorrelationId) {
         HashMap<String, String> event = new HashMap<>();
 
         event.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
@@ -87,6 +88,8 @@ public class ExperimentEventFactory {
         event.put(PERMISSION_REQUESTED_NAME, permissionName);
         event.put(GRANTED, granted);
         event.put(INITIATED_BY_USER, userInitiated);
+        event.put(EventUtil.PROACTIVE_REQUEST_PERMISSION_EVENT_CORRELATION_ID, proactivePermissionRequestCorrelationId);
+        event.put(EventUtil.PROACTIVE_RATIONALE_MESSAGE, rationaleMessage);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(SURVEY_ID, "");
 
@@ -149,7 +152,7 @@ public class ExperimentEventFactory {
 
         res.put(EventUtil.WHY_GRANT, whyGrant);
         res.put(EventUtil.EXPECTED_PERMISSION_REQUEST, expected);
-        res.put(EventUtil.COMFORT_LEVEL,comfortable);
+        res.put(EventUtil.COMFORT_LEVEL, comfortable);
         res.put(EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
@@ -158,14 +161,31 @@ public class ExperimentEventFactory {
     }
 
     public static HashMap<String, String> createPermissionDenySurveyEvent(String whyDeny, String expected,
-                                                                           String comfortable,
-                                                                           String eventServerId) {
+                                                                          String comfortable,
+                                                                          String eventServerId) {
         HashMap<String, String> res = new HashMap<>();
 
-        res.put(EventUtil.WHY_GRANT, whyDeny);
+        res.put(EventUtil.WHY_DENY, whyDeny);
         res.put(EventUtil.EXPECTED_PERMISSION_REQUEST, expected);
-        res.put(EventUtil.COMFORT_LEVEL,comfortable);
+        res.put(EventUtil.COMFORT_LEVEL, comfortable);
         res.put(EVENT_SERVER_ID, eventServerId);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+
+        return res;
+    }
+
+    public static HashMap<String, String> createProactivePermissionEvent(String appName, String packageName,
+                                                                         String appVersion, String rationale,
+                                                                         String granted, String permissionEventCorrelationId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.PROACTIVE_RATIONALE_MESSAGE, rationale);
+        res.put(EventUtil.PROACTIVE_REQUEST_GRANTED, granted);
+        res.put(EventUtil.PROACTIVE_REQUEST_PERMISSION_EVENT_CORRELATION_ID, permissionEventCorrelationId);
+        res.put(APP_NAME, appName);
+        res.put(APP_VERSION, appVersion);
+        res.put(PACKAGE_NAME, packageName);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
 
