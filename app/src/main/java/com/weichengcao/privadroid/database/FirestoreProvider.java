@@ -1,6 +1,5 @@
 package com.weichengcao.privadroid.database;
 
-import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -31,6 +30,7 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UN
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_DENY_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_GRANT_SURVEY_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PROACTIVE_PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
@@ -60,6 +60,10 @@ public class FirestoreProvider {
      * Send AppInstallServerEvent to Firebase.
      */
     public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
         // 1. Log a join event and send to FireStore
         mFirestore.collection(APP_INSTALL_COLLECTION).add(appInstallEvent)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -110,6 +114,10 @@ public class FirestoreProvider {
      * Send AppUninstallServerEvent to Firebase.
      */
     public void sendAppUninstallEvent(final HashMap<String, String> appUninstallEvent) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
         // 1. Log a join event and send to FireStore
         mFirestore.collection(APP_UNINSTALL_COLLECTION).add(appUninstallEvent)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
@@ -157,9 +165,32 @@ public class FirestoreProvider {
     }
 
     /**
+     * Send ProactivePermissionServerEvent to Firebase.
+     */
+    public void sendProactivePermissionEvent(final HashMap<String, String> proactivePermissionEvent) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
+        mFirestore.collection(EventUtil.PROACTIVE_RATIONALE_COLLECTION).add(proactivePermissionEvent)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (!task.isSuccessful()) {
+                            OnDeviceStorageProvider.writeEventToFile(proactivePermissionEvent, PROACTIVE_PERMISSION_FILE_NAME);
+                        }
+                    }
+                });
+    }
+
+    /**
      * Send PermissionServerEvent to Firebase.
      */
     public void sendPermissionEvent(final HashMap<String, String> permissionEvent) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
         // 1. Log a join event and send to FireStore
         mFirestore.collection(PERMISSION_COLLECTION).add(permissionEvent)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
