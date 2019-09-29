@@ -59,10 +59,10 @@ class MarshmallowAccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
-                    Log.d(TAG, "We are in a runtime permission dialog.");
+//                    Log.d(TAG, "We are in a runtime permission dialog.");
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
-                    Log.d(TAG, "We are in the Settings -> Apps screen.");
+//                    Log.d(TAG, "We are in the Settings -> Apps screen.");
                     runIntoPermissionDenyWarning = false;
 
                     currentlyHandledAppName = null;
@@ -75,15 +75,15 @@ class MarshmallowAccessibilityHandler {
                     currentlyProactivePermissionRequestRationaleGranted = null;
                     currentlyProactivePermissionRequestEventCorrelationId = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
-                    Log.d(TAG, "We are in the App permissions screen.");
+//                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsScreen = true;
 
                     extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
                 } else if (isPermissionDenyWarningDialog(source)) {
-                    Log.d(TAG, "We ran in to a permission deny warning dialog in App permissions screen.");
+//                    Log.d(TAG, "We ran in to a permission deny warning dialog in App permissions screen.");
                     runIntoPermissionDenyWarning = true;
                 } else if (isAppProactivePermissionRequest(source)) {
-                    Log.d(TAG, "We encountered an app proactive permission dialog.");
+//                    Log.d(TAG, "We encountered an app proactive permission dialog.");
                     runIntoAppProactivePermissionRequestDialog = true;
 
                     extractRationaleMessageFromProactivePermissionRequest(source);
@@ -97,18 +97,18 @@ class MarshmallowAccessibilityHandler {
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (isPermissionsDialogAction(source)) {
-                    Log.d(TAG, "We acted in a runtime permission request dialog.");
+//                    Log.d(TAG, "We acted in a runtime permission request dialog.");
                     processPermissionDialogAction(source);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
-                    Log.d(TAG, "We toggled a switch in App permissions screen.");
+//                    Log.d(TAG, "We toggled a switch in App permissions screen.");
                     /**
                      * Only send the permission event to server if not encountering permission deny warning dialog.
                      * NOTE: Detection of permission deny warning happens after detection of click, causing incorrect permission grant event. Can log the permission settings when inside App permissions screen?
                      */
                     if (!runIntoPermissionDenyWarning && !ifClickedPermissionDidNotChangeDueToDenyAlert()) {
-                        Log.d(TAG, "No permission deny warning dialog popped up. We effectively toggled switch.");
+//                        Log.d(TAG, "No permission deny warning dialog popped up. We effectively toggled switch.");
 
                         // Update permission name to switch status map
                         permissionNames2permissionSwitchStatus.put(currentlyHandledPermission, Boolean.parseBoolean(currentlyPermissionGranted) ?
@@ -118,7 +118,7 @@ class MarshmallowAccessibilityHandler {
                         sendPermissionEventToFirebase(true);
                     }
                 } else if (isDenyingInPermissionDenyWarningDialog(source)) {
-                    Log.d(TAG, "We still denied the permission in the permission deny warning dialog.");
+//                    Log.d(TAG, "We still denied the permission in the permission deny warning dialog.");
                     runIntoPermissionDenyWarning = false;
 
                     // Update permission name to switch status map
@@ -128,7 +128,7 @@ class MarshmallowAccessibilityHandler {
 
                     sendPermissionEventToFirebase(true);
                 } else if (isClickingInProactivePermissionRequestDialog(source)) {
-                    Log.d(TAG, "Detected a click in proactive permission request dialog.");
+//                    Log.d(TAG, "Detected a click in proactive permission request dialog.");
                     processProactivePermissionRequestDialogAction(source);
 
                     sendProactivePermissionRequestEventToFirebase();
@@ -156,10 +156,10 @@ class MarshmallowAccessibilityHandler {
 
         if (proactivePermissionGrantButtonTexts.contains(nodeTextLowercase)) {
             currentlyProactivePermissionRequestRationaleGranted = Boolean.toString(true);
-            Log.d(TAG, "Detected user click grant related button in proactive permission request dialog.");
+//            Log.d(TAG, "Detected user click grant related button in proactive permission request dialog.");
         } else if (proactivePermissionDenyButtonTexts.contains(nodeTextLowercase)) {
             currentlyProactivePermissionRequestRationaleGranted = Boolean.toString(false);
-            Log.d(TAG, "Detected user click deny related button in proactive permission request dialog.");
+//            Log.d(TAG, "Detected user click deny related button in proactive permission request dialog.");
         }
     }
 
@@ -214,7 +214,7 @@ class MarshmallowAccessibilityHandler {
         }
 
         currentlyProactivePermissionRequestRationale = sb.toString();
-        Log.d(TAG, "Extracted proactive permission request rationale to be " + currentlyProactivePermissionRequestRationale);
+//        Log.d(TAG, "Extracted proactive permission request rationale to be " + currentlyProactivePermissionRequestRationale);
 
         /**
          * Find the last active app package
@@ -223,9 +223,9 @@ class MarshmallowAccessibilityHandler {
             currentlyHandledAppPackage = source.getPackageName().toString();
             currentlyHandledAppName = getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager);
             currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-            Log.d(TAG, "Extracted app package from app provided permission request rationale to be " + currentlyHandledAppPackage);
-            Log.d(TAG, "Extracted app name from app provided permission request rationale to be " + currentlyHandledAppName);
-            Log.d(TAG, "Extracted app version from app provided permission request rationale to be " + currentlyHandledAppVersion);
+//            Log.d(TAG, "Extracted app package from app provided permission request rationale to be " + currentlyHandledAppPackage);
+//            Log.d(TAG, "Extracted app name from app provided permission request rationale to be " + currentlyHandledAppName);
+//            Log.d(TAG, "Extracted app version from app provided permission request rationale to be " + currentlyHandledAppVersion);
         }
     }
 
@@ -270,12 +270,12 @@ class MarshmallowAccessibilityHandler {
                     for (String s : AccessibilityEventMonitorService.PERMISSION_RELATED_KEYWORDS) {
                         if (textLowerCase.contains(s)) {
                             foundRationaleKeywords = true;
-                            Log.d(TAG, "Found rationale " + s + " keyword in potential proactive permission dialog.");
+//                            Log.d(TAG, "Found rationale " + s + " keyword in potential proactive permission dialog.");
                             break;
                         }
                     }
                     if (!foundRationaleKeywords) {
-                        Log.d(TAG, "Useless text " + textLowerCase);
+//                        Log.d(TAG, "Useless text " + textLowerCase);
                     }
                 } else if (cur.getClassName() != null && cur.getClassName().toString().equals(BUTTON_CLASS_NAME)) {
                     String textLowerCase = null;
@@ -286,9 +286,9 @@ class MarshmallowAccessibilityHandler {
                     }
                     if (AccessibilityEventMonitorService.PERMISSION_RATIONALE_BUTTON_KEYWORDS.contains(textLowerCase)) {
                         foundButtons = true;
-                        Log.d(TAG, "Found button " + textLowerCase + " keyword in potential proactive permission dialog.");
+//                        Log.d(TAG, "Found button " + textLowerCase + " keyword in potential proactive permission dialog.");
                     } else {
-                        Log.d(TAG, "Useless button text " + textLowerCase);
+//                        Log.d(TAG, "Useless button text " + textLowerCase);
                     }
                 }
             }
@@ -326,13 +326,13 @@ class MarshmallowAccessibilityHandler {
                 String text = source.getText().toString();
                 if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.android_m_deny_in_permission_deny_warning_dialog_screen_text).toLowerCase())) {
                     currentlyPermissionGranted = Boolean.toString(false);
-                    Log.d(TAG, "User clicked DENY in permission warning dialog.");
+//                    Log.d(TAG, "User clicked DENY in permission warning dialog.");
                     return true;
                 }
             }
         }
 
-        Log.d(TAG, "User did not click DENY in permission warning dialog.");
+//        Log.d(TAG, "User did not click DENY in permission warning dialog.");
         return false;
     }
 
@@ -405,7 +405,7 @@ class MarshmallowAccessibilityHandler {
                  * If we got both permission name and grant status.
                  */
                 if (currentlyHandledPermission != null && currentlyPermissionGranted != null) {
-                    Log.d(TAG, "Toggling permission " + currentlyHandledPermission + " to be " + currentlyPermissionGranted + " in app permissions list.");
+//                    Log.d(TAG, "Toggling permission " + currentlyHandledPermission + " to be " + currentlyPermissionGranted + " in app permissions list.");
                     return true;
                 }
             }
@@ -427,15 +427,15 @@ class MarshmallowAccessibilityHandler {
         if (appNameNodes != null && appNameNodes.size() == 1) {
             AccessibilityNodeInfo appNameNode = appNameNodes.get(0);
             currentlyHandledAppName = appNameNode.getText().toString();
-            Log.d(TAG, "From App permissions screen, detected currently handled app name is " + currentlyHandledAppName);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app name is " + currentlyHandledAppName);
 
             /**
              * Get app package name and version from app name.
              */
             currentlyHandledAppPackage = AppPackagesBroadcastReceiver.findPackageNameFromAppName(currentlyHandledAppName, packageManager);
             currentlyHandledAppVersion = AppPackagesBroadcastReceiver.getApplicationVersion(currentlyHandledAppPackage, packageManager);
-            Log.d(TAG, "From App permissions screen, detected currently handled app package name is " + currentlyHandledAppPackage);
-            Log.d(TAG, "From App permissions screen, detected currently handled app version is " + currentlyHandledAppVersion);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app package name is " + currentlyHandledAppPackage);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app version is " + currentlyHandledAppVersion);
         }
 
         /**
@@ -480,9 +480,9 @@ class MarshmallowAccessibilityHandler {
                 if (permissionTitleNode != null && permissionTitleNode.getText() != null
                         && switchTextNode != null && switchTextNode.getText() != null) {
                     permissionNames2permissionSwitchStatus.put(permissionTitleNode.getText().toString(), switchTextNode.getText().toString());
-                    Log.d(TAG, "In App permissions screen list, found permission name to switch status pair: "
-                            + permissionTitleNode.getText().toString() + " : "
-                            + switchTextNode.getText().toString());
+//                    Log.d(TAG, "In App permissions screen list, found permission name to switch status pair: "
+//                            + permissionTitleNode.getText().toString() + " : "
+//                            + switchTextNode.getText().toString());
                 }
             }
         }
@@ -620,20 +620,20 @@ class MarshmallowAccessibilityHandler {
             Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
             if (permissionMatcher.find()) {
                 if (!isFirstPermissionRequest) {
-                    Log.d(TAG, "A consecutive second permission request dialog happens.");
+//                    Log.d(TAG, "A consecutive second permission request dialog happens.");
                 } else {
-                    Log.d(TAG, "A first permission request dialog happens.");
+//                    Log.d(TAG, "A first permission request dialog happens.");
                 }
                 currentlyHandledAppName = permissionMatcher.group(1);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
+//                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
 
                 String permissionText = permissionMatcher.group(2);
                 if (isFirstPermissionRequest) {
                     currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
+//                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
                 } else {
                     currentlyHandledSubsequentPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
+//                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
                 }
 
                 // check if app name belongs to package name
@@ -641,11 +641,11 @@ class MarshmallowAccessibilityHandler {
                         !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
                     // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
                     currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
-                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
+//                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
                 }
 
                 currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
+//                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
                 break;
             }
         }
@@ -679,7 +679,7 @@ class MarshmallowAccessibilityHandler {
         if (currentlyHandledAppPackage == null || currentlyHandledAppPackage.isEmpty()) {
             return;
         }
-        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
+//        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
 
         /**
          * Extract permission name and app name from dialog text
@@ -703,10 +703,10 @@ class MarshmallowAccessibilityHandler {
         String actionTextLower = source.getText().toString().toLowerCase();
         if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(true);
-            Log.d(TAG, "Detected grant in runtime permission dialog.");
+//            Log.d(TAG, "Detected grant in runtime permission dialog.");
         } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(false);
-            Log.d(TAG, "Detected deny in runtime permission dialog.");
+//            Log.d(TAG, "Detected deny in runtime permission dialog.");
         }
     }
 

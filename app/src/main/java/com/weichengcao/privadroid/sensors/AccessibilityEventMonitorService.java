@@ -83,9 +83,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
             PieAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-            Log.i(TAG, "Accessibility Event in Q:29 version");
+
         } else {
-            Log.d(TAG, "Invalid build version = " + Build.VERSION.SDK_INT);
+
         }
     }
 
