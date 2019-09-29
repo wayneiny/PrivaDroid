@@ -8,6 +8,7 @@ import android.view.accessibility.AccessibilityEvent;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_microphone), "Microphone");
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_phone), "Phone");
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_storage_one), "Storage");
-        PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_storage_two), "Storage");  // oxford comma I guess
+        PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_storage_two), "Storage");
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_body_sensors), "Body Sensors");
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_calendar), "Calendar");
         PERMISSION_DIALOG_STRINGS.put(PrivaDroidApplication.getAppContext().getString(R.string.permission_dialog_string_sms), "SMS");
@@ -61,6 +62,11 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
             Log.d(TAG, "Detected locale is " + Locale.getDefault().toString() +
                     ". RuntimePermissions triggering does not support non-English languages; " +
                     "permissions might not always be interpreted correctly");
+            return;
+        }
+
+        // Don't process if user has not joined the experiment
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
             return;
         }
 
