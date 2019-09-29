@@ -81,10 +81,10 @@ class OreoAccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
-                    Log.d(TAG, "We are in a runtime permission dialog.");
+//                    Log.d(TAG, "We are in a runtime permission dialog.");
                     extractInformationFromPermissionDialog(event);
                 } else if (insideAppInfoOfSingleAppScreen && isSettingsAppPermissionsScreen(source)) {
-                    Log.d(TAG, "We are in the App permissions screen.");
+//                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsForAnAppScreen = true;
 
                     if (!permissionNames2permissionSwitchStatus.isEmpty()) {
@@ -93,7 +93,7 @@ class OreoAccessibilityHandler {
 
                     extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
                 } else if (isAppsAndNotificationsScreen(source)) {
-                    Log.d(TAG, "We are in the Settings -> Apps & notifications screen.");
+//                    Log.d(TAG, "We are in the Settings -> Apps & notifications screen.");
                     insideAppInfoOfSingleAppScreen = false;
                     insideSettingsAppPermissionsForAnAppScreen = false;
                     insideSinglePermissionToAllAppsSettingsScreen = false;
@@ -105,24 +105,24 @@ class OreoAccessibilityHandler {
                     currentlyHandledSubsequentPermission = null;
                     currentlyPermissionGranted = null;
                 } else if (isSinglePermissionToAllAppsScreen(source)) {
-                    Log.d(TAG, "We are in a single permission to all apps screen.");
+//                    Log.d(TAG, "We are in a single permission to all apps screen.");
                     insideSinglePermissionToAllAppsSettingsScreen = true;
                     extractAppNameToSinglePermissionSwitchStatus(source);
                 } else if (isAppInfoOfSingleAppScreen(source)) {
-                    Log.d(TAG, "We are in App info (list of all apps) screen.");
+//                    Log.d(TAG, "We are in App info (list of all apps) screen.");
                     insideAppInfoOfSingleAppScreen = true;
                     permissionNames2permissionSwitchStatus = new HashMap<>();
                 } else if (isPermissionsCategoriesToAppsScreen(source)) {
-                    Log.d(TAG, "We are in App permissions (list of all permission) in window content change.");
+//                    Log.d(TAG, "We are in App permissions (list of all permission) in window content change.");
                     insideSinglePermissionToAllAppsSettingsScreen = false;
                     appNames2PermissionSwitchStatus = new HashMap<>();
                 } else if (isAppProactivePermissionRequest(source)) {
-                    Log.d(TAG, "We encountered an app proactive permission dialog.");
+//                    Log.d(TAG, "We encountered an app proactive permission dialog.");
                     runIntoAppProactivePermissionRequestDialog = true;
 
                     extractRationaleMessageFromProactivePermissionRequest(source);
                 } else {
-                    Log.d(TAG, "Unhandled TYPE_WINDOW_STATE_CHANGED event");
+//                    Log.d(TAG, "Unhandled TYPE_WINDOW_STATE_CHANGED event");
                 }
                 break;
             case AccessibilityEvent.TYPE_ANNOUNCEMENT:
@@ -138,25 +138,25 @@ class OreoAccessibilityHandler {
                     findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(source);
                     extractAppNameToSinglePermissionSwitchStatus(source);
                 } else if (isPermissionsDialog(source)) {
-                    Log.d(TAG, "We are in a runtime permission dialog.");
+//                    Log.d(TAG, "We are in a runtime permission dialog.");
                     extractInformationFromPermissionDialog(event);
                 } else {
-                    Log.d(TAG, "Unhandled TYPE_WINDOW_CONTENT_CHANGED event");
+//                    Log.d(TAG, "Unhandled TYPE_WINDOW_CONTENT_CHANGED event");
                 }
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (isPermissionsDialogAction(source)) {
-                    Log.d(TAG, "We acted in a runtime permission request dialog.");
+//                    Log.d(TAG, "We acted in a runtime permission request dialog.");
                     processPermissionDialogAction(source);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isClickingInProactivePermissionRequestDialog(source, event)) {
-                    Log.d(TAG, "Detected a click in proactive permission request dialog.");
+//                    Log.d(TAG, "Detected a click in proactive permission request dialog.");
                     processProactivePermissionRequestDialogAction(source, event);
 
                     sendProactivePermissionRequestEventToFirebase();
                 } else {
-                    Log.d(TAG, "Unhandled TYPE_VIEW_CLICKED event");
+//                    Log.d(TAG, "Unhandled TYPE_VIEW_CLICKED event");
                 }
                 break;
         }
@@ -192,10 +192,10 @@ class OreoAccessibilityHandler {
             if (className.equals(BUTTON_CLASS_NAME)) {
                 if (proactivePermissionGrantButtonTexts.contains(nodeTextLowercase)) {
                     currentlyProactivePermissionRequestRationaleGranted = Boolean.toString(true);
-                    Log.d(TAG, "Detected user click grant related button in proactive permission request dialog.");
+//                    Log.d(TAG, "Detected user click grant related button in proactive permission request dialog.");
                 } else if (proactivePermissionDenyButtonTexts.contains(nodeTextLowercase)) {
                     currentlyProactivePermissionRequestRationaleGranted = Boolean.toString(false);
-                    Log.d(TAG, "Detected user click deny related button in proactive permission request dialog.");
+//                    Log.d(TAG, "Detected user click deny related button in proactive permission request dialog.");
                 }
             }
         }
@@ -267,7 +267,7 @@ class OreoAccessibilityHandler {
         }
 
         currentlyProactivePermissionRequestRationale = sb.toString();
-        Log.d(TAG, "Extracted proactive permission request rationale to be " + currentlyProactivePermissionRequestRationale);
+//        Log.d(TAG, "Extracted proactive permission request rationale to be " + currentlyProactivePermissionRequestRationale);
 
         /**
          * Find the last active app package
@@ -276,9 +276,9 @@ class OreoAccessibilityHandler {
             currentlyHandledAppPackage = source.getPackageName().toString();
             currentlyHandledAppName = getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager);
             currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-            Log.d(TAG, "Extracted app package from app provided permission request rationale to be " + currentlyHandledAppPackage);
-            Log.d(TAG, "Extracted app name from app provided permission request rationale to be " + currentlyHandledAppName);
-            Log.d(TAG, "Extracted app version from app provided permission request rationale to be " + currentlyHandledAppVersion);
+//            Log.d(TAG, "Extracted app package from app provided permission request rationale to be " + currentlyHandledAppPackage);
+//            Log.d(TAG, "Extracted app name from app provided permission request rationale to be " + currentlyHandledAppName);
+//            Log.d(TAG, "Extracted app version from app provided permission request rationale to be " + currentlyHandledAppVersion);
         }
     }
 
@@ -289,7 +289,7 @@ class OreoAccessibilityHandler {
      */
     private static boolean isAppProactivePermissionRequest(AccessibilityNodeInfo source) {
         if (source == null) {
-            Log.d(TAG, "source is null");
+//            Log.d(TAG, "source is null");
             return false;
         }
 
@@ -324,7 +324,7 @@ class OreoAccessibilityHandler {
                     for (String s : AccessibilityEventMonitorService.PERMISSION_RELATED_KEYWORDS) {
                         if (textLowerCase.contains(s)) {
                             foundRationaleKeywords = true;
-                            Log.d(TAG, "Found rationale " + s + " keyword in potential proactive permission dialog.");
+//                            Log.d(TAG, "Found rationale " + s + " keyword in potential proactive permission dialog.");
                             break;
                         }
                     }
@@ -337,7 +337,7 @@ class OreoAccessibilityHandler {
                     }
                     if (AccessibilityEventMonitorService.PERMISSION_RATIONALE_BUTTON_KEYWORDS.contains(textLowerCase)) {
                         foundButtons = true;
-                        Log.d(TAG, "Found button " + textLowerCase + " keyword in potential proactive permission dialog.");
+//                        Log.d(TAG, "Found button " + textLowerCase + " keyword in potential proactive permission dialog.");
                     }
                 }
             }
@@ -430,7 +430,7 @@ class OreoAccessibilityHandler {
     private static void findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(AccessibilityNodeInfo source) {
         // record any difference between current and stored values
         if (source != null && source.getClassName() != null && source.getClassName().toString().equals(LISTVIEW_CLASS_NAME)) {
-            Log.d(TAG, "Looking for difference between previous app2status map and updated one.");
+//            Log.d(TAG, "Looking for difference between previous app2status map and updated one.");
             // A permission settings list view change
             int childCount = source.getChildCount();
             for (int i = 0; i < childCount; i++) {
@@ -446,7 +446,7 @@ class OreoAccessibilityHandler {
                 String name = appName.getText().toString();
                 String status = appSwitch.getText().toString();
                 if (appNames2PermissionSwitchStatus.get(name) != null && !Objects.equals(appNames2PermissionSwitchStatus.get(name), status)) {
-                    Log.d(TAG, "Found difference in " + name + " and permission " + status);
+//                    Log.d(TAG, "Found difference in " + name + " and permission " + status);
                     // we found a difference
                     currentlyPermissionGranted = Boolean.toString(status.toLowerCase()
                             .equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase()));
@@ -640,7 +640,7 @@ class OreoAccessibilityHandler {
                     if (permissionNames2permissionSwitchStatus.containsKey(name) &&
                             permissionNames2permissionSwitchStatus.get(name) != null &&
                             !Objects.equals(permissionNames2permissionSwitchStatus.get(name), status)) {
-                        Log.d(TAG, "Found difference in permission2status: " + name + ":" + status);
+//                        Log.d(TAG, "Found difference in permission2status: " + name + ":" + status);
                         // we found a difference
                         currentlyPermissionGranted = Boolean.toString(status.toLowerCase()
                                 .equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase()));
@@ -667,15 +667,15 @@ class OreoAccessibilityHandler {
         if (appNameNodes != null && appNameNodes.size() == 1) {
             AccessibilityNodeInfo appNameNode = appNameNodes.get(0);
             currentlyHandledAppName = appNameNode.getText().toString();
-            Log.d(TAG, "From App permissions screen, detected currently handled app name is " + currentlyHandledAppName);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app name is " + currentlyHandledAppName);
 
             /**
              * Get app package name and version from app name.
              */
             currentlyHandledAppPackage = AppPackagesBroadcastReceiver.findPackageNameFromAppName(currentlyHandledAppName, packageManager);
             currentlyHandledAppVersion = AppPackagesBroadcastReceiver.getApplicationVersion(currentlyHandledAppPackage, packageManager);
-            Log.d(TAG, "From App permissions screen, detected currently handled app package name is " + currentlyHandledAppPackage);
-            Log.d(TAG, "From App permissions screen, detected currently handled app version is " + currentlyHandledAppVersion);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app package name is " + currentlyHandledAppPackage);
+//            Log.d(TAG, "From App permissions screen, detected currently handled app version is " + currentlyHandledAppVersion);
         }
 
         /**
@@ -720,9 +720,9 @@ class OreoAccessibilityHandler {
                 if (permissionTitleNode != null && permissionTitleNode.getText() != null
                         && switchTextNode != null && switchTextNode.getText() != null) {
                     permissionNames2permissionSwitchStatus.put(permissionTitleNode.getText().toString(), switchTextNode.getText().toString());
-                    Log.d(TAG, "In App permissions screen list, found permission name to switch status pair: "
-                            + permissionTitleNode.getText().toString() + " : "
-                            + switchTextNode.getText().toString());
+//                    Log.d(TAG, "In App permissions screen list, found permission name to switch status pair: "
+//                            + permissionTitleNode.getText().toString() + " : "
+//                            + switchTextNode.getText().toString());
                 }
             }
         }
@@ -828,20 +828,20 @@ class OreoAccessibilityHandler {
             Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
             if (permissionMatcher.find()) {
                 if (!isFirstPermissionRequest) {
-                    Log.d(TAG, "A consecutive second permission request dialog happens.");
+//                    Log.d(TAG, "A consecutive second permission request dialog happens.");
                 } else {
-                    Log.d(TAG, "A first permission request dialog happens.");
+//                    Log.d(TAG, "A first permission request dialog happens.");
                 }
                 currentlyHandledAppName = permissionMatcher.group(1);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
+//                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
 
                 String permissionText = permissionMatcher.group(2);
                 if (isFirstPermissionRequest) {
                     currentlyHandledPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
+//                    Log.d(TAG, "Extracted from runtime permission dialog currently handled permission is " + currentlyHandledPermission);
                 } else {
                     currentlyHandledSubsequentPermission = AccessibilityEventMonitorService.PERMISSION_DIALOG_STRINGS.get(permissionText);
-                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
+//                    Log.d(TAG, "Extracted from runtime permission dialog currently handled subsequent permission is " + currentlyHandledSubsequentPermission);
                 }
 
                 // check if app name belongs to package name
@@ -849,11 +849,11 @@ class OreoAccessibilityHandler {
                         !currentlyHandledAppName.equals(getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager))) {
                     // NOTE: change to better algo, currently compare app name to every package app name and find the right package name
                     currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, packageManager);
-                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
+//                    Log.d(TAG, "Used app name to find app package name is " + currentlyHandledAppPackage);
                 }
 
                 currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
-                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
+//                Log.d(TAG, "Extracted from runtime permission dialog currently handled app version is " + currentlyHandledAppVersion);
                 break;
             }
         }
@@ -870,7 +870,7 @@ class OreoAccessibilityHandler {
         if (currentlyHandledAppPackage == null || currentlyHandledAppPackage.isEmpty()) {
             return;
         }
-        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
+//        Log.d(TAG, "Extract currently handled app package name from runtime permission request dialog: " + currentlyHandledAppPackage);
 
         /**
          * Extract permission name and app name from dialog text
@@ -894,10 +894,10 @@ class OreoAccessibilityHandler {
         String actionTextLower = source.getText().toString().toLowerCase();
         if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(true);
-            Log.d(TAG, "Detected grant in runtime permission dialog.");
+//            Log.d(TAG, "Detected grant in runtime permission dialog.");
         } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
             currentlyPermissionGranted = Boolean.toString(false);
-            Log.d(TAG, "Detected deny in runtime permission dialog.");
+//            Log.d(TAG, "Detected deny in runtime permission dialog.");
         }
     }
 
