@@ -107,6 +107,11 @@ class OreoAccessibilityHandler {
                 } else if (isSinglePermissionToAllAppsScreen(source)) {
 //                    Log.d(TAG, "We are in a single permission to all apps screen.");
                     insideSinglePermissionToAllAppsSettingsScreen = true;
+
+                    if (!appNames2PermissionSwitchStatus.isEmpty()) {
+                        findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(source);
+                    }
+
                     extractAppNameToSinglePermissionSwitchStatus(source);
                 } else if (isAppInfoOfSingleAppScreen(source)) {
 //                    Log.d(TAG, "We are in App info (list of all apps) screen.");
@@ -132,10 +137,15 @@ class OreoAccessibilityHandler {
                 processConsecutivePermissionRequestByAnApp(event);
                 break;
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
-                if (insideSettingsAppPermissionsForAnAppScreen && permissionNames2permissionSwitchStatus != null && !permissionNames2permissionSwitchStatus.isEmpty()) {
-                    findDifferenceBetweenPermissionNameToSwitchStatusAndSendEvents(source);
-                } else if (insideSinglePermissionToAllAppsSettingsScreen && appNames2PermissionSwitchStatus != null && !appNames2PermissionSwitchStatus.isEmpty()) {
-                    findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(source);
+                if (insideSettingsAppPermissionsForAnAppScreen) {
+                    if (!permissionNames2permissionSwitchStatus.isEmpty()) {
+                        findDifferenceBetweenPermissionNameToSwitchStatusAndSendEvents(source);
+                    }
+                    extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
+                } else if (insideSinglePermissionToAllAppsSettingsScreen) {
+                    if (!appNames2PermissionSwitchStatus.isEmpty()) {
+                        findDifferenceBetweenAppNameToSwitchStatusAndSendEvents(source);
+                    }
                     extractAppNameToSinglePermissionSwitchStatus(source);
                 } else if (isPermissionsDialog(source)) {
 //                    Log.d(TAG, "We are in a runtime permission dialog.");
