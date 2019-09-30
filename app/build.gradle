@@ -39,4 +39,5 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.1'
     // Add the dependency for the Performance Monitoring library
     implementation 'com.google.firebase:firebase-perf:19.0.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
 }

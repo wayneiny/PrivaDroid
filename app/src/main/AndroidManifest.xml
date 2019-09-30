@@ -110,6 +110,8 @@
                 android:resource="@xml/accessibilityservice" />
         </service>
         <service android:name=".sensors.SystemBroadcastForegroundService" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
     </application>
 
     <uses-permission
@@ -121,4 +123,6 @@
 
     <!--  To run services in foreground in api 28 and above.  -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>

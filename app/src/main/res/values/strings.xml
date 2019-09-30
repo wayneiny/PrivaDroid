@@ -1,5 +1,6 @@
 <resources>
     <string name="appName">PrivaDroid</string>
+    <string name="facebook_app_id">905466186491599</string>
 
     <string name="congratulations">Congratulations!</string>
     <string name="finish_setting_up_accessibility_and_app_usage">Finish setting up accessibility and usage services to use the app.</string>

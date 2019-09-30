@@ -20,6 +20,8 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.lang.ref.WeakReference;
 
+import com.facebook.FacebookSdk;
+
 public class SplashActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
