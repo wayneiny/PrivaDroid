@@ -36,7 +36,9 @@ public class EventUtil {
     public static final String SYNCED = "synced";   // synced to Firestore storage, only used in local storage
     public static final String MULTIPLE_CHOICES_DELIMITER = ";";
 
-    // join event
+    /**
+     * Join event.
+     */
     public static final String JOIN_EVENT_COLLECTION = "JOIN_EVENT_COLLECTION";
     public static final String PHONE_MAKE = "make";
     public static final String PHONE_MODEL = "model";
@@ -108,6 +110,14 @@ public class EventUtil {
     public static final String DAILY_USAGE = "daily_usage";
     public static final String STATUS = "status";
     public static final String COUNTRY = "country";
+
+    /**
+     * Rewards event.
+     */
+    public static final String REWARDS_COLLECTION = "REWARDS_COLLECTION";
+    public static final String REWARDS_METHOD = "rewards_method";
+    public static final String REWARDS_METHOD_VALUE = "method_value";
+    public static final String REWARDS_JOIN_DATE = "join_date";
 
     /**
      * Event utility functions.

@@ -191,4 +191,16 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createRewardsMethodEvent(String rewardsMethod, String methodValue) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.REWARDS_METHOD, rewardsMethod);
+        res.put(EventUtil.REWARDS_METHOD_VALUE, methodValue);
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.REWARDS_JOIN_DATE, new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate());
+
+        return res;
+    }
 }

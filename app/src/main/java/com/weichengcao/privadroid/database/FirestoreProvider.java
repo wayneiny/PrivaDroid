@@ -57,6 +57,17 @@ public class FirestoreProvider {
     }
 
     /**
+     * Send RewardsServerEvent to Firebase.
+     */
+    public void sendRewardsEvent(final HashMap<String, String> rewardsEvent) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
+        mFirestore.collection(EventUtil.REWARDS_COLLECTION).add(rewardsEvent);
+    }
+
+    /**
      * Send AppInstallServerEvent to Firebase.
      */
     public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent) {

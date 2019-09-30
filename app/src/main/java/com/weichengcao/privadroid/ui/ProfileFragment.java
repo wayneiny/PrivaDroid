@@ -19,10 +19,14 @@ import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
+import org.joda.time.DateTime;
+
 import static com.weichengcao.privadroid.util.DatetimeUtil.convertIsoToReadableFormat;
 import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
 public class ProfileFragment extends Fragment {
+
+    public static final int REWARDS_DAYS = 30;
 
     private TextView mAdId;
     private TextView mJoinDate;
@@ -32,9 +36,9 @@ public class ProfileFragment extends Fragment {
     private LinearLayout mUsageLayout;
     private LinearLayout mDemographicLayout;
     private ImageView mDemographicStatusIcon;
+    private LinearLayout mRewardsLayout;
+    private ImageView mRewardsStatusIcon;
     private TextView mVersion;
-
-    private UserPreferences userPreferences;
 
     @Nullable
     @Override
@@ -51,7 +55,7 @@ public class ProfileFragment extends Fragment {
         /**
          * Set up ad id
          */
-        userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+        UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
         mAdId.setText(userPreferences.getAdvertisingId());
         mJoinDate.setText(userPreferences.getJoinDate().equals(UNKNOWN_DATE) ? UNKNOWN_DATE : convertIsoToReadableFormat(userPreferences.getJoinDate()));
 
@@ -67,6 +71,19 @@ public class ProfileFragment extends Fragment {
         mDemographicLayout = view.findViewById(R.id.demographic_status_container);
         mDemographicStatusIcon = view.findViewById(R.id.demographic_status_icon);
 
+        /**
+         * Set up rewards status
+         */
+        mRewardsLayout = view.findViewById(R.id.rewards_status_container);
+        mRewardsStatusIcon = view.findViewById(R.id.rewards_status_icon);
+        mRewardsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrivaDroidApplication.getAppContext(), RewardsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -74,14 +91,20 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+
         /**
          * Set up accessibility and app usage icons and listeners
          */
         boolean isAccessibilityOn = AccessibilityAppUsageUtil.isAccessibilitySettingsOn();
         boolean isUsageOn = AccessibilityAppUsageUtil.isAppUsageSettingsOn();
 
-        mAccessibilityIcon.setImageResource(isAccessibilityOn ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
-        mUsageIcon.setImageResource(isUsageOn ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
+        mAccessibilityIcon.setImageResource(isAccessibilityOn ?
+                R.drawable.ic_check_circle_accent_24dp :
+                R.drawable.ic_cancel_accent_24dp);
+        mUsageIcon.setImageResource(isUsageOn ?
+                R.drawable.ic_check_circle_accent_24dp :
+                R.drawable.ic_cancel_accent_24dp);
 
         mAccessibilityLayout.setOnClickListener(isAccessibilityOn ? null : new View.OnClickListener() {
             @Override
@@ -99,7 +122,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        mDemographicStatusIcon.setImageResource(userPreferences.getAnsweredDemographicSurvey() ? R.drawable.ic_check_circle_accent_24dp : R.drawable.ic_cancel_accent_24dp);
+        mDemographicStatusIcon.setImageResource(userPreferences.getAnsweredDemographicSurvey() ?
+                R.drawable.ic_check_circle_accent_24dp :
+                R.drawable.ic_cancel_accent_24dp);
         mDemographicLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +132,21 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        /**
+         * Set up rewards status icon
+         */
+        String joinDateText = userPreferences.getJoinDate();
+        if (!joinDateText.equals(UNKNOWN_DATE)) {
+            DateTime joinDate = DateTime.parse(joinDateText);
+            DateTime now = DateTime.now();
+
+            mRewardsStatusIcon.setImageResource(now.minusDays(REWARDS_DAYS).isAfter(joinDate) ?
+                    R.drawable.ic_check_circle_accent_24dp :
+                    R.drawable.ic_cancel_accent_24dp);
+        } else {
+            mRewardsStatusIcon.setImageResource(R.drawable.ic_cancel_accent_24dp);
+        }
     }
 
 }

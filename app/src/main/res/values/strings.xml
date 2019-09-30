@@ -67,6 +67,15 @@
     <string name="summary">Summary</string>
     <string name="view_data">View Data</string>
     <string name="demographic_screen_title">Demographic Survey</string>
+    <string name="rewards_screen_title">Rewards</string>
+    <string name="rewards_method_question">Enter your PayPal email address or Bitcoin wallet address that you want to receive the reward with below:</string>
+    <string name="rewards_method_hint">PayPal email or Bitcoin wallet</string>
+    <string name="rewards_method_confirm">Confirm your email or wallet</string>
+    <string name="rewards_method_not_match_error">Email/Wallet values do not match.</string>
+    <string name="rewards_complete_join_date_text">You join the experiment on %1$s.</string>
+    <string name="rewards_join_date_invalid_contact_team">Invalid join date. Please contact our team.</string>
+    <string name="rewards_days_left_text">%1$s days till rewards.</string>
+    <string name="rewards_invalid_method">Invalid value</string>
 
     <string name="surveyed_events_activity_title">Surveyed Events</string>
     <string name="unsurveyed_events_activity_title">Unsurveyed Events</string>
@@ -548,6 +557,7 @@
     </array>
 
     <string name="answered_on_prefix">Answered on </string>
+    <string name="answered_on_prefix_new">Answered on %1$s</string>
 
     <!--  Toast  -->
     <string name="finish_all_demographic_questions_toast">Please finish all demographic questions.</string>
