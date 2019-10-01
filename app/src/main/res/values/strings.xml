@@ -1,38 +1,50 @@
 <resources>
-    <string name="appName">PrivaDroid</string>
-    <string name="facebook_app_id">905466186491599</string>
+    <string name="appName" description="App name. Don't need to translate.">PrivaDroid</string>
+    <string name="facebook_app_id" description="Facebook App ID.">905466186491599</string>
 
-    <string name="congratulations">Congratulations!</string>
-    <string name="finish_setting_up_accessibility_and_app_usage">Finish setting up accessibility and usage services to use the app.</string>
-    <string name="failed_to_join_make_sure_network">Failed to join. Make sure you are connected to the internet.</string>
+    <string name="congratulations" description="Congratulation message.">Congratulations!</string>
+    <string name="finish_setting_up_accessibility_and_app_usage" description="Tell users to enable accessibility and app usage in set up screen.">Finish setting up accessibility and usage services to use the app.</string>
+    <string name="failed_to_join_make_sure_network" description="Error message when user failed to join the experiment.">Failed to join. Make sure you are connected to the internet.</string>
 
-    <string name="agree_to_terms">Agree to terms above</string>
-    <string name="continue_app_settings_button">Continue</string>
-    <string name="submit">Submit</string>
-    <string name="terms_title">Terms</string>
-    <string name="terms_description">
-        PrivaDroid is a community-based Android study app. It helps you keep track of the applications you install/remove from your device.
-        In addition, it captures the permission change you make. Joined users will form a community and users can see how other users are
-        join the app. The data is stored safely and will not be used for any commercial purpose. Users are encouraged to answer the demographic
-        questions to help us better understand how users use Android.
+    <string name="agree_to_terms" description="User needs to agree to the terms to proceed.">Agree to terms above</string>
+    <string name="continue_app_settings_button" description="Continue button">Continue</string>
+    <string name="submit" description="Submit button">Submit</string>
+    <string name="terms_title" description="Terms title">Terms</string>
+    <string name="terms_description" description="Terms that user needs to agree with in order to join">
+        This experiment is entirely voluntary and you can join/exit the experiment at any given time.
+        The participants must be over 18 years old. The purpose of this experiment is to study users\'
+        decision making behind installing/uninstalling applications and runtime permission requests.
+        The participants need to enable accessibility service and app usage access for PrivaDroid to
+        work properly and receive the reward after 30 days of keeping these accesses granted and
+        the app installed. The app will be collecting demographic information through a questionnaire,
+        installed and uninstalled applications and permission requests events during the length of
+        experiment. The app will NOT collect any personally identifiable information and data collected
+        will be anonymized on device and sent to the server after being encrypted. Participants who
+        answer the demographic questionnaire and stay in the experiment for at least a month will be
+        qualified for a 10 USD reward in the form of PayPal payment or Bitcoin payment. And we support
+        these two payment methods ONLY. Multiple enrolments in this experiment only qualify for one payment.
+        Payments will about two to three weeks to get through so please be patient. Currently, we only
+        accept participants from Canada, United States, United Kingdom, South Korea, Spain, France,
+        Hong Kong, India, South Africa, Argentina, Singapore. Users outside of the above countries will
+        not be eligible to receive reward. Thank you!
     </string>
 
-    <string name="skip_tutorial">Skip</string>
-    <string name="join_app">Start</string>
-    <string name="set_up">Set up</string>
-    <string name="ok">OK</string>
-    <string name="done">Done</string>
+    <string name="skip_tutorial" description="skip button">Skip</string>
+    <string name="join_app" description="start button">Start</string>
+    <string name="set_up" description="set up button">Set up</string>
+    <string name="ok" description="ok button">OK</string>
+    <string name="done" description="done button">Done</string>
 
-    <string name="tutorial_how_title">How to use?</string>
-    <string name="tutorial_how_description">
+    <string name="tutorial_how_title" description="'How to use' tutorial card title">How to use?</string>
+    <string name="tutorial_how_description" description="How to use the application description">
         App Install shows a list of apps that were installed after PrivaDroid was installed. Similarly,
         App Uninstall tab shows a list of apps that were uninstalled. Permission screen contains the grants/denys
-        you gave to permission requests. Community shows an aggregated data from all users of this app. You can view your
-        Advertisement ID and other information in the Profile tab.
+        you gave to permission requests. You can submit demographic survey and view your Advertisement
+        ID, join date and rewards status in the Profile tab.
     </string>
 
-    <string name="tutorial_accessibility_service_title">Accessibility Service</string>
-    <string name="tutorial_accessibility_service_description">
+    <string name="tutorial_accessibility_service_title" description="Accessibility service card title">Accessibility Service</string>
+    <string name="tutorial_accessibility_service_description" description="Why accessibility service is needed">
         Accessibility Service is required and used when the app needs to read the permission name and whether you grant/deny the
         permission request from an app. For example, Camera app requests Location access to you through a dialog and PrivaDroid will
         read the permission requested (Location) and whether you granted/denied it (Allow/Deny).
@@ -41,8 +53,8 @@
         This permission is needed for PrivaDroid to be able to read permission name on the screen and detect click events when granting/denying permission requests.
     </string>
 
-    <string name="tutorial_app_usage_title">App Usage Access</string>
-    <string name="tutorial_app_usage_description">
+    <string name="tutorial_app_usage_title" description="App usage card title">App Usage Access</string>
+    <string name="tutorial_app_usage_description" description="Why app access is needed">
         Usage access allows PrivaDroid to track what other apps you are using and how often, as well as your carrier, language settings,
         and other details.
     </string>
@@ -69,7 +81,7 @@
     <string name="view_data">View Data</string>
     <string name="demographic_screen_title">Demographic Survey</string>
     <string name="rewards_screen_title">Rewards</string>
-    <string name="rewards_method_question">Enter your PayPal email address or Bitcoin wallet address that you want to receive the reward with below:</string>
+    <string name="rewards_method_question" description="Let user enter email or bitcoin account to receive reward">Enter your PayPal email address or Bitcoin wallet address that you want to receive the reward with below:</string>
     <string name="rewards_method_hint">PayPal email or Bitcoin wallet</string>
     <string name="rewards_method_confirm">Confirm your email or wallet</string>
     <string name="rewards_method_not_match_error">Email/Wallet values do not match.</string>
@@ -113,16 +125,16 @@
 
     <string name="empty" />
 
-    <string name="why_install_app_on_date_list_item_description">Why did you install %1$s on %2$s?</string>
-    <string name="why_uninstall_app_on_date_list_item_description">Why did you uninstall %1$s on %2$s?</string>
-    <string name="why_install_app_description">Why did you install %1$s?</string>
-    <string name="why_uninstall_app_description">Why did you uninstall %1$s?</string>
-    <string name="permission_app_name_list_item_title">%1$s of %2$s</string>
-    <string name="why_grant_permission_for_app_description">Why did you grant %1$s permission to %2$s app on %3$s?</string>
-    <string name="why_deny_permission_for_app_description">Why did you deny %1$s permission to %2$s app on %3$s?</string>
+    <string name="why_install_app_on_date_list_item_description" description="format text for app install question">Why did you install %1$s on %2$s?</string>
+    <string name="why_uninstall_app_on_date_list_item_description" description="format text for app uninstall question">Why did you uninstall %1$s on %2$s?</string>
+    <string name="why_install_app_description" description="format text for app install short question">Why did you install %1$s?</string>
+    <string name="why_uninstall_app_description" description="format text for app uninstall short question">Why did you uninstall %1$s?</string>
+    <string name="permission_app_name_list_item_title" description="Permission name of app name format text">%1$s of %2$s</string>
+    <string name="why_grant_permission_for_app_description" description="permission grant format question">Why did you grant %1$s permission to %2$s app on %3$s?</string>
+    <string name="why_deny_permission_for_app_description" description="permission deny format question">Why did you deny %1$s permission to %2$s app on %3$s?</string>
 
     <!--  App uninstall survey questions  -->
-    <string name="app_uninstall_question_why">1. Why did you uninstall the app?</string>
+    <string name="app_uninstall_question_why" description="app uninstall survey question why">1. Why did you uninstall the app?</string>
     <array name="app_uninstall_options_why">
         <item>Select an option</item>
         <item>I no longer use the app</item>
@@ -137,7 +149,7 @@
         <item>None of the above</item>
     </array>
 
-    <string name="app_uninstall_question_permission_remembered_requested">2. Do you remember if the app requires any of the following permissions?</string>
+    <string name="app_uninstall_question_permission_remembered_requested" description="app uninstall survey question remember">2. Do you remember if the app requires any of the following permissions?</string>
     <array name="app_uninstall_options_permission_remembered_requested">
         <item>Select an option</item>
         <item>Calendar</item>
@@ -155,7 +167,7 @@
     </array>
 
     <!--  Permission survey questions  -->
-    <string name="permission_grant_question_why">1. Why did you grant the permission request?</string>
+    <string name="permission_grant_question_why" description="permission grant survey event why">1. Why did you grant the permission request?</string>
     <array name="permission_grant_options_why">
         <item>Select an option</item>
         <item>I want to use a specific feature that requires this permission</item>
@@ -171,7 +183,7 @@
         <item>None of the above</item>
     </array>
 
-    <string name="permission_deny_question_why">1. Why did you deny the permission request?</string>
+    <string name="permission_deny_question_why" description="permission deny survey event why">1. Why did you deny the permission request?</string>
     <array name="permission_deny_options_why">
         <item>Select an option</item>
         <item>I think the app shouldn\’t need this permission</item>
@@ -186,15 +198,15 @@
         <item>None of the above</item>
     </array>
 
-    <string name="permission_question_expect_request">2. Did you expect the app requests this permission?</string>
+    <string name="permission_question_expect_request" description="permission why requested question">2. Did you expect the app requests this permission?</string>
     <array name="permission_options_expect_request">
         <item>Select an option</item>
         <item>Yes</item>
         <item>No</item>
     </array>
 
-    <string name="permission_grant_question_comfortable">3. How comfortable do you feel granting this permission request?</string>
-    <string name="permission_deny_question_comfortable">3. How comfortable do you feel denying this permission request?</string>
+    <string name="permission_grant_question_comfortable" description="comfort level granting question">3. How comfortable do you feel granting this permission request?</string>
+    <string name="permission_deny_question_comfortable" description="comfort level denying question">3. How comfortable do you feel denying this permission request?</string>
     <array name="permission_options_comfortable">
         <item>Select an option</item>
         <item>Very uncomfortable</item>
@@ -205,7 +217,7 @@
     </array>
 
     <!--  App install survey questions  -->
-    <string name="app_install_question_why">1. Why did you install the app?</string>
+    <string name="app_install_question_why" description="why install question">1. Why did you install the app?</string>
     <array name="app_install_options_why">
         <item>Select an option</item>
         <item>I want to try it out</item>
@@ -222,7 +234,7 @@
         <item>None of the above</item>
     </array>
 
-    <string name="app_install_question_factors">2. Which factors influenced your decision to install the app?</string>
+    <string name="app_install_question_factors" description="factors of install question">2. Which factors influenced your decision to install the app?</string>
     <array name="app_install_options_factors">
         <item>Select an option</item>
         <item>App rating</item>
@@ -235,7 +247,7 @@
         <item>None of the above</item>
     </array>
 
-    <string name="app_install_question_know_permission">3. Do you know what permissions this app requires?</string>
+    <string name="app_install_question_know_permission" description="any permission required by user question">3. Do you know what permissions this app requires?</string>
     <array name="app_install_options_know_permission">
         <item>Select an option</item>
         <item>Yes</item>
@@ -243,7 +255,7 @@
         <item>I\'m not sure</item>
     </array>
 
-    <string name="app_install_question_which_permission_think">4. Which of the following permission do you think the app requires?</string>
+    <string name="app_install_question_which_permission_think" description="permissions required by user question">4. Which of the following permission do you think the app requires?</string>
     <array name="app_install_options_which_permission_think">
         <item>Select an option</item>
         <item>Calendar</item>
@@ -653,16 +665,16 @@
     </array>
 
     <!--  permission dialog strings  -->
-    <string name="permission_dialog_string_camera">take pictures and record video</string>
-    <string name="permission_dialog_string_contacts">access your contacts</string>
-    <string name="permission_dialog_string_location">access this device\'s location</string>
-    <string name="permission_dialog_string_microphone">record audio</string>
-    <string name="permission_dialog_string_phone">make and manage phone calls</string>
-    <string name="permission_dialog_string_storage_one">access photos, media, and files on your device</string>
-    <string name="permission_dialog_string_storage_two">access photos, media and files on your device</string>
-    <string name="permission_dialog_string_body_sensors">access sensor data about your vital signs</string>
-    <string name="permission_dialog_string_calendar">access your calendar</string>
-    <string name="permission_dialog_string_sms">send and view SMS messages</string>
-    <string name="permission_dialog_string_call_logs_one">access your call logs</string>
-    <string name="permission_dialog_string_call_logs_two">access your phone call logs</string>
+    <string name="permission_dialog_string_camera" description="runtime permission dialog camera text">take pictures and record video</string>
+    <string name="permission_dialog_string_contacts" description="runtime permission dialog contacts text">access your contacts</string>
+    <string name="permission_dialog_string_location" description="runtime permission dialog location text">access this device\'s location</string>
+    <string name="permission_dialog_string_microphone" description="runtime permission dialog microphone text">record audio</string>
+    <string name="permission_dialog_string_phone" description="runtime permission dialog phone text">make and manage phone calls</string>
+    <string name="permission_dialog_string_storage_one" description="runtime permission dialog storage first text">access photos, media, and files on your device</string>
+    <string name="permission_dialog_string_storage_two" description="runtime permission dialog storage second text">access photos, media and files on your device</string>
+    <string name="permission_dialog_string_body_sensors" description="runtime permission dialog body sensors text">access sensor data about your vital signs</string>
+    <string name="permission_dialog_string_calendar" description="runtime permission dialog calendar text">access your calendar</string>
+    <string name="permission_dialog_string_sms" description="runtime permission dialog sms text">send and view SMS messages</string>
+    <string name="permission_dialog_string_call_logs_one" description="runtime permission dialog call logs first text">access your call logs</string>
+    <string name="permission_dialog_string_call_logs_two" description="runtime permission dialog call logs second text">access your phone call logs</string>
 </resources>
