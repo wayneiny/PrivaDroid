@@ -59,8 +59,10 @@ public class SystemBroadcastForegroundService extends Service {
 
     @Override
     public void onDestroy() {
-        unregisterReceiver(appPackagesBroadcastReceiver);
-        Log.d(TAG, "Foreground service is destroyed.");
+        if (appPackagesBroadcastReceiver != null) {
+            unregisterReceiver(appPackagesBroadcastReceiver);
+            Log.d(TAG, "Foreground service is destroyed.");
+        }
         super.onDestroy();
     }
 

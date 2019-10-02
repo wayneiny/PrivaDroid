@@ -45,6 +45,8 @@ public class DemographicActivity extends AppCompatActivity {
     private TextView mAnsweredOn;
     private MaterialButton mSubmit;
 
+    private DemographicEvent mDemographicEvent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,7 @@ public class DemographicActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful() && task.getResult() != null) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
-                            PrivaDroidApplication.demographicEvent = new DemographicEvent(
+                            mDemographicEvent = new DemographicEvent(
                                     doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.COUNTRY),
                                     doc.getString(EventUtil.EDUCATION), doc.getString(EventUtil.INCOME),
                                     doc.getString(EventUtil.AGE), doc.getString(EventUtil.GENDER),
@@ -92,7 +94,7 @@ public class DemographicActivity extends AppCompatActivity {
                         mAnsweredOn = findViewById(R.id.demographic_answered_on);
                         mAnsweredOn.setVisibility(View.VISIBLE);
                         mAnsweredOn.setText(String.format("%s %s", getString(R.string.answered_on_prefix),
-                                DatetimeUtil.convertIsoToReadableFormat(PrivaDroidApplication.demographicEvent.getLoggedTime())));
+                                DatetimeUtil.convertIsoToReadableFormat(mDemographicEvent.getLoggedTime())));
                     }
                 }
             });
@@ -193,35 +195,35 @@ public class DemographicActivity extends AppCompatActivity {
         switch (spinnerId) {
             case R.id.demographic_spinner_age:
                 options = getResources().getStringArray(R.array.demographic_age_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getAge()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getAge()));
                 break;
             case R.id.demographic_spinner_country:
                 options = getResources().getStringArray(R.array.demographic_country_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getCountry()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getCountry()));
                 break;
             case R.id.demographic_spinner_education:
                 options = getResources().getStringArray(R.array.demographic_education_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getEducation()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getEducation()));
                 break;
             case R.id.demographic_spinner_gender:
                 options = getResources().getStringArray(R.array.demographic_gender_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getGender()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getGender()));
                 break;
             case R.id.demographic_spinner_income:
                 options = getResources().getStringArray(R.array.demographic_income_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getIncome()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getIncome()));
                 break;
             case R.id.demographic_spinner_industry:
                 options = getResources().getStringArray(R.array.demographic_industry_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getIndustry()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getIndustry()));
                 break;
             case R.id.demographic_spinner_status:
                 options = getResources().getStringArray(R.array.demographic_status_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getStatus()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getStatus()));
                 break;
             case R.id.demographic_spinner_usage:
                 options = getResources().getStringArray(R.array.demographic_usage_options);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(PrivaDroidApplication.demographicEvent.getDailyUsage()));
+                spinner.setSelection(Arrays.asList(options).lastIndexOf(mDemographicEvent.getDailyUsage()));
                 break;
             default:
                 return;

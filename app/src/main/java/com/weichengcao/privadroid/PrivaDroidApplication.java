@@ -67,6 +67,4 @@ public class PrivaDroidApplication extends Application {
     public static HashMap<String, BaseServerSurvey> serverId2appInstallSurveys = new HashMap<>();
     public static HashMap<String, BaseServerSurvey> serverId2appUninstallSurveys = new HashMap<>();
     public static HashMap<String, BaseServerSurvey> serverId2permissionSurveys = new HashMap<>();
-
-    public static DemographicEvent demographicEvent = null;
 }
