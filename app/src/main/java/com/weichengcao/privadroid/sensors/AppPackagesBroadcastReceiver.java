@@ -107,7 +107,7 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
         // 2. send event to Firestore
         FirestoreProvider fp = new FirestoreProvider();
         HashMap<String, String> event = ExperimentEventFactory.createAppInstallEvent(appName, packageName, version);
-        fp.sendAppInstallEvent(event);
+        fp.sendAppInstallEvent(event, true);
     }
 
     private void logPackageUninstallEvent(Context context, Intent intent) {
@@ -126,7 +126,7 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
         // 2. send event to Firestore
         FirestoreProvider fp = new FirestoreProvider();
         HashMap<String, String> event = ExperimentEventFactory.createAppUninstallEvent(packageName, appName, appVersion);
-        fp.sendAppUninstallEvent(event);
+        fp.sendAppUninstallEvent(event, true);
     }
     // log events and send to Firestore [END]
 

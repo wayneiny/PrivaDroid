@@ -3,6 +3,8 @@ package com.weichengcao.privadroid.database;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 
 import org.json.JSONArray;
@@ -19,21 +21,20 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.util.EventUtil.SYNCED;
+import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 
 public class OnDeviceStorageProvider {
 
     private static final String TAG = OnDeviceStorageProvider.class.getSimpleName();
 
-    public static final String APP_INSTALL_FILE_NAME = "app_install_events.json";
-    public static final String APP_UNINSTALL_FILE_NAME = "app_uninstall_events.json";
-    public static final String PERMISSION_FILE_NAME = "permission_events.json";
-    public static final String DEMOGRAPHIC_FILE_NAME = "demographic_event.json";
-    public static final String APP_INSTALL_SURVEY_FILE_NAME = "app_install_survey_events.json";
-    public static final String APP_UNINSTALL_SURVEY_FILE_NAME = "app_uninstall_survey_events.json";
-    public static final String PERMISSION_GRANT_SURVEY_FILE_NAME = "permission_grant_survey_events.json";
-    public static final String PERMISSION_DENY_SURVEY_FILE_NAME = "permission_deny_survey_events.json";
-    public static final String PROACTIVE_PERMISSION_FILE_NAME = "proactive_permission_events.json";
+    static final String APP_INSTALL_FILE_NAME = "app_install_events.json";
+    static final String APP_UNINSTALL_FILE_NAME = "app_uninstall_events.json";
+    static final String PERMISSION_FILE_NAME = "permission_events.json";
+    static final String APP_INSTALL_SURVEY_FILE_NAME = "app_install_survey_events.json";
+    static final String APP_UNINSTALL_SURVEY_FILE_NAME = "app_uninstall_survey_events.json";
+    static final String PERMISSION_GRANT_SURVEY_FILE_NAME = "permission_grant_survey_events.json";
+    static final String PERMISSION_DENY_SURVEY_FILE_NAME = "permission_deny_survey_events.json";
+    static final String PROACTIVE_PERMISSION_FILE_NAME = "proactive_permission_events.json";
 
     private static JSONArray readJsonEventsFromFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
@@ -49,14 +50,7 @@ public class OnDeviceStorageProvider {
         }
     }
 
-    /**
-     * Add synced:false to event. Only add this for local storage event.
-     */
-    private static void addSyncedFlag(HashMap<String, String> event) {
-        event.put(SYNCED, Boolean.toString(false));
-    }
-
-    public static void writeEventToFile(HashMap<String, String> event, String fileName) {
+    static void writeEventToFile(HashMap<String, String> event, String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
         JSONArray savedEvents = new JSONArray();
         if (file.exists()) {
@@ -65,7 +59,6 @@ public class OnDeviceStorageProvider {
         }
 
         // 2. add new event to savedEvents
-        addSyncedFlag(event);
         JSONObject newEvent = new JSONObject(event);
         savedEvents.put(newEvent);
 
@@ -74,6 +67,7 @@ public class OnDeviceStorageProvider {
             FileOutputStream outputStream = PrivaDroidApplication.getAppContext().openFileOutput(fileName, Context.MODE_PRIVATE);
             outputStream.write(savedEvents.toString().getBytes());
             outputStream.close();
+            Log.d(TAG, "Write event to disk.");
         } catch (FileNotFoundException e) {
             Log.e(TAG, "Cannot find file " + fileName);
         } catch (IOException e) {
@@ -81,20 +75,87 @@ public class OnDeviceStorageProvider {
         }
     }
 
-    /**
-     * Demographic event
-     */
-    public static void writeDemographicEventToFile(HashMap<String, String> event) {
-        JSONObject newEvent = new JSONObject(event);
-
-        try {
-            FileOutputStream outputStream = PrivaDroidApplication.getAppContext().openFileOutput(DEMOGRAPHIC_FILE_NAME, Context.MODE_PRIVATE);
-            outputStream.write(newEvent.toString().getBytes());
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            Log.e(TAG, "Cannot find file " + DEMOGRAPHIC_FILE_NAME);
-        } catch (IOException e) {
-            Log.e(TAG, "Failed to write to file " + DEMOGRAPHIC_FILE_NAME);
+    public static boolean deleteFile(String fileName) {
+        File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
+        if (file.exists()) {
+            return file.delete();
         }
+        return true;
+    }
+
+    public static HashMap<String, String> eventFromJsonObject(JSONObject jsonObject) {
+        HashMap<String, String> mapObj = new Gson().fromJson(
+                jsonObject.toString(), new TypeToken<HashMap<String, String>>() {
+                }.getType()
+        );
+        return mapObj;
+    }
+
+    public static void syncOnDeviceEventsToFirebase(String fileName) {
+        FirestoreProvider firestoreProvider = new FirestoreProvider();
+
+        // Sync app install events
+        JSONArray events = readJsonEventsFromFile(fileName);
+        if (!deleteFile(fileName)) {
+            Log.d(TAG, "Failed to delete event file " + fileName);
+            return;
+        }
+        Log.d(TAG, "Deleted " + fileName);
+
+        int length = events.length();
+        for (int i = 0; i < length; i++) {
+            try {
+                JSONObject object = events.getJSONObject(i);
+                HashMap<String, String> map = eventFromJsonObject(object);
+                switch (fileName) {
+                    case APP_INSTALL_FILE_NAME:
+                        firestoreProvider.sendAppInstallEvent(map, false);
+                        break;
+                    case APP_UNINSTALL_FILE_NAME:
+                        firestoreProvider.sendAppUninstallEvent(map, false);
+                        break;
+                    case APP_INSTALL_SURVEY_FILE_NAME:
+                        firestoreProvider.sendAppInstallSurveyEvent(map);
+                        break;
+                    case APP_UNINSTALL_SURVEY_FILE_NAME:
+                        firestoreProvider.sendAppUninstallSurveyEvent(map);
+                        break;
+                    case PERMISSION_FILE_NAME:
+                        firestoreProvider.sendPermissionEvent(map, false);
+                        break;
+                    case PERMISSION_GRANT_SURVEY_FILE_NAME:
+                        firestoreProvider.sendPermissionServerSurveyEvent(map, true);
+                        break;
+                    case PERMISSION_DENY_SURVEY_FILE_NAME:
+                        firestoreProvider.sendPermissionServerSurveyEvent(map, false);
+                        break;
+                    case PROACTIVE_PERMISSION_FILE_NAME:
+                        firestoreProvider.sendProactivePermissionEvent(map);
+                        break;
+                }
+                Log.d(TAG, "Synced event to Firebase.");
+            } catch (JSONException ignored) {
+            }
+        }
+    }
+
+    public static void syncAllOnDeviceEventsToFirebase() {
+        new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "syncAllOnDeviceEventsToFirebase called.");
+                if (isNetworkAvailable()) {
+                    Log.d(TAG, "Network available, syncing...");
+                    syncOnDeviceEventsToFirebase(APP_INSTALL_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(APP_UNINSTALL_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(PERMISSION_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(APP_INSTALL_SURVEY_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(APP_UNINSTALL_SURVEY_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(PERMISSION_GRANT_SURVEY_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(PERMISSION_DENY_SURVEY_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(PROACTIVE_PERMISSION_FILE_NAME);
+                }
+            }
+        }.run();
     }
 }

@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
+import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 
 public class DemographicActivity extends AppCompatActivity {
@@ -243,6 +244,11 @@ public class DemographicActivity extends AppCompatActivity {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isNetworkAvailable()) {
+                    Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (!validateAnswerBasedOnQuestionId(R.id.demographic_question_age) ||
                         !validateAnswerBasedOnQuestionId(R.id.demographic_question_country) ||
                         !validateAnswerBasedOnQuestionId(R.id.demographic_question_education) ||

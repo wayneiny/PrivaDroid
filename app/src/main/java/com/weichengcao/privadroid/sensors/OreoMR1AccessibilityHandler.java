@@ -778,7 +778,7 @@ class OreoMR1AccessibilityHandler {
         firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                 currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                 currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                currentlyProactivePermissionRequestEventCorrelationId));
+                currentlyProactivePermissionRequestEventCorrelationId), true);
 
         currentlyPermissionGranted = null;
 

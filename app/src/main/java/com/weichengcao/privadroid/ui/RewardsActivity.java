@@ -36,6 +36,7 @@ import org.joda.time.Duration;
 import java.util.List;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
+import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.ui.ProfileFragment.REWARDS_DAYS;
 import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
@@ -163,6 +164,11 @@ public class RewardsActivity extends AppCompatActivity {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!isNetworkAvailable()) {
+                    Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (mRewardsMethodValue.getText() == null || mRewardsMethodValue.getText().toString().trim().isEmpty()) {
                     mRewardsMethodValue.setError(PrivaDroidApplication.getAppContext().getString(R.string.rewards_invalid_method));
                 } else if (mRewardsMethodConfirm.getText() == null || mRewardsMethodConfirm.getText().toString().trim().isEmpty()) {

@@ -1,5 +1,8 @@
 package com.weichengcao.privadroid.database;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import com.weichengcao.privadroid.util.UserPreferences;
 import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
+import static com.weichengcao.privadroid.PrivaDroidApplication.getAppContext;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_FILE_NAME;
@@ -73,8 +77,13 @@ public class FirestoreProvider {
     /**
      * Send AppInstallServerEvent to Firebase.
      */
-    public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent) {
+    public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent, final boolean createNotificationForSurvey) {
         if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(appInstallEvent, APP_INSTALL_FILE_NAME);
             return;
         }
 
@@ -104,6 +113,10 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
+                            if (!createNotificationForSurvey) {
+                                return;
+                            }
+
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForInstallEventSurvey(event);
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
@@ -127,8 +140,13 @@ public class FirestoreProvider {
     /**
      * Send AppUninstallServerEvent to Firebase.
      */
-    public void sendAppUninstallEvent(final HashMap<String, String> appUninstallEvent) {
+    public void sendAppUninstallEvent(final HashMap<String, String> appUninstallEvent, final boolean createNotificationForSurvey) {
         if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(appUninstallEvent, APP_UNINSTALL_FILE_NAME);
             return;
         }
 
@@ -158,6 +176,10 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
+                            if (!createNotificationForSurvey) {
+                                return;
+                            }
+
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForUninstallEventSurvey(event);
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
@@ -186,6 +208,11 @@ public class FirestoreProvider {
             return;
         }
 
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(proactivePermissionEvent, PROACTIVE_PERMISSION_FILE_NAME);
+            return;
+        }
+
         mFirestore.collection(EventUtil.PROACTIVE_RATIONALE_COLLECTION).add(proactivePermissionEvent)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -200,8 +227,13 @@ public class FirestoreProvider {
     /**
      * Send PermissionServerEvent to Firebase.
      */
-    public void sendPermissionEvent(final HashMap<String, String> permissionEvent) {
+    public void sendPermissionEvent(final HashMap<String, String> permissionEvent, final boolean createNotificationForSurvey) {
         if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(permissionEvent, PERMISSION_FILE_NAME);
             return;
         }
 
@@ -232,6 +264,10 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
+                            if (!createNotificationForSurvey) {
+                                return;
+                            }
+
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
                                 new MarshmallowNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForPermissionEventSurvey(event);
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) {
@@ -256,8 +292,17 @@ public class FirestoreProvider {
      * Send PermissionGrantServerSurvey to Firebase.
      */
     public void sendPermissionServerSurveyEvent(final HashMap<String, String> permissionGrantSurvey, boolean isGrantSurvey) {
-        String surveyCollection = isGrantSurvey ? EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION : EventUtil.PERMISSION_DENY_SURVEY_COLLECTION;
+        if (permissionGrantSurvey == null || permissionGrantSurvey.get(EVENT_SERVER_ID) == null) {
+            return;
+        }
+
         final String surveyLocalFile = isGrantSurvey ? PERMISSION_GRANT_SURVEY_FILE_NAME : PERMISSION_DENY_SURVEY_FILE_NAME;
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(permissionGrantSurvey, surveyLocalFile);
+            return;
+        }
+
+        String surveyCollection = isGrantSurvey ? EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION : EventUtil.PERMISSION_DENY_SURVEY_COLLECTION;
         mFirestore.collection(surveyCollection).add(permissionGrantSurvey)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -278,19 +323,22 @@ public class FirestoreProvider {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot eventDoc = task.getResult();
-                                        if (eventDoc.exists()) {
-                                            final PermissionServerEvent permissionServerEvent = new PermissionServerEvent(eventDoc.getId(),
-                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
-                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
-                                                    eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(), PERMISSION_EVENT_TYPE,
-                                                    eventDoc.getString(EventUtil.INITIATED_BY_USER), eventDoc.getString(EventUtil.PERMISSION_REQUESTED_NAME),
-                                                    eventDoc.getString(EventUtil.GRANTED));
+                                        if (eventDoc != null && eventDoc.exists()) {
+                                            final PermissionServerEvent permissionServerEvent;
+                                            if (surveyDoc != null) {
+                                                permissionServerEvent = new PermissionServerEvent(eventDoc.getId(),
+                                                        eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                        eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                        eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(), PERMISSION_EVENT_TYPE,
+                                                        eventDoc.getString(EventUtil.INITIATED_BY_USER), eventDoc.getString(EventUtil.PERMISSION_REQUESTED_NAME),
+                                                        eventDoc.getString(EventUtil.GRANTED));
 
-                                            /**
-                                             * 3. Update its corresponding permission event.
-                                             */
-                                            mFirestore.collection(PERMISSION_COLLECTION).document(permissionServerEvent.getServerId())
-                                                    .update(createPermissionServerEventHashMapFromObject(permissionServerEvent));
+                                                /**
+                                                 * 3. Update its corresponding permission event.
+                                                 */
+                                                mFirestore.collection(PERMISSION_COLLECTION).document(permissionServerEvent.getServerId())
+                                                        .update(createPermissionServerEventHashMapFromObject(permissionServerEvent));
+                                            }
                                         }
                                     }
                                 }
@@ -304,24 +352,22 @@ public class FirestoreProvider {
      * Send demographic event to Firebase.
      */
     public void sendDemographicEvent(final HashMap<String, String> demographicEvent) {
-        mFirestore.collection(DEMOGRAPHIC_COLLECTION).add(demographicEvent)
-                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if (task.isSuccessful()) {
-                            mUserPreferences.setAnsweredDemographicSurvey(true);
-                        } else {
-                            mUserPreferences.setAnsweredDemographicSurvey(false);
-                            OnDeviceStorageProvider.writeDemographicEventToFile(demographicEvent);
-                        }
-                    }
-                });
+        mFirestore.collection(DEMOGRAPHIC_COLLECTION).add(demographicEvent);
     }
 
     /**
      * Send app install survey event to Firebase.
      */
     public void sendAppInstallSurveyEvent(final HashMap<String, String> appInstallSurvey) {
+        if (appInstallSurvey == null || appInstallSurvey.get(EVENT_SERVER_ID) == null) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(appInstallSurvey, APP_INSTALL_SURVEY_FILE_NAME);
+            return;
+        }
+
         mFirestore.collection(APP_INSTALL_SURVEY_COLLECTION).add(appInstallSurvey)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -342,18 +388,21 @@ public class FirestoreProvider {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot eventDoc = task.getResult();
-                                        if (eventDoc.exists()) {
-                                            final AppInstallServerEvent appInstallServerEvent = new AppInstallServerEvent(eventDoc.getId(),
-                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
-                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
-                                                    eventDoc.getString(EventUtil.PACKAGE_NAME), surveyDoc.getId(),
-                                                    APP_INSTALL_EVENT_TYPE);
+                                        if (eventDoc != null && eventDoc.exists()) {
+                                            final AppInstallServerEvent appInstallServerEvent;
+                                            if (surveyDoc != null) {
+                                                appInstallServerEvent = new AppInstallServerEvent(eventDoc.getId(),
+                                                        eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                        eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                        eventDoc.getString(EventUtil.PACKAGE_NAME), surveyDoc.getId(),
+                                                        APP_INSTALL_EVENT_TYPE);
 
-                                            /**
-                                             * 3. Update its corresponding app install event.
-                                             */
-                                            mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
-                                                    .update(createAppInstallEventHashMapFromObject(appInstallServerEvent));
+                                                /**
+                                                 * 3. Update its corresponding app install event.
+                                                 */
+                                                mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
+                                                        .update(createAppInstallEventHashMapFromObject(appInstallServerEvent));
+                                            }
                                         }
                                     }
                                 }
@@ -367,6 +416,15 @@ public class FirestoreProvider {
      * Send app uninstall survey event to Firebase.
      */
     public void sendAppUninstallSurveyEvent(final HashMap<String, String> appUninstallSurvey) {
+        if (appUninstallSurvey == null || appUninstallSurvey.get(EVENT_SERVER_ID) == null) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(appUninstallSurvey, APP_UNINSTALL_SURVEY_FILE_NAME);
+            return;
+        }
+
         mFirestore.collection(APP_UNINSTALL_SURVEY_COLLECTION).add(appUninstallSurvey)
                 .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
@@ -387,18 +445,21 @@ public class FirestoreProvider {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot eventDoc = task.getResult();
-                                        if (eventDoc.exists()) {
-                                            final AppUninstallServerEvent appUninstallServerEvent = new AppUninstallServerEvent(eventDoc.getId(),
-                                                    eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
-                                                    eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
-                                                    eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(),
-                                                    APP_UNINSTALL_EVENT_TYPE);
+                                        if (eventDoc != null && eventDoc.exists()) {
+                                            final AppUninstallServerEvent appUninstallServerEvent;
+                                            if (surveyDoc != null) {
+                                                appUninstallServerEvent = new AppUninstallServerEvent(eventDoc.getId(),
+                                                        eventDoc.getString(EventUtil.USER_AD_ID), eventDoc.getString(EventUtil.APP_NAME),
+                                                        eventDoc.getString(EventUtil.APP_VERSION), eventDoc.getString(EventUtil.LOGGED_TIME),
+                                                        eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(),
+                                                        APP_UNINSTALL_EVENT_TYPE);
 
-                                            /**
-                                             * 3. Update its corresponding app uninstall event.
-                                             */
-                                            mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
-                                                    .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent));
+                                                /**
+                                                 * 3. Update its corresponding app uninstall event.
+                                                 */
+                                                mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
+                                                        .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent));
+                                            }
                                         }
                                     }
                                 }
@@ -457,5 +518,17 @@ public class FirestoreProvider {
         map.put(EventUtil.SURVEY_ID, event.getSurveyId());
 
         return map;
+    }
+
+    /**
+     * Check if the Android is connected to the network.
+     */
+    public static boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null) {
+            return false;
+        }
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

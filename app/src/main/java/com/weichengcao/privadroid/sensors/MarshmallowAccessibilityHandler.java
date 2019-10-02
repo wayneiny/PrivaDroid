@@ -563,7 +563,7 @@ class MarshmallowAccessibilityHandler {
         firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                 currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                 currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                currentlyProactivePermissionRequestEventCorrelationId));
+                currentlyProactivePermissionRequestEventCorrelationId), true);
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;
         currentlyPermissionGranted = null;

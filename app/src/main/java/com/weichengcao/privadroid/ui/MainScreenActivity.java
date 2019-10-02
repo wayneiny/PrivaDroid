@@ -2,6 +2,7 @@ package com.weichengcao.privadroid.ui;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,8 +13,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
+import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.startSystemBroadcastForegroundService;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
@@ -63,6 +66,15 @@ public class MainScreenActivity extends FragmentActivity {
          * Start SystemChangeEventReceiver if >= Oreo.
          */
         startSystemBroadcastForegroundService();
+
+        /**
+         * Sync on-device events to Firebase.
+         */
+        OnDeviceStorageProvider.syncAllOnDeviceEventsToFirebase();
+
+        if (!isNetworkAvailable()) {
+            Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
+        }
     }
 
     private void selectFragment(MenuItem menuItem) {

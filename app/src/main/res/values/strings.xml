@@ -677,4 +677,7 @@
     <string name="permission_dialog_string_sms" description="runtime permission dialog sms text">send and view SMS messages</string>
     <string name="permission_dialog_string_call_logs_one" description="runtime permission dialog call logs first text">access your call logs</string>
     <string name="permission_dialog_string_call_logs_two" description="runtime permission dialog call logs second text">access your phone call logs</string>
+
+    <!--  After translation  -->
+    <string name="no_internet_connection_error" description="Error message for no internet connection">PrivaDroid needs Internet connection.</string>
 </resources>

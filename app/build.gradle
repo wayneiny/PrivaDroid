@@ -40,4 +40,5 @@ dependencies {
     // Add the dependency for the Performance Monitoring library
     implementation 'com.google.firebase:firebase-perf:19.0.0'
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

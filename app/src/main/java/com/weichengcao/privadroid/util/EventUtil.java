@@ -33,7 +33,6 @@ public class EventUtil {
     public static final String PACKAGE_NAME = "package_name";
     public static final String APP_VERSION = "app_version";
     public static final String SURVEY_ID = "survey_id";
-    public static final String SYNCED = "synced";   // synced to Firestore storage, only used in local storage
     public static final String MULTIPLE_CHOICES_DELIMITER = ";";
 
     /**

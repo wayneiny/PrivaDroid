@@ -75,7 +75,14 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
         Intent intent = getIntent();
         if (intent != null) {
             Bundle payload = intent.getBundleExtra(BaseNotificationProvider.NOTIFICATION_INTENT_PAYLOAD);
+            if (payload == null) {
+                return;
+            }
+
             String eventServerId = payload.getString(EventUtil.EVENT_ID_INTENT_KEY);
+            if (eventServerId == null) {
+                return;
+            }
 
             /**
              * Get proper event from Firestore.
@@ -88,7 +95,7 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot doc = task.getResult();
-                        if (doc.exists()) {
+                        if (doc != null && doc.exists()) {
                             currentPermissionServerEvent = new PermissionServerEvent(doc.getId(),
                                     doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.APP_NAME),
                                     doc.getString(EventUtil.APP_VERSION), doc.getString(EventUtil.LOGGED_TIME),
