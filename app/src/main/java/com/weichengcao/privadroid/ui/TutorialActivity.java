@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
@@ -25,6 +26,7 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.ACCESSIBILITY_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.APP_USAGE_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.HOW_TO_CARD_INDEX;
@@ -63,7 +65,8 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
 
         mUserPreferences = new UserPreferences(this);
 
-        mFirestore = FirebaseFirestore.getInstance();
+        FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+        mFirestore = FirebaseFirestore.getInstance(app);
     }
 
     @Override

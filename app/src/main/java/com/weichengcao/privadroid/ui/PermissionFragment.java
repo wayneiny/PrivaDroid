@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -27,6 +28,7 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.ui.MainScreenActivity.createEventTypeFragmentBundle;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
@@ -57,7 +59,8 @@ public class PermissionFragment extends Fragment {
          * Query surveyed and unsurveyed permission events.
          */
         UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
-        CollectionReference collectionReference = FirebaseFirestore.getInstance().collection(PERMISSION_COLLECTION);
+        FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+        CollectionReference collectionReference = FirebaseFirestore.getInstance(app).collection(PERMISSION_COLLECTION);
         Query query = collectionReference.whereEqualTo(EventUtil.USER_AD_ID, userPreferences.getAdvertisingId());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

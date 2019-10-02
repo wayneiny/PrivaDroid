@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +36,7 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
@@ -80,7 +82,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
             /**
              * Get proper event from Firestore.
              */
-            CollectionReference appUninstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
+            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+            CollectionReference appUninstallEventCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_UNINSTALL_COLLECTION);
             DocumentReference eventDocRef = appUninstallEventCollectionRef.document(eventServerId);
             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -105,7 +108,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                              * Get survey from server if surveyed.
                              */
                             if (surveyed) {
-                                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_SURVEY_COLLECTION);
+                                FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+                                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_UNINSTALL_SURVEY_COLLECTION);
                                 Query query = appUninstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppUninstallServerEvent.getServerId());
                                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

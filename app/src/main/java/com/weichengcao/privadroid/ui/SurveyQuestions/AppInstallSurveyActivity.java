@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,6 +36,7 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
@@ -81,7 +83,8 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
             /**
              * Get proper event from Firestore.
              */
-            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
+            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_INSTALL_COLLECTION);
             DocumentReference eventDocRef = appInstallEventCollectionRef.document(eventServerId);
             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -106,7 +109,8 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                              * Get survey from server if surveyed.
                              */
                             if (surveyed) {
-                                CollectionReference appInstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_SURVEY_COLLECTION);
+                                FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+                                CollectionReference appInstallSurveyCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_INSTALL_SURVEY_COLLECTION);
                                 Query query = appInstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppInstallServerEvent.getServerId());
                                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

@@ -15,6 +15,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,6 +35,7 @@ import org.joda.time.Duration;
 
 import java.util.List;
 
+import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.ui.ProfileFragment.REWARDS_DAYS;
 import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
@@ -82,7 +84,8 @@ public class RewardsActivity extends AppCompatActivity {
         /**
          * Query from Firebase the rewards event.
          */
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+        FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance(app);
         final CollectionReference rewardsColRef = firebaseFirestore.collection(EventUtil.REWARDS_COLLECTION);
         Query query = rewardsColRef.whereEqualTo(EventUtil.USER_AD_ID, new UserPreferences(this).getAdvertisingId());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
