@@ -27,6 +27,7 @@ import com.weichengcao.privadroid.util.UserPreferences;
 import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
+import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.ACCESSIBILITY_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.APP_USAGE_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.HOW_TO_CARD_INDEX;
@@ -114,6 +115,12 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
             view.setEnabled(false);
             if (!AccessibilityAppUsageUtil.isAccessibilitySettingsOn() || !AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
                 Toast.makeText(this, R.string.finish_setting_up_accessibility_and_app_usage, Toast.LENGTH_LONG).show();
+                view.setEnabled(true);
+                return;
+            }
+
+            if (!isNetworkAvailable()) {
+                Toast.makeText(this, this.getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
                 view.setEnabled(true);
                 return;
             }
