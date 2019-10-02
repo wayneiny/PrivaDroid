@@ -24,9 +24,9 @@ public class AccessibilityAppUsageUtil {
             accessibilityEnabled = Settings.Secure.getInt(
                     PrivaDroidApplication.getAppContext().getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-            Log.v(TAG, "accessibilityEnabled = " + accessibilityEnabled);
+//            Log.v(TAG, "accessibilityEnabled = " + accessibilityEnabled);
         } catch (Settings.SettingNotFoundException e) {
-            Log.e(TAG, "Error finding setting, default accessibility to not found: " + e.getMessage());
+//            Log.e(TAG, "Error finding setting, default accessibility to not found: " + e.getMessage());
         }
 
         TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');
@@ -54,7 +54,10 @@ public class AccessibilityAppUsageUtil {
             PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(PrivaDroidApplication.getAppContext().getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager) PrivaDroidApplication.getAppContext().getSystemService(Context.APP_OPS_SERVICE);
-            int mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
+            int mode = 0;
+            if (appOpsManager != null) {
+                mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
+            }
             return (mode == AppOpsManager.MODE_ALLOWED);
         } catch (PackageManager.NameNotFoundException e) {
             return false;

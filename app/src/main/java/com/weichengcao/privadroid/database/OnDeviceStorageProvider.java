@@ -67,11 +67,11 @@ public class OnDeviceStorageProvider {
             FileOutputStream outputStream = PrivaDroidApplication.getAppContext().openFileOutput(fileName, Context.MODE_PRIVATE);
             outputStream.write(savedEvents.toString().getBytes());
             outputStream.close();
-            Log.d(TAG, "Write event to disk.");
+//            Log.d(TAG, "Write event to disk.");
         } catch (FileNotFoundException e) {
-            Log.e(TAG, "Cannot find file " + fileName);
+//            Log.e(TAG, "Cannot find file " + fileName);
         } catch (IOException e) {
-            Log.e(TAG, "Failed to write to file " + fileName);
+//            Log.e(TAG, "Failed to write to file " + fileName);
         }
     }
 
@@ -97,10 +97,10 @@ public class OnDeviceStorageProvider {
         // Sync app install events
         JSONArray events = readJsonEventsFromFile(fileName);
         if (!deleteFile(fileName)) {
-            Log.d(TAG, "Failed to delete event file " + fileName);
+//            Log.d(TAG, "Failed to delete event file " + fileName);
             return;
         }
-        Log.d(TAG, "Deleted " + fileName);
+//        Log.d(TAG, "Deleted " + fileName);
 
         int length = events.length();
         for (int i = 0; i < length; i++) {
@@ -133,7 +133,7 @@ public class OnDeviceStorageProvider {
                         firestoreProvider.sendProactivePermissionEvent(map);
                         break;
                 }
-                Log.d(TAG, "Synced event to Firebase.");
+//                Log.d(TAG, "Synced event to Firebase.");
             } catch (JSONException ignored) {
             }
         }
@@ -143,9 +143,9 @@ public class OnDeviceStorageProvider {
         new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "syncAllOnDeviceEventsToFirebase called.");
+//                Log.d(TAG, "syncAllOnDeviceEventsToFirebase called.");
                 if (isNetworkAvailable()) {
-                    Log.d(TAG, "Network available, syncing...");
+//                    Log.d(TAG, "Network available, syncing...");
                     syncOnDeviceEventsToFirebase(APP_INSTALL_FILE_NAME);
                     syncOnDeviceEventsToFirebase(APP_UNINSTALL_FILE_NAME);
                     syncOnDeviceEventsToFirebase(PERMISSION_FILE_NAME);

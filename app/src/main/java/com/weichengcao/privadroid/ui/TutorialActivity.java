@@ -109,10 +109,12 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         if (view == mStartUsingAppButton) {
+            view.setEnabled(false);
             if (!AccessibilityAppUsageUtil.isAccessibilitySettingsOn() || !AccessibilityAppUsageUtil.isAppUsageSettingsOn()) {
                 Toast.makeText(this, R.string.finish_setting_up_accessibility_and_app_usage, Toast.LENGTH_LONG).show();
+                view.setEnabled(true);
                 return;
             }
 
@@ -138,6 +140,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                             } else {
                                 // 2.2 Display failed message
                                 Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.failed_to_join_make_sure_network, Toast.LENGTH_LONG).show();
+                                view.setEnabled(true);
                             }
                         }
                     });

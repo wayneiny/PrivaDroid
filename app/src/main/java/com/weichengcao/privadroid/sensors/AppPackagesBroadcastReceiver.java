@@ -25,10 +25,10 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (isPackageRemoved(context, intent)) {
-            Log.d(TAG, "Detected package removed.");
+//            Log.d(TAG, "Detected package removed.");
             logPackageUninstallEvent(context, intent);
         } else if (isPackageAdded(context, intent)) {
-            Log.d(TAG, "Detected package installed.");
+//            Log.d(TAG, "Detected package installed.");
             logPackageInstallEvent(context, intent);
         }
     }

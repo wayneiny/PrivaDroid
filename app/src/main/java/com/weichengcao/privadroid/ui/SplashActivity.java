@@ -48,8 +48,8 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         userPreferences = new UserPreferences(this);
         if (userPreferences.getAdvertisingId().isEmpty()) {
             new GetGoogleAdvertisingIdTask(this).execute();
-        } else {
-            Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
+//        } else {
+//            Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
         }
 
         if (!userPreferences.getFirestoreJoinEventId().isEmpty()) {
@@ -92,7 +92,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
             try {
                 adInfo = AdvertisingIdClient.getAdvertisingIdInfo(PrivaDroidApplication.getAppContext());
             } catch (Exception e) {
-                Log.e(TAG, "Unable to read Google Advertising Id: " + e.getLocalizedMessage());
+//                Log.e(TAG, "Unable to read Google Advertising Id: " + e.getLocalizedMessage());
                 Toast.makeText(PrivaDroidApplication.getAppContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             return adInfo != null ? adInfo.getId() : "";
@@ -101,7 +101,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String s) {
             activityWeakReference.get().userPreferences.setAdvertisingId(s);
-            Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
+//            Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
         }
     }
 }
