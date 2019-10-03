@@ -829,6 +829,10 @@ class PieAccessibilityHandler {
      */
     private static void extractPermissionNameAppNameFromRuntimePermissionRequestDialogText(AccessibilityEvent event) {
         for (CharSequence eventSubText : event.getText()) {
+            if (eventSubText == null || eventSubText.length() == 0) {
+                continue;
+            }
+
             Pattern permissionRegex = Pattern.compile(PrivaDroidApplication.getAppContext().getString(R.string.android_allow_x_to_x_screen_regex));
             Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
             if (permissionMatcher.find()) {
