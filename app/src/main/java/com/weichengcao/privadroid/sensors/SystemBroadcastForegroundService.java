@@ -27,8 +27,6 @@ public class SystemBroadcastForegroundService extends Service {
     private AppPackagesBroadcastReceiver appPackagesBroadcastReceiver;
 
     public final static String SYSTEM_BROADCAST_FOREGROUND_SERVICE = "com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService";
-    public final static String PRIVADROID_PACKAGE_NAME = "com.weichengcao.privadroid";
-    public final static String PRIVADROID_APP_NAME = "PrivaDroid";
 
     @Nullable
     @Override

@@ -699,4 +699,5 @@
     <string name="cancel">Cancel</string>
 
     <string name="foreground_service_notification_text">PrivaDroid is running…</string>
+    <string name="privadroid_package_name">com.weichengcao.privadroid</string>
 </resources>

@@ -14,7 +14,7 @@ public class BaseNotificationProvider {
 
     public final static String NOTIFICATION_INTENT_PAYLOAD = "NOTIFICATION_INTENT_PAYLOAD";
 
-    public static final String CHANNEL_ID = "PRIVADROID_DEFAULT_CHANNEL";
+    public static final String CHANNEL_ID = "PrivaDroid Notification Channel";
     private static final String CHANNEL_DESC = "This is the default channel for PrivaDroid.";
     public static final int FOREGROUND_SERVICE_NOTIFICATION_ID = 1;
 
