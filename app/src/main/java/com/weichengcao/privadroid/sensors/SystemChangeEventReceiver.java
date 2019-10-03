@@ -21,9 +21,10 @@ public class SystemChangeEventReceiver extends BroadcastReceiver {
 
                 if (intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED) ||
                         intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) ||
+                        intent.getAction().equals(Intent.ACTION_LOCALE_CHANGED) ||
                         (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED) && intent.getDataString() != null &&
                                 intent.getDataString().startsWith("package" + PRIVADROID_PACKAGE_NAME))) {
-                    Log.d(TAG, "Received ACTION_TIMEZONE_CHANGED, ACTION_BOOT_COMPLETED or ACTION_PACKAGE_REPLACED for PrivaDroid.");
+                    Log.d(TAG, "Received ACTION_TIMEZONE_CHANGED, ACTION_LOCALE_CHANGED, ACTION_BOOT_COMPLETED or ACTION_PACKAGE_REPLACED for PrivaDroid.");
 
                     /**
                      * Create notification for SystemBroadcastForegroundService to listen to package install, uninstall.
