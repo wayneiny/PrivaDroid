@@ -20,7 +20,6 @@ public class PrivaDroidApplication extends Application {
 
     public static final String FIREBASE_PROJECT_ALIAS = "firebase_project_name";
     public static final String FIREBASE_PROJECT_APPLICATION_ID = "1:9488278665:android:f73dbd4e02622c756f1258";
-    public static final String FIREBASE_PROJECT_API_KEY = "AIzaSyCM0V2tMA3a9X4uQB7RKQ04-HIDfwu9OxQ";
     public static final String FIREBASE_PROJECT_DATABASE_URL = "https://privadroid-test-2e6f8.firebaseio.com";
     public static final String FIREBASE_PROJECT_ID = "privadroid-test-2e6f8";
 
@@ -52,7 +51,6 @@ public class PrivaDroidApplication extends Application {
          */
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId(FIREBASE_PROJECT_APPLICATION_ID)
-                .setApiKey(FIREBASE_PROJECT_API_KEY)
                 .setDatabaseUrl(FIREBASE_PROJECT_DATABASE_URL)
                 .setProjectId(FIREBASE_PROJECT_ID)
                 .build();
