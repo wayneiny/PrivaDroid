@@ -18,11 +18,6 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 
 public class PrivaDroidApplication extends Application {
 
-    public static final String FIREBASE_PROJECT_ALIAS = "firebase_project_name";
-    public static final String FIREBASE_PROJECT_APPLICATION_ID = "1:9488278665:android:f73dbd4e02622c756f1258";
-    public static final String FIREBASE_PROJECT_DATABASE_URL = "https://privadroid-test-2e6f8.firebaseio.com";
-    public static final String FIREBASE_PROJECT_ID = "privadroid-test-2e6f8";
-
     private static PrivaDroidApplication instance;
     private static Context appContext;
 
@@ -45,16 +40,6 @@ public class PrivaDroidApplication extends Application {
 
         this.setAppContext(getApplicationContext());
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-
-        /**
-         * Initialize Firebase project.
-         */
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setApplicationId(FIREBASE_PROJECT_APPLICATION_ID)
-                .setDatabaseUrl(FIREBASE_PROJECT_DATABASE_URL)
-                .setProjectId(FIREBASE_PROJECT_ID)
-                .build();
-        FirebaseApp.initializeApp(this /* Context */, options, FIREBASE_PROJECT_ALIAS);
     }
 
     /**

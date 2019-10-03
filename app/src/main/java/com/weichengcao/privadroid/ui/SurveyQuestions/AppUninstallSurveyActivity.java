@@ -36,7 +36,6 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
@@ -89,8 +88,7 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
             /**
              * Get proper event from Firestore.
              */
-            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-            CollectionReference appUninstallEventCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_UNINSTALL_COLLECTION);
+            CollectionReference appUninstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
             DocumentReference eventDocRef = appUninstallEventCollectionRef.document(eventServerId);
             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -115,8 +113,7 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                              * Get survey from server if surveyed.
                              */
                             if (surveyed) {
-                                FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-                                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_UNINSTALL_SURVEY_COLLECTION);
+                                CollectionReference appUninstallSurveyCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_SURVEY_COLLECTION);
                                 Query query = appUninstallSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentAppUninstallServerEvent.getServerId());
                                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

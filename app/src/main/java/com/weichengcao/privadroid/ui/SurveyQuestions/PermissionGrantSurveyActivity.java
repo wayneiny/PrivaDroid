@@ -15,7 +15,6 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,7 +35,6 @@ import com.weichengcao.privadroid.util.ExperimentEventFactory;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_GRANT_SURVEY_COLLECTION;
@@ -87,8 +85,7 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
             /**
              * Get proper event from Firestore.
              */
-            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-            CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance(app).collection(PERMISSION_COLLECTION);
+            CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance().collection(PERMISSION_COLLECTION);
             DocumentReference eventDocRef = permissionEventCollectionRef.document(eventServerId);
             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -116,8 +113,7 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                              * Get survey from server if surveyed.
                              */
                             if (surveyed) {
-                                FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-                                CollectionReference permissionGrantSurveyCollectionRef = FirebaseFirestore.getInstance(app).collection(PERMISSION_GRANT_SURVEY_COLLECTION);
+                                CollectionReference permissionGrantSurveyCollectionRef = FirebaseFirestore.getInstance().collection(PERMISSION_GRANT_SURVEY_COLLECTION);
                                 Query query = permissionGrantSurveyCollectionRef.whereEqualTo(EventUtil.EVENT_SERVER_ID, currentPermissionServerEvent.getServerId());
                                 query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                     @Override

@@ -26,7 +26,6 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.ACCESSIBILITY_INDEX;
 import static com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter.APP_USAGE_INDEX;
@@ -66,8 +65,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
 
         mUserPreferences = new UserPreferences(this);
 
-        FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-        mFirestore = FirebaseFirestore.getInstance(app);
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
     @Override

@@ -27,7 +27,6 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.PrivaDroidApplication.getAppContext;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_SURVEY_FILE_NAME;
@@ -58,8 +57,7 @@ public class FirestoreProvider {
     private UserPreferences mUserPreferences;
 
     public FirestoreProvider() {
-        FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-        mFirestore = FirebaseFirestore.getInstance(app);
+        mFirestore = FirebaseFirestore.getInstance();
         mUserPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
     }
 
@@ -315,8 +313,7 @@ public class FirestoreProvider {
                              * 2. Query Firebase for the corresponding permission event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
-                            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-                            CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance(app).collection(PERMISSION_COLLECTION);
+                            CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance().collection(PERMISSION_COLLECTION);
                             DocumentReference eventDocRef = permissionEventCollectionRef.document(permissionGrantSurvey.get(EVENT_SERVER_ID));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -380,8 +377,7 @@ public class FirestoreProvider {
                              * 2. Query Firebase for the corresponding install event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
-                            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_INSTALL_COLLECTION);
+                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
                             DocumentReference eventDocRef = appInstallEventCollectionRef.document(appInstallSurvey.get(EVENT_SERVER_ID));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -437,8 +433,7 @@ public class FirestoreProvider {
                              * 2. Query Firebase for the corresponding uninstall event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
-                            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance(app).collection(APP_UNINSTALL_COLLECTION);
+                            CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
                             DocumentReference eventDocRef = appInstallEventCollectionRef.document(appUninstallSurvey.get(EVENT_SERVER_ID));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override

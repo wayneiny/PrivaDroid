@@ -32,7 +32,6 @@ import com.weichengcao.privadroid.util.UserPreferences;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.PrivaDroidApplication.FIREBASE_PROJECT_ALIAS;
 import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 
@@ -69,8 +68,7 @@ public class DemographicActivity extends AppCompatActivity {
 
         mUserPreferences = new UserPreferences(this);
         if (mUserPreferences.getAnsweredDemographicSurvey()) {
-            FirebaseApp app = FirebaseApp.getInstance(FIREBASE_PROJECT_ALIAS);
-            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance(app);
+            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
             CollectionReference demoCollection = firebaseFirestore.collection(DEMOGRAPHIC_COLLECTION);
             Query demoQuery = demoCollection.whereEqualTo(EventUtil.USER_AD_ID, mUserPreferences.getAdvertisingId());
             demoQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
