@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "9488278665",
-    "firebase_url": "https://privadroid-test-2e6f8.firebaseio.com",
-    "project_id": "privadroid-test-2e6f8",
-    "storage_bucket": "privadroid-test-2e6f8.appspot.com"
+    "project_number": "186409593833",
+    "firebase_url": "https://privadroidproductiontest.firebaseio.com",
+    "project_id": "privadroidproductiontest",
+    "storage_bucket": "privadroidproductiontest.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9488278665:android:abc556e8eff7c7cf6f1258",
+        "mobilesdk_app_id": "1:186409593833:android:c35d787ecc800e8db67978",
         "android_client_info": {
           "package_name": "com.weichengcao.privadroid"
         }
       },
       "oauth_client": [
         {
-          "client_id": "9488278665-d6a9m25shs2salride19i2up90mbvtjr.apps.googleusercontent.com",
+          "client_id": "186409593833-jl4f54run2mi7k2pf09qtb9g8b74s6pl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCM0V2tMA3a9X4uQB7RKQ04-HIDfwu9OxQ"
+          "current_key": "AIzaSyAEc7qHsK1RyIJ5rZsetTGfepqBd4ue9rw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "9488278665-d6a9m25shs2salride19i2up90mbvtjr.apps.googleusercontent.com",
+              "client_id": "186409593833-jl4f54run2mi7k2pf09qtb9g8b74s6pl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
