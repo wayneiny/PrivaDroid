@@ -76,15 +76,19 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/permission_grant_spinner_why"
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:id="@+id/permission_grant_button_why"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:entries="@array/permission_grant_options_why"
-                        android:prompt="@string/select_an_option" />
+                        android:layout_marginStart="35dp"
+                        android:gravity="start|center_vertical"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/select_an_option"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -116,15 +120,19 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/permission_grant_spinner_expected"
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:id="@+id/permission_grant_button_expected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:entries="@array/permission_options_expect_request"
-                        android:prompt="@string/select_an_option" />
+                        android:layout_marginStart="35dp"
+                        android:gravity="start|center_vertical"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/select_an_option"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -156,15 +164,19 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/permission_grant_spinner_comfortable"
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:id="@+id/permission_grant_button_comfortable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
-                        android:entries="@array/permission_options_comfortable"
-                        android:prompt="@string/select_an_option" />
+                        android:layout_marginStart="35dp"
+                        android:gravity="start|center_vertical"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/select_an_option"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

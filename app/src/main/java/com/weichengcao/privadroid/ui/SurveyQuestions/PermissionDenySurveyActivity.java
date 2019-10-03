@@ -1,5 +1,6 @@
 package com.weichengcao.privadroid.ui.SurveyQuestions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -39,7 +41,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_DENY_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 
-public class PermissionDenySurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
+public class PermissionDenySurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
 
     private PermissionServerEvent currentPermissionServerEvent;
@@ -70,6 +72,13 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
 
         mTitle = findViewById(R.id.activity_permission_deny_survey_title);
         mAnsweredOn = findViewById(R.id.permission_deny_survey_answered_on);
+
+        mWhy = findViewById(R.id.permission_deny_button_why);
+        mWhy.setOnClickListener(this);
+        mExpected = findViewById(R.id.permission_deny_button_expected);
+        mExpected.setOnClickListener(this);
+        mComfortable = findViewById(R.id.permission_deny_button_comfortable);
+        mComfortable.setOnClickListener(this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -146,9 +155,9 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
                                             mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
                                                     DatetimeUtil.convertIsoToReadableFormat(permissionDenyServerSurvey.getLoggedTime())));
 
-                                            setUpAnswerBasedOnSpinnerId(R.id.permission_deny_spinner_why);
-                                            setUpAnswerBasedOnSpinnerId(R.id.permission_deny_spinner_expected);
-                                            setUpAnswerBasedOnSpinnerId(R.id.permission_deny_spinner_comfortable);
+                                            setUpAnswerBasedOnButtonId(R.id.permission_deny_button_why);
+                                            setUpAnswerBasedOnButtonId(R.id.permission_deny_button_expected);
+                                            setUpAnswerBasedOnButtonId(R.id.permission_deny_button_comfortable);
                                         }
                                     }
                                 });
@@ -171,50 +180,46 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
     }
 
     @Override
-    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
-        Spinner spinner = findViewById(spinnerId);
-        String[] options;
-        switch (spinnerId) {
-            case R.id.permission_deny_spinner_why:
-                options = getResources().getStringArray(R.array.permission_deny_options_why);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(currentPermissionDenyServerSurvey.getWhyDeny()));
+    public void setUpAnswerBasedOnButtonId(int buttonId) {
+        MaterialButton button = findViewById(buttonId);
+        switch (buttonId) {
+            case R.id.permission_deny_button_why:
+                button.setText(currentPermissionDenyServerSurvey.getWhyDeny());
                 break;
-            case R.id.permission_deny_spinner_expected:
-                options = getResources().getStringArray(R.array.permission_options_expect_request);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(currentPermissionDenyServerSurvey.getExpectedPermissionRequest()));
+            case R.id.permission_deny_button_expected:
+                button.setText(currentPermissionDenyServerSurvey.getExpectedPermissionRequest());
                 break;
-            case R.id.permission_deny_spinner_comfortable:
-                options = getResources().getStringArray(R.array.permission_options_comfortable);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(currentPermissionDenyServerSurvey.getComfortableLevelDenying()));
+            case R.id.permission_deny_button_comfortable:
+                button.setText(currentPermissionDenyServerSurvey.getComfortableLevelDenying());
                 break;
             default:
                 return;
         }
-        spinner.setEnabled(false);
+        button.setEnabled(false);
     }
 
     @Override
     public boolean validateAnswerBasedOnQuestionId(int questionId) {
-        Spinner spinner;
+        MaterialButton button;
         TextView question;
         switch (questionId) {
             case R.id.permission_deny_question_why:
                 question = findViewById(R.id.permission_deny_question_why);
-                spinner = findViewById(R.id.permission_deny_spinner_why);
+                button = findViewById(R.id.permission_deny_button_why);
                 break;
             case R.id.permission_deny_question_expected:
                 question = findViewById(R.id.permission_deny_question_expected);
-                spinner = findViewById(R.id.permission_deny_spinner_expected);
+                button = findViewById(R.id.permission_deny_button_expected);
                 break;
             case R.id.permission_deny_question_comfortable:
                 question = findViewById(R.id.permission_deny_question_comfortable);
-                spinner = findViewById(R.id.permission_deny_spinner_comfortable);
+                button = findViewById(R.id.permission_deny_button_comfortable);
                 break;
             default:
                 return false;
         }
-        String answer = spinner.getSelectedItem().toString();
-        if (answer.equals(getResources().getString(R.string.select_an_option))) {
+        String answer = button.getText().toString();
+        if (answer.equals(getResources().getString(R.string.select_an_option)) || answer.equals(getString(R.string.select_multiple_allowed))) {
             question.setTextColor(ContextCompat.getColor(this, R.color.colorAccentContrast));
             return false;
         }
@@ -224,14 +229,14 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
 
     @Override
     public HashMap<String, String> gatherResponse() {
-        Spinner whySpinner = findViewById(R.id.permission_deny_spinner_why);
-        String whyDeny = whySpinner.getSelectedItem().toString();
+        MaterialButton whyButton = findViewById(R.id.permission_deny_button_why);
+        String whyDeny = whyButton.getText().toString();
 
-        Spinner expectedSpinner = findViewById(R.id.permission_deny_spinner_expected);
-        String expected = expectedSpinner.getSelectedItem().toString();
+        MaterialButton expectedButton = findViewById(R.id.permission_deny_button_expected);
+        String expected = expectedButton.getText().toString();
 
-        Spinner comfortSpinner = findViewById(R.id.permission_deny_spinner_comfortable);
-        String comfort = comfortSpinner.getSelectedItem().toString();
+        MaterialButton comfortButton = findViewById(R.id.permission_deny_button_comfortable);
+        String comfort = comfortButton.getText().toString();
 
         String eventServerId = currentPermissionServerEvent.getServerId();
 
@@ -264,5 +269,81 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
         } else {
             mSubmit.setVisibility(View.GONE);
         }
+    }
+
+    int selectedWhy = -1;
+    int selectedExpected = -1;
+    int selectedComfortable = -1;
+
+    MaterialButton mWhy;
+    MaterialButton mExpected;
+    MaterialButton mComfortable;
+
+    @Override
+    public void onClick(View view) {
+        if (view == mWhy) {
+            showQuestionOptionsDialog(R.id.permission_deny_button_why);
+        } else if (view == mExpected) {
+            showQuestionOptionsDialog(R.id.permission_deny_button_expected);
+        } else if (view == mComfortable) {
+            showQuestionOptionsDialog(R.id.permission_deny_button_comfortable);
+        }
+    }
+
+    @Override
+    public void showQuestionOptionsDialog(int buttonId) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        switch (buttonId) {
+            case R.id.permission_deny_button_why:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.permission_deny_options_why, selectedWhy, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedWhy = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mWhy.setText(getResources().getStringArray(R.array.permission_deny_options_why)[selectedWhy]);
+                    }
+                });
+                break;
+            case R.id.permission_deny_button_expected:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.permission_options_expect_request, selectedExpected, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedExpected = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mExpected.setText(getResources().getStringArray(R.array.permission_options_expect_request)[selectedExpected]);
+                    }
+                });
+                break;
+            case R.id.permission_deny_button_comfortable:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.permission_options_comfortable, selectedComfortable, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedComfortable = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mComfortable.setText(getResources().getStringArray(R.array.permission_options_comfortable)[selectedComfortable]);
+                    }
+                });
+                break;
+        }
+
+        alertDialogBuilder.setCancelable(false);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }

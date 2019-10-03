@@ -118,7 +118,6 @@
     <!--  App uninstall survey questions  -->
     <string name="app_uninstall_question_why" description="app uninstall survey question why">1. Why did you uninstall the app?</string>
     <array name="app_uninstall_options_why">
-        <item>Select an option</item>
         <item>I no longer use the app</item>
         <item>To free up space or speed up my device</item>
         <item>I didn\’t like the app</item>
@@ -133,7 +132,6 @@
 
     <string name="app_uninstall_question_permission_remembered_requested" description="app uninstall survey question remember">2. Do you remember if the app requires any of the following permissions?</string>
     <array name="app_uninstall_options_permission_remembered_requested">
-        <item>Select an option</item>
         <item>Calendar</item>
         <item>Call Log</item>
         <item>Camera</item>
@@ -151,7 +149,6 @@
     <!--  Permission survey questions  -->
     <string name="permission_grant_question_why" description="permission grant survey event why">1. Why did you grant the permission request?</string>
     <array name="permission_grant_options_why">
-        <item>Select an option</item>
         <item>I want to use a specific feature that requires this permission</item>
         <item>I trust the app developer</item>
         <item>I think the app won\’t work otherwise</item>
@@ -167,7 +164,6 @@
 
     <string name="permission_deny_question_why" description="permission deny survey event why">1. Why did you deny the permission request?</string>
     <array name="permission_deny_options_why">
-        <item>Select an option</item>
         <item>I think the app shouldn\’t need this permission</item>
         <item>I expect the app will still work without this permission</item>
         <item>I can always grant it afterwards if I change my mind</item>
@@ -182,7 +178,6 @@
 
     <string name="permission_question_expect_request" description="permission why requested question">2. Did you expect the app requests this permission?</string>
     <array name="permission_options_expect_request">
-        <item>Select an option</item>
         <item>Yes</item>
         <item>No</item>
     </array>
@@ -190,7 +185,6 @@
     <string name="permission_grant_question_comfortable" description="comfort level granting question">3. How comfortable do you feel granting this permission request?</string>
     <string name="permission_deny_question_comfortable" description="comfort level denying question">3. How comfortable do you feel denying this permission request?</string>
     <array name="permission_options_comfortable">
-        <item>Select an option</item>
         <item>Very uncomfortable</item>
         <item>Somewhat uncomfortable</item>
         <item>Neutral</item>
@@ -201,7 +195,6 @@
     <!--  App install survey questions  -->
     <string name="app_install_question_why" description="why install question">1. Why did you install the app?</string>
     <array name="app_install_options_why">
-        <item>Select an option</item>
         <item>I want to try it out</item>
         <item>The app is useful</item>
         <item>The app is part of a product/service I use</item>
@@ -218,7 +211,6 @@
 
     <string name="app_install_question_factors" description="factors of install question">2. Which factors influenced your decision to install the app?</string>
     <array name="app_install_options_factors">
-        <item>Select an option</item>
         <item>App rating</item>
         <item>App popularity</item>
         <item>Individual user reviews</item>
@@ -231,7 +223,6 @@
 
     <string name="app_install_question_know_permission" description="any permission required by user question">3. Do you know what permissions this app requires?</string>
     <array name="app_install_options_know_permission">
-        <item>Select an option</item>
         <item>Yes</item>
         <item>No</item>
         <item>I\'m not sure</item>
@@ -239,7 +230,6 @@
 
     <string name="app_install_question_which_permission_think" description="permissions required by user question">4. Which of the following permission do you think the app requires?</string>
     <array name="app_install_options_which_permission_think">
-        <item>Select an option</item>
         <item>Calendar</item>
         <item>Call Log</item>
         <item>Camera</item>
@@ -700,4 +690,6 @@
 
     <string name="foreground_service_notification_text">PrivaDroid is running…</string>
     <string name="privadroid_package_name">com.weichengcao.privadroid</string>
+
+    <string name="select_multiple_allowed">Select one or more options</string>
 </resources>

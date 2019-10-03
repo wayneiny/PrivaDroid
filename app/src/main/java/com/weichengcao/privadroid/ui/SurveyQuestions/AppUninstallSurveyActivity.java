@@ -1,14 +1,16 @@
 package com.weichengcao.privadroid.ui.SurveyQuestions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -32,14 +34,15 @@ import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
 
-public class AppUninstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity {
+public class AppUninstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
     private final static String TAG = AppInstallSurveyActivity.class.getSimpleName();
 
@@ -71,6 +74,11 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
 
         mTitle = findViewById(R.id.activity_app_uninstall_survey_title);
         mAnsweredOn = findViewById(R.id.app_uninstall_survey_answered_on);
+
+        mWhy = findViewById(R.id.app_uninstall_button_why);
+        mWhy.setOnClickListener(this);
+        mRequestsRemembered = findViewById(R.id.app_uninstall_button_requests_remembered);
+        mRequestsRemembered.setOnClickListener(this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -143,8 +151,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                                             mAnsweredOn.setText(String.format("%s %s", getResources().getString(R.string.answered_on_prefix),
                                                     DatetimeUtil.convertIsoToReadableFormat(appUninstallServerSurvey.getLoggedTime())));
 
-                                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_why);
-                                            setUpAnswerBasedOnSpinnerId(R.id.app_uninstall_spinner_permission_remembered_requested);
+                                            setUpAnswerBasedOnButtonId(R.id.app_uninstall_button_why);
+                                            setUpAnswerBasedOnButtonId(R.id.app_uninstall_button_requests_remembered);
                                         }
                                     }
                                 });
@@ -171,24 +179,22 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
      */
     @Override
     public boolean validateAnswerBasedOnQuestionId(int questionId) {
-        Spinner spinner;
+        MaterialButton button;
         TextView question;
         switch (questionId) {
             case R.id.app_uninstall_question_why:
                 question = findViewById(R.id.app_uninstall_question_why);
-                spinner = findViewById(R.id.app_uninstall_spinner_why);
+                button = findViewById(R.id.app_uninstall_button_why);
                 break;
             case R.id.app_uninstall_question_permission_remembered_requested:
                 question = findViewById(R.id.app_uninstall_question_permission_remembered_requested);
-                // TODO: change to multiple choice spinner
-                spinner = findViewById(R.id.app_uninstall_spinner_permission_remembered_requested);
+                button = findViewById(R.id.app_uninstall_button_requests_remembered);
                 break;
             default:
                 return false;
         }
-        String answer = spinner.getSelectedItem().toString();
-        // TODO: change to multiple choice spinner
-        if (answer.equals(getResources().getString(R.string.select_an_option))) {
+        String answer = button.getText().toString();
+        if (answer.equals(getResources().getString(R.string.select_an_option)) || answer.equals(getString(R.string.select_multiple_allowed))) {
             question.setTextColor(ContextCompat.getColor(this, R.color.colorAccentContrast));
             return false;
         }
@@ -200,33 +206,28 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
      * Set up answers from survey event.
      */
     @Override
-    public void setUpAnswerBasedOnSpinnerId(int spinnerId) {
-        Spinner spinner = findViewById(spinnerId);
-        String[] options;
-        switch (spinnerId) {
-            case R.id.app_uninstall_spinner_why:
-                options = getResources().getStringArray(R.array.app_uninstall_options_why);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(currentAppUninstallServerSurvey.getWhy()));
+    public void setUpAnswerBasedOnButtonId(int buttonId) {
+        MaterialButton button = findViewById(buttonId);
+        switch (buttonId) {
+            case R.id.app_uninstall_button_why:
+                button.setText(currentAppUninstallServerSurvey.getWhy());
                 break;
-            case R.id.app_uninstall_spinner_permission_remembered_requested:
-                // TODO: change to multiple choice spinner
-                options = getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested);
-                spinner.setSelection(Arrays.asList(options).lastIndexOf(currentAppUninstallServerSurvey.getPermissionsRequestedRemembered()[0]));
+            case R.id.app_uninstall_button_requests_remembered:
+                button.setText(TextUtils.join(OPTION_DELIMITER, currentAppUninstallServerSurvey.getPermissionsRequestedRemembered()));
                 break;
             default:
                 return;
         }
-        spinner.setEnabled(false);
+        button.setEnabled(false);
     }
 
     @Override
     public HashMap<String, String> gatherResponse() {
-        Spinner whySpinner = findViewById(R.id.app_uninstall_spinner_why);
-        String why = whySpinner.getSelectedItem().toString();
+        MaterialButton whyButton = findViewById(R.id.app_uninstall_button_why);
+        String why = whyButton.getText().toString();
 
-        // TODO: change to multiple choice
-        Spinner permissionRememberedRequestedSpinner = findViewById(R.id.app_uninstall_spinner_permission_remembered_requested);
-        String permissionRememberedRequested = permissionRememberedRequestedSpinner.getSelectedItem().toString();
+        MaterialButton permissionRememberedButton = findViewById(R.id.app_uninstall_button_requests_remembered);
+        String permissionRememberedRequested = permissionRememberedButton.getText().toString();
 
         String eventServerId = currentAppUninstallServerEvent.getServerId();
 
@@ -258,5 +259,76 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
         } else {
             mSubmit.setVisibility(View.GONE);
         }
+    }
+
+    boolean[] requestsRememberedChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested).length];
+    HashSet<Integer> selectedRequestsRemembered = new HashSet<>();
+    int selectedWhy = -1;
+
+    MaterialButton mWhy;
+    MaterialButton mRequestsRemembered;
+
+    @Override
+    public void onClick(View view) {
+        if (view == mWhy) {
+            showQuestionOptionsDialog(R.id.app_uninstall_button_why);
+        } else if (view == mRequestsRemembered) {
+            showQuestionOptionsDialog(R.id.app_uninstall_button_requests_remembered);
+        }
+    }
+
+    @Override
+    public void showQuestionOptionsDialog(int buttonId) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        switch (buttonId) {
+            case R.id.app_uninstall_button_why:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.app_uninstall_options_why, selectedWhy, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedWhy = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mWhy.setText(getResources().getStringArray(R.array.app_uninstall_options_why)[selectedWhy]);
+                    }
+                });
+                break;
+            case R.id.app_uninstall_button_requests_remembered:
+                alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
+                alertDialogBuilder.setMultiChoiceItems(R.array.app_uninstall_options_permission_remembered_requested, requestsRememberedChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedRequestsRemembered.add(which);
+                        } else {
+                            selectedRequestsRemembered.remove(which);
+                        }
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (selectedRequestsRemembered.isEmpty()) {
+                            mRequestsRemembered.setText(R.string.select_multiple_allowed);
+                            return;
+                        }
+                        String[] requestsRememberedOptions = getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested);
+                        ArrayList<String> requestsRememberedTexts = new ArrayList<>();
+                        for (int index : selectedRequestsRemembered) {
+                            requestsRememberedTexts.add(requestsRememberedOptions[index]);
+                        }
+                        mRequestsRemembered.setText(TextUtils.join(OPTION_DELIMITER, requestsRememberedTexts));
+                    }
+                });
+                break;
+        }
+
+        alertDialogBuilder.setCancelable(false);
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
