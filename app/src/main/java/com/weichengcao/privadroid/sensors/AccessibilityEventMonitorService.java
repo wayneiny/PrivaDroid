@@ -57,11 +57,6 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (!Locale.getDefault().getISO3Language().equals(Locale.ENGLISH.getISO3Language())) {
-            // We don't really need to signal this to the user, as it is the experiment provider who
-            // is responsible for checking this should not be a problem for the experiment.
-//            Log.d(TAG, "Detected locale is " + Locale.getDefault().toString() +
-//                    ". RuntimePermissions triggering does not support non-English languages; " +
-//                    "permissions might not always be interpreted correctly");
             return;
         }
 

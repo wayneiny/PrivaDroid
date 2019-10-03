@@ -1,14 +1,15 @@
 package com.weichengcao.privadroid.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.ads.MobileAds;
@@ -20,8 +21,6 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.lang.ref.WeakReference;
 
-import com.facebook.FacebookSdk;
-
 public class SplashActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
@@ -29,6 +28,8 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
     private UserPreferences userPreferences;
     private MaterialButton mContinueAppSettingButton;
     private CheckBox mAgreeToTermsCheckBox;
+
+    private boolean userConfirmedCountryAndLanguage = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,6 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         userPreferences = new UserPreferences(this);
         if (userPreferences.getAdvertisingId().isEmpty()) {
             new GetGoogleAdvertisingIdTask(this).execute();
-//        } else {
-//            Log.d(TAG, "Read Google Advertising Id from UserPreferences to be " + userPreferences.getAdvertisingId());
         }
 
         if (!userPreferences.getFirestoreJoinEventId().isEmpty()) {
@@ -59,11 +58,45 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         }
     }
 
+    private void showConfirmLanguageAndCountryDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(getString(R.string.confirm_language_and_country_restriction_awareness));
+        alertDialogBuilder.setPositiveButton(getString(R.string.i_understand),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        userConfirmedCountryAndLanguage = true;
+
+                        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton(getString(R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userConfirmedCountryAndLanguage = false;
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     @Override
     public void onClick(View view) {
         if (view == mContinueAppSettingButton) {
             // write agree with terms in preferences
             userPreferences.setConsentGranted(true);
+
+            if (!userConfirmedCountryAndLanguage) {
+                /**
+                 * Create alert dialog to let user know that we only support certain countries and languages.
+                 */
+                showConfirmLanguageAndCountryDialog();
+                return;
+            }
 
             Intent intent = new Intent(this, TutorialActivity.class);
             startActivity(intent);
@@ -92,7 +125,6 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
             try {
                 adInfo = AdvertisingIdClient.getAdvertisingIdInfo(PrivaDroidApplication.getAppContext());
             } catch (Exception e) {
-//                Log.e(TAG, "Unable to read Google Advertising Id: " + e.getLocalizedMessage());
                 Toast.makeText(PrivaDroidApplication.getAppContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             return adInfo != null ? adInfo.getId() : "";
@@ -101,7 +133,6 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String s) {
             activityWeakReference.get().userPreferences.setAdvertisingId(s);
-//            Log.d(TAG, "Updated Google Advertising Id to be " + activityWeakReference.get().userPreferences.getAdvertisingId());
         }
     }
 }

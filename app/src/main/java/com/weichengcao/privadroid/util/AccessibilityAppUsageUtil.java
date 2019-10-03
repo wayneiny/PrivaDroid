@@ -6,7 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.sensors.AccessibilityEventMonitorService;
@@ -24,9 +23,8 @@ public class AccessibilityAppUsageUtil {
             accessibilityEnabled = Settings.Secure.getInt(
                     PrivaDroidApplication.getAppContext().getApplicationContext().getContentResolver(),
                     android.provider.Settings.Secure.ACCESSIBILITY_ENABLED);
-//            Log.v(TAG, "accessibilityEnabled = " + accessibilityEnabled);
-        } catch (Settings.SettingNotFoundException e) {
-//            Log.e(TAG, "Error finding setting, default accessibility to not found: " + e.getMessage());
+        } catch (Settings.SettingNotFoundException ignored) {
+            return false;
         }
 
         TextUtils.SimpleStringSplitter mStringColonSplitter = new TextUtils.SimpleStringSplitter(':');

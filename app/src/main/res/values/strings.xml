@@ -10,24 +10,6 @@
     <string name="continue_app_settings_button" description="Continue button">Continue</string>
     <string name="submit" description="Submit button">Submit</string>
     <string name="terms_title" description="Terms title">Terms</string>
-    <string name="terms_description" description="Terms that user needs to agree with in order to join">
-        This experiment is entirely voluntary and you can join/exit the experiment at any given time.
-        The participants must be over 18 years old. The purpose of this experiment is to study users\'
-        decision making behind installing/uninstalling applications and runtime permission requests.
-        The participants need to enable accessibility service and app usage access for PrivaDroid to
-        work properly and receive the reward after 30 days of keeping these accesses granted and
-        the app installed. The app will be collecting demographic information through a questionnaire,
-        installed and uninstalled applications and permission requests events during the length of
-        experiment. The app will NOT collect any personally identifiable information and data collected
-        will be anonymized on device and sent to the server after being encrypted. Participants who
-        answer the demographic questionnaire and stay in the experiment for at least a month will be
-        qualified for a 10 USD reward in the form of PayPal payment or Bitcoin payment. And we support
-        these two payment methods ONLY. Multiple enrolments in this experiment only qualify for one payment.
-        Payments will about two to three weeks to get through so please be patient. Currently, we only
-        accept participants from Canada, United States, United Kingdom, South Korea, Spain, France,
-        Hong Kong, India, South Africa, Argentina, Singapore. Users outside of the above countries will
-        not be eligible to receive reward. Thank you!
-    </string>
 
     <string name="skip_tutorial" description="skip button">Skip</string>
     <string name="join_app" description="start button">Start</string>
@@ -610,29 +592,6 @@
         <item>Call Logs</item>
     </array>
 
-    <!--  Permission related keywords  -->
-    <array name="permission_related_keywords">
-        <item>access</item>
-        <item>allow</item>
-        <item>body sensors</item>
-        <item>camera</item>
-        <item>calendar</item>
-        <item>call logs</item>
-        <item>contacts</item>
-        <item>device</item>
-        <item>disable</item>
-        <item>enable</item>
-        <item>file</item>
-        <item>id</item>
-        <item>import</item>
-        <item>inspect</item>
-        <item>location</item>
-        <item>microphone</item>
-        <item>phone</item>
-        <item>storage</item>
-        <item>sms</item>
-    </array>
-
     <!--  Proactive permission request dialogs  -->
     <array name="proactive_permission_request_dialog_grant_button_texts">
         <item>allow</item>
@@ -680,4 +639,62 @@
 
     <!--  After translation  -->
     <string name="no_internet_connection_error" description="Error message for no internet connection">PrivaDroid needs network connection to work properly.</string>
+
+    <string name="terms_description" description="Terms that user needs to agree with in order to join">
+        This experiment is entirely voluntary and you can join/exit the experiment at any given time.
+        The participants must be over 18 years old. The purpose of this experiment is to study users\'
+        decision making behind installing/uninstalling applications and runtime permission requests.
+        The participants need to enable accessibility service and app usage access for PrivaDroid to
+        work properly and receive the reward after 30 days of keeping these accesses granted and
+        the app installed. The app will be collecting demographic information through a questionnaire,
+        installed and uninstalled applications and permission requests events during the length of
+        experiment. The app will NOT collect any personally identifiable information and data collected
+        will be anonymized on device and sent to the server after being encrypted. Participants who
+        answer the demographic questionnaire and stay in the experiment for at least a month will be
+        qualified for a 10 USD reward in the form of PayPal payment or Bitcoin payment. And we support
+        these two payment methods ONLY. Multiple enrolments in this experiment only qualify for one payment.
+        Payments will about two to three weeks to get through so please be patient. Currently, we only
+        accept participants from Canada, United States, United Kingdom, South Korea, Spain, France,
+        Hong Kong, India, South Africa, Argentina and Singapore. Users outside of the above countries
+        can still participate but will not be eligible to receive reward. During the experiment, your Android
+        language MUST be set to one of the following languages: English, Spanish, French, Korean and
+        Traditional Chinese. You won\'t be eligible for reward if otherwise. Happy joining!
+    </string>
+
+    <!--  Permission related keywords  -->
+    <array name="permission_related_keywords">
+        <item>access</item>
+        <item>allow</item>
+        <item>body sensors</item>
+        <item>camera</item>
+        <item>calendar</item>
+        <item>call logs</item>
+        <item>contacts</item>
+        <item>control</item>
+        <item>device</item>
+        <item>disable</item>
+        <item>enable</item>
+        <item>file</item>
+        <item>id</item>
+        <item>import</item>
+        <item>inspect</item>
+        <item>location</item>
+        <item>microphone</item>
+        <item>permission</item>
+        <item>phone</item>
+        <item>storage</item>
+        <item>sms</item>
+    </array>
+
+    <string name="language_is_not_supported_error">Your Android language must be set to English, Spanish, French, Korean or Traditional Chinese.</string>
+    <string name="confirm_language_and_country_restriction_awareness">
+        This is to confirm you are aware that we only accept participants from Canada, United States,
+        United Kingdom, South Korea, Spain, France, Hong Kong, India, South Africa, Argentina and Singapore.
+        Users outside of these countries will not receive the $10 reward. During the experiment, your
+        device language must be set to one of the following languages: English, Spanish, French, Korean and
+        Traditional Chinese.
+    </string>
+
+    <string name="i_understand">I understand</string>
+    <string name="cancel">Cancel</string>
 </resources>
