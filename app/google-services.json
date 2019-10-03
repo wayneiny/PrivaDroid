@@ -8,20 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9488278665:android:f73dbd4e02622c756f1258",
+        "mobilesdk_app_id": "1:9488278665:android:abc556e8eff7c7cf6f1258",
         "android_client_info": {
           "package_name": "com.weichengcao.privadroid"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "9488278665-r2k4ohhlvaeo0crj7rti5em08ddntf3l.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.weichengcao.privadroid",
-            "certificate_hash": "a120189e1823590d4bf4542aa78c22663b43450b"
-          }
-        },
         {
           "client_id": "9488278665-d6a9m25shs2salride19i2up90mbvtjr.apps.googleusercontent.com",
           "client_type": 3
