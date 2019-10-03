@@ -1,7 +1,6 @@
 package com.weichengcao.privadroid.sensors;
 
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 
@@ -361,6 +360,7 @@ class MarshmallowAccessibilityHandler {
     //endregion
 
     //region App permissions list screen
+
     /**
      * Detecting if user is effectively toggling permission toggle inside Settings -> Apps -> App info -> App permissions.
      */
@@ -511,6 +511,7 @@ class MarshmallowAccessibilityHandler {
     //endregion
 
     //region App list in Settings
+
     /**
      * Detecting if we arrive at the "Apps" screen containing a list of all apps.
      */

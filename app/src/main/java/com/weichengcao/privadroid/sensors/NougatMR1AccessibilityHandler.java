@@ -1,7 +1,6 @@
 package com.weichengcao.privadroid.sensors;
 
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 

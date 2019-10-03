@@ -697,4 +697,6 @@
 
     <string name="i_understand">I understand</string>
     <string name="cancel">Cancel</string>
+
+    <string name="foreground_service_notification_text">PrivaDroid is running…</string>
 </resources>

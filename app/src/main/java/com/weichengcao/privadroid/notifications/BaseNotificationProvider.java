@@ -10,8 +10,6 @@ import androidx.core.app.NotificationCompat;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 
-import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.PRIVADROID_APP_NAME;
-
 public class BaseNotificationProvider {
 
     public final static String NOTIFICATION_INTENT_PAYLOAD = "NOTIFICATION_INTENT_PAYLOAD";
@@ -45,19 +43,19 @@ public class BaseNotificationProvider {
     public static Notification createAndroidNotificationForForegroundService() {
         int icon = R.drawable.logo_v2_transparent;
 
-        String tickerText = PRIVADROID_APP_NAME;
+        String tickerText = PrivaDroidApplication.getAppContext().getString(R.string.appName);
 
         // Adding bigText style to notification enabling larger messages to be read
         // in the notification pane
         NotificationCompat.BigTextStyle bigStyle = new NotificationCompat.BigTextStyle();
         bigStyle.setBigContentTitle(tickerText);
-        bigStyle.bigText(PRIVADROID_APP_NAME + " is running.");
+        bigStyle.bigText(PrivaDroidApplication.getAppContext().getString(R.string.foreground_service_notification_text));
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(PrivaDroidApplication.getAppContext(), CHANNEL_ID)
                 .setSmallIcon(icon)
                 .setContentTitle(tickerText)
                 .setTicker(tickerText)
-                .setContentText(PRIVADROID_APP_NAME + " is running.")
+                .setContentText(PrivaDroidApplication.getAppContext().getString(R.string.foreground_service_notification_text))
                 .setWhen(System.currentTimeMillis())
                 .setOngoing(true)       // whether it's dismissible
                 .setAutoCancel(false)    //whether it should disappear on user click

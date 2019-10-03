@@ -5,15 +5,11 @@ import android.content.Context;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.weichengcao.privadroid.database.BaseServerEvent;
 import com.weichengcao.privadroid.database.BaseServerSurvey;
-import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
 
 import java.util.HashMap;
 
-import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 
 public class PrivaDroidApplication extends Application {
