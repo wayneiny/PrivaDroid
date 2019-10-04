@@ -44,7 +44,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         mAgreeToTermsCheckBox.setChecked(false);
         mAgreeToTermsCheckBox.setOnCheckedChangeListener(this);
 
-        MobileAds.initialize(this, "ca-app-pub-1063585474940344~2699806720");
+        MobileAds.initialize(this, getString(R.string.google_ad_id));
 
         userPreferences = new UserPreferences(this);
         if (userPreferences.getAdvertisingId().isEmpty()) {
@@ -55,6 +55,8 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
             finish();
+        } else if (userPreferences.getConsentGranted()) {
+            startTutorialActivity();
         }
     }
 
@@ -67,9 +69,10 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
                     public void onClick(DialogInterface arg0, int arg1) {
                         userConfirmedCountryAndLanguage = true;
 
-                        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
-                        startActivity(intent);
-                        finish();
+                        // write agree with terms in preferences
+                        userPreferences.setConsentGranted(true);
+
+                        startTutorialActivity();
                     }
                 });
         alertDialogBuilder.setNegativeButton(getString(R.string.cancel),
@@ -84,12 +87,15 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         alertDialog.show();
     }
 
+    private void startTutorialActivity() {
+        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     public void onClick(View view) {
         if (view == mContinueAppSettingButton) {
-            // write agree with terms in preferences
-            userPreferences.setConsentGranted(true);
-
             if (!userConfirmedCountryAndLanguage) {
                 /**
                  * Create alert dialog to let user know that we only support certain countries and languages.
@@ -98,9 +104,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
                 return;
             }
 
-            Intent intent = new Intent(this, TutorialActivity.class);
-            startActivity(intent);
-            finish();
+            startTutorialActivity();
         }
     }
 
