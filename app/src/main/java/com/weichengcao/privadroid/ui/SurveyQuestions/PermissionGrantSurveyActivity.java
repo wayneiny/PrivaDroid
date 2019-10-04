@@ -3,6 +3,7 @@ package com.weichengcao.privadroid.ui.SurveyQuestions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,9 @@ import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
@@ -268,7 +271,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
         }
     }
 
-    int selectedWhy = -1;
+    boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.permission_grant_options_why).length];
+    HashSet<Integer> selectedWhyIndices = new HashSet<>();
     int selectedExpected = -1;
     int selectedComfortable = -1;
 
@@ -293,17 +297,30 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
 
         switch (buttonId) {
             case R.id.permission_grant_button_why:
-                alertDialogBuilder.setTitle(R.string.select_an_option);
-                alertDialogBuilder.setSingleChoiceItems(R.array.permission_grant_options_why, selectedWhy, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
+                alertDialogBuilder.setMultiChoiceItems(R.array.permission_grant_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedWhy = which;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedWhyIndices.add(which);
+                        } else {
+                            selectedWhyIndices.remove(which);
+                        }
                     }
                 });
                 alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mWhy.setText(getResources().getStringArray(R.array.permission_grant_options_why)[selectedWhy]);
+                        if (selectedWhyIndices.isEmpty()) {
+                            mWhy.setText(R.string.select_multiple_allowed);
+                            return;
+                        }
+                        String[] whyOptions = getResources().getStringArray(R.array.permission_grant_options_why);
+                        ArrayList<String> whyTexts = new ArrayList<>();
+                        for (int index : selectedWhyIndices) {
+                            whyTexts.add(whyOptions[index]);
+                        }
+                        mWhy.setText(TextUtils.join(OPTION_DELIMITER, whyTexts));
                     }
                 });
                 break;

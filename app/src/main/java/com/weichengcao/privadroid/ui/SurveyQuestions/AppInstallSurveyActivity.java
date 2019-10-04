@@ -295,7 +295,8 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
     HashSet<Integer> selectedFactors = new HashSet<>();
     boolean[] whichPermissionsChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_which_permission_think).length];
     HashSet<Integer> selectedWhichPermissions = new HashSet<>();
-    int selectedWhy = -1;
+    boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_why).length];
+    HashSet<Integer> selectedWhys = new HashSet<>();
     int selectedKnowPermission = -1;
 
     MaterialButton mWhy;
@@ -322,19 +323,33 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
 
         switch (buttonId) {
             case R.id.app_install_button_why:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.app_install_options_why, selectedWhy, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(getString(R.string.select_multiple_allowed));
+                alertDialogBuilder.setMultiChoiceItems(R.array.app_install_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedWhy = which;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedWhys.add(which);
+                        } else {
+                            selectedWhys.remove(which);
+                        }
                     }
                 });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mWhy.setText(getResources().getStringArray(R.array.app_install_options_why)[selectedWhy]);
-                    }
-                });
+                alertDialogBuilder.setPositiveButton(getString(R.string.ok),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (selectedWhys.isEmpty()) {
+                                    mWhy.setText(R.string.select_multiple_allowed);
+                                    return;
+                                }
+                                String[] whyOptions = getResources().getStringArray(R.array.app_install_options_why);
+                                ArrayList<String> whyTexts = new ArrayList<>();
+                                for (int index : selectedWhys) {
+                                    whyTexts.add(whyOptions[index]);
+                                }
+                                mWhy.setText(TextUtils.join(OPTION_DELIMITER, whyTexts));
+                            }
+                        });
                 break;
             case R.id.app_install_button_factors:
                 alertDialogBuilder.setTitle(getString(R.string.select_multiple_allowed));

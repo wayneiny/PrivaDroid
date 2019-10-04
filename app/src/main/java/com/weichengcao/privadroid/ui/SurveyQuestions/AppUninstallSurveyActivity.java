@@ -263,7 +263,8 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
 
     boolean[] requestsRememberedChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested).length];
     HashSet<Integer> selectedRequestsRemembered = new HashSet<>();
-    int selectedWhy = -1;
+    boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_why).length];
+    HashSet<Integer> selectedWhys = new HashSet<>();
 
     MaterialButton mWhy;
     MaterialButton mRequestsRemembered;
@@ -283,17 +284,30 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
 
         switch (buttonId) {
             case R.id.app_uninstall_button_why:
-                alertDialogBuilder.setTitle(R.string.select_an_option);
-                alertDialogBuilder.setSingleChoiceItems(R.array.app_uninstall_options_why, selectedWhy, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
+                alertDialogBuilder.setMultiChoiceItems(R.array.app_uninstall_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedWhy = which;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        if (isChecked) {
+                            selectedWhys.add(which);
+                        } else {
+                            selectedWhys.remove(which);
+                        }
                     }
                 });
                 alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mWhy.setText(getResources().getStringArray(R.array.app_uninstall_options_why)[selectedWhy]);
+                        if (selectedWhys.isEmpty()) {
+                            mWhy.setText(R.string.select_multiple_allowed);
+                            return;
+                        }
+                        String[] whyOptions = getResources().getStringArray(R.array.app_uninstall_options_why);
+                        ArrayList<String> whyTexts = new ArrayList<>();
+                        for (int index : selectedWhys) {
+                            whyTexts.add(whyOptions[index]);
+                        }
+                        mWhy.setText(TextUtils.join(OPTION_DELIMITER, whyTexts));
                     }
                 });
                 break;

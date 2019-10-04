@@ -88,7 +88,7 @@
                         android:layout_marginTop="10dp"
                         android:textSize="14sp"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+                        android:text="@string/select_multiple_allowed"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
