@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 import static com.weichengcao.privadroid.util.EventUtil.AGE;
 import static com.weichengcao.privadroid.util.EventUtil.ANDROID_VERSION;
@@ -14,6 +15,7 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_VERSION;
 import static com.weichengcao.privadroid.util.EventUtil.CARRIER;
 import static com.weichengcao.privadroid.util.EventUtil.COUNTRY;
+import static com.weichengcao.privadroid.util.EventUtil.COUNTRY_CODE;
 import static com.weichengcao.privadroid.util.EventUtil.DAILY_USAGE;
 import static com.weichengcao.privadroid.util.EventUtil.EDUCATION;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
@@ -22,6 +24,7 @@ import static com.weichengcao.privadroid.util.EventUtil.GRANTED;
 import static com.weichengcao.privadroid.util.EventUtil.INCOME;
 import static com.weichengcao.privadroid.util.EventUtil.INDUSTRY;
 import static com.weichengcao.privadroid.util.EventUtil.INITIATED_BY_USER;
+import static com.weichengcao.privadroid.util.EventUtil.LOCALE;
 import static com.weichengcao.privadroid.util.EventUtil.LOGGED_TIME;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_REQUESTED_NAME;
@@ -40,10 +43,11 @@ public class ExperimentEventFactory {
         event.put(PHONE_MAKE, Build.MANUFACTURER);
         event.put(PHONE_MODEL, Build.MODEL);
         event.put(ANDROID_VERSION, Build.VERSION.RELEASE);
+        event.put(LOCALE, Locale.getDefault().getISO3Language());
         TelephonyManager manager = (TelephonyManager) PrivaDroidApplication.getAppContext().getSystemService(Context.TELEPHONY_SERVICE);
-        if (manager != null && manager.getNetworkOperatorName() != null) {
-            String carrierName = manager.getNetworkOperatorName();
-            event.put(CARRIER, carrierName);
+        if (manager != null) {
+            event.put(CARRIER, manager.getNetworkOperatorName());
+            event.put(COUNTRY_CODE, manager.getNetworkCountryIso());
         }
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
 

@@ -43,6 +43,8 @@ public class EventUtil {
     public static final String PHONE_MODEL = "model";
     public static final String ANDROID_VERSION = "android_version";
     public static final String CARRIER = "carrier";
+    public static final String LOCALE = "locale";
+    public static final String COUNTRY_CODE = "country_code";
 
     /**
      * App install survey.
