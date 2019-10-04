@@ -143,6 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/material_card_spacing"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/material_card_spacing"
                 android:layout_marginRight="@dimen/material_card_spacing"
                 card_view:cardElevation="10dp">
