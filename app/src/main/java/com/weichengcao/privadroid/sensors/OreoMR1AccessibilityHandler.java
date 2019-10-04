@@ -446,7 +446,7 @@ class OreoMR1AccessibilityHandler {
                 }
                 AccessibilityNodeInfo appName = child.getChild(0);
                 AccessibilityNodeInfo appSwitch = child.getChild(1);
-                if (appName == null || appSwitch == null) {
+                if (appName == null || appSwitch == null || appName.getText() == null || appSwitch.getText() == null) {
                     continue;
                 }
                 String name = appName.getText().toString();
