@@ -381,10 +381,10 @@ class OreoMR1AccessibilityHandler {
                 if (cur.getText() != null && cur.getClassName() != null) {
                     String text = cur.getText().toString();
                     String className = cur.getClassName().toString();
-                    boolean isTextview = className.toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase());
-                    if (isTextview && text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.android_o_apps_and_notifications_screen_text).toLowerCase())) {
+                    boolean isTextview = className.equals(TEXTVIEW_CLASS_NAME);
+                    if (isTextview && text.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_o_apps_and_notifications_screen_text))) {
                         foundAppsAndNotifications = true;
-                    } else if (isTextview && text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.app_permissions_screen_text).toLowerCase())) {
+                    } else if (isTextview && text.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.app_permissions_screen_text))) {
                         foundAppPermissions = true;
                     }
                 }
@@ -414,14 +414,14 @@ class OreoMR1AccessibilityHandler {
                     allChildren.add(cur.getChild(i));
                 }
 
-                if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_camera_screen_text).toLowerCase())) {
+                if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_camera_screen_text))) {
                     foundCamera = true;
-                } else if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_body_sensors_screen_text).toLowerCase())) {
+                } else if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_body_sensors_screen_text))) {
                     foundBodySensors = true;
-                } else if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_o_app_permissions_screen_text).toLowerCase())) {
+                } else if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_o_app_permissions_screen_text))) {
                     foundAppPermissions = true;
                 }
             }
@@ -454,8 +454,7 @@ class OreoMR1AccessibilityHandler {
                 if (appNames2PermissionSwitchStatus.get(name) != null && !Objects.equals(appNames2PermissionSwitchStatus.get(name), status)) {
 //                    Log.d(TAG, "Found difference in " + name + " and permission " + status);
                     // we found a difference
-                    currentlyPermissionGranted = Boolean.toString(status.toLowerCase()
-                            .equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase()));
+                    currentlyPermissionGranted = Boolean.toString(status.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text)));
                     currentlyHandledAppName = name;
                     currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, PrivaDroidApplication.getAppContext().getPackageManager());
                     currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, PrivaDroidApplication.getAppContext().getPackageManager());
@@ -528,14 +527,14 @@ class OreoMR1AccessibilityHandler {
                     allChildren.add(cur.getChild(i));
                 }
 
-                if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_o_app_info_screen_text).toLowerCase())) {
+                if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_o_app_info_screen_text))) {
                     foundAppInfo = true;
-                } else if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_permissions_screen_text).toLowerCase())) {
+                } else if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_permissions_screen_text))) {
                     foundPermissions = true;
-                } else if (cur.getClassName() != null && cur.getClassName().toString().toLowerCase().equals(TEXTVIEW_CLASS_NAME.toLowerCase())
-                        && cur.getText() != null && cur.getText().toString().toLowerCase().equals(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_storage_screen_text).toLowerCase())) {
+                } else if (cur.getClassName() != null && cur.getClassName().toString().equals(TEXTVIEW_CLASS_NAME)
+                        && cur.getText() != null && cur.getText().toString().equalsIgnoreCase(PrivaDroidApplication.getAppContext().getResources().getString(R.string.android_storage_screen_text))) {
                     foundStorage = true;
                 }
             }
@@ -580,7 +579,7 @@ class OreoMR1AccessibilityHandler {
                         currentlyHandledAppName = appNameText;
                         currentlyHandledAppPackage = findPackageNameFromAppName(currentlyHandledAppName, PrivaDroidApplication.getAppContext().getPackageManager());
                         currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, PrivaDroidApplication.getAppContext().getPackageManager());
-                        currentlyPermissionGranted = Boolean.toString(switchStatus.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase()));
+                        currentlyPermissionGranted = Boolean.toString(switchStatus.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text)));
                         sendPermissionEventToFirebase(true);
                     }
                 } else {
@@ -648,8 +647,7 @@ class OreoMR1AccessibilityHandler {
                             !Objects.equals(permissionNames2permissionSwitchStatus.get(name), status)) {
 //                        Log.d(TAG, "Found difference in permission2status: " + name + ":" + status);
                         // we found a difference
-                        currentlyPermissionGranted = Boolean.toString(status.toLowerCase()
-                                .equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase()));
+                        currentlyPermissionGranted = Boolean.toString(status.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text)));
                         currentlyHandledPermission = name;
                         sendPermissionEventToFirebase(true);
                         // update
@@ -888,11 +886,11 @@ class OreoMR1AccessibilityHandler {
         /**
          * Extract action option, Allow or Deny.
          */
-        String actionTextLower = source.getText().toString().toLowerCase();
-        if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
+        String actionText = source.getText().toString();
+        if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text))) {
             currentlyPermissionGranted = Boolean.toString(true);
 //            Log.d(TAG, "Detected grant in runtime permission dialog.");
-        } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
+        } else if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text))) {
             currentlyPermissionGranted = Boolean.toString(false);
 //            Log.d(TAG, "Detected deny in runtime permission dialog.");
         }
@@ -914,10 +912,10 @@ class OreoMR1AccessibilityHandler {
             return false;
         }
 
-        String nodeTextLowercase = source.getText().toString().toLowerCase();
+        String nodeText = source.getText().toString();
         return source.getClassName().equals(BUTTON_CLASS_NAME) &&
-                (nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase()) ||
-                        nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase()));
+                (nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text)) ||
+                        nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text)));
     }
 
     /**

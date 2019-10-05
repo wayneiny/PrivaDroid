@@ -76,7 +76,7 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
         for (ApplicationInfo ai : packages) {
             String packageName = ai.packageName;
             String packageAppName = getApplicationNameFromPackageName(packageName, packageManager);
-            if (packageAppName != null && appName.toLowerCase().equals(packageAppName.toLowerCase())) {
+            if (appName.equalsIgnoreCase(packageAppName)) {
                 return packageName;
             }
         }

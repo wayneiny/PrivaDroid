@@ -325,7 +325,7 @@ class NougatMR1AccessibilityHandler {
                     || packageName.equals(AndroidSdkConstants.GOOGLE_PACKAGE_INSTALLER_PACKAGE))
                     && className.equals(AndroidSdkConstants.BUTTON_CLASS_NAME)) {
                 String text = source.getText().toString();
-                if (text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text).toLowerCase())) {
+                if (text.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text))) {
                     currentlyPermissionGranted = Boolean.toString(false);
 //                    Log.d(TAG, "User clicked deny anyway in permission warning dialog.");
                     return true;
@@ -396,9 +396,9 @@ class NougatMR1AccessibilityHandler {
                         || packageName.equals(AndroidSdkConstants.PACKAGE_INSTALLER_PACKAGE))
                         && className.equals(AndroidSdkConstants.SWITCH_CLASS_NAME)) {
                     String switchStatus = cur.getText().toString();
-                    if (switchStatus.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text).toLowerCase())) {
+                    if (switchStatus.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_on_screen_text))) {
                         currentlyPermissionGranted = Boolean.toString(true);
-                    } else if (switchStatus.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_off_screen_text).toLowerCase())) {
+                    } else if (switchStatus.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.permission_switch_status_off_screen_text))) {
                         currentlyPermissionGranted = Boolean.toString(false);
                     }
                 }
@@ -549,8 +549,8 @@ class NougatMR1AccessibilityHandler {
                     if (cur.getText() != null && cur.getClassName() != null) {
                         String text = cur.getText().toString();
                         String className = cur.getClassName().toString();
-                        if (className.toLowerCase().equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME.toLowerCase()) &&
-                                text.toLowerCase().equals(PrivaDroidApplication.getAppContext().getString(R.string.apps_screen_text).toLowerCase())) {
+                        if (className.equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME) &&
+                                text.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.apps_screen_text))) {
                             return true;
                         }
                     }
@@ -722,11 +722,11 @@ class NougatMR1AccessibilityHandler {
         /**
          * Extract action option, Allow or Deny.
          */
-        String actionTextLower = source.getText().toString().toLowerCase();
-        if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase())) {
+        String actionText = source.getText().toString();
+        if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text))) {
             currentlyPermissionGranted = Boolean.toString(true);
 //            Log.d(TAG, "Detected grant in runtime permission dialog.");
-        } else if (actionTextLower.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase())) {
+        } else if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text))) {
             currentlyPermissionGranted = Boolean.toString(false);
 //            Log.d(TAG, "Detected deny in runtime permission dialog.");
         }
@@ -748,10 +748,10 @@ class NougatMR1AccessibilityHandler {
             return false;
         }
 
-        String nodeTextLowercase = source.getText().toString().toLowerCase();
+        String nodeText = source.getText().toString();
         return source.getClassName().equals(BUTTON_CLASS_NAME) &&
-                (nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text).toLowerCase()) ||
-                        nodeTextLowercase.equals(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text).toLowerCase()));
+                (nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text)) ||
+                        nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text)));
     }
 
     /**
