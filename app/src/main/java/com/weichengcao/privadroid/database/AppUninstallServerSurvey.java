@@ -19,7 +19,6 @@ public class AppUninstallServerSurvey extends BaseServerSurvey {
         return why;
     }
 
-    // TODO: make it true multiple choice
     public String[] getPermissionsRequestedRemembered() {
         return permissionsRequestedRemembered.split(MULTIPLE_CHOICES_DELIMITER);
     }

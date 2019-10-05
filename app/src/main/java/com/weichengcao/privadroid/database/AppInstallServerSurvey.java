@@ -27,12 +27,10 @@ public class AppInstallServerSurvey extends BaseServerSurvey {
         return knowPermission;
     }
 
-    // TODO: make it true multiple choice
     public String[] getFactors() {
         return factors.split(MULTIPLE_CHOICES_DELIMITER);
     }
 
-    // TODO: make it true multiple choice
     public String[] getThinkPermissions() {
         return thinkPermissions.split(MULTIPLE_CHOICES_DELIMITER);
     }
