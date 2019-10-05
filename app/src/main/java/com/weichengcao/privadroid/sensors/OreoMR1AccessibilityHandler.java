@@ -46,6 +46,7 @@ class OreoMR1AccessibilityHandler {
     private static String currentlyProactivePermissionRequestRationale = null;
     private static String currentlyProactivePermissionRequestRationaleGranted = null;
     private static String currentlyProactivePermissionRequestEventCorrelationId = null;
+    private static String currentlyProactivePermissionRequestPackage = null;
 
     /**
      * If we are inside the screen where all permission settings are shown for a single app.
@@ -274,6 +275,7 @@ class OreoMR1AccessibilityHandler {
          * Find the last active app package
          */
         if (source.getPackageName() != null) {
+            currentlyProactivePermissionRequestPackage = source.getPackageName().toString();
             currentlyHandledAppPackage = source.getPackageName().toString();
             currentlyHandledAppName = getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager);
             currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
@@ -771,11 +773,21 @@ class OreoMR1AccessibilityHandler {
             return;
         }
 
+        /**
+         * Don't add the proactive permission dialog if the current permission request package does
+         * not match the package where we detected proactive permission request with
+         */
         FirestoreProvider firestoreProvider = new FirestoreProvider();
-        firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
-                currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                currentlyProactivePermissionRequestEventCorrelationId), true);
+        if (currentlyProactivePermissionRequestPackage != null && currentlyProactivePermissionRequestPackage.equalsIgnoreCase(currentlyHandledAppPackage)) {
+            firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
+                    currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
+                    currentlyProactivePermissionRequestEventCorrelationId), true);
+        } else {
+            firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
+                    currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null), true);
+        }
 
         currentlyPermissionGranted = null;
 
@@ -783,6 +795,7 @@ class OreoMR1AccessibilityHandler {
         currentlyProactivePermissionRequestRationaleGranted = null;
         currentlyProactivePermissionRequestRationale = null;
         currentlyProactivePermissionRequestEventCorrelationId = null;
+        currentlyProactivePermissionRequestPackage = null;
     }
 
     /**
@@ -812,6 +825,7 @@ class OreoMR1AccessibilityHandler {
             currentlyProactivePermissionRequestRationaleGranted = null;
             currentlyProactivePermissionRequestRationale = null;
             currentlyProactivePermissionRequestEventCorrelationId = null;
+            currentlyProactivePermissionRequestPackage = null;
         }
     }
     //endregion

@@ -44,6 +44,7 @@ class MarshmallowAccessibilityHandler {
     private static String currentlyProactivePermissionRequestRationale = null;
     private static String currentlyProactivePermissionRequestRationaleGranted = null;
     private static String currentlyProactivePermissionRequestEventCorrelationId = null;
+    private static String currentlyProactivePermissionRequestPackage = null;
 
     private static boolean insideSettingsAppPermissionsScreen = false;
 
@@ -70,9 +71,6 @@ class MarshmallowAccessibilityHandler {
                     currentlyHandledPermission = null;
                     currentlyHandledSubsequentPermission = null;
                     currentlyPermissionGranted = null;
-                    currentlyProactivePermissionRequestRationale = null;
-                    currentlyProactivePermissionRequestRationaleGranted = null;
-                    currentlyProactivePermissionRequestEventCorrelationId = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
 //                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsScreen = true;
@@ -219,6 +217,7 @@ class MarshmallowAccessibilityHandler {
          * Find the last active app package
          */
         if (source.getPackageName() != null) {
+            currentlyProactivePermissionRequestPackage = source.getPackageName().toString();
             currentlyHandledAppPackage = source.getPackageName().toString();
             currentlyHandledAppName = getApplicationNameFromPackageName(currentlyHandledAppPackage, packageManager);
             currentlyHandledAppVersion = getApplicationVersion(currentlyHandledAppPackage, packageManager);
@@ -560,11 +559,21 @@ class MarshmallowAccessibilityHandler {
             return;
         }
 
+        /**
+         * Don't add the proactive permission dialog if the current permission request package does
+         * not match the package where we detected proactive permission request with
+         */
         FirestoreProvider firestoreProvider = new FirestoreProvider();
-        firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
-                currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                currentlyProactivePermissionRequestEventCorrelationId), true);
+        if (currentlyProactivePermissionRequestPackage != null && currentlyProactivePermissionRequestPackage.equalsIgnoreCase(currentlyHandledAppPackage)) {
+            firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
+                    currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
+                    currentlyProactivePermissionRequestEventCorrelationId), true);
+        } else {
+            firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
+                    currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null), true);
+        }
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;
         currentlyPermissionGranted = null;
@@ -574,6 +583,7 @@ class MarshmallowAccessibilityHandler {
         currentlyProactivePermissionRequestRationaleGranted = null;
         currentlyProactivePermissionRequestRationale = null;
         currentlyProactivePermissionRequestEventCorrelationId = null;
+        currentlyProactivePermissionRequestPackage = null;
     }
 
     /**
@@ -603,6 +613,7 @@ class MarshmallowAccessibilityHandler {
             currentlyProactivePermissionRequestRationaleGranted = null;
             currentlyProactivePermissionRequestRationale = null;
             currentlyProactivePermissionRequestEventCorrelationId = null;
+            currentlyProactivePermissionRequestPackage = null;
         }
     }
     //endregion
