@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -38,6 +39,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
     private MaterialButton mStartUsingAppButton;
     private ViewPager mViewPager;
     private CardPagerAdapter mCardAdapter;
+    private ProgressBar mJoinEventProgressBar;
 
     private UserPreferences mUserPreferences;
     private FirebaseFirestore mFirestore;
@@ -51,6 +53,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
         mStartUsingAppButton.setOnClickListener(this);
 
         mViewPager = findViewById(R.id.tutorial_pager);
+        mJoinEventProgressBar = findViewById(R.id.join_event_progress_bar);
 
         mCardAdapter = new CardPagerAdapter();
         mCardAdapter.addCardItem(mHowToCard);
@@ -124,6 +127,7 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
 
             // 1. Log a join event and send to FireStore
             final HashMap<String, String> joinEvent = createJoinEvent();
+            mJoinEventProgressBar.setVisibility(View.VISIBLE);
             mFirestore.collection(JOIN_EVENT_COLLECTION).add(joinEvent)
                     .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
@@ -146,6 +150,8 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                                 Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.failed_to_join_make_sure_network, Toast.LENGTH_LONG).show();
                                 view.setEnabled(true);
                             }
+
+                            mJoinEventProgressBar.setVisibility(View.GONE);
                         }
                     });
         }
