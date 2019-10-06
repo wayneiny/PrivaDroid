@@ -245,6 +245,10 @@ class OreoMR1AccessibilityHandler {
 
         StringBuilder sb = new StringBuilder();
 
+        int PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD = 5;
+        int textViewCount = 0;
+        int buttonViewCount = 0;
+
         Queue<AccessibilityNodeInfo> allChildren = new LinkedList<>();
         allChildren.add(source);
 
@@ -260,12 +264,19 @@ class OreoMR1AccessibilityHandler {
                     if (cur.getClassName().toString().equals(AndroidSdkConstants.TEXTVIEW_CLASS_NAME)) {
                         sb.append(TEXTVIEW_SHORTHAND).append(": ")
                                 .append(cur.getText().toString()).append(" ");
+                        textViewCount++;
                     } else if (cur.getClassName().toString().equals(BUTTON_CLASS_NAME)) {
                         sb.append(BUTTON_SHORTHAND).append(": ")
                                 .append(cur.getText().toString()).append(". ");
+                        buttonViewCount++;
                     }
                 }
             }
+        }
+
+        if (textViewCount >= PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD ||
+                buttonViewCount >= PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD) {
+            return;
         }
 
         currentlyProactivePermissionRequestRationale = sb.toString();
