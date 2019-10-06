@@ -81,78 +81,75 @@ public class RewardsActivity extends AppCompatActivity {
         mSubmit = findViewById(R.id.rewards_submit_button);
 
         /**
-         * Query from Firebase the rewards event.
+         * User has not entered the rewards before. Check eligibility and update UI.
          */
-        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-        final CollectionReference rewardsColRef = firebaseFirestore.collection(EventUtil.REWARDS_COLLECTION);
-        Query query = rewardsColRef.whereEqualTo(EventUtil.USER_AD_ID, new UserPreferences(this).getAdvertisingId());
-        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    QuerySnapshot querySnapshot = task.getResult();
-                    if (querySnapshot != null) {
-                        List<DocumentSnapshot> documentSnapshotList = querySnapshot.getDocuments();
-                        if (!documentSnapshotList.isEmpty()) {
-                            DocumentSnapshot documentSnapshot = documentSnapshotList.get(0);
+        String joinDateText = new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate();
+        if (!joinDateText.equals(UNKNOWN_DATE)) {
+            DateTime joinDate = DateTime.parse(joinDateText);
+            DateTime now = DateTime.now();
 
-                            RewardsServerEvent rewardsServerEvent = new RewardsServerEvent(
-                                    documentSnapshot.getString(EventUtil.USER_AD_ID),
-                                    documentSnapshot.getString(EventUtil.LOGGED_TIME),
-                                    documentSnapshot.getString(EventUtil.REWARDS_JOIN_DATE),
-                                    documentSnapshot.getString(EventUtil.REWARDS_METHOD),
-                                    documentSnapshot.getString(EventUtil.REWARDS_METHOD_VALUE));
+            boolean eligibleForRewards = now.minusDays(REWARDS_DAYS).isAfter(joinDate);
+            if (eligibleForRewards) {
+                /**
+                 * Query from Firebase the rewards event.
+                 */
+                FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+                CollectionReference rewardsColRef = firebaseFirestore.collection(EventUtil.REWARDS_COLLECTION);
+                Query query = rewardsColRef.whereEqualTo(EventUtil.USER_AD_ID, new UserPreferences(this).getAdvertisingId());
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            QuerySnapshot querySnapshot = task.getResult();
+                            if (querySnapshot != null) {
+                                List<DocumentSnapshot> documentSnapshotList = querySnapshot.getDocuments();
+                                if (!documentSnapshotList.isEmpty()) {
+                                    DocumentSnapshot documentSnapshot = documentSnapshotList.get(0);
 
-                            mRewardsDaysLeftCard.setVisibility(View.GONE);
-                            mCompleteJoinDateText.setText(PrivaDroidApplication.getAppContext()
-                                    .getString(R.string.rewards_complete_join_date_text,
-                                            DatetimeUtil.convertIsoToReadableFormat(rewardsServerEvent.getJoinDate())));
+                                    RewardsServerEvent rewardsServerEvent = new RewardsServerEvent(
+                                            documentSnapshot.getString(EventUtil.USER_AD_ID),
+                                            documentSnapshot.getString(EventUtil.LOGGED_TIME),
+                                            documentSnapshot.getString(EventUtil.REWARDS_JOIN_DATE),
+                                            documentSnapshot.getString(EventUtil.REWARDS_METHOD),
+                                            documentSnapshot.getString(EventUtil.REWARDS_METHOD_VALUE));
 
-                            mRewardsMethodValue.setText(rewardsServerEvent.getMethodValue());
-                            mRewardsMethodValue.setEnabled(false);
-                            mRewardsMethodConfirm.setVisibility(View.GONE);
+                                    mRewardsDaysLeftCard.setVisibility(View.GONE);
+                                    mCompleteJoinDateText.setText(PrivaDroidApplication.getAppContext()
+                                            .getString(R.string.rewards_complete_join_date_text,
+                                                    DatetimeUtil.convertIsoToReadableFormat(rewardsServerEvent.getJoinDate())));
 
-                            mRewardsAnsweredOn.setText(PrivaDroidApplication.getAppContext()
-                                    .getString(R.string.answered_on_prefix_new,
-                                            DatetimeUtil.convertIsoToReadableFormat(rewardsServerEvent.getLoggedTime())));
+                                    mRewardsMethodValue.setText(rewardsServerEvent.getMethodValue());
+                                    mRewardsMethodValue.setEnabled(false);
+                                    mRewardsMethodConfirm.setVisibility(View.GONE);
 
-                            mRewardsMethodConfirmLayout.setVisibility(View.GONE);
+                                    mRewardsAnsweredOn.setText(PrivaDroidApplication.getAppContext()
+                                            .getString(R.string.answered_on_prefix_new,
+                                                    DatetimeUtil.convertIsoToReadableFormat(rewardsServerEvent.getLoggedTime())));
 
-                            mSubmit.setVisibility(View.GONE);
-                            return;
+                                    mRewardsMethodConfirmLayout.setVisibility(View.GONE);
+
+                                    mSubmit.setVisibility(View.GONE);
+                                } else {
+                                    mSubmit.setVisibility(View.VISIBLE);
+                                    mCompleteJoinDateText.setText(PrivaDroidApplication.getAppContext()
+                                            .getString(R.string.rewards_complete_join_date_text,
+                                                    DatetimeUtil.convertIsoToReadableFormat(new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate())));
+                                    mRewardsDaysLeftCard.setVisibility(View.GONE);
+                                }
+                            }
                         }
                     }
-                }
+                });
+            } else {
+                mSubmit.setVisibility(View.GONE);
+                mRewardsMethodCard.setVisibility(View.GONE);
 
-                /**
-                 * User has not entered the rewards before. Check eligibility and update UI.
-                 */
-                mRewardsAnsweredOn.setVisibility(View.GONE);
-
-                String joinDateText = new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate();
-                if (!joinDateText.equals(UNKNOWN_DATE)) {
-                    DateTime joinDate = DateTime.parse(joinDateText);
-                    DateTime now = DateTime.now();
-
-                    boolean eligibleForRewards = now.minusDays(REWARDS_DAYS).isAfter(joinDate);
-                    if (eligibleForRewards) {
-                        mSubmit.setVisibility(View.VISIBLE);
-                        mCompleteJoinDateText.setText(PrivaDroidApplication.getAppContext()
-                                .getString(R.string.rewards_complete_join_date_text,
-                                        DatetimeUtil.convertIsoToReadableFormat(new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate())));
-                        mRewardsDaysLeftCard.setVisibility(View.GONE);
-                    } else {
-                        mSubmit.setVisibility(View.GONE);
-                        mRewardsMethodCard.setVisibility(View.GONE);
-
-                        String daysLeft = (REWARDS_DAYS - (int) new Duration(joinDate, now).getStandardDays()) + "";
-                        mDaysLeftText.setText(PrivaDroidApplication.getAppContext().getString(R.string.rewards_days_left_text, daysLeft));
-                    }
-                } else {
-                    Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.rewards_join_date_invalid_contact_team), Toast.LENGTH_LONG).show();
-                }
+                String daysLeft = (REWARDS_DAYS - (int) new Duration(joinDate, now).getStandardDays()) + "";
+                mDaysLeftText.setText(PrivaDroidApplication.getAppContext().getString(R.string.rewards_days_left_text, daysLeft));
             }
-        });
+        } else {
+            Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.rewards_join_date_invalid_contact_team), Toast.LENGTH_LONG).show();
+        }
 
         setUpSubmit();
     }
