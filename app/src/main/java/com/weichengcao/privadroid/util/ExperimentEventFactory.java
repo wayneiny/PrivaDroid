@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
+import com.weichengcao.privadroid.BuildConfig;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class ExperimentEventFactory {
             event.put(COUNTRY_CODE, manager.getNetworkCountryIso());
         }
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return event;
     }
@@ -63,6 +65,7 @@ public class ExperimentEventFactory {
         event.put(APP_VERSION, version);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(SURVEY_ID, "");
+        event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return event;
     }
@@ -76,6 +79,7 @@ public class ExperimentEventFactory {
         event.put(APP_NAME, appName);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(SURVEY_ID, "");
+        event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return event;
     }
@@ -96,6 +100,7 @@ public class ExperimentEventFactory {
         event.put(EventUtil.PROACTIVE_RATIONALE_MESSAGE, rationaleMessage);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(SURVEY_ID, "");
+        event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return event;
     }
@@ -115,6 +120,7 @@ public class ExperimentEventFactory {
         event.put(GENDER, gender);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return event;
     }
@@ -132,6 +138,7 @@ public class ExperimentEventFactory {
         res.put(EventUtil.EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }
@@ -145,6 +152,7 @@ public class ExperimentEventFactory {
         res.put(EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }
@@ -160,6 +168,7 @@ public class ExperimentEventFactory {
         res.put(EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }
@@ -175,6 +184,7 @@ public class ExperimentEventFactory {
         res.put(EVENT_SERVER_ID, eventServerId);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }
@@ -192,6 +202,7 @@ public class ExperimentEventFactory {
         res.put(PACKAGE_NAME, packageName);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }
@@ -204,6 +215,7 @@ public class ExperimentEventFactory {
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
         res.put(EventUtil.REWARDS_JOIN_DATE, new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
 
         return res;
     }

@@ -21,6 +21,11 @@ public class EventUtil {
     public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
 
     /**
+     * Metadata
+     */
+    public static final String PRIVADROID_VERSION = "privadroid_version";
+
+    /**
      * Common to App Install/App Uninstall/Permission.
      */
     public static final String EVENT_TYPE = "EVENT_TYPE";
