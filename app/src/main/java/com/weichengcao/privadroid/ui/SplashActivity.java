@@ -129,7 +129,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
             try {
                 adInfo = AdvertisingIdClient.getAdvertisingIdInfo(PrivaDroidApplication.getAppContext());
             } catch (Exception e) {
-                Toast.makeText(PrivaDroidApplication.getAppContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(PrivaDroidApplication.getAppContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
             return adInfo != null ? adInfo.getId() : "";
         }
