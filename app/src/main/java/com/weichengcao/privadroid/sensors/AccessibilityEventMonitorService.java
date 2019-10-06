@@ -54,6 +54,11 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                     ))
     );
 
+    /**
+     * Process up to 5 strings from previous screens.
+     */
+
+
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (!Locale.getDefault().getISO3Language().equals(Locale.ENGLISH.getISO3Language())) {

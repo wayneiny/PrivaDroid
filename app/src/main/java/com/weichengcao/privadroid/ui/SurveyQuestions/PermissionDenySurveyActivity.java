@@ -340,6 +340,9 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
                 alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (selectedExpected == -1) {
+                            return;
+                        }
                         mExpected.setText(getResources().getStringArray(R.array.permission_options_expect_request)[selectedExpected]);
                     }
                 });
@@ -355,6 +358,9 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
 //                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedComfortable == -1) {
+//                            return;
+//                        }
 //                        mComfortable.setText(getResources().getStringArray(R.array.permission_options_comfortable)[selectedComfortable]);
 //                    }
 //                });

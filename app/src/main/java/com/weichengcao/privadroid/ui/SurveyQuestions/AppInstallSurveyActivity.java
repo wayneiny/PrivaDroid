@@ -391,6 +391,9 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                 alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        if (selectedKnowPermission == -1) {
+                            return;
+                        }
                         mKnowPermission.setText(getResources().getStringArray(R.array.app_install_options_know_permission)[selectedKnowPermission]);
                     }
                 });
