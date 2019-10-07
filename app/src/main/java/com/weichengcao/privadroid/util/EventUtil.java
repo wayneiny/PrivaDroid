@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Random;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerSurveyedEvents;
 import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2appInstallServerUnsurveyedEvents;
@@ -164,5 +165,32 @@ public class EventUtil {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Randomize answer options.
+     */
+    public static String[] randomizeSurveyQuestionOptions(String[] originalOptions, boolean hasNone, boolean hasOtherOrIDontKnow) {
+        if (originalOptions == null) {
+            return null;
+        }
+
+        int upperIndex = originalOptions.length;
+        if (hasNone) {
+            upperIndex--;
+        }
+        if (hasOtherOrIDontKnow) {
+            upperIndex--;
+        }
+
+        Random rgen = new Random();
+        for (int i = 0; i < upperIndex; i++) {
+            int randomIndex = rgen.nextInt(upperIndex);
+            String tmp = originalOptions[i];
+            originalOptions[i] = originalOptions[randomIndex];
+            originalOptions[randomIndex] = tmp;
+        }
+
+        return originalOptions;
     }
 }

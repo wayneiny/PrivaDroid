@@ -278,6 +278,7 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
 
     boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.permission_deny_options_why).length];
     HashSet<Integer> selectedWhyIndices = new HashSet<>();
+    String[] whyOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.permission_deny_options_why), true, true);
     int selectedExpected = -1;
 //    int selectedComfortable = -1;
 
@@ -303,7 +304,7 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
         switch (buttonId) {
             case R.id.permission_deny_button_why:
                 alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
-                alertDialogBuilder.setMultiChoiceItems(R.array.permission_deny_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(whyOptions, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -320,7 +321,6 @@ public class PermissionDenySurveyActivity extends AppCompatActivity implements B
                             mWhy.setText(R.string.select_multiple_allowed);
                             return;
                         }
-                        String[] whyOptions = getResources().getStringArray(R.array.permission_deny_options_why);
                         ArrayList<String> whyTexts = new ArrayList<>();
                         for (int index : selectedWhyIndices) {
                             whyTexts.add(whyOptions[index]);

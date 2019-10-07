@@ -126,8 +126,8 @@
         <item>Because of advertisements in the app</item>
         <item>Because of in-app purchases</item>
         <item>The app required permissions I wasn\’t comfortable granting</item>
-        <item>I don\’t know</item>
-        <item>None of the above</item>
+        <item>None</item>
+        <item>Other</item>
     </array>
 
     <string name="app_uninstall_question_permission_remembered_requested" description="app uninstall survey question remember">2. Do you remember if the app requires any of the following permissions?</string>
@@ -149,31 +149,30 @@
     <!--  Permission survey questions  -->
     <string name="permission_grant_question_why" description="permission grant survey event why">1. Why did you grant the permission request?</string>
     <array name="permission_grant_options_why">
-        <item>I want to use a specific feature that requires this permission</item>
-        <item>I trust the app developer</item>
+        <item>I want to use a feature that needs this permission</item>
+        <item>I trust the developer</item>
         <item>I think the app won\’t work otherwise</item>
         <item>I have nothing to hide</item>
-        <item>Nothing bad will happen</item>
-        <item>The app developer already has this information about me</item>
-        <item>I wanted the permission screen to go away</item>
+        <item>The developer already has this information about me</item>
+        <item>I want the permission screen to go away</item>
         <item>Because the app is popular</item>
-        <item>I didn\’t know I did that</item>
-        <item>I won\’t be able to grant this permission later</item>
-        <item>None of the above</item>
+        <item>The app gave an explanation that made sense</item>
+        <item>None</item>
+        <item>Other</item>
     </array>
 
     <string name="permission_deny_question_why" description="permission deny survey event why">1. Why did you deny the permission request?</string>
     <array name="permission_deny_options_why">
         <item>I think the app shouldn\’t need this permission</item>
-        <item>I expect the app will still work without this permission</item>
         <item>I can always grant it afterwards if I change my mind</item>
         <item>I do not use the specific feature associated with the permission</item>
         <item>I consider the permission to be very sensitive</item>
-        <item>I don\’t trust the developer enough to provide this information</item>
+        <item>I don\’t trust the developer</item>
         <item>I wanted the permission screen to go away</item>
-        <item>I think something bad might happen if I provide this permission</item>
-        <item>I didn\’t know I did that</item>
-        <item>None of the above</item>
+        <item>The app gave a poor explanation</item>
+        <item>I think something bad might happen</item>
+        <item>None</item>
+        <item>Other</item>
     </array>
 
     <string name="permission_question_expect_request" description="permission why requested question">2. Did you expect the app requests this permission?</string>
@@ -205,8 +204,8 @@
         <item>I was required to install it</item>
         <item>I was offered something in return (e.g. credits, monetary rewards, discount)</item>
         <item>The app has fewer permissions than other apps like it</item>
-        <item>I don’t know</item>
-        <item>None of the above</item>
+        <item>None</item>
+        <item>Other</item>
     </array>
 
     <string name="app_install_question_factors" description="factors of install question">2. Which factors influenced your decision to install the app?</string>
@@ -218,14 +217,15 @@
         <item>The company creating the app</item>
         <item>The app is free / price is reasonable</item>
         <item>App functionality</item>
-        <item>None of the above</item>
+        <item>None</item>
+        <item>Other</item>
     </array>
 
     <string name="app_install_question_know_permission" description="any permission required by user question">3. Do you know what permissions this app requires?</string>
     <array name="app_install_options_know_permission">
         <item>Yes</item>
         <item>No</item>
-        <item>I\'m not sure</item>
+        <item>Not sure</item>
     </array>
 
     <string name="app_install_question_which_permission_think" description="permissions required by user question">4. Which of the following permission do you think the app requires?</string>

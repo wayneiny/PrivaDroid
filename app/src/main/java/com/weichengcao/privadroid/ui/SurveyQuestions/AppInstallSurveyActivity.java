@@ -293,10 +293,16 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
 
     boolean[] factorsChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_factors).length];
     HashSet<Integer> selectedFactors = new HashSet<>();
+    String[] factorOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_factors), true, true);
+
     boolean[] whichPermissionsChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_which_permission_think).length];
     HashSet<Integer> selectedWhichPermissions = new HashSet<>();
+    String[] whichPermissionsOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_which_permission_think), true, true);
+
     boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_why).length];
     HashSet<Integer> selectedWhys = new HashSet<>();
+    String[] whyOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_install_options_why), true, true);
+
     int selectedKnowPermission = -1;
 
     MaterialButton mWhy;
@@ -324,7 +330,7 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
         switch (buttonId) {
             case R.id.app_install_button_why:
                 alertDialogBuilder.setTitle(getString(R.string.select_multiple_allowed));
-                alertDialogBuilder.setMultiChoiceItems(R.array.app_install_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(whyOptions, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -342,7 +348,6 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                                     mWhy.setText(R.string.select_multiple_allowed);
                                     return;
                                 }
-                                String[] whyOptions = getResources().getStringArray(R.array.app_install_options_why);
                                 ArrayList<String> whyTexts = new ArrayList<>();
                                 for (int index : selectedWhys) {
                                     whyTexts.add(whyOptions[index]);
@@ -353,7 +358,7 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                 break;
             case R.id.app_install_button_factors:
                 alertDialogBuilder.setTitle(getString(R.string.select_multiple_allowed));
-                alertDialogBuilder.setMultiChoiceItems(R.array.app_install_options_factors, factorsChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(factorOptions, factorsChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -371,7 +376,6 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                                     mFactors.setText(R.string.select_multiple_allowed);
                                     return;
                                 }
-                                String[] factorOptions = getResources().getStringArray(R.array.app_install_options_factors);
                                 ArrayList<String> factorTexts = new ArrayList<>();
                                 for (int index : selectedFactors) {
                                     factorTexts.add(factorOptions[index]);
@@ -400,7 +404,7 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                 break;
             case R.id.app_install_button_which_permissions:
                 alertDialogBuilder.setTitle(getString(R.string.select_multiple_allowed));
-                alertDialogBuilder.setMultiChoiceItems(R.array.app_install_options_which_permission_think, whichPermissionsChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(whichPermissionsOptions, whichPermissionsChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -418,7 +422,6 @@ public class AppInstallSurveyActivity extends AppCompatActivity implements BaseS
                                     mWhichPermissions.setText(R.string.select_multiple_allowed);
                                     return;
                                 }
-                                String[] whichPermissionsOptions = getResources().getStringArray(R.array.app_install_options_which_permission_think);
                                 ArrayList<String> factorTexts = new ArrayList<>();
                                 for (int index : selectedWhichPermissions) {
                                     factorTexts.add(whichPermissionsOptions[index]);

@@ -263,8 +263,11 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
 
     boolean[] requestsRememberedChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested).length];
     HashSet<Integer> selectedRequestsRemembered = new HashSet<>();
+    String[] requestsRememberedOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested), true, true);
+
     boolean[] whyChecked = new boolean[PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_why).length];
     HashSet<Integer> selectedWhys = new HashSet<>();
+    String[] whyOptions = EventUtil.randomizeSurveyQuestionOptions(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.app_uninstall_options_why), true, true);
 
     MaterialButton mWhy;
     MaterialButton mRequestsRemembered;
@@ -285,7 +288,7 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
         switch (buttonId) {
             case R.id.app_uninstall_button_why:
                 alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
-                alertDialogBuilder.setMultiChoiceItems(R.array.app_uninstall_options_why, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(whyOptions, whyChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -302,7 +305,6 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                             mWhy.setText(R.string.select_multiple_allowed);
                             return;
                         }
-                        String[] whyOptions = getResources().getStringArray(R.array.app_uninstall_options_why);
                         ArrayList<String> whyTexts = new ArrayList<>();
                         for (int index : selectedWhys) {
                             whyTexts.add(whyOptions[index]);
@@ -313,7 +315,7 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                 break;
             case R.id.app_uninstall_button_requests_remembered:
                 alertDialogBuilder.setTitle(R.string.select_multiple_allowed);
-                alertDialogBuilder.setMultiChoiceItems(R.array.app_uninstall_options_permission_remembered_requested, requestsRememberedChecked, new DialogInterface.OnMultiChoiceClickListener() {
+                alertDialogBuilder.setMultiChoiceItems(requestsRememberedOptions, requestsRememberedChecked, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if (isChecked) {
@@ -330,7 +332,6 @@ public class AppUninstallSurveyActivity extends AppCompatActivity implements Bas
                             mRequestsRemembered.setText(R.string.select_multiple_allowed);
                             return;
                         }
-                        String[] requestsRememberedOptions = getResources().getStringArray(R.array.app_uninstall_options_permission_remembered_requested);
                         ArrayList<String> requestsRememberedTexts = new ArrayList<>();
                         for (int index : selectedRequestsRemembered) {
                             requestsRememberedTexts.add(requestsRememberedOptions[index]);
