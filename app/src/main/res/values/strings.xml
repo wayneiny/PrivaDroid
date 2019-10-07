@@ -653,27 +653,44 @@
 
     <!--  Permission related keywords  -->
     <array name="permission_related_keywords">
-        <item>access</item>
-        <item>allow</item>
         <item>body sensors</item>
         <item>camera</item>
         <item>calendar</item>
         <item>call logs</item>
         <item>contacts</item>
-        <item>control</item>
         <item>device</item>
-        <item>disable</item>
-        <item>enable</item>
         <item>file</item>
-        <item>id</item>
-        <item>import</item>
-        <item>inspect</item>
         <item>location</item>
         <item>microphone</item>
         <item>permission</item>
         <item>phone</item>
         <item>storage</item>
         <item>sms</item>
+        <item>photo</item>
+        <item>picture</item>
+        <item>video</item>
+        <item>voice</item>
+        <item>message</item>
+    </array>
+
+    <array name="permission_action_related_keywords">
+        <item>allow</item>
+        <item>access</item>
+        <item>need</item>
+        <item>enable</item>
+        <item>grant</item>
+        <item>will not work</item>
+        <item>won\'t work</item>
+        <item>control</item>
+        <item>import</item>
+        <item>upload</item>
+        <item>purpose</item>
+        <item>confidential</item>
+        <item>misuse</item>
+        <item>must</item>
+        <item>promise</item>
+        <item>would not work</item>
+        <item>wouldn\'t work</item>
     </array>
 
     <string name="language_is_not_supported_error">Your Android language must be set to English, Spanish, French, Korean or Traditional Chinese.</string>

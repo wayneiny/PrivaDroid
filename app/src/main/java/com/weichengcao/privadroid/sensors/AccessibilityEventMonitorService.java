@@ -46,6 +46,10 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
             Arrays.asList(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.permission_related_keywords))
     );
 
+    public static final HashSet<String> PERMISSION_ACTION_RELATED_KEYWORDS = new HashSet<>(
+            Arrays.asList(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.permission_action_related_keywords))
+    );
+
     public static final HashSet<String> PERMISSION_RATIONALE_BUTTON_KEYWORDS = new HashSet<>(
             Arrays.asList(
                     ArrayUtils.concat(
@@ -53,6 +57,8 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                             PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.proactive_permission_request_dialog_deny_button_texts)
                     ))
     );
+
+    public static final int PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD = 4;
 
     /**
      * Process up to 5 strings from previous screens.

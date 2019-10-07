@@ -22,6 +22,7 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.weichengcao.privadroid.sensors.AccessibilityEventMonitorService.PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
@@ -245,7 +246,6 @@ class OreoMR1AccessibilityHandler {
 
         StringBuilder sb = new StringBuilder();
 
-        int PROACTIVE_PERMISSION_REQUEST_DIALOG_VIEW_THRESHOLD = 5;
         int textViewCount = 0;
         int buttonViewCount = 0;
 
@@ -319,6 +319,7 @@ class OreoMR1AccessibilityHandler {
         }
 
         boolean foundRationaleKeywords = false;
+        boolean foundPermissionActionKeywords = false;
         boolean foundButtons = false;
 
         Queue<AccessibilityNodeInfo> allChildren = new LinkedList<>();
@@ -338,13 +339,15 @@ class OreoMR1AccessibilityHandler {
                     for (String s : AccessibilityEventMonitorService.PERMISSION_RELATED_KEYWORDS) {
                         if (textLowerCase.contains(s)) {
                             foundRationaleKeywords = true;
-//                            Log.d(TAG, "Found rationale " + s + " keyword in potential proactive permission dialog.");
                             break;
                         }
                     }
-//                    if (!foundRationaleKeywords) {
-//                        Log.d(TAG, "Useless text " + textLowerCase);
-//                    }
+                    for (String s : AccessibilityEventMonitorService.PERMISSION_ACTION_RELATED_KEYWORDS) {
+                        if (textLowerCase.contains(s)) {
+                            foundPermissionActionKeywords = true;
+                            break;
+                        }
+                    }
                 } else if (cur.getClassName() != null && cur.getClassName().toString().equals(BUTTON_CLASS_NAME)) {
                     String textLowerCase = null;
                     if (cur.getText() != null) {
@@ -354,15 +357,12 @@ class OreoMR1AccessibilityHandler {
                     }
                     if (AccessibilityEventMonitorService.PERMISSION_RATIONALE_BUTTON_KEYWORDS.contains(textLowerCase)) {
                         foundButtons = true;
-//                        Log.d(TAG, "Found button " + textLowerCase + " keyword in potential proactive permission dialog.");
-//                    } else {
-//                        Log.d(TAG, "Useless button text " + textLowerCase);
                     }
                 }
             }
         }
 
-        return foundButtons && foundRationaleKeywords;
+        return foundButtons && foundRationaleKeywords && foundPermissionActionKeywords;
     }
     //endregion
 
