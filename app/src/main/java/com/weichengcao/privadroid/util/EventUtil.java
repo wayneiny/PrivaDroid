@@ -96,6 +96,7 @@ public class EventUtil {
     public static final String PERMISSION_REQUESTED_NAME = "permission_requested";
     public static final String GRANTED = "granted";
     public static final String INITIATED_BY_USER = "user_initiated";
+    public static final String PREVIOUS_SCREEN_CONTEXT = "previous_screen_context";
 
     /**
      * Proactive permission request event.

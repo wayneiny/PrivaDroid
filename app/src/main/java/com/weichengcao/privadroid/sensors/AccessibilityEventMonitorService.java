@@ -4,6 +4,7 @@ import android.accessibilityservice.AccessibilityService;
 import android.os.Build;
 import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import com.google.android.gms.common.util.ArrayUtils;
 import com.weichengcao.privadroid.PrivaDroidApplication;
@@ -13,9 +14,11 @@ import com.weichengcao.privadroid.util.UserPreferences;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Queue;
 
 public class AccessibilityEventMonitorService extends AccessibilityService {
 
@@ -63,7 +66,8 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
     /**
      * Process up to 5 strings from previous screens.
      */
-
+    public static final int PREVIOUS_SCREENS_SIZE = 5;
+    public static String[] previousScreenTexts = new String[PREVIOUS_SCREENS_SIZE];
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
@@ -93,6 +97,60 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         } else {
 
         }
+
+        // Record current screen text
+        if (event.getSource() != null) {
+            StringBuilder sb = new StringBuilder();
+            recordPreviousScreenText(event.getSource(), sb);
+            System.arraycopy(previousScreenTexts, 0, previousScreenTexts, 1, PREVIOUS_SCREENS_SIZE - 1);
+            previousScreenTexts[0] = sb.toString();
+        }
+    }
+
+    /**
+     * Record the previous screen text for the use of "Context" detecting.
+     */
+    private void recordPreviousScreenText(AccessibilityNodeInfo source, StringBuilder sb) {
+        Queue<AccessibilityNodeInfo> allChildren = new LinkedList<>();
+        allChildren.add(source);
+
+        int level = 1;
+        int maxLevel = 3;
+        while (!allChildren.isEmpty()) {
+            if (level >= maxLevel) {
+                return;
+            }
+
+            int size = allChildren.size();
+            for (int i = 0; i < size; i++) {
+                AccessibilityNodeInfo cur = allChildren.poll();
+
+                if (cur != null) {
+                    int childCount = cur.getChildCount();
+                    for (int j = 0; j < childCount; j++) {
+                        allChildren.add(cur.getChild(j));
+                    }
+
+                    checkNodeSourceText(cur, sb);
+                    cur.recycle();
+                }
+            }
+
+            level++;
+        }
+    }
+
+    private void checkNodeSourceText(AccessibilityNodeInfo source, StringBuilder sb) {
+        if (source.getText() == null || source.getClassName() == null) {
+            return;
+        }
+
+        String androidWidgetClassName = source.getClassName().toString();
+        if (androidWidgetClassName.contains("android.")) {
+            androidWidgetClassName = androidWidgetClassName.substring(androidWidgetClassName.lastIndexOf(".") + 1);
+        }
+
+        sb.append(androidWidgetClassName).append(": ").append(source.getText()).append("\n");
     }
 
     @Override

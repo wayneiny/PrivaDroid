@@ -86,7 +86,8 @@ public class ExperimentEventFactory {
 
     public static HashMap<String, String> createPermissionEvent(String appName, String packageName, String version,
                                                                 String permissionName, String granted, String userInitiated,
-                                                                String rationaleMessage, String proactivePermissionRequestCorrelationId) {
+                                                                String rationaleMessage, String proactivePermissionRequestCorrelationId,
+                                                                String previousScreenContext) {
         HashMap<String, String> event = new HashMap<>();
 
         event.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
@@ -96,6 +97,7 @@ public class ExperimentEventFactory {
         event.put(PERMISSION_REQUESTED_NAME, permissionName);
         event.put(GRANTED, granted);
         event.put(INITIATED_BY_USER, userInitiated);
+        event.put(EventUtil.PREVIOUS_SCREEN_CONTEXT, previousScreenContext);
         event.put(EventUtil.PROACTIVE_REQUEST_PERMISSION_EVENT_CORRELATION_ID, proactivePermissionRequestCorrelationId);
         event.put(EventUtil.PROACTIVE_RATIONALE_MESSAGE, rationaleMessage);
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());

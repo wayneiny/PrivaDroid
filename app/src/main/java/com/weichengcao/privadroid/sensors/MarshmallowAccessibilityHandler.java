@@ -26,6 +26,8 @@ import static com.weichengcao.privadroid.sensors.AccessibilityEventMonitorServic
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
+import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.currentlyPreviousScreenContextText;
+import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.processPreviousDialogText;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_SHORTHAND;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.TEXTVIEW_SHORTHAND;
@@ -97,6 +99,7 @@ class MarshmallowAccessibilityHandler {
                 if (isPermissionsDialogAction(source)) {
 //                    Log.d(TAG, "We acted in a runtime permission request dialog.");
                     processPermissionDialogAction(source);
+                    processPreviousDialogText(AccessibilityEventMonitorService.previousScreenTexts, currentlyHandledPermission);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
@@ -579,11 +582,11 @@ class MarshmallowAccessibilityHandler {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                     currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                    currentlyProactivePermissionRequestEventCorrelationId), true);
+                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText), true);
         } else {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null), true);
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null, currentlyPreviousScreenContextText), true);
         }
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;

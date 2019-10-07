@@ -711,4 +711,79 @@
     <string name="select_multiple_allowed">Select one or more options</string>
 
     <string name="google_ad_id">ca-app-pub-1063585474940344~2699806720</string>
+
+    <string name="android_permission_screen_text_camera">Camera</string>
+    <string name="android_permission_screen_text_contacts">Contacts</string>
+    <string name="android_permission_screen_text_location">Location</string>
+    <string name="android_permission_screen_text_microphone">Microphone</string>
+    <string name="android_permission_screen_text_phone">Phone</string>
+    <string name="android_permission_screen_text_storage">Storage</string>
+    <string name="android_permission_screen_text_body_sensors">Body Sensors</string>
+    <string name="android_permission_screen_text_calendar">Calendar</string>
+    <string name="android_permission_screen_text_sms">SMS</string>
+    <string name="android_permission_screen_text_call_logs">Call Logs</string>
+    <string name="android_permission_screen_text_shared">Shared</string>
+
+    <string-array name="camera_set_values" description="For context detection">
+        <item>Camera</item>
+        <item>Picture</item>
+        <item>Video</item>
+    </string-array>
+    <string-array name="contacts_set_values">
+        <item>Contacts</item>
+    </string-array>
+    <string-array name="location_set_values">
+        <item>Location</item>
+    </string-array>
+    <string-array name="microphone_set_values">
+        <item>Microphone</item>
+        <item>Voice</item>
+    </string-array>
+    <string-array name="phone_set_values">
+        <item>Phone</item>
+    </string-array>
+    <string-array name="storage_set_values">
+        <item>Storage</item>
+        <item>File</item>
+        <item>Photo</item>
+        <item>Picture</item>
+    </string-array>
+    <string-array name="body_sensors_set_values">
+        <item>Body Sensors</item>
+    </string-array>
+    <string-array name="calendar_set_values">
+        <item>Calendar</item>
+    </string-array>
+    <string-array name="sms_set_values">
+        <item>SMS</item>
+        <item>Message</item>
+    </string-array>
+    <string-array name="call_logs_set_values">
+        <item>Call Logs</item>
+    </string-array>
+    <string-array name="shared_set_values">
+        <item>promise</item>
+        <item>secure</item>
+        <item>favorite</item>
+        <item>easy</item>
+        <item>easily</item>
+        <item>purpose</item>
+        <item>fun</item>
+        <item>help</item>
+        <item>confidential</item>
+        <item>access</item>
+        <item>misuse</item>
+        <item>must</item>
+        <item>won\'t work</item>
+        <item>appropriate</item>
+        <item>friend</item>
+        <item>family</item>
+        <item>anonymous</item>
+        <item>upload</item>
+        <item>store</item>
+        <item>like to</item>
+        <item>allow</item>
+    </string-array>
+
+    <string name="previous_screen_default_permission_message_regex">TextView: Allow (.*) to (.*)\\?</string>
 </resources>
