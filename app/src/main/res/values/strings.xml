@@ -1,5 +1,5 @@
 <resources>
-    <string name="appName" description="App name. Don't need to translate.">PrivaDroid</string>
+    <string name="appName" description="App name. Don't need to translate.">PrivaDroid - UofT</string>
     <string name="facebook_app_id" description="Facebook App ID.">905466186491599</string>
 
     <string name="congratulations" description="Congratulation message.">Congratulations!</string>
