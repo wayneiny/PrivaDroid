@@ -603,6 +603,8 @@
         <item>discard</item>
         <item>done</item>
         <item>don\'t allow</item>
+        <item>exit</item>
+        <item>ignore</item>
         <item>later</item>
         <item>no</item>
         <item>not now</item>
@@ -676,21 +678,29 @@
     <array name="permission_action_related_keywords">
         <item>allow</item>
         <item>access</item>
-        <item>need</item>
-        <item>enable</item>
-        <item>grant</item>
-        <item>will not work</item>
-        <item>won\'t work</item>
         <item>control</item>
-        <item>import</item>
-        <item>upload</item>
-        <item>purpose</item>
         <item>confidential</item>
+        <item>check</item>
+        <item>enable</item>
+        <item>find</item>
+        <item>import</item>
+        <item>grant</item>
         <item>misuse</item>
         <item>must</item>
+        <item>need</item>
+        <item>purpose</item>
         <item>promise</item>
+        <item>require</item>
+        <item>share</item>
+        <item>turn on</item>
+        <item>upload</item>
+        <item>use</item>
+        <item>using</item>
+        <item>want to</item>
         <item>would not work</item>
         <item>wouldn\'t work</item>
+        <item>will not work</item>
+        <item>won\'t work</item>
     </array>
 
     <string name="language_is_not_supported_error">Your Android language must be set to English, Spanish, French, Korean or Traditional Chinese.</string>
@@ -773,6 +783,8 @@
         <item>confidential</item>
         <item>access</item>
         <item>misuse</item>
+        <item>use</item>
+        <item>turn on</item>
         <item>must</item>
         <item>won\'t work</item>
         <item>appropriate</item>
