@@ -798,4 +798,8 @@
     </string-array>
 
     <string name="previous_screen_default_permission_message_regex">TextView: Allow (.*) to (.*)\\?</string>
+
+    <string name="user_in_one_country_reaches_limit_message">
+        We paused on recruiting participants from your region. Please check back later if there are new openings available. Thank you!
+    </string>
 </resources>

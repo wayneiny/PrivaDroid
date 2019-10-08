@@ -128,6 +128,14 @@ public class EventUtil {
     public static final String REWARDS_JOIN_DATE = "join_date";
 
     /**
+     * Runtime parameters.
+     */
+    public static final String RUNTIME_PARAMETERS_COLLECTION = "RUNTIME_PARAMETERS_COLLECTION";
+    public static final String ACTIVE_USER_COUNT = "active";
+    public static final String TARGET_USER_COUNT = "target";
+    public static final String TOTAL_USER_COUNT = "total";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {
