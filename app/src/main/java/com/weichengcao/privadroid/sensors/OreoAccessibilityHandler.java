@@ -26,6 +26,9 @@ import static com.weichengcao.privadroid.sensors.AccessibilityEventMonitorServic
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.NANOSECOND_TO_SECOND;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogFirstOpenTime;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogReadTimeInSeconds;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.currentlyPreviousScreenContextText;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.processPreviousDialogText;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
@@ -84,7 +87,7 @@ class OreoAccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
-//                    Log.d(TAG, "We are in a runtime permission dialog.");
+                    permissionDialogFirstOpenTime = System.nanoTime();
                     extractInformationFromPermissionDialog(event);
                 } else if (insideAppInfoOfSingleAppScreen && isSettingsAppPermissionsScreen(source)) {
 //                    Log.d(TAG, "We are in the App permissions screen.");
@@ -159,7 +162,8 @@ class OreoAccessibilityHandler {
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (isPermissionsDialogAction(source)) {
-//                    Log.d(TAG, "We acted in a runtime permission request dialog.");
+                    permissionDialogReadTimeInSeconds = (System.nanoTime() - permissionDialogFirstOpenTime) / NANOSECOND_TO_SECOND;
+
                     processPermissionDialogAction(source);
                     processPreviousDialogText(AccessibilityEventMonitorService.previousScreenTexts, currentlyHandledPermission);
 
@@ -795,6 +799,10 @@ class OreoAccessibilityHandler {
             return;
         }
 
+        long packageTotalForegroundTime = PermissionDialogReadTimeHandler.getTotalForegroundTime(currentlyHandledAppPackage);
+        long packageRecentForegroundTime = PermissionDialogReadTimeHandler.getRecentForegroundTime(currentlyHandledAppPackage);
+        long permissionDialogReadTime = initiatedByUser ? 0 : permissionDialogReadTimeInSeconds;
+
         /**
          * Don't add the proactive permission dialog if the current permission request package does
          * not match the package where we detected proactive permission request with
@@ -804,11 +812,14 @@ class OreoAccessibilityHandler {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                     currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText), true);
+                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText,
+                    packageTotalForegroundTime, packageRecentForegroundTime, permissionDialogReadTime), true);
         } else {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null, currentlyPreviousScreenContextText), true);
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null,
+                    currentlyPreviousScreenContextText, packageTotalForegroundTime, packageRecentForegroundTime,
+                    permissionDialogReadTime), true);
         }
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;

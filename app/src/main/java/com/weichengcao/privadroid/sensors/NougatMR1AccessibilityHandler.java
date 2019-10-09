@@ -26,6 +26,9 @@ import static com.weichengcao.privadroid.sensors.AccessibilityEventMonitorServic
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.NANOSECOND_TO_SECOND;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogFirstOpenTime;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogReadTimeInSeconds;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.currentlyPreviousScreenContextText;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.processPreviousDialogText;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
@@ -62,10 +65,9 @@ class NougatMR1AccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
-//                    Log.d(TAG, "We are in a runtime permission dialog.");
+                    permissionDialogFirstOpenTime = System.nanoTime();
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
-//                    Log.d(TAG, "We are in the Settings -> Apps screen.");
                     runIntoPermissionDenyWarning = false;
 
                     currentlyHandledAppName = null;
@@ -75,21 +77,16 @@ class NougatMR1AccessibilityHandler {
                     currentlyHandledSubsequentPermission = null;
                     currentlyPermissionGranted = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
-//                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsScreen = true;
                     runIntoPermissionDenyWarning = false;
 
                     extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
                 } else if (isPermissionDenyWarningDialog(source)) {
-//                    Log.d(TAG, "We ran in to a permission deny warning dialog in App permissions screen.");
                     runIntoPermissionDenyWarning = true;
                 } else if (isAppProactivePermissionRequest(source)) {
-//                    Log.d(TAG, "We encountered an app proactive permission dialog.");
                     runIntoAppProactivePermissionRequestDialog = true;
 
                     extractRationaleMessageFromProactivePermissionRequest(source);
-                } else {
-//                    Log.d(TAG, "Unhandled TYPE_WINDOW_STATE_CHANGED event");
                 }
                 break;
             case AccessibilityEvent.TYPE_ANNOUNCEMENT:
@@ -100,13 +97,13 @@ class NougatMR1AccessibilityHandler {
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (isPermissionsDialogAction(source)) {
-//                    Log.d(TAG, "We acted in a runtime permission request dialog.");
+                    permissionDialogReadTimeInSeconds = (System.nanoTime() - permissionDialogFirstOpenTime) / NANOSECOND_TO_SECOND;
+
                     processPermissionDialogAction(source);
                     processPreviousDialogText(AccessibilityEventMonitorService.previousScreenTexts, currentlyHandledPermission);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
-//                    Log.d(TAG, "We toggled a switch in App permissions screen.");
                     /**
                      * Only send the permission event to server if not encountering permission deny warning dialog.
                      * NOTE: Detection of permission deny warning happens after detection of click, causing incorrect permission grant event. Can log the permission settings when inside App permissions screen?
@@ -595,6 +592,10 @@ class NougatMR1AccessibilityHandler {
             return;
         }
 
+        long packageTotalForegroundTime = PermissionDialogReadTimeHandler.getTotalForegroundTime(currentlyHandledAppPackage);
+        long packageRecentForegroundTime = PermissionDialogReadTimeHandler.getRecentForegroundTime(currentlyHandledAppPackage);
+        long permissionDialogReadTime = initiatedByUser ? 0 : permissionDialogReadTimeInSeconds;
+
         /**
          * Don't add the proactive permission dialog if the current permission request package does
          * not match the package where we detected proactive permission request with
@@ -604,11 +605,14 @@ class NougatMR1AccessibilityHandler {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                     currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText), true);
+                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText,
+                    packageTotalForegroundTime, packageRecentForegroundTime, permissionDialogReadTime), true);
         } else {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null, currentlyPreviousScreenContextText), true);
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null,
+                    currentlyPreviousScreenContextText, packageTotalForegroundTime, packageRecentForegroundTime,
+                    permissionDialogReadTime), true);
         }
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;

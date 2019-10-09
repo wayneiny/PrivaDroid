@@ -97,6 +97,9 @@ public class EventUtil {
     public static final String GRANTED = "granted";
     public static final String INITIATED_BY_USER = "user_initiated";
     public static final String PREVIOUS_SCREEN_CONTEXT = "previous_screen_context";
+    public static final String PACKAGE_TOTAL_FOREGROUND_TIME = "package_total_foreground_time";
+    public static final String PACKAGE_RECENT_FOREGROUND_TIME = "package_recent_foreground_time";
+    public static final String PERMISSION_DIALOG_READ_TIME = "permission_dialog_read_time";
 
     /**
      * Proactive permission request event.

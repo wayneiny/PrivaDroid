@@ -26,6 +26,9 @@ import static com.weichengcao.privadroid.sensors.AccessibilityEventMonitorServic
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.findPackageNameFromAppName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationNameFromPackageName;
 import static com.weichengcao.privadroid.sensors.AppPackagesBroadcastReceiver.getApplicationVersion;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.NANOSECOND_TO_SECOND;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogFirstOpenTime;
+import static com.weichengcao.privadroid.sensors.PermissionDialogReadTimeHandler.permissionDialogReadTimeInSeconds;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.currentlyPreviousScreenContextText;
 import static com.weichengcao.privadroid.sensors.PreviousScreenTextHandler.processPreviousDialogText;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_CLASS_NAME;
@@ -62,10 +65,9 @@ class MarshmallowAccessibilityHandler {
         switch (eventType) {
             case AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED:
                 if (isPermissionsDialog(source)) {
-//                    Log.d(TAG, "We are in a runtime permission dialog.");
+                    permissionDialogFirstOpenTime = System.nanoTime();
                     extractInformationFromPermissionDialog(event);
                 } else if (isSettingsAppList(source)) {
-//                    Log.d(TAG, "We are in the Settings -> Apps screen.");
                     runIntoPermissionDenyWarning = false;
 
                     currentlyHandledAppName = null;
@@ -75,15 +77,12 @@ class MarshmallowAccessibilityHandler {
                     currentlyHandledSubsequentPermission = null;
                     currentlyPermissionGranted = null;
                 } else if (isSettingsAppPermissionsScreen(source)) {
-//                    Log.d(TAG, "We are in the App permissions screen.");
                     insideSettingsAppPermissionsScreen = true;
 
                     extractAppNameFromSettingsAppPermissionsScreenAndRecordCurrentPermissionSettings(source);
                 } else if (isPermissionDenyWarningDialog(source)) {
-//                    Log.d(TAG, "We ran in to a permission deny warning dialog in App permissions screen.");
                     runIntoPermissionDenyWarning = true;
                 } else if (isAppProactivePermissionRequest(source)) {
-//                    Log.d(TAG, "We encountered an app proactive permission dialog.");
                     runIntoAppProactivePermissionRequestDialog = true;
 
                     extractRationaleMessageFromProactivePermissionRequest(source);
@@ -97,19 +96,18 @@ class MarshmallowAccessibilityHandler {
                 break;
             case AccessibilityEvent.TYPE_VIEW_CLICKED:
                 if (isPermissionsDialogAction(source)) {
-//                    Log.d(TAG, "We acted in a runtime permission request dialog.");
+                    permissionDialogReadTimeInSeconds = (System.nanoTime() - permissionDialogFirstOpenTime) / NANOSECOND_TO_SECOND;
+
                     processPermissionDialogAction(source);
                     processPreviousDialogText(AccessibilityEventMonitorService.previousScreenTexts, currentlyHandledPermission);
 
                     sendPermissionEventToFirebase(false);
                 } else if (isTogglingPermissionInAppPermissionsScreen(source)) {
-//                    Log.d(TAG, "We toggled a switch in App permissions screen.");
                     /**
                      * Only send the permission event to server if not encountering permission deny warning dialog.
                      * NOTE: Detection of permission deny warning happens after detection of click, causing incorrect permission grant event. Can log the permission settings when inside App permissions screen?
                      */
                     if (!runIntoPermissionDenyWarning && !ifClickedPermissionDidNotChangeDueToDenyAlert()) {
-//                        Log.d(TAG, "No permission deny warning dialog popped up. We effectively toggled switch.");
 
                         // Update permission name to switch status map
                         permissionNames2permissionSwitchStatus.put(currentlyHandledPermission, Boolean.parseBoolean(currentlyPermissionGranted) ?
@@ -119,7 +117,6 @@ class MarshmallowAccessibilityHandler {
                         sendPermissionEventToFirebase(true);
                     }
                 } else if (isDenyingInPermissionDenyWarningDialog(source)) {
-//                    Log.d(TAG, "We still denied the permission in the permission deny warning dialog.");
                     runIntoPermissionDenyWarning = false;
 
                     // Update permission name to switch status map
@@ -129,7 +126,6 @@ class MarshmallowAccessibilityHandler {
 
                     sendPermissionEventToFirebase(true);
                 } else if (isClickingInProactivePermissionRequestDialog(source)) {
-//                    Log.d(TAG, "Detected a click in proactive permission request dialog.");
                     processProactivePermissionRequestDialogAction(source);
 
                     sendProactivePermissionRequestEventToFirebase();
@@ -573,6 +569,10 @@ class MarshmallowAccessibilityHandler {
             return;
         }
 
+        long packageTotalForegroundTime = PermissionDialogReadTimeHandler.getTotalForegroundTime(currentlyHandledAppPackage);
+        long packageRecentForegroundTime = PermissionDialogReadTimeHandler.getRecentForegroundTime(currentlyHandledAppPackage);
+        long permissionDialogReadTime = initiatedByUser ? 0 : permissionDialogReadTimeInSeconds;
+
         /**
          * Don't add the proactive permission dialog if the current permission request package does
          * not match the package where we detected proactive permission request with
@@ -582,11 +582,14 @@ class MarshmallowAccessibilityHandler {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
                     currentlyPermissionGranted, Boolean.toString(initiatedByUser), currentlyProactivePermissionRequestRationale,
-                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText), true);
+                    currentlyProactivePermissionRequestEventCorrelationId, currentlyPreviousScreenContextText,
+                    packageTotalForegroundTime, packageRecentForegroundTime, permissionDialogReadTime), true);
         } else {
             firestoreProvider.sendPermissionEvent(ExperimentEventFactory.createPermissionEvent(currentlyHandledAppName,
                     currentlyHandledAppPackage, currentlyHandledAppVersion, currentlyHandledPermission,
-                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null, currentlyPreviousScreenContextText), true);
+                    currentlyPermissionGranted, Boolean.toString(initiatedByUser), null, null,
+                    currentlyPreviousScreenContextText, packageTotalForegroundTime, packageRecentForegroundTime,
+                    permissionDialogReadTime), true);
         }
 
         currentlyHandledPermission = currentlyHandledSubsequentPermission;
@@ -649,11 +652,6 @@ class MarshmallowAccessibilityHandler {
             Pattern permissionRegex = Pattern.compile(PrivaDroidApplication.getAppContext().getString(R.string.android_allow_x_to_x_screen_regex));
             Matcher permissionMatcher = permissionRegex.matcher(eventSubText);
             if (permissionMatcher.find()) {
-                if (!isFirstPermissionRequest) {
-//                    Log.d(TAG, "A consecutive second permission request dialog happens.");
-                } else {
-//                    Log.d(TAG, "A first permission request dialog happens.");
-                }
                 currentlyHandledAppName = permissionMatcher.group(1);
 //                Log.d(TAG, "Extracted from runtime permission dialog currently handled app name is " + currentlyHandledAppName);
 
