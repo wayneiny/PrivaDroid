@@ -25,6 +25,7 @@ public class EventUtil {
      * Metadata
      */
     public static final String PRIVADROID_VERSION = "privadroid_version";
+    public static final String OFFLINE_SYNC = "offline_sync";
 
     /**
      * Common to App Install/App Uninstall/Permission.

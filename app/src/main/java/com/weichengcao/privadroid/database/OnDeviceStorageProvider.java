@@ -6,6 +6,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.util.EventUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,6 +108,7 @@ public class OnDeviceStorageProvider {
             try {
                 JSONObject object = events.getJSONObject(i);
                 HashMap<String, String> map = eventFromJsonObject(object);
+                map.put(EventUtil.OFFLINE_SYNC, Boolean.toString(true));
                 switch (fileName) {
                     case APP_INSTALL_FILE_NAME:
                         firestoreProvider.sendAppInstallEvent(map, false);
