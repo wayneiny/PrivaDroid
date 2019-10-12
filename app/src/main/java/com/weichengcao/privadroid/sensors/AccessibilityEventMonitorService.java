@@ -100,8 +100,13 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         if (event.getSource() != null) {
             StringBuilder sb = new StringBuilder();
             recordPreviousScreenText(event.getSource(), sb);
-            System.arraycopy(previousScreenTexts, 0, previousScreenTexts, 1, PREVIOUS_SCREENS_SIZE - 1);
-            previousScreenTexts[0] = sb.toString();
+            if (!sb.toString().trim().isEmpty() &&
+                    !sb.toString().equalsIgnoreCase(previousScreenTexts[0]) &&
+                    (previousScreenTexts[0] == null || !previousScreenTexts[0].toLowerCase().contains(sb.toString().toLowerCase()))) {
+                System.arraycopy(previousScreenTexts, 0, previousScreenTexts, 1, PREVIOUS_SCREENS_SIZE - 1);
+                previousScreenTexts[0] = sb.toString();
+                Log.d(TAG, sb.toString());
+            }
         }
     }
 
