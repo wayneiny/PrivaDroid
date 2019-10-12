@@ -14,11 +14,9 @@ import com.weichengcao.privadroid.util.UserPreferences;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Queue;
 
 public class AccessibilityEventMonitorService extends AccessibilityService {
 
@@ -110,37 +108,29 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
     /**
      * Record the previous screen text for the use of "Context" detecting.
      */
-    private void recordPreviousScreenText(AccessibilityNodeInfo source, StringBuilder sb) {
-        Queue<AccessibilityNodeInfo> allChildren = new LinkedList<>();
-        allChildren.add(source);
+    private void recordPreviousScreenText(AccessibilityNodeInfo source, StringBuilder eventData) {
+        checkNodeSource(source, eventData);
 
-        int level = 1;
-        int maxLevel = 3;
-        while (!allChildren.isEmpty()) {
-            if (level >= maxLevel) {
-                return;
-            }
+        for (int i = 0; i < source.getChildCount(); i++) {
+            AccessibilityNodeInfo child = source.getChild(i);
+            if (child != null) {
 
-            int size = allChildren.size();
-            for (int i = 0; i < size; i++) {
-                AccessibilityNodeInfo cur = allChildren.poll();
+                checkNodeSource(child, eventData);
 
-                if (cur != null) {
-                    int childCount = cur.getChildCount();
-                    for (int j = 0; j < childCount; j++) {
-                        allChildren.add(cur.getChild(j));
+                for (int j = 0; j < child.getChildCount(); j++) {
+                    AccessibilityNodeInfo child_2 = child.getChild(j);
+                    if (child_2 != null) {
+                        checkNodeSource(child_2, eventData);
+                        child_2.recycle();
                     }
 
-                    checkNodeSourceText(cur, sb);
-                    cur.recycle();
                 }
+                child.recycle();
             }
-
-            level++;
         }
     }
 
-    private void checkNodeSourceText(AccessibilityNodeInfo source, StringBuilder sb) {
+    private void checkNodeSource(AccessibilityNodeInfo source, StringBuilder sb) {
         if (source.getText() == null || source.getClassName() == null) {
             return;
         }
