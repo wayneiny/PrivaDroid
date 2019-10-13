@@ -114,6 +114,9 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
      * Record the previous screen text for the use of "Context" detecting.
      */
     private void recordPreviousScreenText(AccessibilityNodeInfo source, StringBuilder eventData) {
+        if (source == null) {
+            return;
+        }
         checkNodeSource(source, eventData);
 
         for (int i = 0; i < source.getChildCount(); i++) {
@@ -128,15 +131,15 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                         checkNodeSource(child_2, eventData);
                         child_2.recycle();
                     }
-
                 }
+
                 child.recycle();
             }
         }
     }
 
     private void checkNodeSource(AccessibilityNodeInfo source, StringBuilder sb) {
-        if (source.getText() == null || source.getClassName() == null) {
+        if (source == null || source.getText() == null || source.getClassName() == null) {
             return;
         }
 
