@@ -225,4 +225,55 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createExitSurveyEvent(String controlOne, String controlTwo,
+                                                                String controlThree, String awarenessOne,
+                                                                String awarenessTwo, String awarenessThree,
+                                                                String collectionOne, String collectionTwo,
+                                                                String collectionThree, String errorOne,
+                                                                String errorTwo, String errorThree,
+                                                                String errorFour, String secondaryUseOne,
+                                                                String secondaryUseTwo, String secondaryUseThree,
+                                                                String secondaryUseFour, String secondaryUseFive,
+                                                                String improperOne, String improperTwo,
+                                                                String improperThree, String globalOne,
+                                                                String globalTwo, String globalThree, String globalFour,
+                                                                String globalFive, String familiar, String dontUnderstand) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.CONTROL_ONE, controlOne);
+        res.put(EventUtil.CONTROL_TWO, controlTwo);
+        res.put(EventUtil.CONTROL_THREE, controlThree);
+        res.put(EventUtil.AWARENESS_ONE, awarenessOne);
+        res.put(EventUtil.AWARENESS_TWO, awarenessTwo);
+        res.put(EventUtil.AWARENESS_THREE, awarenessThree);
+        res.put(EventUtil.COLLECTION_ONE, collectionOne);
+        res.put(EventUtil.COLLECTION_TWO, collectionTwo);
+        res.put(EventUtil.COLLECTION_THREE, collectionThree);
+        res.put(EventUtil.ERROR_ONE, errorOne);
+        res.put(EventUtil.ERROR_TWO, errorTwo);
+        res.put(EventUtil.ERROR_THREE, errorThree);
+        res.put(EventUtil.ERROR_FOUR, errorFour);
+        res.put(EventUtil.SECONDARY_USE_ONE, secondaryUseOne);
+        res.put(EventUtil.SECONDARY_USE_TWO, secondaryUseTwo);
+        res.put(EventUtil.SECONDARY_USE_THREE, secondaryUseThree);
+        res.put(EventUtil.SECONDARY_USE_FOUR, secondaryUseFour);
+        res.put(EventUtil.SECONDARY_USE_FIVE, secondaryUseFive);
+        res.put(EventUtil.IMPROPER_ONE, improperOne);
+        res.put(EventUtil.IMPROPER_TWO, improperTwo);
+        res.put(EventUtil.IMPROPER_THREE, improperThree);
+        res.put(EventUtil.GLOBAL_ONE, globalOne);
+        res.put(EventUtil.GLOBAL_TWO, globalTwo);
+        res.put(EventUtil.GLOBAL_THREE, globalThree);
+        res.put(EventUtil.GLOBAL_FOUR, globalFour);
+        res.put(EventUtil.GLOBAL_FIVE, globalFive);
+        res.put(EventUtil.FAMILIAR_WITH_ANDROID_PERMISSION, familiar);
+        res.put(EventUtil.PERMISSIONS_THAT_DONT_UNDERSTAND, dontUnderstand);
+
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+
+        return res;
+    }
 }

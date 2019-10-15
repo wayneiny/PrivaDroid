@@ -140,6 +140,39 @@ public class EventUtil {
     public static final String TOTAL_USER_COUNT = "total";
 
     /**
+     * Exit survey.
+     */
+    public static final String EXIT_SURVEY_COLLECTION = "EXIT_SURVEY_COLLECTION";
+    public static final String CONTROL_ONE = "control_q1";
+    public static final String CONTROL_TWO = "control_q2";
+    public static final String CONTROL_THREE = "control_q3";
+    public static final String AWARENESS_ONE = "awareness_q1";
+    public static final String AWARENESS_TWO = "awareness_q2";
+    public static final String AWARENESS_THREE = "awareness_q3";
+    public static final String COLLECTION_ONE = "collection_q1";
+    public static final String COLLECTION_TWO = "collection_q2";
+    public static final String COLLECTION_THREE = "collection_q3";
+    public static final String ERROR_ONE = "error_q1";
+    public static final String ERROR_TWO = "error_q2";
+    public static final String ERROR_THREE = "error_q3";
+    public static final String ERROR_FOUR = "error_q4";
+    public static final String SECONDARY_USE_ONE = "secondary_use_q1";
+    public static final String SECONDARY_USE_TWO = "secondary_use_q2";
+    public static final String SECONDARY_USE_THREE = "secondary_use_q3";
+    public static final String SECONDARY_USE_FOUR = "secondary_use_q4";
+    public static final String SECONDARY_USE_FIVE = "secondary_use_q5";
+    public static final String IMPROPER_ONE = "improper_q1";
+    public static final String IMPROPER_TWO = "improper_q2";
+    public static final String IMPROPER_THREE = "improper_q3";
+    public static final String GLOBAL_ONE = "global_q1";
+    public static final String GLOBAL_TWO = "global_q2";
+    public static final String GLOBAL_THREE = "global_q3";
+    public static final String GLOBAL_FOUR = "global_q4";
+    public static final String GLOBAL_FIVE = "global_q5";
+    public static final String FAMILIAR_WITH_ANDROID_PERMISSION = "familiar";
+    public static final String PERMISSIONS_THAT_DONT_UNDERSTAND = "permissions_dont_understand";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {

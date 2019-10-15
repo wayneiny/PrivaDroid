@@ -39,6 +39,8 @@ public class ProfileFragment extends Fragment {
     private LinearLayout mRewardsLayout;
     private ImageView mRewardsStatusIcon;
     private TextView mVersion;
+    private LinearLayout mExitSurveyLayout;
+    private ImageView mExitSurveyStatusIcon;
 
     @Nullable
     @Override
@@ -83,6 +85,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        /**
+         * Set up exit survey status
+         */
+        mExitSurveyLayout = view.findViewById(R.id.exit_survey_status_container);
+        mExitSurveyStatusIcon = view.findViewById(R.id.exit_survey_status_icon);
 
         return view;
     }
@@ -129,6 +137,17 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), DemographicActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mExitSurveyStatusIcon.setImageResource(userPreferences.getAnsweredExitSurvey() ?
+                R.drawable.ic_check_circle_accent_24dp :
+                R.drawable.ic_cancel_accent_24dp);
+        mExitSurveyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrivaDroidApplication.getAppContext(), ExitSurveyActivity.class);
                 startActivity(intent);
             }
         });

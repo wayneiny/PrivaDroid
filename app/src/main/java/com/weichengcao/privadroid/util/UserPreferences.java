@@ -80,4 +80,17 @@ public class UserPreferences {
     public void setAnsweredDemographicSurvey(boolean answeredDemographicSurvey) {
         getAppPrefs().edit().putBoolean(ANSWERED_DEMOGRAPHIC_SURVEY, answeredDemographicSurvey).apply();
     }
+
+    /**
+     * Exit survey.
+     */
+    public static final String ANSWERED_EXIT_SURVEY = "ANSWERED_EXIT_SURVEY";
+
+    public boolean getAnsweredExitSurvey() {
+        return getAppPrefs().getBoolean(ANSWERED_EXIT_SURVEY, false);
+    }
+
+    public void setAnsweredExitSurvey(boolean answeredExitSurvey) {
+        getAppPrefs().edit().putBoolean(ANSWERED_EXIT_SURVEY, answeredExitSurvey).apply();
+    }
 }

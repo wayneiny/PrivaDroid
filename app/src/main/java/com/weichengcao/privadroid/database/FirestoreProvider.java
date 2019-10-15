@@ -44,6 +44,7 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_EVENT_TYPE
 import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
+import static com.weichengcao.privadroid.util.EventUtil.EXIT_SURVEY_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
@@ -59,6 +60,13 @@ public class FirestoreProvider {
     public FirestoreProvider() {
         mFirestore = FirebaseFirestore.getInstance();
         mUserPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+    }
+
+    /**
+     * Send exit survey event to Firebase.
+     */
+    public void sendExitSurveyEvent(final HashMap<String, String> exitSurvey) {
+        mFirestore.collection(EXIT_SURVEY_COLLECTION).add(exitSurvey);
     }
 
     /**

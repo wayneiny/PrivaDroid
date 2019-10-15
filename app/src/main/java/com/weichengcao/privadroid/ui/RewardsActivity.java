@@ -163,6 +163,16 @@ public class RewardsActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (!new UserPreferences(PrivaDroidApplication.getAppContext()).getAnsweredExitSurvey()) {
+                    Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.need_to_answer_the_exit_survey_before_rewards, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (!new UserPreferences(PrivaDroidApplication.getAppContext()).getAnsweredDemographicSurvey()) {
+                    Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.need_to_answer_the_demographic_survey_before_rewards, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (mRewardsMethodValue.getText() == null || mRewardsMethodValue.getText().toString().trim().isEmpty()) {
                     mRewardsMethodValue.setError(PrivaDroidApplication.getAppContext().getString(R.string.rewards_invalid_method));
                 } else if (mRewardsMethodConfirm.getText() == null || mRewardsMethodConfirm.getText().toString().trim().isEmpty()) {
