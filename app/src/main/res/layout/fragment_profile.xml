@@ -173,6 +173,7 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/reward_status_container_above_divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_margin="@dimen/divider_margin"

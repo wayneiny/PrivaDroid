@@ -932,4 +932,7 @@
     <string name="need_to_answer_the_exit_survey_before_rewards">You need to answer the exit survey before getting reward.</string>
     <string name="exit_survey_complete_join_date_text">You join the experiment on %1$s. Come back to fill the exit survey before you submit request for reward.</string>
     <string name="exit_survey_completed_complete_join_date_text">You join the experiment on %1$s. Thank you for completing the exit survey.</string>
+    <string name="user_decided_to_join_without_reward_fact">
+        You agreed to join the experiment without pay. Not eligible for reward.
+    </string>
 </resources>

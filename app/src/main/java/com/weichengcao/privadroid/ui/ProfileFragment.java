@@ -77,14 +77,19 @@ public class ProfileFragment extends Fragment {
          * Set up rewards status
          */
         mRewardsLayout = view.findViewById(R.id.rewards_status_container);
-        mRewardsStatusIcon = view.findViewById(R.id.rewards_status_icon);
-        mRewardsLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(PrivaDroidApplication.getAppContext(), RewardsActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (userPreferences.getUserNotFromTargetCountry() || userPreferences.getUserLimitReached()) {
+            view.findViewById(R.id.reward_status_container_above_divider).setVisibility(View.GONE);
+            mRewardsLayout.setVisibility(View.GONE);
+        } else {
+            mRewardsStatusIcon = view.findViewById(R.id.rewards_status_icon);
+            mRewardsLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(PrivaDroidApplication.getAppContext(), RewardsActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
         /**
          * Set up exit survey status
@@ -153,18 +158,20 @@ public class ProfileFragment extends Fragment {
         });
 
         /**
-         * Set up rewards status icon
+         * Set up rewards status icon: if user is not eligible or has not stayed for a month, don't update icon.
          */
-        String joinDateText = userPreferences.getJoinDate();
-        if (!joinDateText.equals(UNKNOWN_DATE)) {
-            DateTime joinDate = DateTime.parse(joinDateText);
-            DateTime now = DateTime.now();
+        if (!userPreferences.getUserLimitReached() && !userPreferences.getUserNotFromTargetCountry()) {
+            String joinDateText = userPreferences.getJoinDate();
+            if (!joinDateText.equals(UNKNOWN_DATE)) {
+                DateTime joinDate = DateTime.parse(joinDateText);
+                DateTime now = DateTime.now();
 
-            mRewardsStatusIcon.setImageResource(now.minusDays(REWARDS_DAYS).isAfter(joinDate) ?
-                    R.drawable.ic_check_circle_accent_24dp :
-                    R.drawable.ic_cancel_accent_24dp);
-        } else {
-            mRewardsStatusIcon.setImageResource(R.drawable.ic_cancel_accent_24dp);
+                mRewardsStatusIcon.setImageResource(now.minusDays(REWARDS_DAYS).isAfter(joinDate) ?
+                        R.drawable.ic_check_circle_accent_24dp :
+                        R.drawable.ic_cancel_accent_24dp);
+            } else {
+                mRewardsStatusIcon.setImageResource(R.drawable.ic_cancel_accent_24dp);
+            }
         }
     }
 
