@@ -9,7 +9,6 @@ import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -39,14 +38,9 @@ import static com.weichengcao.privadroid.util.EventUtil.TOTAL_USER_COUNT;
 
 public class SplashActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
-    private static final String TAG = SplashActivity.class.getSimpleName();
-
-    private UserPreferences userPreferences;
-    private MaterialButton mContinueAppSettingButton;
-    private CheckBox mAgreeToTermsCheckBox;
-
-    private boolean userConfirmedCountryAndLanguage = false;
-    private boolean userReachesLimitInThisCountry = false;
+    UserPreferences userPreferences;
+    MaterialButton mContinueAppSettingButton;
+    CheckBox mAgreeToTermsCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +56,32 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         mAgreeToTermsCheckBox.setOnCheckedChangeListener(this);
 
         MobileAds.initialize(this, getString(R.string.google_ad_id));
-
-        /**
-         * Get demographic summary to decide if we should let user join.
-         */
-        checkCountryEligibility();
-        if (userReachesLimitInThisCountry) {
-            return;
-        }
-
         userPreferences = new UserPreferences(this);
-        if (userPreferences.getAdvertisingId().isEmpty()) {
-            new GetGoogleAdvertisingIdTask(this).execute();
-        }
 
+        /*
+          1. If user already joined, go to MainScreen directly.
+          2. If not, check user's country code.
+            2.1. If user is not from the targeted countries, ask user to participate voluntarily:
+            2.2. if user is, check if user limit is reached:
+                    2.2.1. if so, ask user to participate voluntarily;
+                    2.2.2. if not, let user join.
+         */
         if (!userPreferences.getFirestoreJoinEventId().isEmpty()) {
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
             finish();
-        } else if (userPreferences.getConsentGranted()) {
+            return;
+        }
+
+        checkCountryEligibility();
+
+        if (userPreferences.getConsentGranted()) {
             startTutorialActivity();
+            return;
+        }
+
+        if (userPreferences.getAdvertisingId().isEmpty()) {
+            new GetGoogleAdvertisingIdTask(this).execute();
         }
     }
 
@@ -91,7 +91,11 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
             String countryCode = manager.getNetworkCountryIso();
             final String countryName = DemographicUtil.countryCode2CountryNames.get(countryCode);
             if (countryName == null) {
-                // do nothing, let user join
+                /*
+                  If user is not from our targeted countries, then let user join but don't pay them,
+                  there will be a confirmation that says about this.
+                 */
+                userPreferences.setUserNotFromTargetCountry(true);
                 return;
             }
 
@@ -107,30 +111,27 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
                                     documentSnapshot.getString(ACTIVE_USER_COUNT),
                                     documentSnapshot.getString(TARGET_USER_COUNT),
                                     documentSnapshot.getString(TOTAL_USER_COUNT));
-                            if (singleCountryUserStat.getActive() > singleCountryUserStat.getTarget()) {
-                                userReachesLimitInThisCountry = true;
-                                userPreferences.setConsentGranted(false);
-                                return;
-                            }
+                            userPreferences.setUserLimitReached(singleCountryUserStat.getActive() > singleCountryUserStat.getTarget());
                         }
                     }
-
-                    userReachesLimitInThisCountry = false;
                 }
             });
         }
     }
 
-    private void showConfirmLanguageAndCountryDialog() {
+    public void showUserReachedLimitAndConfirmLanguageAndCountryDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage(getString(R.string.confirm_language_and_country_restriction_awareness));
+        if (userPreferences.getUserLimitReached()) {
+            alertDialogBuilder.setMessage(R.string.user_in_one_country_reaches_limit_message);
+        } else if (userPreferences.getUserNotFromTargetCountry()) {
+            alertDialogBuilder.setMessage(R.string.confirm_country_restriction_awareness);
+        } else {
+            alertDialogBuilder.setMessage(R.string.confirm_language_settings_awareness);
+        }
         alertDialogBuilder.setPositiveButton(getString(R.string.i_understand),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        userConfirmedCountryAndLanguage = true;
-
-                        // write agree with terms in preferences
                         userPreferences.setConsentGranted(true);
 
                         startTutorialActivity();
@@ -140,7 +141,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        userConfirmedCountryAndLanguage = false;
+                        userPreferences.setConsentGranted(false);
                     }
                 });
 
@@ -148,34 +149,22 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
         alertDialog.show();
     }
 
-    private void startTutorialActivity() {
-        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
-        startActivity(intent);
-        finish();
-    }
-
-    public void showUserReachesLimitDialog() {
-        Toast.makeText(this, R.string.user_in_one_country_reaches_limit_message, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onClick(View view) {
         if (view == mContinueAppSettingButton) {
-            if (userReachesLimitInThisCountry) {
-                showUserReachesLimitDialog();
-                return;
-            }
-
-            if (!userConfirmedCountryAndLanguage) {
-                /**
-                 * Create alert dialog to let user know that we only support certain countries and languages.
-                 */
-                showConfirmLanguageAndCountryDialog();
+            if (!userPreferences.getConsentGranted()) {
+                showUserReachedLimitAndConfirmLanguageAndCountryDialog();
                 return;
             }
 
             startTutorialActivity();
         }
+    }
+
+    private void startTutorialActivity() {
+        Intent intent = new Intent(SplashActivity.this, TutorialActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

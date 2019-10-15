@@ -33,7 +33,9 @@ public class UserPreferences {
     }
     // Mobile Ad Id [END]
 
-    // Consent [START]
+    /**
+     * If user agrees to the terms, voluntarily joining if user limit reached or not from target country.
+     */
     private static final String CONSENT_GRANTED = "CONSENT_GRANTED";
 
     public boolean getConsentGranted() {
@@ -43,7 +45,6 @@ public class UserPreferences {
     public void setConsentGranted(boolean consentGranted) {
         getAppPrefs().edit().putBoolean(CONSENT_GRANTED, consentGranted).apply();
     }
-    // Consent [END]
 
     // Join event id in Firestore [Start]
     private static final String FIRESTORE_JOIN_EVENT_ID = "FIRESTORE_JOIN_EVENT_ID";
@@ -92,5 +93,31 @@ public class UserPreferences {
 
     public void setAnsweredExitSurvey(boolean answeredExitSurvey) {
         getAppPrefs().edit().putBoolean(ANSWERED_EXIT_SURVEY, answeredExitSurvey).apply();
+    }
+
+    /**
+     * If user joined despite the limit was reached.
+     */
+    public static final String USER_LIMIT_REACHED = "USER_LIMIT_REACHED";
+
+    public boolean getUserLimitReached() {
+        return getAppPrefs().getBoolean(USER_LIMIT_REACHED, false);
+    }
+
+    public void setUserLimitReached(boolean userLimitReached) {
+        getAppPrefs().edit().putBoolean(USER_LIMIT_REACHED, userLimitReached).apply();
+    }
+
+    /**
+     * If user joined despite not in the target countries.
+     */
+    public static final String USER_NOT_FROM_TARGET_COUNTRY = "USER_NOT_FROM_TARGET_COUNTRY";
+
+    public boolean getUserNotFromTargetCountry() {
+        return getAppPrefs().getBoolean(USER_NOT_FROM_TARGET_COUNTRY, false);
+    }
+
+    public void setUserNotFromTargetCountry(boolean userNotFromTargetCountry) {
+        getAppPrefs().edit().putBoolean(USER_NOT_FROM_TARGET_COUNTRY, userNotFromTargetCountry).apply();
     }
 }

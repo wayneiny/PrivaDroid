@@ -703,12 +703,14 @@
     </array>
 
     <string name="language_is_not_supported_error">Your Android language must be set to English, Spanish, French, Korean or Traditional Chinese.</string>
-    <string name="confirm_language_and_country_restriction_awareness">
-        This is to confirm you are aware that we only accept participants from Canada, United States,
-        United Kingdom, South Korea, Spain, France, Hong Kong, India, South Africa, Argentina and Singapore.
-        Users outside of these countries will not receive the $10 reward. During the experiment, your
-        device language must be set to one of the following languages: English, Spanish, French, Korean and
-        Traditional Chinese.
+    <string name="confirm_country_restriction_awareness">
+        It seems that you are not located in Canada, United States, United Kingdom, South Korea, Spain,
+        France, Hong Kong, India, South Africa, Argentina or Singapore. You will not be eligible for
+        reward if you are not from the countries aforementioned.
+    </string>
+    <string name="confirm_language_settings_awareness">
+        During the experiment, your device language must be set to one of the following languages:
+        English, Spanish, French, Korean and Traditional Chinese to be eligible for reward.
     </string>
 
     <string name="i_understand">I understand</string>
@@ -799,7 +801,9 @@
     <string name="previous_screen_default_permission_message_regex">TextView: Allow (.*) to (.*)\\?</string>
 
     <string name="user_in_one_country_reaches_limit_message">
-        We paused on recruiting participants from your region. Please check back later if there are new openings available. Thank you!
+        We paused on recruiting participants from your region. If you participate now, you will not
+        be eligible for reward. You are always welcomed to come back later when there are additional
+        openings. Thank you!
     </string>
     
     <string name="exit_survey_screen_title">Exit Survey</string>
