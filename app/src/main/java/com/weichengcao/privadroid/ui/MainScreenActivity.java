@@ -25,7 +25,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 
 public class MainScreenActivity extends FragmentActivity {
 
-    private BottomNavigationView mBottomNavigationView;
+    BottomNavigationView mBottomNavigationView;
 
     public static Bundle createEventTypeFragmentBundle(int eventType) {
         Bundle res = new Bundle();

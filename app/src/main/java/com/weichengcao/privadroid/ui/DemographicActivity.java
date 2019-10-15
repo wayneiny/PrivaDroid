@@ -36,17 +36,16 @@ import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 
 public class DemographicActivity extends AppCompatActivity {
 
-    private UserPreferences mUserPreferences;
+    UserPreferences mUserPreferences;
 
-    private ImageView mBack;
+    ImageView mBack;
 
-    private TextView mCountryQuestion, mAgeQuestion, mGenderQuestion, mStatusQuestion, mUsageQuestion, mIndustryQuestion, mEducationQuestion, mIncomeQuestion;
-    private Spinner mCountrySpinner, mAgeSpinner, mGenderSpinner, mStatusSpinner, mUsageSpinner, mIndustrySpinner, mEducationSpinner, mIncomeSpinner;
+    Spinner mCountrySpinner, mAgeSpinner, mGenderSpinner, mStatusSpinner, mUsageSpinner, mIndustrySpinner, mEducationSpinner, mIncomeSpinner;
 
-    private TextView mAnsweredOn;
-    private MaterialButton mSubmit;
+    TextView mAnsweredOn;
+    MaterialButton mSubmit;
 
-    private DemographicEvent mDemographicEvent;
+    DemographicEvent mDemographicEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

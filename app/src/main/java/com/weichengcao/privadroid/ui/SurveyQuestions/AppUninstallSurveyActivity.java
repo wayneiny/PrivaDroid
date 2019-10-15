@@ -44,16 +44,14 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COL
 
 public class AppUninstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
-    private final static String TAG = AppInstallSurveyActivity.class.getSimpleName();
+    AppUninstallServerEvent currentAppUninstallServerEvent;
+    AppUninstallServerSurvey currentAppUninstallServerSurvey;
 
-    private AppUninstallServerEvent currentAppUninstallServerEvent;
-    private AppUninstallServerSurvey currentAppUninstallServerSurvey;
+    TextView mTitle;
 
-    private TextView mTitle;
-
-    private ImageView mBack;
-    private MaterialButton mSubmit;
-    private TextView mAnsweredOn;
+    ImageView mBack;
+    MaterialButton mSubmit;
+    TextView mAnsweredOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

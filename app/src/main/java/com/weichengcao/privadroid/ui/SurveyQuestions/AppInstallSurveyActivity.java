@@ -45,16 +45,14 @@ import static com.weichengcao.privadroid.util.EventUtil.KNOW_PERMISSION_REQUIRED
 
 public class AppInstallSurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
-    private final static String TAG = AppInstallSurveyActivity.class.getSimpleName();
+    AppInstallServerEvent currentAppInstallServerEvent;
+    AppInstallServerSurvey currentAppInstallServerSurvey;
 
-    private AppInstallServerEvent currentAppInstallServerEvent;
-    private AppInstallServerSurvey currentAppInstallServerSurvey;
+    TextView mTitle;
 
-    private TextView mTitle;
-
-    private ImageView mBack;
-    private MaterialButton mSubmit;
-    private TextView mAnsweredOn;
+    ImageView mBack;
+    MaterialButton mSubmit;
+    TextView mAnsweredOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

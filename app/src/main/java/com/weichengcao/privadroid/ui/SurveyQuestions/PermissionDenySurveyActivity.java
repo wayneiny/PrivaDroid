@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.ExperimentEventFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -46,15 +44,14 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 
 public class PermissionDenySurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
+    PermissionServerEvent currentPermissionServerEvent;
+    PermissionDenyServerSurvey currentPermissionDenyServerSurvey;
 
-    private PermissionServerEvent currentPermissionServerEvent;
-    private PermissionDenyServerSurvey currentPermissionDenyServerSurvey;
+    TextView mTitle;
 
-    private TextView mTitle;
-
-    private ImageView mBack;
-    private MaterialButton mSubmit;
-    private TextView mAnsweredOn;
+    ImageView mBack;
+    MaterialButton mSubmit;
+    TextView mAnsweredOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

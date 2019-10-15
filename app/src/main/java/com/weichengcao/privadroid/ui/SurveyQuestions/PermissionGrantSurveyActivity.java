@@ -44,14 +44,14 @@ import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_GRANT_SURVEY_
 
 public class PermissionGrantSurveyActivity extends AppCompatActivity implements BaseSurveyActivity, View.OnClickListener {
 
-    private PermissionServerEvent currentPermissionServerEvent;
-    private PermissionGrantServerSurvey currentPermissionGrantServerSurvey;
+    PermissionServerEvent currentPermissionServerEvent;
+    PermissionGrantServerSurvey currentPermissionGrantServerSurvey;
 
-    private TextView mTitle;
+    TextView mTitle;
 
-    private ImageView mBack;
-    private MaterialButton mSubmit;
-    private TextView mAnsweredOn;
+    ImageView mBack;
+    MaterialButton mSubmit;
+    TextView mAnsweredOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

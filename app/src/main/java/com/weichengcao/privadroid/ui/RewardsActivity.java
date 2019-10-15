@@ -43,16 +43,16 @@ public class RewardsActivity extends AppCompatActivity {
     private static final String PAYPAL_METHOD = "PayPal";
     private static final String BITCOIN_METHOD = "Bitcoin";
 
-    private ImageView mBack;
-    private MaterialButton mSubmit;
-    private TextInputEditText mRewardsMethodValue;
-    private TextInputEditText mRewardsMethodConfirm;
-    private TextInputLayout mRewardsMethodConfirmLayout;
-    private MaterialCardView mRewardsDaysLeftCard;
-    private TextView mDaysLeftText;
-    private MaterialCardView mRewardsMethodCard;
-    private TextView mCompleteJoinDateText;
-    private TextView mRewardsAnsweredOn;
+    ImageView mBack;
+    MaterialButton mSubmit;
+    TextInputEditText mRewardsMethodValue;
+    TextInputEditText mRewardsMethodConfirm;
+    TextInputLayout mRewardsMethodConfirmLayout;
+    MaterialCardView mRewardsDaysLeftCard;
+    TextView mDaysLeftText;
+    MaterialCardView mRewardsMethodCard;
+    TextView mCompleteJoinDateText;
+    TextView mRewardsAnsweredOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
