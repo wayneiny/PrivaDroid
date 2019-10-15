@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
+
 public class AccessibilityEventMonitorService extends AccessibilityService {
 
     private static final String TAG = AccessibilityEventMonitorService.class.getSimpleName();
@@ -74,7 +76,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         }
 
         // Don't process if user has not joined the experiment
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 

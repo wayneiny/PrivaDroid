@@ -49,6 +49,7 @@ import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
+import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
 public class FirestoreProvider {
 
@@ -73,7 +74,7 @@ public class FirestoreProvider {
      * Send RewardsServerEvent to Firebase.
      */
     public void sendRewardsEvent(final HashMap<String, String> rewardsEvent) {
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 
@@ -84,7 +85,7 @@ public class FirestoreProvider {
      * Send AppInstallServerEvent to Firebase.
      */
     public void sendAppInstallEvent(final HashMap<String, String> appInstallEvent, final boolean createNotificationForSurvey) {
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 
@@ -147,7 +148,7 @@ public class FirestoreProvider {
      * Send AppUninstallServerEvent to Firebase.
      */
     public void sendAppUninstallEvent(final HashMap<String, String> appUninstallEvent, final boolean createNotificationForSurvey) {
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 
@@ -210,7 +211,7 @@ public class FirestoreProvider {
      * Send ProactivePermissionServerEvent to Firebase.
      */
     public void sendProactivePermissionEvent(final HashMap<String, String> proactivePermissionEvent) {
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 
@@ -234,7 +235,7 @@ public class FirestoreProvider {
      * Send PermissionServerEvent to Firebase.
      */
     public void sendPermissionEvent(final HashMap<String, String> permissionEvent, final boolean createNotificationForSurvey) {
-        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getFirestoreJoinEventId().isEmpty()) {
+        if (new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate().equals(UNKNOWN_DATE)) {
             return;
         }
 

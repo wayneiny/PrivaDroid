@@ -35,6 +35,7 @@ import static com.weichengcao.privadroid.demographic.DemographicUtil.formatUserB
 import static com.weichengcao.privadroid.util.EventUtil.ACTIVE_USER_COUNT;
 import static com.weichengcao.privadroid.util.EventUtil.TARGET_USER_COUNT;
 import static com.weichengcao.privadroid.util.EventUtil.TOTAL_USER_COUNT;
+import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
 public class SplashActivity extends FragmentActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -66,7 +67,7 @@ public class SplashActivity extends FragmentActivity implements View.OnClickList
                     2.2.1. if so, ask user to participate voluntarily;
                     2.2.2. if not, let user join.
          */
-        if (!userPreferences.getFirestoreJoinEventId().isEmpty()) {
+        if (!userPreferences.getJoinDate().equals(UNKNOWN_DATE)) {
             Intent intent = new Intent(this, MainScreenActivity.class);
             startActivity(intent);
             finish();

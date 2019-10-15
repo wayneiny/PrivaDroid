@@ -46,18 +46,10 @@ public class UserPreferences {
         getAppPrefs().edit().putBoolean(CONSENT_GRANTED, consentGranted).apply();
     }
 
-    // Join event id in Firestore [Start]
-    private static final String FIRESTORE_JOIN_EVENT_ID = "FIRESTORE_JOIN_EVENT_ID";
+    /**
+     * User join date
+     */
     private static final String JOIN_DATE = "JOIN_DATE";
-
-    public String getFirestoreJoinEventId() {
-        return getAppPrefs().getString(FIRESTORE_JOIN_EVENT_ID, "");
-    }
-
-    public void setFirestoreJoinEventId(String firestoreJoinEventId) {
-        getAppPrefs().edit().putString(FIRESTORE_JOIN_EVENT_ID, firestoreJoinEventId).apply();
-    }
-
     public static final String UNKNOWN_DATE = "UNKNOWN_DATE";
 
     public String getJoinDate() {
@@ -67,7 +59,6 @@ public class UserPreferences {
     public void setJoinDate(String joinDate) {
         getAppPrefs().edit().putString(JOIN_DATE, joinDate).apply();
     }
-    // Join event id in Firestore [End]
 
     /**
      * Demographic survey.

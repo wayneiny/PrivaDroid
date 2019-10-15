@@ -137,7 +137,6 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                                 if (documentReference == null) {
                                     return;
                                 }
-                                mUserPreferences.setFirestoreJoinEventId(documentReference.getId());
                                 mUserPreferences.setJoinDate(joinEvent.get(LOGGED_TIME));
 
                                 // 2.1. Navigate to main screen
