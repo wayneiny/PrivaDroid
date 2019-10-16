@@ -1,5 +1,6 @@
 package com.weichengcao.privadroid.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
+import com.weichengcao.privadroid.util.UserPreferences;
 
 import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
 import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.startSystemBroadcastForegroundService;
@@ -74,6 +76,16 @@ public class MainScreenActivity extends FragmentActivity {
 
         if (!isNetworkAvailable()) {
             Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * If user hasn't completed the demographic survey, go to demographic screen.
+         */
+        UserPreferences userPreferences = new UserPreferences(this);
+        if (!userPreferences.getAnsweredDemographicSurvey()) {
+            Intent intent = new Intent(this, DemographicActivity.class);
+            Toast.makeText(this, R.string.please_complete_demographic_survey, Toast.LENGTH_SHORT).show();
+            startActivity(intent);
         }
     }
 

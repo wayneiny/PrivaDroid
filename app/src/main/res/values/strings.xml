@@ -946,4 +946,6 @@
 
     <string name="x_permission_access_for_this_app_regex">(.*) ACCESS FOR THIS APP</string>
     <string name="x_permission_title_regex">(.*) permission</string>
+
+    <string name="please_complete_demographic_survey">Please complete the demographic survey.</string>
 </resources>
