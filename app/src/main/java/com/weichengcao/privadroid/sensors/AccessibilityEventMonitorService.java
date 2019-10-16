@@ -93,9 +93,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
             PieAccessibilityHandler.processAccessibilityEvent(event);
         } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
-
-        } else {
-
+            QAccessibilityHandler.processAccessibilityEvent(event);
         }
 
         // Record current screen text
@@ -107,7 +105,7 @@ public class AccessibilityEventMonitorService extends AccessibilityService {
                     (previousScreenTexts[0] == null || !previousScreenTexts[0].toLowerCase().contains(sb.toString().toLowerCase()))) {
                 System.arraycopy(previousScreenTexts, 0, previousScreenTexts, 1, PREVIOUS_SCREENS_SIZE - 1);
                 previousScreenTexts[0] = sb.toString();
-                Log.d(TAG, sb.toString());
+//                Log.d(TAG, sb.toString());
             }
         }
     }
