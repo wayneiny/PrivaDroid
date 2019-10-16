@@ -9,6 +9,9 @@ import androidx.core.app.NotificationCompat;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.util.UserPreferences;
+
+import org.joda.time.DateTime;
 
 public class BaseNotificationProvider {
 
@@ -65,5 +68,24 @@ public class BaseNotificationProvider {
         notificationBuilder.setDefaults(defaults);
 
         return notificationBuilder.build();
+    }
+
+    /**
+     * Check if we should create a notification according to the last notification timestamp.
+     */
+    public static boolean shouldCreateNotification() {
+        int NOTIFICATION_INTERVAL_IN_MINUTES = 5;
+
+        UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+        String lastNotificationTimestamp = userPreferences.getLastNotificationTimestamp();
+
+        if (lastNotificationTimestamp.isEmpty()) {
+            return true;
+        }
+
+        DateTime lastNotificationTime = DateTime.parse(lastNotificationTimestamp);
+        DateTime now = DateTime.now();
+
+        return now.minusMinutes(NOTIFICATION_INTERVAL_IN_MINUTES).isAfter(lastNotificationTime);
     }
 }

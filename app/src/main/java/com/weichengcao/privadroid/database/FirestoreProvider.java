@@ -14,6 +14,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.notifications.BaseNotificationProvider;
 import com.weichengcao.privadroid.notifications.MarshmallowNotificationProvider;
 import com.weichengcao.privadroid.notifications.NougatMR1NotificationProvider;
 import com.weichengcao.privadroid.notifications.NougatNotificationProvider;
@@ -21,8 +22,11 @@ import com.weichengcao.privadroid.notifications.OreoMR1NotificationProvider;
 import com.weichengcao.privadroid.notifications.OreoNotificationProvider;
 import com.weichengcao.privadroid.notifications.PieNotificationProvider;
 import com.weichengcao.privadroid.notifications.QNotificationProvider;
+import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
+
+import org.joda.time.DateTime;
 
 import java.util.HashMap;
 
@@ -117,7 +121,7 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
                                 return;
                             }
 
@@ -136,6 +140,7 @@ public class FirestoreProvider {
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                                 new QNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForInstallEventSurvey(event);
                             }
+                            new UserPreferences(PrivaDroidApplication.getAppContext()).setLastNotificationTimestamp(DatetimeUtil.getCurrentIsoDatetime());
                         }
                     }
                 });
@@ -180,7 +185,7 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
                                 return;
                             }
 
@@ -199,6 +204,7 @@ public class FirestoreProvider {
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                                 new QNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForUninstallEventSurvey(event);
                             }
+                            new UserPreferences(PrivaDroidApplication.getAppContext()).setLastNotificationTimestamp(DatetimeUtil.getCurrentIsoDatetime());
                         }
                     }
                 });
@@ -268,7 +274,7 @@ public class FirestoreProvider {
                             /**
                              * Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
                                 return;
                             }
 
@@ -287,6 +293,7 @@ public class FirestoreProvider {
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
                                 new QNotificationProvider(PrivaDroidApplication.getAppContext()).createNotificationForPermissionEventSurvey(event);
                             }
+                            new UserPreferences(PrivaDroidApplication.getAppContext()).setLastNotificationTimestamp(DatetimeUtil.getCurrentIsoDatetime());
                         }
                     }
                 });

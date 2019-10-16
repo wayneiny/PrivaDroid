@@ -21,7 +21,9 @@ public class UserPreferences {
         return prefs;
     }
 
-    // Mobile Ad Id [START]
+    /**
+     * Advertising Id
+     */
     private static final String ADVERTISING_ID = "ADVERTISING_ID";
 
     public String getAdvertisingId() {
@@ -31,7 +33,6 @@ public class UserPreferences {
     public void setAdvertisingId(String advertisingId) {
         getAppPrefs().edit().putString(ADVERTISING_ID, advertisingId).apply();
     }
-    // Mobile Ad Id [END]
 
     /**
      * If user agrees to the terms, voluntarily joining if user limit reached or not from target country.
@@ -110,5 +111,18 @@ public class UserPreferences {
 
     public void setUserNotFromTargetCountry(boolean userNotFromTargetCountry) {
         getAppPrefs().edit().putBoolean(USER_NOT_FROM_TARGET_COUNTRY, userNotFromTargetCountry).apply();
+    }
+
+    /**
+     * When is the last notification created.
+     */
+    public static final String LAST_NOTIFICATION_TIMESTAMP = "LAST_NOTIFICATION_TIMESTAMP";
+
+    public String getLastNotificationTimestamp() {
+        return getAppPrefs().getString(LAST_NOTIFICATION_TIMESTAMP, "");
+    }
+
+    public void setLastNotificationTimestamp(String lastNotificationTimestamp) {
+        getAppPrefs().edit().putString(LAST_NOTIFICATION_TIMESTAMP, lastNotificationTimestamp).apply();
     }
 }
