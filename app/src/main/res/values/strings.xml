@@ -101,8 +101,8 @@
     </plurals>
 
     <plurals name="number_of_permission_surveyed_events_card_description">
-        <item quantity="one">You have %d unsurveyed permission request event.</item>
-        <item quantity="other">You have %d unsurveyed permission request events.</item>
+        <item quantity="one">You have %d surveyed permission request event.</item>
+        <item quantity="other">You have %d surveyed permission request events.</item>
     </plurals>
 
     <string name="empty" />
@@ -114,6 +114,8 @@
     <string name="permission_app_name_list_item_title" description="Permission name of app name format text">%1$s of %2$s</string>
     <string name="why_grant_permission_for_app_description" description="permission grant format question">Why did you grant %1$s permission to %2$s app on %3$s?</string>
     <string name="why_deny_permission_for_app_description" description="permission deny format question">Why did you deny %1$s permission to %2$s app on %3$s?</string>
+    <string name="why_always_grant_permission_for_app_description">Why did you decide to always grant %1$s permission to %2$s app on %3$s?</string>
+    <string name="why_only_foreground_permission_for_app_description">Why did you decide to only allow foreground %1$s permission to %2$s app on %3$s?</string>
 
     <!--  App uninstall survey questions  -->
     <string name="app_uninstall_question_why" description="app uninstall survey question why">1. Why did you uninstall the app?</string>

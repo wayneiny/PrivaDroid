@@ -1,5 +1,7 @@
 package com.weichengcao.privadroid.database;
 
+import com.weichengcao.privadroid.sensors.QAccessibilityHandler;
+
 public class PermissionServerEvent extends BaseServerEvent {
 
     private String initiatedByUser;
@@ -29,10 +31,24 @@ public class PermissionServerEvent extends BaseServerEvent {
     }
 
     public boolean isRequestedGranted() {
-        return Boolean.parseBoolean(requestGranted);
+        return requestGranted.equals(Boolean.toString(true)) || requestGranted.equals(QAccessibilityHandler.FOREGROUND_ONLY);
     }
 
     public boolean isInitiatedByUser() {
         return Boolean.parseBoolean(initiatedByUser);
     }
+
+    public String getTypeOfGrantDeny() {
+        if (requestGranted.equals(Boolean.toString(true))) {
+            return ALWAYS_ALLOW;
+        } else if (requestGranted.equals(QAccessibilityHandler.FOREGROUND_ONLY)) {
+            return FOREGROUND_ALLOW;
+        } else {
+            return ALWAYS_DENY;
+        }
+    }
+
+    public static final String ALWAYS_ALLOW = "ALWAYS_ALLOW";
+    public static final String FOREGROUND_ALLOW = "FOREGROUND_ALLOW";
+    public static final String ALWAYS_DENY = "ALWAYS_DENY";
 }

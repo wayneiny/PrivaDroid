@@ -93,6 +93,25 @@ public class QNotificationProvider extends BaseNotificationProvider {
         createNotificationChannel();
 
         boolean isPermissionGrant = event.isRequestedGranted();
+        String typeOfGrantDeny = event.getTypeOfGrantDeny();
+        String questionToAsk;
+        switch (typeOfGrantDeny) {
+            case PermissionServerEvent.ALWAYS_ALLOW:
+                questionToAsk = mContext.getString(R.string.why_always_grant_permission_for_app_description, event.getPermissionName(),
+                        event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime()));
+                break;
+            case PermissionServerEvent.FOREGROUND_ALLOW:
+                questionToAsk = mContext.getString(R.string.why_only_foreground_permission_for_app_description, event.getPermissionName(),
+                        event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime()));
+                break;
+            case PermissionServerEvent.ALWAYS_DENY:
+                questionToAsk = mContext.getString(R.string.why_deny_permission_for_app_description, event.getPermissionName(),
+                        event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime()));
+                break;
+            default:
+                return;
+        }
+
         Intent intent = new Intent(mContext, isPermissionGrant ? PermissionGrantSurveyActivity.class : PermissionDenySurveyActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(EVENT_ID_INTENT_KEY, event.getServerId());
@@ -105,9 +124,7 @@ public class QNotificationProvider extends BaseNotificationProvider {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
                 .setSmallIcon(R.drawable.logo_v2_transparent)
                 .setContentTitle(event.getAppName())
-                .setContentText(mContext.getString(
-                        isPermissionGrant ? R.string.why_grant_permission_for_app_description : R.string.why_deny_permission_for_app_description,
-                        event.getPermissionName(), event.getAppName(), DatetimeUtil.convertIsoToReadableFormat(event.getLoggedTime())))
+                .setContentText(questionToAsk)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)

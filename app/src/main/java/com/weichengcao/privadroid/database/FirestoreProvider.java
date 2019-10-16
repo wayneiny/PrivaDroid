@@ -55,11 +55,9 @@ public class FirestoreProvider {
     private static final String TAG = FirestoreProvider.class.getSimpleName();
 
     private FirebaseFirestore mFirestore;
-    private UserPreferences mUserPreferences;
 
     public FirestoreProvider() {
         mFirestore = FirebaseFirestore.getInstance();
-        mUserPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
     }
 
     /**

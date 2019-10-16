@@ -36,14 +36,13 @@ import static com.weichengcao.privadroid.util.AndroidSdkConstants.BUTTON_SHORTHA
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.TEXTVIEW_CLASS_NAME;
 import static com.weichengcao.privadroid.util.AndroidSdkConstants.TEXTVIEW_SHORTHAND;
 
-class QAccessibilityHandler {
+public class QAccessibilityHandler {
 
     private final static String TAG = QAccessibilityHandler.class.getSimpleName();
 
     private final static PackageManager packageManager = PrivaDroidApplication.getAppContext().getPackageManager();
 
-    private static final String FOREGROUND_ONLY = "allow_foreground_only";
-    private static final String DENY_AND_DONT_SHOW_AGAIN = "false_dont_show";
+    public static final String FOREGROUND_ONLY = "allow_foreground_only";
 
     private static String currentlyHandledAppPackage = null;
     private static String currentlyHandledAppName = null;
@@ -88,8 +87,6 @@ class QAccessibilityHandler {
                     runIntoAppProactivePermissionRequestDialog = true;
 
                     extractRationaleMessageFromProactivePermissionRequest(source);
-                } else {
-                    insideSinglePermissionSettingForAnAppScreen = false;
                 }
                 break;
             case AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED:
@@ -657,7 +654,7 @@ class QAccessibilityHandler {
         } else if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text))) {
             currentlyPermissionGranted = Boolean.toString(false);
         } else if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_and_never_show_again))) {
-            currentlyPermissionGranted = DENY_AND_DONT_SHOW_AGAIN;
+            currentlyPermissionGranted = Boolean.toString(false);
         } else if (actionText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_only_foreground))) {
             currentlyPermissionGranted = FOREGROUND_ONLY;
         }
