@@ -173,6 +173,13 @@ public class EventUtil {
     public static final String PERMISSIONS_THAT_DONT_UNDERSTAND = "permissions_dont_understand";
 
     /**
+     * Heartbeat event.
+     */
+    public static final String HEARTBEAT_COLLECTION = "HEARTBEAT_COLLECTION";
+    public static final String ACCESSIBILITY_ACCESS_ON = "accessibility_service_on";
+    public static final String APP_USAGE_ACCESS_ON = "app_usage_access_on";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {

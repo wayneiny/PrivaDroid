@@ -113,6 +113,12 @@
                 android:resource="@xml/accessibilityservice" />
         </service>
         <service android:name=".sensors.SystemBroadcastForegroundService" />
+        <service
+            android:name=".notifications.HeartbeatAndServiceReminderService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".notifications.DemographicReminderService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

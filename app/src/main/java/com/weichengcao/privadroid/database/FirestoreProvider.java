@@ -26,8 +26,6 @@ import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
-import org.joda.time.DateTime;
-
 import java.util.HashMap;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.getAppContext;
@@ -35,6 +33,7 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_IN
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_UNINSTALL_SURVEY_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.HEARTBEAT_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_DENY_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_GRANT_SURVEY_FILE_NAME;
@@ -48,6 +47,7 @@ import static com.weichengcao.privadroid.util.EventUtil.APP_UNINSTALL_SURVEY_COL
 import static com.weichengcao.privadroid.util.EventUtil.DEMOGRAPHIC_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_SERVER_ID;
 import static com.weichengcao.privadroid.util.EventUtil.EXIT_SURVEY_COLLECTION;
+import static com.weichengcao.privadroid.util.EventUtil.HEARTBEAT_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
@@ -472,6 +472,30 @@ public class FirestoreProvider {
                                     }
                                 }
                             });
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Send heartbeat message to Firebase.
+     */
+    public void sendHeartbeatEvent(final HashMap<String, String> heartbeat) {
+        if (heartbeat == null) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(heartbeat, HEARTBEAT_FILE_NAME);
+            return;
+        }
+
+        mFirestore.collection(HEARTBEAT_COLLECTION).add(heartbeat)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (!task.isSuccessful()) {
+                            OnDeviceStorageProvider.writeEventToFile(heartbeat, HEARTBEAT_FILE_NAME);
                         }
                     }
                 });

@@ -279,4 +279,17 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createHeartbeatEvent(String accessibilityServiceOn, String appUsageAccessOn) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.ACCESSIBILITY_ACCESS_ON, accessibilityServiceOn);
+        res.put(EventUtil.APP_USAGE_ACCESS_ON, appUsageAccessOn);
+
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+
+        return res;
+    }
 }

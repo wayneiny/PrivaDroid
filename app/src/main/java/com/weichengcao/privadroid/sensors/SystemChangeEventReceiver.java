@@ -8,6 +8,8 @@ import android.util.Log;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.notifications.DemographicReminderService;
+import com.weichengcao.privadroid.notifications.HeartbeatAndServiceReminderService;
 
 import static com.weichengcao.privadroid.sensors.SystemBroadcastForegroundService.startSystemBroadcastForegroundService;
 
@@ -32,6 +34,12 @@ public class SystemChangeEventReceiver extends BroadcastReceiver {
                      * Create notification for SystemBroadcastForegroundService to listen to package install, uninstall.
                      */
                     startSystemBroadcastForegroundService();
+
+                    /**
+                     * Schedule demographic survey reminder and heartbeat.
+                     */
+                    DemographicReminderService.scheduleDemographicSurveyReminder();
+                    HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
                 }
             }
         }

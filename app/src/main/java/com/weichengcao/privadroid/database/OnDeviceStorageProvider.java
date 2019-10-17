@@ -36,6 +36,7 @@ public class OnDeviceStorageProvider {
     static final String PERMISSION_GRANT_SURVEY_FILE_NAME = "permission_grant_survey_events.json";
     static final String PERMISSION_DENY_SURVEY_FILE_NAME = "permission_deny_survey_events.json";
     static final String PROACTIVE_PERMISSION_FILE_NAME = "proactive_permission_events.json";
+    static final String HEARTBEAT_FILE_NAME = "heartbeat_events.json";
 
     private static JSONArray readJsonEventsFromFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
@@ -76,7 +77,7 @@ public class OnDeviceStorageProvider {
         }
     }
 
-    public static boolean deleteFile(String fileName) {
+    private static boolean deleteFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
         if (file.exists()) {
             return file.delete();
@@ -84,7 +85,7 @@ public class OnDeviceStorageProvider {
         return true;
     }
 
-    public static HashMap<String, String> eventFromJsonObject(JSONObject jsonObject) {
+    private static HashMap<String, String> eventFromJsonObject(JSONObject jsonObject) {
         HashMap<String, String> mapObj = new Gson().fromJson(
                 jsonObject.toString(), new TypeToken<HashMap<String, String>>() {
                 }.getType()
@@ -92,7 +93,7 @@ public class OnDeviceStorageProvider {
         return mapObj;
     }
 
-    public static void syncOnDeviceEventsToFirebase(String fileName) {
+    private static void syncOnDeviceEventsToFirebase(String fileName) {
         FirestoreProvider firestoreProvider = new FirestoreProvider();
 
         // Sync app install events
@@ -134,6 +135,9 @@ public class OnDeviceStorageProvider {
                     case PROACTIVE_PERMISSION_FILE_NAME:
                         firestoreProvider.sendProactivePermissionEvent(map);
                         break;
+                    case HEARTBEAT_FILE_NAME:
+                        firestoreProvider.sendHeartbeatEvent(map);
+                        break;
                 }
 //                Log.d(TAG, "Synced event to Firebase.");
             } catch (JSONException ignored) {
@@ -156,6 +160,7 @@ public class OnDeviceStorageProvider {
                     syncOnDeviceEventsToFirebase(PERMISSION_GRANT_SURVEY_FILE_NAME);
                     syncOnDeviceEventsToFirebase(PERMISSION_DENY_SURVEY_FILE_NAME);
                     syncOnDeviceEventsToFirebase(PROACTIVE_PERMISSION_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(HEARTBEAT_FILE_NAME);
                 }
             }
         }.run();

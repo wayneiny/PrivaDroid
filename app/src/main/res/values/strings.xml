@@ -948,4 +948,11 @@
     <string name="x_permission_title_regex">(.*) permission</string>
 
     <string name="please_complete_demographic_survey">Please complete the demographic survey.</string>
+
+    <string name="demographic_reminder_notification_title">PrivaDroid Demographic Survey</string>
+    <string name="demographic_reminder_notification_text">Don\'t forget to complete the demographic survey.</string>
+    <string name="accessibility_reminder_notification_title">Enable Accessibility for PrivaDroid</string>
+    <string name="accessibility_reminder_notification_text">Accessibility service is required for PrivaDroid to work properly.</string>
+    <string name="app_usage_reminder_notification_title">Enable App Usage for PrivaDroid</string>
+    <string name="app_usage_reminder_notification_text">App Usage access is required for PrivaDroid to work properly.</string>
 </resources>

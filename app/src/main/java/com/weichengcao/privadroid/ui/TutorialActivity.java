@@ -18,6 +18,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.notifications.DemographicReminderService;
+import com.weichengcao.privadroid.notifications.HeartbeatAndServiceReminderService;
 import com.weichengcao.privadroid.ui.TutorialCards.CardItem;
 import com.weichengcao.privadroid.ui.TutorialCards.CardPagerAdapter;
 import com.weichengcao.privadroid.ui.TutorialCards.ShadowTransformer;
@@ -144,8 +146,12 @@ public class TutorialActivity extends FragmentActivity implements View.OnClickLi
                                 Intent intent = new Intent(PrivaDroidApplication.getAppContext(), MainScreenActivity.class);
                                 startActivity(intent);
                                 finish();
+
+                                // 2.2. Schedule demographic survey reminder and heartbeat
+                                DemographicReminderService.scheduleDemographicSurveyReminder();
+                                HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
                             } else {
-                                // 2.2 Display failed message
+                                // 2.3 Display failed message
                                 Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.failed_to_join_make_sure_network, Toast.LENGTH_LONG).show();
                                 view.setEnabled(true);
                             }
