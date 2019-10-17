@@ -8,7 +8,7 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.AndroidSdkConstants;
-import com.weichengcao.privadroid.util.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.RuntimePermissionAppUtil;
 
 import java.util.Arrays;

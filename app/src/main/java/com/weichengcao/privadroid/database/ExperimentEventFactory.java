@@ -1,4 +1,4 @@
-package com.weichengcao.privadroid.util;
+package com.weichengcao.privadroid.database;
 
 import android.content.Context;
 import android.os.Build;
@@ -6,6 +6,9 @@ import android.telephony.TelephonyManager;
 
 import com.weichengcao.privadroid.BuildConfig;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.util.DatetimeUtil;
+import com.weichengcao.privadroid.util.EventUtil;
+import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 import java.util.Locale;

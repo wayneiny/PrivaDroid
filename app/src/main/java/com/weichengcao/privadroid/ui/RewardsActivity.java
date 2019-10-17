@@ -26,7 +26,7 @@ import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.database.RewardsServerEvent;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
-import com.weichengcao.privadroid.util.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import org.joda.time.DateTime;

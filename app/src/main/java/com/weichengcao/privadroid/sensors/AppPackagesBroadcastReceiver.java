@@ -10,7 +10,7 @@ import android.net.Uri;
 
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
-import com.weichengcao.privadroid.util.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 
 import java.util.HashMap;
 import java.util.List;

@@ -25,7 +25,7 @@ import com.weichengcao.privadroid.database.DemographicEvent;
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
-import com.weichengcao.privadroid.util.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.Arrays;
