@@ -1,6 +1,6 @@
 package com.weichengcao.privadroid.database;
 
-import static com.weichengcao.privadroid.util.EventUtil.MULTIPLE_CHOICES_DELIMITER;
+import static com.weichengcao.privadroid.ui.SurveyQuestions.BaseSurveyActivity.OPTION_DELIMITER;
 
 public class ExitSurveyServerEvent {
 
@@ -152,7 +152,7 @@ public class ExitSurveyServerEvent {
     }
 
     public String[] getDontKnowPermissions() {
-        return dontKnowPermissions.split(MULTIPLE_CHOICES_DELIMITER);
+        return dontKnowPermissions.split(OPTION_DELIMITER);
     }
 
     public ExitSurveyServerEvent(String adId, String loggedTime,

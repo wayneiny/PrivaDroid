@@ -1,6 +1,6 @@
 package com.weichengcao.privadroid.database;
 
-import static com.weichengcao.privadroid.util.EventUtil.MULTIPLE_CHOICES_DELIMITER;
+import static com.weichengcao.privadroid.ui.SurveyQuestions.BaseSurveyActivity.OPTION_DELIMITER;
 
 public class AppUninstallServerSurvey extends BaseServerSurvey {
 
@@ -20,6 +20,6 @@ public class AppUninstallServerSurvey extends BaseServerSurvey {
     }
 
     public String[] getPermissionsRequestedRemembered() {
-        return permissionsRequestedRemembered.split(MULTIPLE_CHOICES_DELIMITER);
+        return permissionsRequestedRemembered.split(OPTION_DELIMITER);
     }
 }
