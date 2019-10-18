@@ -38,8 +38,12 @@ public class SystemChangeEventReceiver extends BroadcastReceiver {
                     /**
                      * Schedule demographic survey reminder and heartbeat.
                      */
-                    DemographicReminderService.scheduleDemographicSurveyReminder();
-                    HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
+                    if (!DemographicReminderService.isDemographicReminderJobScheduled()) {
+                        DemographicReminderService.scheduleDemographicSurveyReminder();
+                    }
+                    if (!HeartbeatAndServiceReminderService.isHeartbeatReminderJobScheduled()) {
+                        HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
+                    }
                 }
             }
         }

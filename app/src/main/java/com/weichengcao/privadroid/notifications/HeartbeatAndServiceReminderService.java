@@ -12,6 +12,7 @@ import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
 
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.isJobIdScheduled;
 import static com.weichengcao.privadroid.notifications.DemographicReminderService.MAX_DELAY_OF_JOB_IN_MILLISECONDS;
 
 public class HeartbeatAndServiceReminderService extends JobService {
@@ -93,5 +94,9 @@ public class HeartbeatAndServiceReminderService extends JobService {
         if (jobScheduler != null) {
             jobScheduler.schedule(builder.build());
         }
+    }
+
+    public static boolean isHeartbeatReminderJobScheduled() {
+        return isJobIdScheduled(HEARTBEAT_REMINDER_JOB_ID);
     }
 }

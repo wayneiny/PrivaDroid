@@ -15,6 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
+import com.weichengcao.privadroid.notifications.DemographicReminderService;
+import com.weichengcao.privadroid.notifications.HeartbeatAndServiceReminderService;
 import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 import com.weichengcao.privadroid.util.UserPreferences;
 
@@ -86,6 +88,16 @@ public class MainScreenActivity extends FragmentActivity {
             Intent intent = new Intent(this, DemographicActivity.class);
             Toast.makeText(this, R.string.please_complete_demographic_survey, Toast.LENGTH_SHORT).show();
             startActivity(intent);
+        }
+
+        /**
+         * Schedule demographic and heartbeat job.
+         */
+        if (!HeartbeatAndServiceReminderService.isHeartbeatReminderJobScheduled()) {
+            HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
+        }
+        if (!DemographicReminderService.isDemographicReminderJobScheduled()) {
+            DemographicReminderService.scheduleDemographicSurveyReminder();
         }
     }
 

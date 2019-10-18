@@ -10,6 +10,8 @@ import android.os.Build;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.util.UserPreferences;
 
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.isJobIdScheduled;
+
 public class DemographicReminderService extends JobService {
     static final int DEMOGRAPHIC_INTERVAL_IN_MILLISECONDS = 198720000;                  // 2.3 days
     static final int MAX_DELAY_OF_JOB_IN_MILLISECONDS = 1000 * 1000;                    // 1000 seconds
@@ -59,5 +61,9 @@ public class DemographicReminderService extends JobService {
         if (jobScheduler != null) {
             jobScheduler.schedule(builder.build());
         }
+    }
+
+    public static boolean isDemographicReminderJobScheduled() {
+        return isJobIdScheduled(DEMOGRAPHIC_REMINDER_JOB_ID);
     }
 }

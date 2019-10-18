@@ -3,6 +3,8 @@ package com.weichengcao.privadroid.notifications;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
@@ -12,6 +14,8 @@ import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 public class BaseNotificationProvider {
 
@@ -87,5 +91,24 @@ public class BaseNotificationProvider {
         DateTime now = DateTime.now();
 
         return now.minusMinutes(NOTIFICATION_INTERVAL_IN_MINUTES).isAfter(lastNotificationTime);
+    }
+
+    /**
+     * Check if heartbeat and demographic reminder job has been scheduled.
+     */
+    public static boolean isJobIdScheduled(int jobId) {
+        JobScheduler jobScheduler = PrivaDroidApplication.getAppContext().getSystemService(JobScheduler.class);
+        if (jobScheduler == null) {
+            return false;
+        }
+        List<JobInfo> allJobs = jobScheduler.getAllPendingJobs();
+        for (JobInfo job : allJobs) {
+            if (job != null) {
+                if (job.getId() == jobId) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
