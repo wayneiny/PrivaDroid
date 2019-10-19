@@ -51,6 +51,7 @@ public class EventUtil {
     public static final String CARRIER = "carrier";
     public static final String LOCALE = "locale";
     public static final String COUNTRY_CODE = "country_code";
+    public static final String PARTICIPATE_WITH_NO_PAY = "participate_with_no_pay";
 
     /**
      * App install survey.

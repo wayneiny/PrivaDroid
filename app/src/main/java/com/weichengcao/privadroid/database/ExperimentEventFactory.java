@@ -55,6 +55,8 @@ public class ExperimentEventFactory {
         }
         event.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+        UserPreferences userPreferences = new UserPreferences(PrivaDroidApplication.getAppContext());
+        event.put(EventUtil.PARTICIPATE_WITH_NO_PAY, Boolean.toString(userPreferences.getUserLimitReached() || userPreferences.getUserNotFromTargetCountry()));
 
         return event;
     }
