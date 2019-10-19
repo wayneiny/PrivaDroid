@@ -75,6 +75,8 @@ public class EventUtil {
     public static final String WHY_DENY = "why_deny";
     public static final String EXPECTED_PERMISSION_REQUEST = "expected_request";
     public static final String COMFORT_LEVEL = "comfort_level";
+    public static final String WANT_TEMPORARY_GRANT_ONLY = "want_temporary_grant_only";
+    public static final String WOULD_LIKE_A_NOTIFICATION = "would_like_a_notification";
 
     /**
      * App install.

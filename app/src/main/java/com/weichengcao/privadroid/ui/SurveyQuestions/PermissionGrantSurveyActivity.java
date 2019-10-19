@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,13 +27,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.database.PermissionGrantServerSurvey;
 import com.weichengcao.privadroid.database.PermissionServerEvent;
 import com.weichengcao.privadroid.notifications.BaseNotificationProvider;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
-import com.weichengcao.privadroid.database.ExperimentEventFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,6 +80,12 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
         mExpected.setOnClickListener(this);
         mComfortable = findViewById(R.id.permission_grant_button_comfortable);
         mComfortable.setOnClickListener(this);
+        mTemporarily = findViewById(R.id.permission_grant_button_temporary);
+        mTemporarily.setOnClickListener(this);
+        mReminder = findViewById(R.id.permission_grant_button_reminder);
+        mReminder.setOnClickListener(this);
+        mReminderCard = findViewById(R.id.permission_grant_reminder_card);
+        showReminderCard = false;
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -135,7 +142,8 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                                                         doc.getString(EventUtil.USER_AD_ID), doc.getString(EventUtil.LOGGED_TIME),
                                                         PERMISSION_EVENT_TYPE, currentPermissionServerEvent.getServerId(), doc.getId(),
                                                         doc.getString(EventUtil.WHY_GRANT), doc.getString(EventUtil.EXPECTED_PERMISSION_REQUEST),
-                                                        doc.getString(EventUtil.COMFORT_LEVEL)
+                                                        doc.getString(EventUtil.COMFORT_LEVEL), doc.getString(EventUtil.WANT_TEMPORARY_GRANT_ONLY),
+                                                        doc.getString(EventUtil.WOULD_LIKE_A_NOTIFICATION)
                                                 );
                                             }
                                             if (permissionGrantServerSurvey == null) {
@@ -158,6 +166,12 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                                             setUpAnswerBasedOnButtonId(R.id.permission_grant_button_why);
                                             setUpAnswerBasedOnButtonId(R.id.permission_grant_button_expected);
                                             setUpAnswerBasedOnButtonId(R.id.permission_grant_button_comfortable);
+                                            setUpAnswerBasedOnButtonId(R.id.permission_grant_button_temporary);
+                                            if (permissionGrantServerSurvey.getOnlyGrantTemporarily()) {
+                                                showReminderCard = true;
+                                                mReminderCard.setVisibility(View.VISIBLE);
+                                                setUpAnswerBasedOnButtonId(R.id.permission_grant_button_reminder);
+                                            }
                                         }
                                     }
                                 });
@@ -192,6 +206,12 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
             case R.id.permission_grant_button_comfortable:
                 button.setText(currentPermissionGrantServerSurvey.getComfortableLevelGranting());
                 break;
+            case R.id.permission_grant_button_temporary:
+                button.setText(currentPermissionGrantServerSurvey.getOnlyGrantTemporarilyText());
+                break;
+            case R.id.permission_grant_button_reminder:
+                button.setText(currentPermissionGrantServerSurvey.getWouldLikeReminderNotificationText());
+                break;
             default:
                 return;
         }
@@ -214,6 +234,14 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
             case R.id.permission_grant_question_comfortable:
                 question = findViewById(R.id.permission_grant_question_comfortable);
                 button = findViewById(R.id.permission_grant_button_comfortable);
+                break;
+            case R.id.permission_grant_question_temporary:
+                question = findViewById(R.id.permission_grant_question_temporary);
+                button = findViewById(R.id.permission_grant_button_temporary);
+                break;
+            case R.id.permission_grant_question_reminder:
+                question = findViewById(R.id.permission_grant_question_reminder);
+                button = findViewById(R.id.permission_grant_button_reminder);
                 break;
             default:
                 return false;
@@ -238,9 +266,21 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
         MaterialButton comfortButton = findViewById(R.id.permission_grant_button_comfortable);
         String comfort = comfortButton.getText().toString();
 
+        MaterialButton temporaryButton = findViewById(R.id.permission_grant_button_temporary);
+        String temporary = temporaryButton.getText().toString();
+
+        String reminder;
+        if (showReminderCard) {
+            MaterialButton reminderButton = findViewById(R.id.permission_grant_button_reminder);
+            reminder = reminderButton.getText().toString();
+        } else {
+            reminder = getString(R.string.no);
+        }
+
         String eventServerId = currentPermissionServerEvent.getServerId();
 
-        return ExperimentEventFactory.createPermissionGrantSurveyEvent(whyGrant, expected, comfort, eventServerId);
+        return ExperimentEventFactory.createPermissionGrantSurveyEvent(whyGrant, expected, comfort,
+                eventServerId, temporary, reminder);
     }
 
     @Override
@@ -253,7 +293,9 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                 public void onClick(View v) {
                     if (!validateAnswerBasedOnQuestionId(R.id.permission_grant_question_why) ||
                             !validateAnswerBasedOnQuestionId(R.id.permission_grant_question_expected) ||
-                            !validateAnswerBasedOnQuestionId(R.id.permission_grant_question_comfortable)) {
+                            !validateAnswerBasedOnQuestionId(R.id.permission_grant_question_comfortable) ||
+                            !validateAnswerBasedOnQuestionId(R.id.permission_grant_question_temporary) ||
+                            (showReminderCard && !validateAnswerBasedOnQuestionId(R.id.permission_grant_question_reminder))) {
                         Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.finish_all_event_survey_questions_toast, Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -277,10 +319,16 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
 
     int selectedExpected = -1;
     int selectedComfortable = -1;
+    int selectedTemporary = -1;
+    int selectedReminder = -1;
 
     MaterialButton mWhy;
     MaterialButton mExpected;
     MaterialButton mComfortable;
+    MaterialButton mTemporarily;
+    MaterialButton mReminder;
+    MaterialCardView mReminderCard;
+    boolean showReminderCard;
 
     @Override
     public void onClick(View view) {
@@ -290,6 +338,10 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
             showQuestionOptionsDialog(R.id.permission_grant_button_expected);
         } else if (view == mComfortable) {
             showQuestionOptionsDialog(R.id.permission_grant_button_comfortable);
+        } else if (view == mTemporarily) {
+            showQuestionOptionsDialog(R.id.permission_grant_button_temporary);
+        } else if (view == mReminder) {
+            showQuestionOptionsDialog(R.id.permission_grant_button_reminder);
         }
     }
 
@@ -358,6 +410,54 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
                             return;
                         }
                         mComfortable.setText(getResources().getStringArray(R.array.permission_options_comfortable)[selectedComfortable]);
+                    }
+                });
+                break;
+            case R.id.permission_grant_button_temporary:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.permission_grant_options_temporary, selectedTemporary, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedTemporary = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (selectedTemporary == -1) {
+                            mReminderCard.setVisibility(View.GONE);
+                            showReminderCard = false;
+                            return;
+                        } else if (selectedTemporary == 0) {
+                            // user clicks 'Yes' to grant temporarily
+                            showReminderCard = true;
+                            mReminderCard.setVisibility(View.VISIBLE);
+                        } else {
+                            // user clicks 'No' so we remove the reminder question
+                            showReminderCard = false;
+                            selectedReminder = -1;
+                            mReminder.setText(PrivaDroidApplication.getAppContext().getText(R.string.select_an_option));
+                            mReminderCard.setVisibility(View.GONE);
+                        }
+                        mTemporarily.setText(getResources().getStringArray(R.array.permission_grant_options_temporary)[selectedTemporary]);
+                    }
+                });
+                break;
+            case R.id.permission_grant_button_reminder:
+                alertDialogBuilder.setTitle(R.string.select_an_option);
+                alertDialogBuilder.setSingleChoiceItems(R.array.permission_grant_options_reminder, selectedReminder, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedReminder = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (selectedReminder == -1) {
+                            return;
+                        }
+                        mReminder.setText(getResources().getStringArray(R.array.permission_grant_options_reminder)[selectedReminder]);
                     }
                 });
                 break;

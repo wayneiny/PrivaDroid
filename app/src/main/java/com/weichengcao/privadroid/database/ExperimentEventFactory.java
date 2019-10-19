@@ -170,13 +170,18 @@ public class ExperimentEventFactory {
 
     public static HashMap<String, String> createPermissionGrantSurveyEvent(String whyGrant, String expected,
                                                                            String comfortable,
-                                                                           String eventServerId) {
+                                                                           String eventServerId,
+                                                                           String temporary,
+                                                                           String reminder) {
         HashMap<String, String> res = new HashMap<>();
 
         res.put(EventUtil.WHY_GRANT, whyGrant);
         res.put(EventUtil.EXPECTED_PERMISSION_REQUEST, expected);
         res.put(EventUtil.COMFORT_LEVEL, comfortable);
         res.put(EVENT_SERVER_ID, eventServerId);
+        res.put(EventUtil.WANT_TEMPORARY_GRANT_ONLY, temporary);
+        res.put(EventUtil.WOULD_LIKE_A_NOTIFICATION, reminder);
+
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
         res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
