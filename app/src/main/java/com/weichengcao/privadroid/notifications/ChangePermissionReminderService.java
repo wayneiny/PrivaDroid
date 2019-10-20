@@ -14,8 +14,8 @@ import com.weichengcao.privadroid.util.EventUtil;
 public class ChangePermissionReminderService extends JobService {
 
     public static final int PERMISSION_REVOKE_REMINDER_JOB_ID = 2;
-    public static final int PERMISSION_REVOKE_REMINDER_INTERVAL_IN_MILLISECONDS = 1000;//300000;   // 5 minutes
-    public static final int MAX_DELAY_OF_JOB_IN_MILLISECONDS = 1000;//60000;   // 1 minute
+    public static final int PERMISSION_REVOKE_REMINDER_INTERVAL_IN_MILLISECONDS = 300000;   // 5 minutes
+    public static final int MAX_DELAY_OF_JOB_IN_MILLISECONDS = 60000;   // 1 minute
 
     public static void createReminderNotificationToDisablePermission(String surveyServerDocId, String appName, String permissionName) {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
