@@ -607,6 +607,8 @@
     <!--  Proactive permission request dialogs  -->
     <array name="proactive_permission_request_dialog_grant_button_texts">
         <item>allow</item>
+        <item>accept</item>
+        <item>continue</item>
         <item>enable</item>
         <item>grant</item>
         <item>got it</item>
@@ -622,6 +624,7 @@
     <array name="proactive_permission_request_dialog_deny_button_texts">
         <item>cancel</item>
         <item>deny</item>
+        <item>decline</item>
         <item>deny anyway</item>
         <item>discard</item>
         <item>done</item>
@@ -973,4 +976,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="not_applicable">N/\A</string>
+
+    <string name="permission_revoke_reminder_notification_title">Disable %1$s access of %2$s</string>
+    <string name="permission_revoke_reminder_notification_text">This is to remind you of disabling the %1$s access of app %2$s.</string>
 </resources>

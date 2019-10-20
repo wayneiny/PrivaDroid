@@ -14,7 +14,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.notifications.BaseNotificationProvider;
+import com.weichengcao.privadroid.notifications.ChangePermissionReminderService;
 import com.weichengcao.privadroid.notifications.MarshmallowNotificationProvider;
 import com.weichengcao.privadroid.notifications.NougatMR1NotificationProvider;
 import com.weichengcao.privadroid.notifications.NougatNotificationProvider;
@@ -27,6 +29,7 @@ import com.weichengcao.privadroid.util.EventUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.getAppContext;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
@@ -38,6 +41,7 @@ import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMIS
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PERMISSION_GRANT_SURVEY_FILE_NAME;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.PROACTIVE_PERMISSION_FILE_NAME;
+import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_EVENT_TYPE;
 import static com.weichengcao.privadroid.util.EventUtil.APP_INSTALL_SURVEY_COLLECTION;
@@ -51,6 +55,7 @@ import static com.weichengcao.privadroid.util.EventUtil.HEARTBEAT_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PACKAGE_NAME;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.PERMISSION_EVENT_TYPE;
+import static com.weichengcao.privadroid.util.EventUtil.REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION;
 import static com.weichengcao.privadroid.util.EventUtil.SURVEY_ID;
 import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
@@ -109,8 +114,8 @@ public class FirestoreProvider {
                                 return;
                             }
 
-                            /**
-                             * Create AppInstallServerEvent.
+                            /*
+                              Create AppInstallServerEvent.
                              */
                             AppInstallServerEvent event = new AppInstallServerEvent(doc.getId(),
                                     appInstallEvent.get(EventUtil.USER_AD_ID), appInstallEvent.get(EventUtil.APP_NAME),
@@ -118,10 +123,10 @@ public class FirestoreProvider {
                                     appInstallEvent.get(EventUtil.PACKAGE_NAME), appInstallEvent.get(EventUtil.SURVEY_ID),
                                     APP_INSTALL_EVENT_TYPE);
 
-                            /**
-                             * Create notification for users to answer based on Android version.
+                            /*
+                              Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateSurveyNotification()) {
                                 return;
                             }
 
@@ -173,8 +178,8 @@ public class FirestoreProvider {
                                 return;
                             }
 
-                            /**
-                             * Create AppUninstallServerEvent.
+                            /*
+                              Create AppUninstallServerEvent.
                              */
                             AppUninstallServerEvent event = new AppUninstallServerEvent(doc.getId(),
                                     appUninstallEvent.get(EventUtil.USER_AD_ID), appUninstallEvent.get(EventUtil.APP_NAME),
@@ -182,10 +187,10 @@ public class FirestoreProvider {
                                     appUninstallEvent.get(PACKAGE_NAME), appUninstallEvent.get(SURVEY_ID),
                                     APP_UNINSTALL_EVENT_TYPE);
 
-                            /**
-                             * Create notification for users to answer based on Android version.
+                            /*
+                              Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateSurveyNotification()) {
                                 return;
                             }
 
@@ -261,8 +266,8 @@ public class FirestoreProvider {
                                 return;
                             }
 
-                            /**
-                             * Create PermissionGrantServerEvent or PermissionDenyServerEvent.
+                            /*
+                              Create PermissionGrantServerEvent or PermissionDenyServerEvent.
                              */
                             PermissionServerEvent event = new PermissionServerEvent(doc.getId(), permissionEvent.get(EventUtil.USER_AD_ID),
                                     permissionEvent.get(EventUtil.APP_NAME), permissionEvent.get(EventUtil.APP_VERSION),
@@ -271,10 +276,10 @@ public class FirestoreProvider {
                                     permissionEvent.get(EventUtil.INITIATED_BY_USER), permissionEvent.get(EventUtil.PERMISSION_REQUESTED_NAME),
                                     permissionEvent.get(EventUtil.GRANTED));
 
-                            /**
-                             * Create notification for users to answer based on Android version.
+                            /*
+                              Create notification for users to answer based on Android version.
                              */
-                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateNotification()) {
+                            if (!createNotificationForSurvey || !BaseNotificationProvider.shouldCreateSurveyNotification()) {
                                 return;
                             }
 
@@ -321,13 +326,13 @@ public class FirestoreProvider {
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(permissionGrantSurvey, surveyLocalFile);
                         } else {
-                            /**
-                             * 1. Get the server permission grant survey document.
-                             * 2. Query Firebase for the corresponding permission event.
+                            /*
+                              1. Get the server permission grant survey document.
+                              2. Query Firebase for the corresponding permission event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
                             CollectionReference permissionEventCollectionRef = FirebaseFirestore.getInstance().collection(PERMISSION_COLLECTION);
-                            DocumentReference eventDocRef = permissionEventCollectionRef.document(permissionGrantSurvey.get(EVENT_SERVER_ID));
+                            DocumentReference eventDocRef = permissionEventCollectionRef.document(Objects.requireNonNull(permissionGrantSurvey.get(EVENT_SERVER_ID)));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -343,11 +348,23 @@ public class FirestoreProvider {
                                                         eventDoc.getString(EventUtil.INITIATED_BY_USER), eventDoc.getString(EventUtil.PERMISSION_REQUESTED_NAME),
                                                         eventDoc.getString(EventUtil.GRANTED));
 
-                                                /**
-                                                 * 3. Update its corresponding permission event.
+                                                /*
+                                                  3. Update its corresponding permission event.
                                                  */
                                                 mFirestore.collection(PERMISSION_COLLECTION).document(permissionServerEvent.getServerId())
                                                         .update(createPermissionServerEventHashMapFromObject(permissionServerEvent));
+
+                                                /*
+                                                  If it's a permission grant survey, check if we should create a reminder
+                                                  to remind user of disabling the permission.
+                                                 */
+                                                if (surveyLocalFile.equalsIgnoreCase(PERMISSION_GRANT_SURVEY_FILE_NAME)) {
+                                                    if (permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION) != null &&
+                                                            Objects.requireNonNull(permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION)).equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.yes))) {
+                                                        ChangePermissionReminderService.schedulePermissionRevokeReminder(surveyDoc.getId(),
+                                                                permissionServerEvent.getAppName(), permissionServerEvent.getPermissionName());
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -385,13 +402,13 @@ public class FirestoreProvider {
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(appInstallSurvey, APP_INSTALL_SURVEY_FILE_NAME);
                         } else {
-                            /**
-                             * 1. Get the server app install survey document.
-                             * 2. Query Firebase for the corresponding install event.
+                            /*
+                              1. Get the server app install survey document.
+                              2. Query Firebase for the corresponding install event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
                             CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_INSTALL_COLLECTION);
-                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(appInstallSurvey.get(EVENT_SERVER_ID));
+                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(Objects.requireNonNull(appInstallSurvey.get(EVENT_SERVER_ID)));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -406,8 +423,8 @@ public class FirestoreProvider {
                                                         eventDoc.getString(EventUtil.PACKAGE_NAME), surveyDoc.getId(),
                                                         APP_INSTALL_EVENT_TYPE);
 
-                                                /**
-                                                 * 3. Update its corresponding app install event.
+                                                /*
+                                                  3. Update its corresponding app install event.
                                                  */
                                                 mFirestore.collection(APP_INSTALL_COLLECTION).document(appInstallServerEvent.getServerId())
                                                         .update(createAppInstallEventHashMapFromObject(appInstallServerEvent));
@@ -441,13 +458,13 @@ public class FirestoreProvider {
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(appUninstallSurvey, APP_UNINSTALL_SURVEY_FILE_NAME);
                         } else {
-                            /**
-                             * 1. Get the server app uninstall survey document.
-                             * 2. Query Firebase for the corresponding uninstall event.
+                            /*
+                              1. Get the server app uninstall survey document.
+                              2. Query Firebase for the corresponding uninstall event.
                              */
                             final DocumentReference surveyDoc = task.getResult();
                             CollectionReference appInstallEventCollectionRef = FirebaseFirestore.getInstance().collection(APP_UNINSTALL_COLLECTION);
-                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(appUninstallSurvey.get(EVENT_SERVER_ID));
+                            DocumentReference eventDocRef = appInstallEventCollectionRef.document(Objects.requireNonNull(appUninstallSurvey.get(EVENT_SERVER_ID)));
                             eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -462,8 +479,8 @@ public class FirestoreProvider {
                                                         eventDoc.getString(PACKAGE_NAME), surveyDoc.getId(),
                                                         APP_UNINSTALL_EVENT_TYPE);
 
-                                                /**
-                                                 * 3. Update its corresponding app uninstall event.
+                                                /*
+                                                  3. Update its corresponding app uninstall event.
                                                  */
                                                 mFirestore.collection(APP_UNINSTALL_COLLECTION).document(appUninstallServerEvent.getServerId())
                                                         .update(createAppUninstallEventHashMapFromObject(appUninstallServerEvent));
@@ -496,6 +513,29 @@ public class FirestoreProvider {
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (!task.isSuccessful()) {
                             OnDeviceStorageProvider.writeEventToFile(heartbeat, HEARTBEAT_FILE_NAME);
+                        }
+                    }
+                });
+    }
+
+    /**
+     * Send revoke permission notification click event.
+     */
+    public void sendRevokePermissionNotificationClickEvent(final HashMap<String, String> event) {
+        if (event == null) {
+            return;
+        }
+
+        if (!isNetworkAvailable()) {
+            OnDeviceStorageProvider.writeEventToFile(event, REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME);
+        }
+
+        mFirestore.collection(REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION).add(event)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (!task.isSuccessful()) {
+                            OnDeviceStorageProvider.writeEventToFile(event, REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME);
                         }
                     }
                 });

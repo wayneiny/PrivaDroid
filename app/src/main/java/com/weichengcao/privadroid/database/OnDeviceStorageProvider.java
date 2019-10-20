@@ -37,6 +37,7 @@ public class OnDeviceStorageProvider {
     static final String PERMISSION_DENY_SURVEY_FILE_NAME = "permission_deny_survey_events.json";
     static final String PROACTIVE_PERMISSION_FILE_NAME = "proactive_permission_events.json";
     static final String HEARTBEAT_FILE_NAME = "heartbeat_events.json";
+    static final String REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME = "revoke_permission_click_events.json";
 
     private static JSONArray readJsonEventsFromFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
@@ -86,11 +87,10 @@ public class OnDeviceStorageProvider {
     }
 
     private static HashMap<String, String> eventFromJsonObject(JSONObject jsonObject) {
-        HashMap<String, String> mapObj = new Gson().fromJson(
+        return new Gson().fromJson(
                 jsonObject.toString(), new TypeToken<HashMap<String, String>>() {
                 }.getType()
         );
-        return mapObj;
     }
 
     private static void syncOnDeviceEventsToFirebase(String fileName) {
@@ -138,6 +138,9 @@ public class OnDeviceStorageProvider {
                     case HEARTBEAT_FILE_NAME:
                         firestoreProvider.sendHeartbeatEvent(map);
                         break;
+                    case REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME:
+                        firestoreProvider.sendRevokePermissionNotificationClickEvent(map);
+                        break;
                 }
 //                Log.d(TAG, "Synced event to Firebase.");
             } catch (JSONException ignored) {
@@ -161,6 +164,7 @@ public class OnDeviceStorageProvider {
                     syncOnDeviceEventsToFirebase(PERMISSION_DENY_SURVEY_FILE_NAME);
                     syncOnDeviceEventsToFirebase(PROACTIVE_PERMISSION_FILE_NAME);
                     syncOnDeviceEventsToFirebase(HEARTBEAT_FILE_NAME);
+                    syncOnDeviceEventsToFirebase(REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME);
                 }
             }
         }.run();

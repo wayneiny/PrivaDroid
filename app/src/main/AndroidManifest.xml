@@ -119,6 +119,9 @@
         <service
             android:name=".notifications.DemographicReminderService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".notifications.ChangePermissionReminderService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

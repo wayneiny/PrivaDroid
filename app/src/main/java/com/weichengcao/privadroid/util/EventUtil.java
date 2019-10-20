@@ -20,6 +20,7 @@ public class EventUtil {
      * Intent keys.
      */
     public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
+    public static final String FOR_PERMISSION_REVOKE_REMINDER = "FOR_PERMISSION_REVOKE_REMINDER";
 
     /**
      * Metadata
@@ -180,6 +181,13 @@ public class EventUtil {
     public static final String HEARTBEAT_COLLECTION = "HEARTBEAT_COLLECTION";
     public static final String ACCESSIBILITY_ACCESS_ON = "accessibility_service_on";
     public static final String APP_USAGE_ACCESS_ON = "app_usage_access_on";
+
+    /**
+     * Revoke permission notification click event.
+     */
+    public static final String REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION = "REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION";
+    public static final String REVOKE_NOTIFICATION_CLICKED = "notification_clicked";
+    public static final String PERMISSION_GRANT_SURVEY_SERVER_DOC_ID = "grant_survey_server_id";
 
     /**
      * Event utility functions.

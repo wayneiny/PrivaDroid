@@ -299,4 +299,17 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createRevokePermissionReminderNotificationClickEvent(String clicked, String permissionGrantSurveyServerDocId) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.REVOKE_NOTIFICATION_CLICKED, clicked);
+        res.put(EventUtil.PERMISSION_GRANT_SURVEY_SERVER_DOC_ID, permissionGrantSurveyServerDocId);
+
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+
+        return res;
+    }
 }

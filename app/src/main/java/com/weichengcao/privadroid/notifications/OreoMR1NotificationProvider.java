@@ -21,6 +21,7 @@ import com.weichengcao.privadroid.ui.SurveyQuestions.AppUninstallSurveyActivity;
 import com.weichengcao.privadroid.ui.SurveyQuestions.PermissionDenySurveyActivity;
 import com.weichengcao.privadroid.ui.SurveyQuestions.PermissionGrantSurveyActivity;
 import com.weichengcao.privadroid.util.DatetimeUtil;
+import com.weichengcao.privadroid.util.EventUtil;
 
 import static com.weichengcao.privadroid.util.EventUtil.EVENT_ID_INTENT_KEY;
 
@@ -185,6 +186,37 @@ public class OreoMR1NotificationProvider extends BaseNotificationProvider {
                 .setSmallIcon(R.drawable.logo_v2_transparent)
                 .setContentTitle(mContext.getString(R.string.app_usage_reminder_notification_title))
                 .setContentText(mContext.getString(R.string.app_usage_reminder_notification_text))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setSound(soundUri);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(mContext);
+        notificationManager.notify(DatetimeUtil.getIsoHash(DatetimeUtil.getCurrentIsoDatetime()), builder.build());
+    }
+
+    /**
+     * Create notification to remind users of disabling permission.
+     */
+    void createPermissionRevokeReminder(String surveyServerDocId, String appName, String permissionName) {
+        createNotificationChannel();
+
+        Intent intent = new Intent(mContext, PermissionGrantSurveyActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(EventUtil.EVENT_ID_INTENT_KEY, surveyServerDocId);     // survey server doc id
+        bundle.putBoolean(EventUtil.FOR_PERMISSION_REVOKE_REMINDER, true);
+        intent.putExtra(BaseNotificationProvider.NOTIFICATION_INTENT_PAYLOAD, bundle);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext, CHANNEL_ID)
+                .setSmallIcon(R.drawable.logo_v2_transparent)
+                .setContentTitle(mContext.getString(R.string.permission_revoke_reminder_notification_title,
+                        permissionName, appName))
+                .setContentText(mContext.getString(R.string.permission_revoke_reminder_notification_text,
+                        permissionName, appName))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)

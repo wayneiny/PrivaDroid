@@ -3,6 +3,7 @@ package com.weichengcao.privadroid.ui.SurveyQuestions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -96,6 +97,19 @@ public class PermissionGrantSurveyActivity extends AppCompatActivity implements 
 
             String eventServerId = payload.getString(EventUtil.EVENT_ID_INTENT_KEY);
             if (eventServerId == null) {
+                return;
+            }
+
+            boolean forPermissionRevokeReminder = payload.getBoolean(EventUtil.FOR_PERMISSION_REVOKE_REMINDER);
+            if (forPermissionRevokeReminder) {
+                // record user's action
+                FirestoreProvider firestoreProvider = new FirestoreProvider();
+                firestoreProvider.sendRevokePermissionNotificationClickEvent(
+                        ExperimentEventFactory.createRevokePermissionReminderNotificationClickEvent(Boolean.toString(true), eventServerId));
+
+                Intent permissionIntent = new Intent(Settings.ACTION_SETTINGS);
+                startActivity(permissionIntent);
+                finish();
                 return;
             }
 
