@@ -11,8 +11,10 @@ import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
+import com.weichengcao.privadroid.util.DatetimeUtil;
+import com.weichengcao.privadroid.util.UserPreferences;
 
-import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.isJobIdScheduled;
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.getJobIdScheduled;
 import static com.weichengcao.privadroid.notifications.DemographicReminderService.MAX_DELAY_OF_JOB_IN_MILLISECONDS;
 
 public class HeartbeatAndServiceReminderService extends JobService {
@@ -39,6 +41,10 @@ public class HeartbeatAndServiceReminderService extends JobService {
 
         // 3. Re-schedule the job
         scheduleHeartbeatAndServiceReminderJob();
+
+        // 4. Log the current reminder
+        new UserPreferences(PrivaDroidApplication.getAppContext()).setLastHeartbeatReminder(DatetimeUtil.getCurrentIsoDatetime());
+
         return true;
     }
 
@@ -97,6 +103,10 @@ public class HeartbeatAndServiceReminderService extends JobService {
     }
 
     public static boolean isHeartbeatReminderJobScheduled() {
-        return isJobIdScheduled(HEARTBEAT_REMINDER_JOB_ID);
+        return getCurrentHeartbeatReminderJobScheduled() != null;
+    }
+
+    public static JobInfo getCurrentHeartbeatReminderJobScheduled() {
+        return getJobIdScheduled(HEARTBEAT_REMINDER_JOB_ID);
     }
 }

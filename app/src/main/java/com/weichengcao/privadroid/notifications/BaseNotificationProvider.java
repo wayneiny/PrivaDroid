@@ -93,22 +93,19 @@ public class BaseNotificationProvider {
         return now.minusMinutes(NOTIFICATION_INTERVAL_IN_MINUTES).isAfter(lastNotificationTime);
     }
 
-    /**
-     * Check if heartbeat and demographic reminder job has been scheduled.
-     */
-    public static boolean isJobIdScheduled(int jobId) {
+    static JobInfo getJobIdScheduled(int jobId) {
         JobScheduler jobScheduler = PrivaDroidApplication.getAppContext().getSystemService(JobScheduler.class);
         if (jobScheduler == null) {
-            return false;
+            return null;
         }
         List<JobInfo> allJobs = jobScheduler.getAllPendingJobs();
         for (JobInfo job : allJobs) {
             if (job != null) {
                 if (job.getId() == jobId) {
-                    return true;
+                    return job;
                 }
             }
         }
-        return false;
+        return null;
     }
 }

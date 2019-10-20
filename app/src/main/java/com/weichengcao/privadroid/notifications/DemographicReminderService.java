@@ -8,9 +8,10 @@ import android.content.ComponentName;
 import android.os.Build;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
-import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.isJobIdScheduled;
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.getJobIdScheduled;
 
 public class DemographicReminderService extends JobService {
     static final int DEMOGRAPHIC_INTERVAL_IN_MILLISECONDS = 198720000;                  // 2.3 days
@@ -24,6 +25,9 @@ public class DemographicReminderService extends JobService {
             createDemographicSurveyReminder();
             scheduleDemographicSurveyReminder();
         }
+
+        new UserPreferences(PrivaDroidApplication.getAppContext()).setLastDemographicReminder(DatetimeUtil.getCurrentIsoDatetime());
+
         return true;
     }
 
@@ -64,6 +68,10 @@ public class DemographicReminderService extends JobService {
     }
 
     public static boolean isDemographicReminderJobScheduled() {
-        return isJobIdScheduled(DEMOGRAPHIC_REMINDER_JOB_ID);
+        return getCurrentDemographicReminderJobScheduled() != null;
+    }
+
+    public static JobInfo getCurrentDemographicReminderJobScheduled() {
+        return getJobIdScheduled(DEMOGRAPHIC_REMINDER_JOB_ID);
     }
 }

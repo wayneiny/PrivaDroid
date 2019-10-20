@@ -17,6 +17,7 @@ import com.weichengcao.privadroid.BuildConfig;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.util.AccessibilityAppUsageUtil;
+import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import org.joda.time.DateTime;
@@ -26,19 +27,15 @@ import static com.weichengcao.privadroid.util.UserPreferences.UNKNOWN_DATE;
 
 public class ProfileFragment extends Fragment {
 
-    public static final int REWARDS_DAYS = 30;
+    static final int REWARDS_DAYS = 30;
 
-    private TextView mAdId;
-    private TextView mJoinDate;
     private ImageView mAccessibilityIcon;
     private LinearLayout mAccessibilityLayout;
     private ImageView mUsageIcon;
     private LinearLayout mUsageLayout;
     private LinearLayout mDemographicLayout;
     private ImageView mDemographicStatusIcon;
-    private LinearLayout mRewardsLayout;
     private ImageView mRewardsStatusIcon;
-    private TextView mVersion;
     private LinearLayout mExitSurveyLayout;
     private ImageView mExitSurveyStatusIcon;
 
@@ -47,8 +44,8 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        mAdId = view.findViewById(R.id.user_ad_id_value);
-        mJoinDate = view.findViewById(R.id.join_date_value);
+        TextView mAdId = view.findViewById(R.id.user_ad_id_value);
+        TextView mJoinDate = view.findViewById(R.id.join_date_value);
         mAccessibilityIcon = view.findViewById(R.id.accessibility_status_icon);
         mAccessibilityLayout = view.findViewById(R.id.accessibility_status_container);
         mUsageIcon = view.findViewById(R.id.app_usage_status_icon);
@@ -64,7 +61,7 @@ public class ProfileFragment extends Fragment {
         /**
          * Set up version number
          */
-        mVersion = view.findViewById(R.id.version_value);
+        TextView mVersion = view.findViewById(R.id.version_value);
         mVersion.setText(String.format("V %s", BuildConfig.VERSION_NAME));
 
         /**
@@ -76,7 +73,7 @@ public class ProfileFragment extends Fragment {
         /**
          * Set up rewards status
          */
-        mRewardsLayout = view.findViewById(R.id.rewards_status_container);
+        LinearLayout mRewardsLayout = view.findViewById(R.id.rewards_status_container);
         if (userPreferences.getUserNotFromTargetCountry() || userPreferences.getUserLimitReached()) {
             view.findViewById(R.id.reward_status_container_above_divider).setVisibility(View.GONE);
             mRewardsLayout.setVisibility(View.GONE);
@@ -96,6 +93,20 @@ public class ProfileFragment extends Fragment {
          */
         mExitSurveyLayout = view.findViewById(R.id.exit_survey_status_container);
         mExitSurveyStatusIcon = view.findViewById(R.id.exit_survey_status_icon);
+
+        /**
+         * Set up reminders values
+         */
+        TextView mHeartbeatReminder = view.findViewById(R.id.heartbeat_reminder_value);
+        TextView mDemographicReminder = view.findViewById(R.id.demographic_reminder_value);
+        String lastHeartbeatReminder = userPreferences.getLastHeartbeartReminder();
+        mHeartbeatReminder.setText(lastHeartbeatReminder.isEmpty() ?
+                PrivaDroidApplication.getAppContext().getString(R.string.not_applicable) :
+                DatetimeUtil.convertIsoToReadableDatetimeFormat(lastHeartbeatReminder));
+        String lastDemographicReminder = userPreferences.getLastDemographicReminder();
+        mDemographicReminder.setText(lastDemographicReminder.isEmpty() ?
+                PrivaDroidApplication.getAppContext().getString(R.string.not_applicable) :
+                DatetimeUtil.convertIsoToReadableDatetimeFormat(lastDemographicReminder));
 
         return view;
     }

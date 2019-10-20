@@ -25,6 +25,12 @@ public class DatetimeUtil {
         return dtfOut.print(parsedDate);
     }
 
+    public static String convertIsoToReadableDatetimeFormat(String iso) {
+        DateTime parsedDate = new DateTime(iso);
+        DateTimeFormatter dtfOut = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss");
+        return dtfOut.print(parsedDate);
+    }
+
     /**
      * Compare 2 iso date formats.
      */
