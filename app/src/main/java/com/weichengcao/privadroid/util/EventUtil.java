@@ -190,6 +190,13 @@ public class EventUtil {
     public static final String PERMISSION_GRANT_SURVEY_SERVER_DOC_ID = "grant_survey_server_id";
 
     /**
+     * App health monitoring events.
+     */
+    public static final String DEMOGRAPHIC_REMINDER_LOG_COLLECTION = "DEMOGRAPHIC_REMINDER_LOG_COLLECTION";
+    public static final String LOCAL_STORAGE_SYNC_LOG_COLLECTION = "LOCAL_STORAGE_SYNC_LOG_COLLECTION";
+    public static final String NUMBER_OF_EVENTS_SYNCED = "number_of_events_synced";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {

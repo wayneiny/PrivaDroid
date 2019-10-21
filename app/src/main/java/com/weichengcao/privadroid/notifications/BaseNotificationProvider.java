@@ -93,7 +93,7 @@ public class BaseNotificationProvider {
         return now.minusMinutes(NOTIFICATION_INTERVAL_IN_MINUTES).isAfter(lastNotificationTime);
     }
 
-    static JobInfo getJobIdScheduled(int jobId) {
+    public static JobInfo getJobIdScheduled(int jobId) {
         JobScheduler jobScheduler = PrivaDroidApplication.getAppContext().getSystemService(JobScheduler.class);
         if (jobScheduler == null) {
             return null;

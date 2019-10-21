@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
 import com.weichengcao.privadroid.notifications.DemographicReminderService;
 import com.weichengcao.privadroid.notifications.HeartbeatAndServiceReminderService;
 
@@ -43,6 +44,9 @@ public class SystemChangeEventReceiver extends BroadcastReceiver {
                     }
                     if (!HeartbeatAndServiceReminderService.isHeartbeatReminderJobScheduled()) {
                         HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
+                    }
+                    if (!OnDeviceStorageProvider.isLocalStorageSyncJobScheduled()) {
+                        OnDeviceStorageProvider.scheduleLocalStorageSyncJob();
                     }
                 }
             }

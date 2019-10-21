@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.os.Build;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.FirestoreProvider;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.UserPreferences;
 
@@ -27,6 +29,7 @@ public class DemographicReminderService extends JobService {
         }
 
         new UserPreferences(PrivaDroidApplication.getAppContext()).setLastDemographicReminder(DatetimeUtil.getCurrentIsoDatetime());
+        new FirestoreProvider().sendDemographicReminderLogEvent(ExperimentEventFactory.createDemographicReminderLogEvent());
 
         return true;
     }

@@ -99,6 +99,9 @@ public class MainScreenActivity extends FragmentActivity {
         if (!DemographicReminderService.isDemographicReminderJobScheduled()) {
             DemographicReminderService.scheduleDemographicSurveyReminder();
         }
+        if (!OnDeviceStorageProvider.isLocalStorageSyncJobScheduled()) {
+            OnDeviceStorageProvider.scheduleLocalStorageSyncJob();
+        }
     }
 
     private void selectFragment(MenuItem menuItem) {

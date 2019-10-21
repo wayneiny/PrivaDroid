@@ -1,11 +1,16 @@
 package com.weichengcao.privadroid.database;
 
+import android.app.job.JobInfo;
+import android.app.job.JobParameters;
+import android.app.job.JobScheduler;
+import android.app.job.JobService;
+import android.content.ComponentName;
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.notifications.ChangePermissionReminderService;
 import com.weichengcao.privadroid.util.EventUtil;
 
 import org.json.JSONArray;
@@ -23,8 +28,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import static com.weichengcao.privadroid.database.FirestoreProvider.isNetworkAvailable;
+import static com.weichengcao.privadroid.notifications.BaseNotificationProvider.getJobIdScheduled;
+import static com.weichengcao.privadroid.notifications.ChangePermissionReminderService.MAX_DELAY_OF_JOB_IN_MILLISECONDS;
 
-public class OnDeviceStorageProvider {
+public class OnDeviceStorageProvider extends JobService {
 
     private static final String TAG = OnDeviceStorageProvider.class.getSimpleName();
 
@@ -78,7 +85,7 @@ public class OnDeviceStorageProvider {
         }
     }
 
-    private static boolean deleteFile(String fileName) {
+    private static boolean deleteLocalFile(String fileName) {
         File file = new File(PrivaDroidApplication.getAppContext().getFilesDir(), fileName);
         if (file.exists()) {
             return file.delete();
@@ -93,18 +100,21 @@ public class OnDeviceStorageProvider {
         );
     }
 
+    static int numberOfEventsSynced = 0;
+
     private static void syncOnDeviceEventsToFirebase(String fileName) {
         FirestoreProvider firestoreProvider = new FirestoreProvider();
 
         // Sync app install events
         JSONArray events = readJsonEventsFromFile(fileName);
-        if (!deleteFile(fileName)) {
+        if (!deleteLocalFile(fileName)) {
 //            Log.d(TAG, "Failed to delete event file " + fileName);
             return;
         }
 //        Log.d(TAG, "Deleted " + fileName);
 
         int length = events.length();
+        numberOfEventsSynced += length;
         for (int i = 0; i < length; i++) {
             try {
                 JSONObject object = events.getJSONObject(i);
@@ -155,6 +165,7 @@ public class OnDeviceStorageProvider {
 //                Log.d(TAG, "syncAllOnDeviceEventsToFirebase called.");
                 if (isNetworkAvailable()) {
 //                    Log.d(TAG, "Network available, syncing...");
+                    numberOfEventsSynced = 0;
                     syncOnDeviceEventsToFirebase(APP_INSTALL_FILE_NAME);
                     syncOnDeviceEventsToFirebase(APP_UNINSTALL_FILE_NAME);
                     syncOnDeviceEventsToFirebase(PERMISSION_FILE_NAME);
@@ -165,8 +176,47 @@ public class OnDeviceStorageProvider {
                     syncOnDeviceEventsToFirebase(PROACTIVE_PERMISSION_FILE_NAME);
                     syncOnDeviceEventsToFirebase(HEARTBEAT_FILE_NAME);
                     syncOnDeviceEventsToFirebase(REVOKE_PERMISSION_NOTIFICATION_CLICK_FILE_NAME);
+                    FirestoreProvider firestoreProvider = new FirestoreProvider();
+                    firestoreProvider.sendLocalStorageSyncLogEvent(ExperimentEventFactory.createLocalStorageSyncEvent(numberOfEventsSynced + ""));
                 }
             }
         }.run();
+    }
+
+    public static final int LOCAL_STORAGE_SYNC_JOB_ID = 3;
+    public static final int ONE_DAY_IN_MILLISECONDS = 86400000;        // 1 day
+
+    public static boolean isLocalStorageSyncJobScheduled() {
+        return getCurrentLocalSyncJobScheduled() != null;
+    }
+
+    public static JobInfo getCurrentLocalSyncJobScheduled() {
+        return getJobIdScheduled(LOCAL_STORAGE_SYNC_JOB_ID);
+    }
+
+    public static void scheduleLocalStorageSyncJob() {
+        ComponentName serviceComponent = new ComponentName(PrivaDroidApplication.getAppContext(), ChangePermissionReminderService.class);
+
+        JobInfo.Builder builder = new JobInfo.Builder(LOCAL_STORAGE_SYNC_JOB_ID, serviceComponent);
+        builder.setMinimumLatency(ONE_DAY_IN_MILLISECONDS);
+        builder.setOverrideDeadline(ONE_DAY_IN_MILLISECONDS + MAX_DELAY_OF_JOB_IN_MILLISECONDS);
+
+        JobScheduler jobScheduler = PrivaDroidApplication.getAppContext().getSystemService(JobScheduler.class);
+        if (jobScheduler != null) {
+            jobScheduler.schedule(builder.build());
+        }
+    }
+
+    @Override
+    public boolean onStartJob(JobParameters params) {
+        syncAllOnDeviceEventsToFirebase();
+        scheduleLocalStorageSyncJob();
+
+        return true;
+    }
+
+    @Override
+    public boolean onStopJob(JobParameters params) {
+        return true;
     }
 }

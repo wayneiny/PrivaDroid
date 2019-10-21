@@ -312,4 +312,26 @@ public class ExperimentEventFactory {
 
         return res;
     }
+
+    public static HashMap<String, String> createDemographicReminderLogEvent() {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+
+        return res;
+    }
+
+    static HashMap<String, String> createLocalStorageSyncEvent(String numberOfEventsSynced) {
+        HashMap<String, String> res = new HashMap<>();
+
+        res.put(EventUtil.NUMBER_OF_EVENTS_SYNCED, numberOfEventsSynced);
+
+        res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
+        res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
+        res.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+
+        return res;
+    }
 }

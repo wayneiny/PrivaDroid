@@ -542,6 +542,28 @@ public class FirestoreProvider {
     }
 
     /**
+     * Send demographic reminder log events.
+     */
+    public void sendDemographicReminderLogEvent(final HashMap<String, String> event) {
+        if (event == null) {
+            return;
+        }
+
+        mFirestore.collection(EventUtil.DEMOGRAPHIC_REMINDER_LOG_COLLECTION).add(event);
+    }
+
+    /**
+     * Send local storage sync log events.
+     */
+    public void sendLocalStorageSyncLogEvent(final HashMap<String, String> event) {
+        if (event == null) {
+            return;
+        }
+
+        mFirestore.collection(EventUtil.LOCAL_STORAGE_SYNC_LOG_COLLECTION).add(event);
+    }
+
+    /**
      * Transformation from AppUninstallServerEvent to HashMap.
      */
     private static HashMap<String, Object> createAppUninstallEventHashMapFromObject(AppUninstallServerEvent event) {
