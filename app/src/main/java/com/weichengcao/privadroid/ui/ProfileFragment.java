@@ -99,7 +99,7 @@ public class ProfileFragment extends Fragment {
          */
         TextView mHeartbeatReminder = view.findViewById(R.id.heartbeat_reminder_value);
         TextView mDemographicReminder = view.findViewById(R.id.demographic_reminder_value);
-        String lastHeartbeatReminder = userPreferences.getLastHeartbeartReminder();
+        String lastHeartbeatReminder = userPreferences.getLastHeartbeatReminder();
         mHeartbeatReminder.setText(lastHeartbeatReminder.isEmpty() ?
                 PrivaDroidApplication.getAppContext().getString(R.string.not_applicable) :
                 DatetimeUtil.convertIsoToReadableDatetimeFormat(lastHeartbeatReminder));

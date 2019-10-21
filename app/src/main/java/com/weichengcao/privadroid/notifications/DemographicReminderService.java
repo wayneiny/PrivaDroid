@@ -26,10 +26,9 @@ public class DemographicReminderService extends JobService {
         if (!new UserPreferences(PrivaDroidApplication.getAppContext()).getAnsweredDemographicSurvey()) {
             createDemographicSurveyReminder();
             scheduleDemographicSurveyReminder();
+            new UserPreferences(PrivaDroidApplication.getAppContext()).setLastDemographicReminder(DatetimeUtil.getCurrentIsoDatetime());
+            new FirestoreProvider().sendDemographicReminderLogEvent(ExperimentEventFactory.createDemographicReminderLogEvent());
         }
-
-        new UserPreferences(PrivaDroidApplication.getAppContext()).setLastDemographicReminder(DatetimeUtil.getCurrentIsoDatetime());
-        new FirestoreProvider().sendDemographicReminderLogEvent(ExperimentEventFactory.createDemographicReminderLogEvent());
 
         return true;
     }

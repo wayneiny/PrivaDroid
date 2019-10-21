@@ -140,7 +140,7 @@ public class UserPreferences {
         getAppPrefs().edit().putString(LAST_DEMOGRAPHIC_REMINDER, lastDemographicReminder).apply();
     }
 
-    public String getLastHeartbeartReminder() {
+    public String getLastHeartbeatReminder() {
         return getAppPrefs().getString(LAST_HEARTBEAT_REMINDER, "");
     }
 
