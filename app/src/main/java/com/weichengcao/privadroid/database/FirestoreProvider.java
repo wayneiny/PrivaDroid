@@ -563,6 +563,14 @@ public class FirestoreProvider {
         mFirestore.collection(EventUtil.LOCAL_STORAGE_SYNC_LOG_COLLECTION).add(event);
     }
 
+    public void sendPrivaDroidPackageUpdate(final HashMap<String, String> event) {
+        if (event == null) {
+            return;
+        }
+
+        mFirestore.collection(EventUtil.PRIVADROID_PACKAGE_UPDATE_COLLECTION).add(event);
+    }
+
     /**
      * Transformation from AppUninstallServerEvent to HashMap.
      */

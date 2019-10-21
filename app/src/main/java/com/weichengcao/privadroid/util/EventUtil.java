@@ -197,6 +197,11 @@ public class EventUtil {
     public static final String NUMBER_OF_EVENTS_SYNCED = "number_of_events_synced";
 
     /**
+     * Package update log event.
+     */
+    public static final String PRIVADROID_PACKAGE_UPDATE_COLLECTION = "PRIVADROID_PACKAGE_UPDATE_COLLECTION";
+
+    /**
      * Event utility functions.
      */
     public static ArrayList<BaseServerEvent> sortEventsBasedOnTime(HashMap<String, BaseServerEvent> eventsMap, final boolean chronological) {

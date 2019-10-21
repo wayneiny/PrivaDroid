@@ -8,9 +8,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
-import com.weichengcao.privadroid.database.FirestoreProvider;
-import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
+import com.weichengcao.privadroid.PrivaDroidApplication;
+import com.weichengcao.privadroid.R;
 import com.weichengcao.privadroid.database.ExperimentEventFactory;
+import com.weichengcao.privadroid.database.FirestoreProvider;
+import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
+import com.weichengcao.privadroid.notifications.DemographicReminderService;
+import com.weichengcao.privadroid.notifications.HeartbeatAndServiceReminderService;
+import com.weichengcao.privadroid.util.ApplicationInfoPreferences;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +34,17 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
         } else if (isPackageAdded(context, intent)) {
 //            Log.d(TAG, "Detected package installed.");
             logPackageInstallEvent(context, intent);
+        } else if (isPrivaDroidPackageUpdate(intent)) {
+            new FirestoreProvider().sendPrivaDroidPackageUpdate(ExperimentEventFactory.createDemographicReminderLogEvent());
+            if (!DemographicReminderService.isDemographicReminderJobScheduled()) {
+                DemographicReminderService.scheduleDemographicSurveyReminder();
+            }
+            if (!HeartbeatAndServiceReminderService.isHeartbeatReminderJobScheduled()) {
+                HeartbeatAndServiceReminderService.scheduleHeartbeatAndServiceReminderJob();
+            }
+            if (!OnDeviceStorageProvider.isLocalStorageSyncJobScheduled()) {
+                OnDeviceStorageProvider.scheduleLocalStorageSyncJob();
+            }
         }
     }
 
@@ -138,6 +154,14 @@ public class AppPackagesBroadcastReceiver extends BroadcastReceiver {
 
         return (intent.getAction().equals(Intent.ACTION_PACKAGE_REMOVED) || intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED))
                 && !isPackageUpdate(intent);
+    }
+
+    private boolean isPrivaDroidPackageUpdate(Intent intent) {
+        String packageName = getPackageNameFromIntent(intent);
+        // If EXTRA_REPLACING is not present (or if it is present but false), return false.
+        return intent.getBooleanExtra(Intent.EXTRA_REPLACING, false) &&
+                packageName != null &&
+                packageName.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.privadroid_package_name));
     }
 
     private boolean isPackageUpdate(Intent intent) {
