@@ -195,7 +195,7 @@ public class OnDeviceStorageProvider extends JobService {
     }
 
     public static void scheduleLocalStorageSyncJob() {
-        ComponentName serviceComponent = new ComponentName(PrivaDroidApplication.getAppContext(), ChangePermissionReminderService.class);
+        ComponentName serviceComponent = new ComponentName(PrivaDroidApplication.getAppContext(), OnDeviceStorageProvider.class);
 
         JobInfo.Builder builder = new JobInfo.Builder(LOCAL_STORAGE_SYNC_JOB_ID, serviceComponent);
         builder.setMinimumLatency(ONE_DAY_IN_MILLISECONDS);
