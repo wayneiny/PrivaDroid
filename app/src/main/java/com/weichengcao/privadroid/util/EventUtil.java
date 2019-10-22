@@ -17,6 +17,14 @@ import static com.weichengcao.privadroid.PrivaDroidApplication.serverId2permissi
 
 public class EventUtil {
     /**
+     * App related parameters.
+     */
+    public static final String EVENT_TYPE = "EVENT_TYPE";
+    public static final int APP_INSTALL_EVENT_TYPE = 0;
+    public static final int APP_UNINSTALL_EVENT_TYPE = 1;
+    public static final int PERMISSION_EVENT_TYPE = 2;
+
+    /**
      * Intent keys.
      */
     public static final String EVENT_ID_INTENT_KEY = "EVENT_ID_INTENT_KEY";
@@ -31,10 +39,6 @@ public class EventUtil {
     /**
      * Common to App Install/App Uninstall/Permission.
      */
-    public static final String EVENT_TYPE = "EVENT_TYPE";
-    public static final int APP_INSTALL_EVENT_TYPE = 0;
-    public static final int APP_UNINSTALL_EVENT_TYPE = 1;
-    public static final int PERMISSION_EVENT_TYPE = 2;
     public static final String USER_AD_ID = "ad_id";
     public static final String LOGGED_TIME = "logged_time";
     public static final String APP_NAME = "app_name";
