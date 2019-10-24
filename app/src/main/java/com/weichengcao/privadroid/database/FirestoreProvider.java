@@ -362,7 +362,8 @@ public class FirestoreProvider {
                                                     if (permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION) != null &&
                                                             Objects.requireNonNull(permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION)).equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.yes))) {
                                                         ChangePermissionReminderService.schedulePermissionRevokeReminder(surveyDoc.getId(),
-                                                                permissionServerEvent.getAppName(), permissionServerEvent.getPermissionName());
+                                                                permissionServerEvent.getAppName(), permissionServerEvent.getPermissionName(),
+                                                                permissionServerEvent.getPackageName());
                                                     }
                                                 }
                                             }

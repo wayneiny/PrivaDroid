@@ -10,6 +10,7 @@ import android.os.PersistableBundle;
 
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.util.EventUtil;
+import com.weichengcao.privadroid.util.RuntimePermissionAppUtil;
 
 public class ChangePermissionReminderService extends JobService {
 
@@ -35,13 +36,15 @@ public class ChangePermissionReminderService extends JobService {
         }
     }
 
-    public static void schedulePermissionRevokeReminder(String surveyServerDocId, String appName, String permissionName) {
+    public static void schedulePermissionRevokeReminder(String surveyServerDocId, String appName, String permissionName,
+                                                        String packageName) {
         ComponentName serviceComponent = new ComponentName(PrivaDroidApplication.getAppContext(), ChangePermissionReminderService.class);
 
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString(EventUtil.EVENT_SERVER_ID, surveyServerDocId);
         bundle.putString(EventUtil.APP_NAME, appName);
         bundle.putString(EventUtil.PERMISSION_REQUESTED_NAME, permissionName);
+        bundle.putString(EventUtil.PACKAGE_NAME, packageName);
 
         JobInfo.Builder builder = new JobInfo.Builder(PERMISSION_REVOKE_REMINDER_JOB_ID, serviceComponent).setExtras(bundle);
         builder.setMinimumLatency(PERMISSION_REVOKE_REMINDER_INTERVAL_IN_MILLISECONDS);
@@ -59,9 +62,16 @@ public class ChangePermissionReminderService extends JobService {
         String surveyServerDocId = bundle.getString(EventUtil.EVENT_SERVER_ID);
         String appName = bundle.getString(EventUtil.APP_NAME);
         String permissionName = bundle.getString(EventUtil.PERMISSION_REQUESTED_NAME);
+        String packageName = bundle.getString(EventUtil.PACKAGE_NAME);
         if (surveyServerDocId == null || surveyServerDocId.isEmpty() ||
                 appName == null || appName.isEmpty() ||
-                permissionName == null || permissionName.isEmpty()) {
+                permissionName == null || permissionName.isEmpty() ||
+                packageName == null || packageName.isEmpty()) {
+            return false;
+        }
+        // if user is still using the app, reschedule the reminder
+        if (packageName.equalsIgnoreCase(RuntimePermissionAppUtil.getLastActiveAppPackageName())) {
+            schedulePermissionRevokeReminder(surveyServerDocId, appName, permissionName, packageName);
             return false;
         }
         createReminderNotificationToDisablePermission(surveyServerDocId, appName, permissionName);

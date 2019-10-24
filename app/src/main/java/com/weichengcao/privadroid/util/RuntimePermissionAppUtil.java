@@ -17,7 +17,7 @@ import static com.weichengcao.privadroid.util.AndroidSdkConstants.SETTINGS_PACKA
 
 public class RuntimePermissionAppUtil {
 
-    private static final long LOOK_BACK_PERIOD = 60000;
+    private static final long LOOK_BACK_PERIOD = 60000; // 1 minute
 
     private static final HashSet<String> EXCLUDED_ACTIVE_APPS = new HashSet<>(Arrays.asList(
             GOOGLE_PACKAGE_INSTALLER_PACKAGE,
@@ -29,7 +29,7 @@ public class RuntimePermissionAppUtil {
     public static String getLastActiveAppPackageName() {
         UsageStatsManager usageStatsManager = (UsageStatsManager) PrivaDroidApplication.getAppContext().getSystemService(Context.USAGE_STATS_SERVICE);
         long now = System.currentTimeMillis();
-        // We get usage stats for the last 5 seconds
+        // We get usage stats for the last 1 minute
         List<UsageStats> stats = null;
         if (usageStatsManager != null) {
             stats = usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, now - LOOK_BACK_PERIOD, now);
