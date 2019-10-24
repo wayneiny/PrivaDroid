@@ -39,7 +39,7 @@ public class PermissionGrantServerSurvey extends BaseServerSurvey {
     }
 
     public boolean getOnlyGrantTemporarily() {
-        return onlyGrantTemporarily.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.yes));
+        return PrivaDroidApplication.getAppContext().getString(R.string.yes).equalsIgnoreCase(onlyGrantTemporarily);
     }
 
     public String getOnlyGrantTemporarilyText() {
@@ -47,7 +47,7 @@ public class PermissionGrantServerSurvey extends BaseServerSurvey {
     }
 
     public boolean getWouldLikeReminderNotification() {
-        return wouldLikeReminderNotification.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.yes));
+        return PrivaDroidApplication.getAppContext().getString(R.string.yes).equalsIgnoreCase(wouldLikeReminderNotification);
     }
 
     public String getWouldLikeReminderNotificationText() {
