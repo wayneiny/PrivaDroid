@@ -236,19 +236,14 @@ public class ExperimentEventFactory {
         return res;
     }
 
-    public static HashMap<String, String> createExitSurveyEvent(String controlOne, String controlTwo,
-                                                                String controlThree, String awarenessOne,
-                                                                String awarenessTwo, String awarenessThree,
-                                                                String collectionOne, String collectionTwo,
-                                                                String collectionThree, String errorOne,
-                                                                String errorTwo, String errorThree,
-                                                                String errorFour, String secondaryUseOne,
-                                                                String secondaryUseTwo, String secondaryUseThree,
-                                                                String secondaryUseFour, String secondaryUseFive,
-                                                                String improperOne, String improperTwo,
-                                                                String improperThree, String globalOne,
-                                                                String globalTwo, String globalThree, String globalFour,
-                                                                String globalFive, String familiar, String dontUnderstand) {
+    public static HashMap<String, String> createExitSurveyEvent(String controlOne, String controlTwo, String controlThree,
+                                                                String awarenessOne, String awarenessTwo, String awarenessThree,
+                                                                String collectionOne, String collectionTwo, String collectionThree, String collectionFour,
+                                                                String errorOne, String errorTwo, String errorThree, String errorFour,
+                                                                String secondaryUseOne, String secondaryUseTwo, String secondaryUseThree, String secondaryUseFour, String secondaryUseFive,
+                                                                String improperOne, String improperTwo, String improperThree,
+                                                                String globalOne, String globalTwo, String globalThree, String globalFour, String globalFive,
+                                                                String familiar, String dontUnderstand) {
         HashMap<String, String> res = new HashMap<>();
 
         res.put(EventUtil.CONTROL_ONE, controlOne);
@@ -260,6 +255,7 @@ public class ExperimentEventFactory {
         res.put(EventUtil.COLLECTION_ONE, collectionOne);
         res.put(EventUtil.COLLECTION_TWO, collectionTwo);
         res.put(EventUtil.COLLECTION_THREE, collectionThree);
+        res.put(EventUtil.COLLECTION_FOUR, collectionFour);
         res.put(EventUtil.ERROR_ONE, errorOne);
         res.put(EventUtil.ERROR_TWO, errorTwo);
         res.put(EventUtil.ERROR_THREE, errorThree);

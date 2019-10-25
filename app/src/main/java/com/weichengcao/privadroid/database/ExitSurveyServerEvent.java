@@ -42,6 +42,7 @@ public class ExitSurveyServerEvent {
     private String collectionOne;
     private String collectionTwo;
     private String collectionThree;
+    private String collectionFour;
 
     public String getCollectionOne() {
         return collectionOne;
@@ -53,6 +54,10 @@ public class ExitSurveyServerEvent {
 
     public String getCollectionThree() {
         return collectionThree;
+    }
+
+    public String getCollectionFour() {
+        return collectionFour;
     }
 
     private String errorOne;
@@ -158,7 +163,7 @@ public class ExitSurveyServerEvent {
     public ExitSurveyServerEvent(String adId, String loggedTime,
                                  String controlOne, String controlTwo, String controlThree,
                                  String awarenessOne, String awarenessTwo, String awarenessThree,
-                                 String collectionOne, String collectionTwo, String collectionThree,
+                                 String collectionOne, String collectionTwo, String collectionThree, String collectionFour,
                                  String errorOne, String errorTwo, String errorThree, String errorFour,
                                  String secondaryUseOne, String secondaryUseTwo, String secondaryUseThree, String secondaryUseFour, String secondaryUseFive,
                                  String improperOne, String improperTwo, String improperThree,
@@ -175,6 +180,7 @@ public class ExitSurveyServerEvent {
         this.collectionOne = collectionOne;
         this.collectionTwo = collectionTwo;
         this.collectionThree = collectionThree;
+        this.collectionFour = collectionFour;
         this.errorOne = errorOne;
         this.errorTwo = errorTwo;
         this.errorThree = errorThree;

@@ -159,6 +159,7 @@ public class EventUtil {
     public static final String COLLECTION_ONE = "collection_q1";
     public static final String COLLECTION_TWO = "collection_q2";
     public static final String COLLECTION_THREE = "collection_q3";
+    public static final String COLLECTION_FOUR = "collection_q4";
     public static final String ERROR_ONE = "error_q1";
     public static final String ERROR_TWO = "error_q2";
     public static final String ERROR_THREE = "error_q3";

@@ -402,6 +402,32 @@
                         android:textSize="14sp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/select_an_option"/>
+
+                    <TextView
+                        android:id="@+id/exit_survey_collection_question_four"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="27dp"
+                        android:paddingTop="15dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/exit_survey_collection_question_four"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:id="@+id/exit_survey_collection_button_four"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="35dp"
+                        android:gravity="start|center_vertical"
+                        android:textColor="@color/black"
+                        android:textAllCaps="false"
+                        android:layout_marginTop="10dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/select_an_option"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

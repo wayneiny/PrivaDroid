@@ -863,6 +863,9 @@
     <string name="exit_survey_collection_question_three">
         3. It bothers me to give personal information to so many online companies.
     </string>
+    <string name="exit_survey_collection_question_four">
+        4. I’m concerned that online companies are collecting too much personal information about me.
+    </string>
     <string name="exit_survey_error_group">Error</string>
     <string name="exit_survey_error_question_one">
         1. All the personal information in computer databases should be double-checked for accuracy-no matter how much this costs.
