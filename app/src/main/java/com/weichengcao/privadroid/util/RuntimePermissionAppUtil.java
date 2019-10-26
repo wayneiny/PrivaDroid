@@ -23,7 +23,11 @@ public class RuntimePermissionAppUtil {
             GOOGLE_PACKAGE_INSTALLER_PACKAGE,
             PACKAGE_INSTALLER_PACKAGE,
             M_LAUNCHER_PACKAGE,
-            SETTINGS_PACKAGE
+            SETTINGS_PACKAGE,
+            AndroidSdkConstants.PERMISSION_CONTROLLER_PACKAGE,
+            AndroidSdkConstants.GOOGLE_PERMISSION_CONTROLLER_PACKAGE,
+            AndroidSdkConstants.Q_LAUNCHER_PACKAGE,
+            AndroidSdkConstants.Q_ANDROID_LAUNCHER_PACKAGE
     ));
 
     public static String getLastActiveAppPackageName() {
