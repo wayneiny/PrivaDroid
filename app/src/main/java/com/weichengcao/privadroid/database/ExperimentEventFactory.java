@@ -112,6 +112,7 @@ public class ExperimentEventFactory {
         event.put(EventUtil.PACKAGE_RECENT_FOREGROUND_TIME, packageRecentForegroundTime + "");
         event.put(EventUtil.PERMISSION_DIALOG_READ_TIME, permissionDialogReadTime + "");
         event.put(EventUtil.PRIVADROID_VERSION, BuildConfig.VERSION_NAME);
+        event.put(ANDROID_VERSION, Build.VERSION.RELEASE);
 
         return event;
     }
