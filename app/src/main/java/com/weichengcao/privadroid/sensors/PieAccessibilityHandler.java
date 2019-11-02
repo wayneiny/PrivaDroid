@@ -234,7 +234,7 @@ class PieAccessibilityHandler {
                     (proactivePermissionGrantButtonTexts.contains(nodeTextLowercase) ||
                             proactivePermissionDenyButtonTexts.contains(nodeTextLowercase));
         } else if (event != null && event.getText() != null && event.getText().size() > 0 && event.getClassName() != null
-                && runIntoAppProactivePermissionRequestDialog) {
+                && runIntoAppProactivePermissionRequestDialog && event.getText().get(0) != null) {
             nodeTextLowercase = event.getText().get(0).toString().toLowerCase();
             className = event.getClassName().toString();
             return className.equals(BUTTON_CLASS_NAME) &&
