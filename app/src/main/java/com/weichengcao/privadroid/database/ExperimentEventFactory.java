@@ -229,6 +229,7 @@ public class ExperimentEventFactory {
 
         res.put(EventUtil.REWARDS_METHOD, rewardsMethod);
         res.put(EventUtil.REWARDS_METHOD_VALUE, methodValue);
+        res.put(EventUtil.REWARDS_PAID_DATE, null);
         res.put(LOGGED_TIME, DatetimeUtil.getCurrentIsoDatetime());
         res.put(USER_AD_ID, new UserPreferences(PrivaDroidApplication.getAppContext()).getAdvertisingId());
         res.put(EventUtil.REWARDS_JOIN_DATE, new UserPreferences(PrivaDroidApplication.getAppContext()).getJoinDate());

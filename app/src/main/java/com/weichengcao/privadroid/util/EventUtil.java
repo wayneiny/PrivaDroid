@@ -137,6 +137,7 @@ public class EventUtil {
     public static final String REWARDS_METHOD = "rewards_method";
     public static final String REWARDS_METHOD_VALUE = "method_value";
     public static final String REWARDS_JOIN_DATE = "join_date";
+    public static final String REWARDS_PAID_DATE = "paid_date";
 
     /**
      * Runtime parameters.
