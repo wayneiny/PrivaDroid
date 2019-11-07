@@ -927,13 +927,13 @@
         5. I am concerned about threats to my personal privacy today.
     </string>
     <string-array name="uipc_question_options">
-        <item>Very Strongly Agree</item>
         <item>Strongly Agree</item>
         <item>Agree</item>
+        <item>Somewhat Agree</item>
         <item>Neither Agree Nor Disagree</item>
+        <item>Somewhat Disagree</item>
         <item>Disagree</item>
         <item>Strongly Disagree</item>
-        <item>Very Strongly Disagree</item>
     </string-array>
     <string name="exit_survey_additional_group">Additional questions</string>
     <string name="exit_survey_additional_question_familiar">
