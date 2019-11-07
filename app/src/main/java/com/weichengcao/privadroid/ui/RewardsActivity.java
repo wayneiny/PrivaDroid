@@ -22,11 +22,12 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.weichengcao.privadroid.PrivaDroidApplication;
 import com.weichengcao.privadroid.R;
+import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.database.FirestoreProvider;
+import com.weichengcao.privadroid.database.OnDeviceStorageProvider;
 import com.weichengcao.privadroid.database.RewardsServerEvent;
 import com.weichengcao.privadroid.util.DatetimeUtil;
 import com.weichengcao.privadroid.util.EventUtil;
-import com.weichengcao.privadroid.database.ExperimentEventFactory;
 import com.weichengcao.privadroid.util.UserPreferences;
 
 import org.joda.time.DateTime;
@@ -187,6 +188,7 @@ public class RewardsActivity extends AppCompatActivity {
                     }
 
                     String methodName = methodValue.contains("@") ? PAYPAL_METHOD : BITCOIN_METHOD;
+                    OnDeviceStorageProvider.syncAllOnDeviceEventsToFirebase();
 
                     FirestoreProvider firestoreProvider = new FirestoreProvider();
                     firestoreProvider.sendRewardsEvent(ExperimentEventFactory.createRewardsMethodEvent(methodName, methodValue));

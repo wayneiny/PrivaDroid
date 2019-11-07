@@ -74,7 +74,7 @@ public class MainScreenActivity extends FragmentActivity {
         /**
          * Sync on-device events to Firebase.
          */
-        OnDeviceStorageProvider.syncAllOnDeviceEventsToFirebase();
+//        OnDeviceStorageProvider.syncAllOnDeviceEventsToFirebase();
 
         if (!isNetworkAvailable()) {
             Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.no_internet_connection_error), Toast.LENGTH_LONG).show();
