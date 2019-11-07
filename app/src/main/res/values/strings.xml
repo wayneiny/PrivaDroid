@@ -173,9 +173,14 @@
 
     <string name="permission_grant_question_reminder">5. Would you like a notification to remind you of disabling this permission later?</string>
     <array name="permission_grant_options_reminder">
-        <item>Yes</item>
         <item>No</item>
+        <item>In 1 hour</item>
+        <item>In 2 hours</item>
+        <item>In 4 hours</item>
+        <item>In 8 hours</item>
+        <item>In 24 hours</item>
     </array>
+    <string name="revoke_permission_reminder_regex">In (.) hour</string>
 
     <string name="permission_deny_question_why" description="permission deny survey event why">1. Why did you deny the permission request?</string>
     <array name="permission_deny_options_why">

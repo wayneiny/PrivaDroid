@@ -30,6 +30,8 @@ import com.weichengcao.privadroid.util.UserPreferences;
 
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.weichengcao.privadroid.PrivaDroidApplication.getAppContext;
 import static com.weichengcao.privadroid.database.OnDeviceStorageProvider.APP_INSTALL_FILE_NAME;
@@ -359,11 +361,16 @@ public class FirestoreProvider {
                                                   to remind user of disabling the permission.
                                                  */
                                                 if (surveyLocalFile.equalsIgnoreCase(PERMISSION_GRANT_SURVEY_FILE_NAME)) {
-                                                    if (permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION) != null &&
-                                                            Objects.requireNonNull(permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION)).equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.yes))) {
-                                                        ChangePermissionReminderService.schedulePermissionRevokeReminder(surveyDoc.getId(),
-                                                                permissionServerEvent.getAppName(), permissionServerEvent.getPermissionName(),
-                                                                permissionServerEvent.getPackageName());
+                                                    String notificationText = permissionGrantSurvey.get(EventUtil.WOULD_LIKE_A_NOTIFICATION);
+                                                    if (notificationText != null) {
+                                                        Pattern reminderDelayPattern = Pattern.compile(PrivaDroidApplication.getAppContext().getString(R.string.revoke_permission_reminder_regex));
+                                                        Matcher reminderDelayMatcher = reminderDelayPattern.matcher(notificationText);
+                                                        if (reminderDelayMatcher.find()) {
+                                                            String delayedHour = reminderDelayMatcher.group(1);
+                                                            ChangePermissionReminderService.schedulePermissionRevokeReminder(surveyDoc.getId(),
+                                                                    permissionServerEvent.getAppName(), permissionServerEvent.getPermissionName(),
+                                                                    permissionServerEvent.getPackageName(), delayedHour);
+                                                        }
                                                     }
                                                 }
                                             }

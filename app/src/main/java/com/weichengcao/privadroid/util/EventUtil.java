@@ -194,6 +194,7 @@ public class EventUtil {
     public static final String REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION = "REVOKE_PERMISSION_NOTIFICATION_CLICK_COLLECTION";
     public static final String REVOKE_NOTIFICATION_CLICKED = "notification_clicked";
     public static final String PERMISSION_GRANT_SURVEY_SERVER_DOC_ID = "grant_survey_server_id";
+    public static final String REVOKE_DELAYED_HOUR = "delayed_hour";
 
     /**
      * App health monitoring events.
