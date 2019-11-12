@@ -953,7 +953,7 @@ class PieAccessibilityHandler {
         }
 
         String nodeText = source.getText().toString();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+        return source.getClassName() != null && source.getClassName().equals(BUTTON_CLASS_NAME) &&
                 (nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text)) ||
                         nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text)));
     }

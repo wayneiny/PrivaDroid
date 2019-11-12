@@ -143,7 +143,7 @@ class MarshmallowAccessibilityHandler {
      * Process and extract the decision of proactive permission request.
      */
     private static void processProactivePermissionRequestDialogAction(AccessibilityNodeInfo source) {
-        if (source == null || source.getText() == null || !source.getClassName().equals(BUTTON_CLASS_NAME)) {
+        if (source == null || source.getText() == null || source.getClassName() == null || !source.getClassName().equals(BUTTON_CLASS_NAME)) {
             return;
         }
 
@@ -172,7 +172,7 @@ class MarshmallowAccessibilityHandler {
         HashSet<String> proactivePermissionDenyButtonTexts = new HashSet<>(Arrays.asList(PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.proactive_permission_request_dialog_deny_button_texts)));
 
         String nodeTextLowercase = source.getText().toString().toLowerCase();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+        return source.getClassName() != null && source.getClassName().equals(BUTTON_CLASS_NAME) &&
                 (proactivePermissionGrantButtonTexts.contains(nodeTextLowercase) ||
                         proactivePermissionDenyButtonTexts.contains(nodeTextLowercase));
     }
@@ -755,7 +755,7 @@ class MarshmallowAccessibilityHandler {
         }
 
         String nodeText = source.getText().toString();
-        return source.getClassName().equals(BUTTON_CLASS_NAME) &&
+        return source.getClassName() != null && source.getClassName().equals(BUTTON_CLASS_NAME) &&
                 (nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_allow_screen_text)) ||
                         nodeText.equalsIgnoreCase(PrivaDroidApplication.getAppContext().getString(R.string.android_dialog_deny_screen_text)));
     }
