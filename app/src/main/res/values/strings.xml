@@ -664,24 +664,8 @@
     <string name="no_internet_connection_error" description="Error message for no internet connection">PrivaDroid needs network connection to work properly.</string>
 
     <string name="terms_description" description="Terms that user needs to agree with in order to join">
-        This experiment is entirely voluntary and you can join/exit the experiment at any given time.
-        The participants must be over 18 years old. The purpose of this experiment is to study users\'
-        decision making behind installing/uninstalling applications and runtime permission requests.
-        The participants need to enable accessibility service and app usage access for PrivaDroid to
-        work properly and receive the reward after 30 days of keeping these accesses granted and
-        the app installed. The app will be collecting demographic information through a questionnaire,
-        installed and uninstalled applications and permission requests events during the length of
-        experiment. The app will NOT collect any personally identifiable information and data collected
-        will be anonymized on device and sent to the server after being encrypted. Participants who
-        answer the demographic questionnaire and stay in the experiment for at least a month will be
-        qualified for a 10 USD reward in the form of PayPal payment or Bitcoin payment. And we support
-        these two payment methods ONLY. Multiple enrolments in this experiment only qualify for one payment.
-        Payments will about two to three weeks to get through so please be patient. Currently, we only
-        accept participants from Canada, United States, United Kingdom, South Korea, Spain, France,
-        Hong Kong, India, South Africa, Argentina and Singapore. Users outside of the above countries
-        can still participate but will not be eligible to receive reward. During the experiment, your Android
-        language MUST be set to one of the following languages: English, Spanish, French, Korean and
-        Traditional Chinese. You won\'t be eligible for reward if otherwise. Happy joining!
+        This experiment is entirely voluntary and you can join/exit the experiment at any given time. Participants must be over 18 years old. The purpose of this experiment is to study the reasons for the decisions users make when answering runtime permission requests and when installing and uninstalling applications. Survey questions will appear at some app install and uninstall events, and sometimes at the moment of a permission request. We collect demographic information once at the beginning and ask for your opinion on a few items in an exit survey. The app collects no personally identifiable data except for your Google Advertising ID and we will not use this ID to re-identify you. Your data and answers are only shared with our research team and access control is used to secure your data.\n\n
+        Participants need to enable accessibility service and app usage access for PrivaDroid to work properly. Participants who answer the demographic questionnaire and stay in the experiment for 30 days will qualify for a 10 USD reward in the form of PayPal payment or Bitcoin payment. We ONLY support these two payment methods. Multiple enrollments in this experiment only qualify for one payment. Payments may take about three weeks and longer. Currently, we only accept participants from Canada, United States, United Kingdom, South Korea, Spain, France, Hong Kong, India, South Africa, Argentina and Singapore. Users outside of the above countries can still participate but will not be eligible to receive a reward. During the experiment, your Android language MUST be set to one of the following languages: English, Spanish, French, Korean and Traditional Chinese. You won\'t be eligible for the reward otherwise. Thanks for joining!
     </string>
 
     <!--  Permission related keywords  -->
@@ -839,99 +823,96 @@
     <string name="exit_survey_screen_title">Exit Survey</string>
     <string name="exit_survey_control_group">Control</string>
     <string name="exit_survey_control_question_one">
-        1. Consumer online privacy is really a matter of consumers\’ right to exercise control and autonomy over
-        decisions about how their information is collected, used, and shared.
+        1. Mobile app privacy is about a user right to exercise control over decisions about how their information is collected, used, and shared.
     </string>
     <string name="exit_survey_control_question_two">
-        2. Consumer control of personal information lies at the heart of consumer privacy.
+        2. Consumer control of personal information is essential to mobile app privacy.
     </string>
     <string name="exit_survey_control_question_three">
-        3. I believe that online privacy is invaded when control is lost or unwillingly reduced as a result of a marketing transaction.
+        3. I don\’t believe that mobile app privacy is compromised when the user loses control over their information as a result of an app usage.
     </string>
     <string name="exit_survey_awareness_group">Awareness of privacy practices</string>
     <string name="exit_survey_awareness_question_one">
-        1. Companies seeking information online should disclose the way the data are collected, processed, and used.
+        1. Mobile app developers seeking information should disclose the way the data are collected, processed, and used.
     </string>
     <string name="exit_survey_awareness_question_two">
-        2. A good consumer online privacy policy should have a clear and conspicuous disclosure.
+        2. A good mobile app privacy policy should have a clear and conspicuous disclosure.
     </string>
     <string name="exit_survey_awareness_question_three">
-        3. It is very important to me that I am aware and knowledgeable about how my personal information will be used.
+        3. It is not very important to me that I am aware and knowledgeable about how my personal information will be used.
     </string>
     <string name="exit_survey_collection_group">Collection</string>
     <string name="exit_survey_collection_question_one">
-        1. It usually bothers me when online companies ask me for personal information.
+        1. It usually bothers me when smartphone apps ask me for personal information.
     </string>
     <string name="exit_survey_collection_question_two">
-        2. When online companies ask me for personal information. I sometimes think twice before providing it.
+        2. When mobile apps ask me for personal information, I sometimes think twice before providing it.
     </string>
     <string name="exit_survey_collection_question_three">
-        3. It bothers me to give personal information to so many online companies.
+        3. It bothers me to give personal information to so many mobile apps.
     </string>
     <string name="exit_survey_collection_question_four">
-        4. I’m concerned that online companies are collecting too much personal information about me.
+        4. I\’m not concerned that smartphone apps are collecting too much personal information about me.
     </string>
-    <string name="exit_survey_error_group">Error</string>
-    <string name="exit_survey_error_question_one">
-        1. All the personal information in computer databases should be double-checked for accuracy-no matter how much this costs.
-    </string>
-    <string name="exit_survey_error_question_two">
-        2. Online companies should take more steps to make sure that the personal information in their files is accurate.
-    </string>
-    <string name="exit_survey_error_question_three">
-        3. Online companies should have better procedures to correct errors in personal information.
-    </string>
-    <string name="exit_survey_error_question_four">
-        4. Online companies should devote more time and effort to verify the accuracy of the personal information in their databases.
-    </string>
-    <string name="exit_survey_secondary_use_group">Unauthorized secondary use</string>
+<!--    <string name="exit_survey_error_group">Error</string>-->
+<!--    <string name="exit_survey_error_question_one">-->
+<!--        1. All the personal information in computer databases should be double-checked for accuracy-no matter how much this costs.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_error_question_two">-->
+<!--        2. Online companies should take more steps to make sure that the personal information in their files is accurate.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_error_question_three">-->
+<!--        3. Online companies should have better procedures to correct errors in personal information.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_error_question_four">-->
+<!--        4. Online companies should devote more time and effort to verify the accuracy of the personal information in their databases.-->
+<!--    </string>-->
+    <string name="exit_survey_secondary_use_group">Secondary Use</string>
     <string name="exit_survey_secondary_use_question_one">
-        1. Online companies should not use personal information for any purpose unless it has been authorized by the individuals who provided information.
+        1. Mobile apps should not use personal information for any purpose unless it has been authorized by the individuals who provided information.
     </string>
     <string name="exit_survey_secondary_use_question_two">
-        2. When people give personal information to an online company for some reason, the online company should never use the information for any other reason.
+        2. When people give personal information to a mobile app for some reason, the app developer should never use the information for any other reason.
     </string>
     <string name="exit_survey_secondary_use_question_three">
-        3. Suggestion: Online companies should be able to use personal information for purposes that have not been authorized if it can be shown that the use has public benefit (i.e. health or education statistics).
+        3. Mobile app developers should be allowed to sell the personal information in their computer databases to other companies.
     </string>
     <string name="exit_survey_secondary_use_question_four">
-        4. Online companies should never sell the personal information in their computer databases to other companies.
+        4. Mobile app developers should never share personal information with other companies unless it has been authorized by the individual who provided the information.
     </string>
-    <string name="exit_survey_secondary_use_question_five">
-        5. Online companies should never share personal information with other companies unless it has been authorized by the individual who provided the information.
-    </string>
-    <string name="exit_survey_improper_group">Improper access</string>
-    <string name="exit_survey_improper_question_one">
-        1. Online companies should devote more time and effort to preventing unauthorized access to personal information.
-    </string>
-    <string name="exit_survey_improper_question_two">
-        2. Computer databases that contain personal information should be protected from unauthorized access-no matter how much it costs.
-    </string>
-    <string name="exit_survey_improper_question_three">
-        3. Online companies should take more steps to make sure that unauthorized people cannot access personal information in their computers.
-    </string>
-    <string name="exit_survey_global_group">Global information privacy concern</string>
-    <string name="exit_survey_global_question_one">
-        1. Compared to others, I am more sensitive about the way online companies handle my personal information.
-    </string>
-    <string name="exit_survey_global_question_two">
-        2. To me, it is the most important thing to keep my privacy intact from online companies.
-    </string>
-    <string name="exit_survey_global_question_three">
-        3. I believe other people are too much concerned with online privacy issues.
-    </string>
-    <string name="exit_survey_global_question_four">
-        4. Compared with other subjects on my mind, personal privacy is very important.
-    </string>
-    <string name="exit_survey_global_question_five">
-        5. I am concerned about threats to my personal privacy today.
-    </string>
+<!--    <string name="exit_survey_secondary_use_question_five">-->
+<!--        5. Online companies should never share personal information with other companies unless it has been authorized by the individual who provided the information.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_improper_group">Improper access</string>-->
+<!--    <string name="exit_survey_improper_question_one">-->
+<!--        1. Online companies should devote more time and effort to preventing unauthorized access to personal information.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_improper_question_two">-->
+<!--        2. Computer databases that contain personal information should be protected from unauthorized access-no matter how much it costs.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_improper_question_three">-->
+<!--        3. Online companies should take more steps to make sure that unauthorized people cannot access personal information in their computers.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_global_group">Global information privacy concern</string>-->
+<!--    <string name="exit_survey_global_question_one">-->
+<!--        1. Compared to others, I am more sensitive about the way online companies handle my personal information.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_global_question_two">-->
+<!--        2. To me, it is the most important thing to keep my privacy intact from online companies.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_global_question_three">-->
+<!--        3. I believe other people are too much concerned with online privacy issues.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_global_question_four">-->
+<!--        4. Compared with other subjects on my mind, personal privacy is very important.-->
+<!--    </string>-->
+<!--    <string name="exit_survey_global_question_five">-->
+<!--        5. I am concerned about threats to my personal privacy today.-->
+<!--    </string>-->
     <string-array name="uipc_question_options">
         <item>Strongly Agree</item>
         <item>Agree</item>
-        <item>Somewhat Agree</item>
         <item>Neither Agree Nor Disagree</item>
-        <item>Somewhat Disagree</item>
         <item>Disagree</item>
         <item>Strongly Disagree</item>
     </string-array>

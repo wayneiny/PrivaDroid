@@ -51,10 +51,10 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     MaterialButton mControlOptionsOne, mControlOptionsTwo, mControlOptionsThree;
     MaterialButton mAwarenessOptionsOne, mAwarenessOptionsTwo, mAwarenessOptionsThree;
     MaterialButton mCollectionOptionsOne, mCollectionOptionsTwo, mCollectionOptionsThree, mCollectionOptionsFour;
-    MaterialButton mErrorOptionsOne, mErrorOptionsTwo, mErrorOptionsThree, mErrorOptionsFour;
-    MaterialButton mSecondaryUseOptionsOne, mSecondaryUseOptionsTwo, mSecondaryUseOptionsThree, mSecondaryUseOptionsFour, mSecondaryUseOptionsFive;
-    MaterialButton mImproperOptionsOne, mImproperOptionsTwo, mImproperOptionsThree;
-    MaterialButton mGlobalOptionsOne, mGlobalOptionsTwo, mGlobalOptionsThree, mGlobalOptionsFour, mGlobalOptionsFive;
+//    MaterialButton mErrorOptionsOne, mErrorOptionsTwo, mErrorOptionsThree, mErrorOptionsFour;
+    MaterialButton mSecondaryUseOptionsOne, mSecondaryUseOptionsTwo, mSecondaryUseOptionsThree, mSecondaryUseOptionsFour;//, mSecondaryUseOptionsFive;
+//    MaterialButton mImproperOptionsOne, mImproperOptionsTwo, mImproperOptionsThree;
+//    MaterialButton mGlobalOptionsOne, mGlobalOptionsTwo, mGlobalOptionsThree, mGlobalOptionsFour, mGlobalOptionsFive;
     MaterialButton mAdditionalOptionsFamiliar, mAdditionalOptionsDontUnderstand;
 
     ExitSurveyServerEvent exitSurveyServerEvent;
@@ -105,14 +105,14 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
         mCollectionOptionsThree.setOnClickListener(this);
         mCollectionOptionsFour = findViewById(R.id.exit_survey_collection_button_four);
         mCollectionOptionsFour.setOnClickListener(this);
-        mErrorOptionsOne = findViewById(R.id.exit_survey_error_button_one);
-        mErrorOptionsOne.setOnClickListener(this);
-        mErrorOptionsTwo = findViewById(R.id.exit_survey_error_button_two);
-        mErrorOptionsTwo.setOnClickListener(this);
-        mErrorOptionsThree = findViewById(R.id.exit_survey_error_button_three);
-        mErrorOptionsThree.setOnClickListener(this);
-        mErrorOptionsFour = findViewById(R.id.exit_survey_error_button_four);
-        mErrorOptionsFour.setOnClickListener(this);
+//        mErrorOptionsOne = findViewById(R.id.exit_survey_error_button_one);
+//        mErrorOptionsOne.setOnClickListener(this);
+//        mErrorOptionsTwo = findViewById(R.id.exit_survey_error_button_two);
+//        mErrorOptionsTwo.setOnClickListener(this);
+//        mErrorOptionsThree = findViewById(R.id.exit_survey_error_button_three);
+//        mErrorOptionsThree.setOnClickListener(this);
+//        mErrorOptionsFour = findViewById(R.id.exit_survey_error_button_four);
+//        mErrorOptionsFour.setOnClickListener(this);
         mSecondaryUseOptionsOne = findViewById(R.id.exit_survey_secondary_use_button_one);
         mSecondaryUseOptionsOne.setOnClickListener(this);
         mSecondaryUseOptionsTwo = findViewById(R.id.exit_survey_secondary_use_button_two);
@@ -121,24 +121,24 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
         mSecondaryUseOptionsThree.setOnClickListener(this);
         mSecondaryUseOptionsFour = findViewById(R.id.exit_survey_secondary_use_button_four);
         mSecondaryUseOptionsFour.setOnClickListener(this);
-        mSecondaryUseOptionsFive = findViewById(R.id.exit_survey_secondary_use_button_five);
-        mSecondaryUseOptionsFive.setOnClickListener(this);
-        mImproperOptionsOne = findViewById(R.id.exit_survey_improper_button_one);
-        mImproperOptionsOne.setOnClickListener(this);
-        mImproperOptionsTwo = findViewById(R.id.exit_survey_improper_button_two);
-        mImproperOptionsTwo.setOnClickListener(this);
-        mImproperOptionsThree = findViewById(R.id.exit_survey_improper_button_three);
-        mImproperOptionsThree.setOnClickListener(this);
-        mGlobalOptionsOne = findViewById(R.id.exit_survey_global_button_one);
-        mGlobalOptionsOne.setOnClickListener(this);
-        mGlobalOptionsTwo = findViewById(R.id.exit_survey_global_button_two);
-        mGlobalOptionsTwo.setOnClickListener(this);
-        mGlobalOptionsThree = findViewById(R.id.exit_survey_global_button_three);
-        mGlobalOptionsThree.setOnClickListener(this);
-        mGlobalOptionsFour = findViewById(R.id.exit_survey_global_button_four);
-        mGlobalOptionsFour.setOnClickListener(this);
-        mGlobalOptionsFive = findViewById(R.id.exit_survey_global_button_five);
-        mGlobalOptionsFive.setOnClickListener(this);
+//        mSecondaryUseOptionsFive = findViewById(R.id.exit_survey_secondary_use_button_five);
+//        mSecondaryUseOptionsFive.setOnClickListener(this);
+//        mImproperOptionsOne = findViewById(R.id.exit_survey_improper_button_one);
+//        mImproperOptionsOne.setOnClickListener(this);
+//        mImproperOptionsTwo = findViewById(R.id.exit_survey_improper_button_two);
+//        mImproperOptionsTwo.setOnClickListener(this);
+//        mImproperOptionsThree = findViewById(R.id.exit_survey_improper_button_three);
+//        mImproperOptionsThree.setOnClickListener(this);
+//        mGlobalOptionsOne = findViewById(R.id.exit_survey_global_button_one);
+//        mGlobalOptionsOne.setOnClickListener(this);
+//        mGlobalOptionsTwo = findViewById(R.id.exit_survey_global_button_two);
+//        mGlobalOptionsTwo.setOnClickListener(this);
+//        mGlobalOptionsThree = findViewById(R.id.exit_survey_global_button_three);
+//        mGlobalOptionsThree.setOnClickListener(this);
+//        mGlobalOptionsFour = findViewById(R.id.exit_survey_global_button_four);
+//        mGlobalOptionsFour.setOnClickListener(this);
+//        mGlobalOptionsFive = findViewById(R.id.exit_survey_global_button_five);
+//        mGlobalOptionsFive.setOnClickListener(this);
         mAdditionalOptionsFamiliar = findViewById(R.id.exit_survey_additional_button_familiar);
         mAdditionalOptionsFamiliar.setOnClickListener(this);
         mAdditionalOptionsDontUnderstand = findViewById(R.id.exit_survey_additional_button_dont_understand);
@@ -199,23 +199,23 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_collection_button_two);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_collection_button_three);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_collection_button_four);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_one);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_two);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_three);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_four);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_one);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_two);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_three);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_error_button_four);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_one);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_two);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_three);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_four);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_five);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_one);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_two);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_three);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_one);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_two);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_three);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_four);
-                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_five);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_secondary_use_button_five);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_one);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_two);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_improper_button_three);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_one);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_two);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_three);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_four);
+//                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_global_button_five);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_additional_button_familiar);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_additional_button_dont_understand);
 
@@ -243,11 +243,11 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                 findViewById(R.id.exit_survey_control_card).setVisibility(View.GONE);
                 findViewById(R.id.exit_survey_secondary_use_card).setVisibility(View.GONE);
                 findViewById(R.id.exit_survey_awareness_card).setVisibility(View.GONE);
-                findViewById(R.id.exit_survey_improper_card).setVisibility(View.GONE);
+//                findViewById(R.id.exit_survey_improper_card).setVisibility(View.GONE);
                 findViewById(R.id.exit_survey_collection_card).setVisibility(View.GONE);
-                findViewById(R.id.exit_survey_global_card).setVisibility(View.GONE);
+//                findViewById(R.id.exit_survey_global_card).setVisibility(View.GONE);
                 findViewById(R.id.exit_survey_additional_card).setVisibility(View.GONE);
-                findViewById(R.id.exit_survey_error_card).setVisibility(View.GONE);
+//                findViewById(R.id.exit_survey_error_card).setVisibility(View.GONE);
             }
         } else {
             Toast.makeText(PrivaDroidApplication.getAppContext(), PrivaDroidApplication.getAppContext().getString(R.string.rewards_join_date_invalid_contact_team), Toast.LENGTH_LONG).show();
@@ -276,14 +276,14 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             showQuestionOptionsDialog(R.id.exit_survey_collection_button_three);
         } else if (v == mCollectionOptionsFour) {
             showQuestionOptionsDialog(R.id.exit_survey_collection_button_four);
-        } else if (v == mErrorOptionsOne) {
-            showQuestionOptionsDialog(R.id.exit_survey_error_button_one);
-        } else if (v == mErrorOptionsTwo) {
-            showQuestionOptionsDialog(R.id.exit_survey_error_button_two);
-        } else if (v == mErrorOptionsThree) {
-            showQuestionOptionsDialog(R.id.exit_survey_error_button_three);
-        } else if (v == mErrorOptionsFour) {
-            showQuestionOptionsDialog(R.id.exit_survey_error_button_four);
+//        } else if (v == mErrorOptionsOne) {
+//            showQuestionOptionsDialog(R.id.exit_survey_error_button_one);
+//        } else if (v == mErrorOptionsTwo) {
+//            showQuestionOptionsDialog(R.id.exit_survey_error_button_two);
+//        } else if (v == mErrorOptionsThree) {
+//            showQuestionOptionsDialog(R.id.exit_survey_error_button_three);
+//        } else if (v == mErrorOptionsFour) {
+//            showQuestionOptionsDialog(R.id.exit_survey_error_button_four);
         } else if (v == mSecondaryUseOptionsOne) {
             showQuestionOptionsDialog(R.id.exit_survey_secondary_use_button_one);
         } else if (v == mSecondaryUseOptionsTwo) {
@@ -292,24 +292,24 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             showQuestionOptionsDialog(R.id.exit_survey_secondary_use_button_three);
         } else if (v == mSecondaryUseOptionsFour) {
             showQuestionOptionsDialog(R.id.exit_survey_secondary_use_button_four);
-        } else if (v == mSecondaryUseOptionsFive) {
-            showQuestionOptionsDialog(R.id.exit_survey_secondary_use_button_five);
-        } else if (v == mImproperOptionsOne) {
-            showQuestionOptionsDialog(R.id.exit_survey_improper_button_one);
-        } else if (v == mImproperOptionsTwo) {
-            showQuestionOptionsDialog(R.id.exit_survey_improper_button_two);
-        } else if (v == mImproperOptionsThree) {
-            showQuestionOptionsDialog(R.id.exit_survey_improper_button_three);
-        } else if (v == mGlobalOptionsOne) {
-            showQuestionOptionsDialog(R.id.exit_survey_global_button_one);
-        } else if (v == mGlobalOptionsTwo) {
-            showQuestionOptionsDialog(R.id.exit_survey_global_button_two);
-        } else if (v == mGlobalOptionsThree) {
-            showQuestionOptionsDialog(R.id.exit_survey_global_button_three);
-        } else if (v == mGlobalOptionsFour) {
-            showQuestionOptionsDialog(R.id.exit_survey_global_button_four);
-        } else if (v == mGlobalOptionsFive) {
-            showQuestionOptionsDialog(R.id.exit_survey_global_button_five);
+//        } else if (v == mSecondaryUseOptionsFive) {
+//            showQuestionOptionsDialog(R.id.exit_survey_secondary_use_button_five);
+//        } else if (v == mImproperOptionsOne) {
+//            showQuestionOptionsDialog(R.id.exit_survey_improper_button_one);
+//        } else if (v == mImproperOptionsTwo) {
+//            showQuestionOptionsDialog(R.id.exit_survey_improper_button_two);
+//        } else if (v == mImproperOptionsThree) {
+//            showQuestionOptionsDialog(R.id.exit_survey_improper_button_three);
+//        } else if (v == mGlobalOptionsOne) {
+//            showQuestionOptionsDialog(R.id.exit_survey_global_button_one);
+//        } else if (v == mGlobalOptionsTwo) {
+//            showQuestionOptionsDialog(R.id.exit_survey_global_button_two);
+//        } else if (v == mGlobalOptionsThree) {
+//            showQuestionOptionsDialog(R.id.exit_survey_global_button_three);
+//        } else if (v == mGlobalOptionsFour) {
+//            showQuestionOptionsDialog(R.id.exit_survey_global_button_four);
+//        } else if (v == mGlobalOptionsFive) {
+//            showQuestionOptionsDialog(R.id.exit_survey_global_button_five);
         } else if (v == mAdditionalOptionsFamiliar) {
             showQuestionOptionsDialog(R.id.exit_survey_additional_button_familiar);
         } else if (v == mAdditionalOptionsDontUnderstand) {
@@ -342,23 +342,23 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_collection_question_two) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_collection_question_three) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_collection_question_four) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_one) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_two) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_three) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_four) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_one) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_two) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_three) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_error_question_four) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_one) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_two) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_three) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_four) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_five) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_one) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_two) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_three) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_one) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_two) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_three) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_four) ||
-                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_five) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_secondary_use_question_five) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_one) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_two) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_improper_question_three) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_one) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_two) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_three) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_four) ||
+//                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_global_question_five) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_additional_question_familiar) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_additional_question_dont_understand)) {
                     Toast.makeText(PrivaDroidApplication.getAppContext(), R.string.finish_all_event_survey_questions_toast, Toast.LENGTH_SHORT).show();
@@ -421,22 +421,22 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                 question = findViewById(R.id.exit_survey_collection_question_four);
                 button = findViewById(R.id.exit_survey_collection_button_four);
                 break;
-            case R.id.exit_survey_error_question_one:
-                question = findViewById(R.id.exit_survey_error_question_one);
-                button = findViewById(R.id.exit_survey_error_button_one);
-                break;
-            case R.id.exit_survey_error_question_two:
-                question = findViewById(R.id.exit_survey_error_question_two);
-                button = findViewById(R.id.exit_survey_error_button_two);
-                break;
-            case R.id.exit_survey_error_question_three:
-                question = findViewById(R.id.exit_survey_error_question_three);
-                button = findViewById(R.id.exit_survey_error_button_three);
-                break;
-            case R.id.exit_survey_error_question_four:
-                question = findViewById(R.id.exit_survey_error_question_four);
-                button = findViewById(R.id.exit_survey_error_button_four);
-                break;
+//            case R.id.exit_survey_error_question_one:
+//                question = findViewById(R.id.exit_survey_error_question_one);
+//                button = findViewById(R.id.exit_survey_error_button_one);
+//                break;
+//            case R.id.exit_survey_error_question_two:
+//                question = findViewById(R.id.exit_survey_error_question_two);
+//                button = findViewById(R.id.exit_survey_error_button_two);
+//                break;
+//            case R.id.exit_survey_error_question_three:
+//                question = findViewById(R.id.exit_survey_error_question_three);
+//                button = findViewById(R.id.exit_survey_error_button_three);
+//                break;
+//            case R.id.exit_survey_error_question_four:
+//                question = findViewById(R.id.exit_survey_error_question_four);
+//                button = findViewById(R.id.exit_survey_error_button_four);
+//                break;
             case R.id.exit_survey_secondary_use_question_one:
                 question = findViewById(R.id.exit_survey_secondary_use_question_one);
                 button = findViewById(R.id.exit_survey_secondary_use_button_one);
@@ -453,42 +453,42 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                 question = findViewById(R.id.exit_survey_secondary_use_question_four);
                 button = findViewById(R.id.exit_survey_secondary_use_button_four);
                 break;
-            case R.id.exit_survey_secondary_use_question_five:
-                question = findViewById(R.id.exit_survey_secondary_use_question_five);
-                button = findViewById(R.id.exit_survey_secondary_use_button_five);
-                break;
-            case R.id.exit_survey_improper_question_one:
-                question = findViewById(R.id.exit_survey_improper_question_one);
-                button = findViewById(R.id.exit_survey_improper_button_one);
-                break;
-            case R.id.exit_survey_improper_question_two:
-                question = findViewById(R.id.exit_survey_improper_question_two);
-                button = findViewById(R.id.exit_survey_improper_button_two);
-                break;
-            case R.id.exit_survey_improper_question_three:
-                question = findViewById(R.id.exit_survey_improper_question_three);
-                button = findViewById(R.id.exit_survey_improper_button_three);
-                break;
-            case R.id.exit_survey_global_question_one:
-                question = findViewById(R.id.exit_survey_global_question_one);
-                button = findViewById(R.id.exit_survey_global_button_one);
-                break;
-            case R.id.exit_survey_global_question_two:
-                question = findViewById(R.id.exit_survey_global_question_two);
-                button = findViewById(R.id.exit_survey_global_button_two);
-                break;
-            case R.id.exit_survey_global_question_three:
-                question = findViewById(R.id.exit_survey_global_question_three);
-                button = findViewById(R.id.exit_survey_global_button_three);
-                break;
-            case R.id.exit_survey_global_question_four:
-                question = findViewById(R.id.exit_survey_global_question_four);
-                button = findViewById(R.id.exit_survey_global_button_four);
-                break;
-            case R.id.exit_survey_global_question_five:
-                question = findViewById(R.id.exit_survey_global_question_five);
-                button = findViewById(R.id.exit_survey_global_button_five);
-                break;
+//            case R.id.exit_survey_secondary_use_question_five:
+//                question = findViewById(R.id.exit_survey_secondary_use_question_five);
+//                button = findViewById(R.id.exit_survey_secondary_use_button_five);
+//                break;
+//            case R.id.exit_survey_improper_question_one:
+//                question = findViewById(R.id.exit_survey_improper_question_one);
+//                button = findViewById(R.id.exit_survey_improper_button_one);
+//                break;
+//            case R.id.exit_survey_improper_question_two:
+//                question = findViewById(R.id.exit_survey_improper_question_two);
+//                button = findViewById(R.id.exit_survey_improper_button_two);
+//                break;
+//            case R.id.exit_survey_improper_question_three:
+//                question = findViewById(R.id.exit_survey_improper_question_three);
+//                button = findViewById(R.id.exit_survey_improper_button_three);
+//                break;
+//            case R.id.exit_survey_global_question_one:
+//                question = findViewById(R.id.exit_survey_global_question_one);
+//                button = findViewById(R.id.exit_survey_global_button_one);
+//                break;
+//            case R.id.exit_survey_global_question_two:
+//                question = findViewById(R.id.exit_survey_global_question_two);
+//                button = findViewById(R.id.exit_survey_global_button_two);
+//                break;
+//            case R.id.exit_survey_global_question_three:
+//                question = findViewById(R.id.exit_survey_global_question_three);
+//                button = findViewById(R.id.exit_survey_global_button_three);
+//                break;
+//            case R.id.exit_survey_global_question_four:
+//                question = findViewById(R.id.exit_survey_global_question_four);
+//                button = findViewById(R.id.exit_survey_global_button_four);
+//                break;
+//            case R.id.exit_survey_global_question_five:
+//                question = findViewById(R.id.exit_survey_global_question_five);
+//                button = findViewById(R.id.exit_survey_global_button_five);
+//                break;
             case R.id.exit_survey_additional_question_familiar:
                 question = findViewById(R.id.exit_survey_additional_question_familiar);
                 button = findViewById(R.id.exit_survey_additional_button_familiar);
@@ -543,18 +543,18 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             case R.id.exit_survey_collection_button_four:
                 button.setText(exitSurveyServerEvent.getCollectionFour());
                 break;
-            case R.id.exit_survey_error_button_one:
-                button.setText(exitSurveyServerEvent.getErrorOne());
-                break;
-            case R.id.exit_survey_error_button_two:
-                button.setText(exitSurveyServerEvent.getErrorTwo());
-                break;
-            case R.id.exit_survey_error_button_three:
-                button.setText(exitSurveyServerEvent.getErrorThree());
-                break;
-            case R.id.exit_survey_error_button_four:
-                button.setText(exitSurveyServerEvent.getErrorFour());
-                break;
+//            case R.id.exit_survey_error_button_one:
+//                button.setText(exitSurveyServerEvent.getErrorOne());
+//                break;
+//            case R.id.exit_survey_error_button_two:
+//                button.setText(exitSurveyServerEvent.getErrorTwo());
+//                break;
+//            case R.id.exit_survey_error_button_three:
+//                button.setText(exitSurveyServerEvent.getErrorThree());
+//                break;
+//            case R.id.exit_survey_error_button_four:
+//                button.setText(exitSurveyServerEvent.getErrorFour());
+//                break;
             case R.id.exit_survey_secondary_use_button_one:
                 button.setText(exitSurveyServerEvent.getSecondaryUseOne());
                 break;
@@ -567,33 +567,33 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             case R.id.exit_survey_secondary_use_button_four:
                 button.setText(exitSurveyServerEvent.getSecondaryUseFour());
                 break;
-            case R.id.exit_survey_secondary_use_button_five:
-                button.setText(exitSurveyServerEvent.getSecondaryUseFive());
-                break;
-            case R.id.exit_survey_improper_button_one:
-                button.setText(exitSurveyServerEvent.getImproperOne());
-                break;
-            case R.id.exit_survey_improper_button_two:
-                button.setText(exitSurveyServerEvent.getImproperTwo());
-                break;
-            case R.id.exit_survey_improper_button_three:
-                button.setText(exitSurveyServerEvent.getImproperThree());
-                break;
-            case R.id.exit_survey_global_button_one:
-                button.setText(exitSurveyServerEvent.getGlobalOne());
-                break;
-            case R.id.exit_survey_global_button_two:
-                button.setText(exitSurveyServerEvent.getGlobalTwo());
-                break;
-            case R.id.exit_survey_global_button_three:
-                button.setText(exitSurveyServerEvent.getGlobalThree());
-                break;
-            case R.id.exit_survey_global_button_four:
-                button.setText(exitSurveyServerEvent.getGlobalFour());
-                break;
-            case R.id.exit_survey_global_button_five:
-                button.setText(exitSurveyServerEvent.getGlobalFive());
-                break;
+//            case R.id.exit_survey_secondary_use_button_five:
+//                button.setText(exitSurveyServerEvent.getSecondaryUseFive());
+//                break;
+//            case R.id.exit_survey_improper_button_one:
+//                button.setText(exitSurveyServerEvent.getImproperOne());
+//                break;
+//            case R.id.exit_survey_improper_button_two:
+//                button.setText(exitSurveyServerEvent.getImproperTwo());
+//                break;
+//            case R.id.exit_survey_improper_button_three:
+//                button.setText(exitSurveyServerEvent.getImproperThree());
+//                break;
+//            case R.id.exit_survey_global_button_one:
+//                button.setText(exitSurveyServerEvent.getGlobalOne());
+//                break;
+//            case R.id.exit_survey_global_button_two:
+//                button.setText(exitSurveyServerEvent.getGlobalTwo());
+//                break;
+//            case R.id.exit_survey_global_button_three:
+//                button.setText(exitSurveyServerEvent.getGlobalThree());
+//                break;
+//            case R.id.exit_survey_global_button_four:
+//                button.setText(exitSurveyServerEvent.getGlobalFour());
+//                break;
+//            case R.id.exit_survey_global_button_five:
+//                button.setText(exitSurveyServerEvent.getGlobalFive());
+//                break;
             case R.id.exit_survey_additional_button_familiar:
                 button.setText(exitSurveyServerEvent.getFamiliar());
                 break;
@@ -606,16 +606,29 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
         button.setEnabled(false);
     }
 
+//    @Override
+//    public HashMap<String, String> gatherResponse() {
+//        return ExperimentEventFactory.createExitSurveyEvent(
+//                mControlOptionsOne.getText().toString(), mControlOptionsTwo.getText().toString(), mControlOptionsThree.getText().toString(),
+//                mAwarenessOptionsOne.getText().toString(), mAwarenessOptionsTwo.getText().toString(), mAwarenessOptionsThree.getText().toString(),
+//                mCollectionOptionsOne.getText().toString(), mCollectionOptionsTwo.getText().toString(), mCollectionOptionsThree.getText().toString(), mCollectionOptionsFour.getText().toString(),
+//                mErrorOptionsOne.getText().toString(), mErrorOptionsTwo.getText().toString(), mErrorOptionsThree.getText().toString(), mErrorOptionsFour.getText().toString(),
+//                mSecondaryUseOptionsOne.getText().toString(), mSecondaryUseOptionsTwo.getText().toString(), mSecondaryUseOptionsThree.getText().toString(), mSecondaryUseOptionsFour.getText().toString(), mSecondaryUseOptionsFive.getText().toString(),
+//                mImproperOptionsOne.getText().toString(), mImproperOptionsTwo.getText().toString(), mImproperOptionsThree.getText().toString(),
+//                mGlobalOptionsOne.getText().toString(), mGlobalOptionsTwo.getText().toString(), mGlobalOptionsThree.getText().toString(), mGlobalOptionsFour.getText().toString(), mGlobalOptionsFive.getText().toString(),
+//                mAdditionalOptionsFamiliar.getText().toString(), mAdditionalOptionsDontUnderstand.getText().toString());
+//    }
+
     @Override
     public HashMap<String, String> gatherResponse() {
         return ExperimentEventFactory.createExitSurveyEvent(
                 mControlOptionsOne.getText().toString(), mControlOptionsTwo.getText().toString(), mControlOptionsThree.getText().toString(),
                 mAwarenessOptionsOne.getText().toString(), mAwarenessOptionsTwo.getText().toString(), mAwarenessOptionsThree.getText().toString(),
                 mCollectionOptionsOne.getText().toString(), mCollectionOptionsTwo.getText().toString(), mCollectionOptionsThree.getText().toString(), mCollectionOptionsFour.getText().toString(),
-                mErrorOptionsOne.getText().toString(), mErrorOptionsTwo.getText().toString(), mErrorOptionsThree.getText().toString(), mErrorOptionsFour.getText().toString(),
-                mSecondaryUseOptionsOne.getText().toString(), mSecondaryUseOptionsTwo.getText().toString(), mSecondaryUseOptionsThree.getText().toString(), mSecondaryUseOptionsFour.getText().toString(), mSecondaryUseOptionsFive.getText().toString(),
-                mImproperOptionsOne.getText().toString(), mImproperOptionsTwo.getText().toString(), mImproperOptionsThree.getText().toString(),
-                mGlobalOptionsOne.getText().toString(), mGlobalOptionsTwo.getText().toString(), mGlobalOptionsThree.getText().toString(), mGlobalOptionsFour.getText().toString(), mGlobalOptionsFive.getText().toString(),
+                null, null, null, null,
+                mSecondaryUseOptionsOne.getText().toString(), mSecondaryUseOptionsTwo.getText().toString(), mSecondaryUseOptionsThree.getText().toString(), mSecondaryUseOptionsFour.getText().toString(), null,
+                null, null, null,
+                null,null, null, null, null,
                 mAdditionalOptionsFamiliar.getText().toString(), mAdditionalOptionsDontUnderstand.getText().toString());
     }
 
@@ -804,78 +817,78 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                     }
                 });
                 break;
-            case R.id.exit_survey_error_button_one:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorOne, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedErrorOne = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedErrorOne == -1) {
-                            return;
-                        }
-                        mErrorOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorOne]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_error_button_two:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorTwo, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedErrorTwo = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedErrorTwo == -1) {
-                            return;
-                        }
-                        mErrorOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorTwo]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_error_button_three:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorThree, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedErrorThree = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedErrorThree == -1) {
-                            return;
-                        }
-                        mErrorOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorThree]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_error_button_four:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorFour, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedErrorFour = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedErrorFour == -1) {
-                            return;
-                        }
-                        mErrorOptionsFour.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorFour]);
-                    }
-                });
-                break;
+//            case R.id.exit_survey_error_button_one:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorOne, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedErrorOne = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedErrorOne == -1) {
+//                            return;
+//                        }
+//                        mErrorOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorOne]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_error_button_two:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorTwo, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedErrorTwo = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedErrorTwo == -1) {
+//                            return;
+//                        }
+//                        mErrorOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorTwo]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_error_button_three:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorThree, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedErrorThree = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedErrorThree == -1) {
+//                            return;
+//                        }
+//                        mErrorOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorThree]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_error_button_four:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedErrorFour, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedErrorFour = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedErrorFour == -1) {
+//                            return;
+//                        }
+//                        mErrorOptionsFour.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedErrorFour]);
+//                    }
+//                });
+//                break;
             case R.id.exit_survey_secondary_use_button_one:
                 alertDialogBuilder.setTitle(getString(R.string.select_an_option));
                 alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedSecondaryUseOne, new DialogInterface.OnClickListener() {
@@ -948,168 +961,168 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                     }
                 });
                 break;
-            case R.id.exit_survey_secondary_use_button_five:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedSecondaryUseFive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedSecondaryUseFive = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedSecondaryUseFive == -1) {
-                            return;
-                        }
-                        mSecondaryUseOptionsFive.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedSecondaryUseFive]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_improper_button_one:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperOne, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedImproperOne = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedImproperOne == -1) {
-                            return;
-                        }
-                        mImproperOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperOne]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_improper_button_two:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperTwo, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedImproperTwo = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedImproperTwo == -1) {
-                            return;
-                        }
-                        mImproperOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperTwo]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_improper_button_three:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperThree, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedImproperThree = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedImproperThree == -1) {
-                            return;
-                        }
-                        mImproperOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperThree]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_global_button_one:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalOne, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedGlobalOne = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedGlobalOne == -1) {
-                            return;
-                        }
-                        mGlobalOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalOne]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_global_button_two:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalTwo, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedGlobalTwo = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedGlobalTwo == -1) {
-                            return;
-                        }
-                        mGlobalOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalTwo]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_global_button_three:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalThree, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedGlobalThree = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedGlobalThree == -1) {
-                            return;
-                        }
-                        mGlobalOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalThree]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_global_button_four:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalFour, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedGlobalFour = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedGlobalFour == -1) {
-                            return;
-                        }
-                        mGlobalOptionsFour.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalFour]);
-                    }
-                });
-                break;
-            case R.id.exit_survey_global_button_five:
-                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
-                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalFive, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedGlobalFive = which;
-                    }
-                });
-                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (selectedGlobalFive == -1) {
-                            return;
-                        }
-                        mGlobalOptionsFive.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalFive]);
-                    }
-                });
-                break;
+//            case R.id.exit_survey_secondary_use_button_five:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedSecondaryUseFive, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedSecondaryUseFive = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedSecondaryUseFive == -1) {
+//                            return;
+//                        }
+//                        mSecondaryUseOptionsFive.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedSecondaryUseFive]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_improper_button_one:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperOne, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedImproperOne = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedImproperOne == -1) {
+//                            return;
+//                        }
+//                        mImproperOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperOne]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_improper_button_two:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperTwo, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedImproperTwo = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedImproperTwo == -1) {
+//                            return;
+//                        }
+//                        mImproperOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperTwo]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_improper_button_three:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedImproperThree, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedImproperThree = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedImproperThree == -1) {
+//                            return;
+//                        }
+//                        mImproperOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedImproperThree]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_global_button_one:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalOne, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedGlobalOne = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedGlobalOne == -1) {
+//                            return;
+//                        }
+//                        mGlobalOptionsOne.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalOne]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_global_button_two:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalTwo, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedGlobalTwo = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedGlobalTwo == -1) {
+//                            return;
+//                        }
+//                        mGlobalOptionsTwo.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalTwo]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_global_button_three:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalThree, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedGlobalThree = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedGlobalThree == -1) {
+//                            return;
+//                        }
+//                        mGlobalOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalThree]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_global_button_four:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalFour, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedGlobalFour = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedGlobalFour == -1) {
+//                            return;
+//                        }
+//                        mGlobalOptionsFour.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalFour]);
+//                    }
+//                });
+//                break;
+//            case R.id.exit_survey_global_button_five:
+//                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+//                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedGlobalFive, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        selectedGlobalFive = which;
+//                    }
+//                });
+//                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (selectedGlobalFive == -1) {
+//                            return;
+//                        }
+//                        mGlobalOptionsFive.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedGlobalFive]);
+//                    }
+//                });
+//                break;
             case R.id.exit_survey_additional_button_familiar:
                 alertDialogBuilder.setTitle(getString(R.string.select_an_option));
                 alertDialogBuilder.setSingleChoiceItems(R.array.exit_survey_additional_question_familiar_options, selectedFamiliar, new DialogInterface.OnClickListener() {
@@ -1170,23 +1183,23 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     String[] dontKnowOptions = PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.exit_survey_additional_question_dont_understand_options);
 
     int selectedFamiliar = -1;
-    int selectedGlobalOne = -1;
-    int selectedGlobalTwo = -1;
-    int selectedGlobalThree = -1;
-    int selectedGlobalFour = -1;
-    int selectedGlobalFive = -1;
-    int selectedImproperOne = -1;
-    int selectedImproperTwo = -1;
-    int selectedImproperThree = -1;
+//    int selectedGlobalOne = -1;
+//    int selectedGlobalTwo = -1;
+//    int selectedGlobalThree = -1;
+//    int selectedGlobalFour = -1;
+//    int selectedGlobalFive = -1;
+//    int selectedImproperOne = -1;
+//    int selectedImproperTwo = -1;
+//    int selectedImproperThree = -1;
     int selectedSecondaryUseOne = -1;
     int selectedSecondaryUseTwo = -1;
     int selectedSecondaryUseThree = -1;
     int selectedSecondaryUseFour = -1;
-    int selectedSecondaryUseFive = -1;
-    int selectedErrorOne = -1;
-    int selectedErrorTwo = -1;
-    int selectedErrorThree = -1;
-    int selectedErrorFour = -1;
+//    int selectedSecondaryUseFive = -1;
+//    int selectedErrorOne = -1;
+//    int selectedErrorTwo = -1;
+//    int selectedErrorThree = -1;
+//    int selectedErrorFour = -1;
     int selectedCollectionOne = -1;
     int selectedCollectionTwo = -1;
     int selectedCollectionThree = -1;

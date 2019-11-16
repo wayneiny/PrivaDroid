@@ -432,139 +432,139 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exit_survey_error_card"
-                style="@style/Widget.MaterialComponents.CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/material_card_spacing"
-                android:layout_marginTop="@dimen/material_card_spacing"
-                android:layout_marginRight="@dimen/material_card_spacing"
-                card_view:cardElevation="10dp">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/exit_survey_error_card"-->
+<!--                style="@style/Widget.MaterialComponents.CardView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="@dimen/material_card_spacing"-->
+<!--                android:layout_marginTop="@dimen/material_card_spacing"-->
+<!--                android:layout_marginRight="@dimen/material_card_spacing"-->
+<!--                card_view:cardElevation="10dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_error_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_error_group"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_error_group"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_error_group"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_error_question_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_error_question_one"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_error_question_one"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_error_question_one"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_error_button_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_error_button_one"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_error_question_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_error_question_two"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_error_question_two"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_error_question_two"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_error_button_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_error_button_two"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_error_question_three"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_error_question_three"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_error_question_three"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_error_question_three"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_error_button_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_error_button_three"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_error_question_four"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_error_question_four"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_error_question_four"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_error_question_four"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_error_button_four"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
-                </LinearLayout>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_error_button_four"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
+<!--                </LinearLayout>-->
 
-            </com.google.android.material.card.MaterialCardView>
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/exit_survey_secondary_use_card"
@@ -697,302 +697,302 @@
                         android:layout_marginBottom="10dp"
                         android:text="@string/select_an_option"/>
 
-                    <TextView
-                        android:id="@+id/exit_survey_secondary_use_question_five"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_secondary_use_question_five"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_secondary_use_question_five"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_secondary_use_question_five"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_secondary_use_button_five"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_secondary_use_button_five"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exit_survey_improper_card"
-                style="@style/Widget.MaterialComponents.CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/material_card_spacing"
-                android:layout_marginTop="@dimen/material_card_spacing"
-                android:layout_marginRight="@dimen/material_card_spacing"
-                card_view:cardElevation="10dp">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/exit_survey_improper_card"-->
+<!--                style="@style/Widget.MaterialComponents.CardView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="@dimen/material_card_spacing"-->
+<!--                android:layout_marginTop="@dimen/material_card_spacing"-->
+<!--                android:layout_marginRight="@dimen/material_card_spacing"-->
+<!--                card_view:cardElevation="10dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_improper_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_improper_group"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_improper_group"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_improper_group"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_improper_question_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_improper_question_one"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_improper_question_one"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_improper_question_one"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_improper_button_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_improper_button_one"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_improper_question_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_improper_question_two"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_improper_question_two"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_improper_question_two"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_improper_button_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_improper_button_two"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_improper_question_three"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_improper_question_three"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_improper_question_three"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_improper_question_three"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_improper_button_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
-                </LinearLayout>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_improper_button_three"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
+<!--                </LinearLayout>-->
 
-            </com.google.android.material.card.MaterialCardView>
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/exit_survey_global_card"
-                style="@style/Widget.MaterialComponents.CardView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/material_card_spacing"
-                android:layout_marginTop="@dimen/material_card_spacing"
-                android:layout_marginRight="@dimen/material_card_spacing"
-                card_view:cardElevation="10dp">
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:id="@+id/exit_survey_global_card"-->
+<!--                style="@style/Widget.MaterialComponents.CardView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="@dimen/material_card_spacing"-->
+<!--                android:layout_marginTop="@dimen/material_card_spacing"-->
+<!--                android:layout_marginRight="@dimen/material_card_spacing"-->
+<!--                card_view:cardElevation="10dp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_group"
-                        android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_group"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_group"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="24sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_question_one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_question_one"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_question_one"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_question_one"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_global_button_one"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_global_button_one"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_question_two"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_question_two"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_question_two"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_question_two"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_global_button_two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_global_button_two"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_question_three"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_question_three"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_question_three"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_question_three"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_global_button_three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_global_button_three"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_question_four"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_question_four"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_question_four"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_question_four"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_global_button_four"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_global_button_four"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
 
-                    <TextView
-                        android:id="@+id/exit_survey_global_question_five"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="27dp"
-                        android:paddingTop="15dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/exit_survey_global_question_five"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/exit_survey_global_question_five"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:paddingStart="27dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:paddingEnd="20dp"-->
+<!--                        android:text="@string/exit_survey_global_question_five"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:textStyle="bold" />-->
 
-                    <com.google.android.material.button.MaterialButton
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:id="@+id/exit_survey_global_button_five"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="35dp"
-                        android:gravity="start|center_vertical"
-                        android:textColor="@color/black"
-                        android:textAllCaps="false"
-                        android:layout_marginTop="10dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/select_an_option"/>
-                </LinearLayout>
+<!--                    <com.google.android.material.button.MaterialButton-->
+<!--                        style="@style/Widget.MaterialComponents.Button.TextButton"-->
+<!--                        android:id="@+id/exit_survey_global_button_five"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginStart="35dp"-->
+<!--                        android:gravity="start|center_vertical"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:textSize="14sp"-->
+<!--                        android:layout_marginBottom="10dp"-->
+<!--                        android:text="@string/select_an_option"/>-->
+<!--                </LinearLayout>-->
 
-            </com.google.android.material.card.MaterialCardView>
+<!--            </com.google.android.material.card.MaterialCardView>-->
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/exit_survey_additional_card"
