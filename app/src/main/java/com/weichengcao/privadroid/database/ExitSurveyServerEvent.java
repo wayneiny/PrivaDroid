@@ -10,6 +10,7 @@ public class ExitSurveyServerEvent {
     private String controlOne;
     private String controlTwo;
     private String controlThree;
+    private String controlFour;
 
     public String getControlOne() {
         return controlOne;
@@ -21,6 +22,10 @@ public class ExitSurveyServerEvent {
 
     public String getControlThree() {
         return controlThree;
+    }
+
+    public String getControlFour() {
+        return controlFour;
     }
 
     private String awarenessOne;
@@ -161,7 +166,7 @@ public class ExitSurveyServerEvent {
     }
 
     public ExitSurveyServerEvent(String adId, String loggedTime,
-                                 String controlOne, String controlTwo, String controlThree,
+                                 String controlOne, String controlTwo, String controlThree, String controlFour,
                                  String awarenessOne, String awarenessTwo, String awarenessThree,
                                  String collectionOne, String collectionTwo, String collectionThree, String collectionFour,
                                  String errorOne, String errorTwo, String errorThree, String errorFour,
@@ -174,6 +179,7 @@ public class ExitSurveyServerEvent {
         this.controlOne = controlOne;
         this.controlTwo = controlTwo;
         this.controlThree = controlThree;
+        this.controlFour = controlFour;
         this.awarenessOne = awarenessOne;
         this.awarenessTwo = awarenessTwo;
         this.awarenessThree = awarenessThree;

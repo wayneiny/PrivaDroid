@@ -238,7 +238,7 @@ public class ExperimentEventFactory {
         return res;
     }
 
-    public static HashMap<String, String> createExitSurveyEvent(String controlOne, String controlTwo, String controlThree,
+    public static HashMap<String, String> createExitSurveyEvent(String controlOne, String controlTwo, String controlThree, String controlFour,
                                                                 String awarenessOne, String awarenessTwo, String awarenessThree,
                                                                 String collectionOne, String collectionTwo, String collectionThree, String collectionFour,
                                                                 String errorOne, String errorTwo, String errorThree, String errorFour,
@@ -251,6 +251,7 @@ public class ExperimentEventFactory {
         res.put(EventUtil.CONTROL_ONE, controlOne);
         res.put(EventUtil.CONTROL_TWO, controlTwo);
         res.put(EventUtil.CONTROL_THREE, controlThree);
+        res.put(EventUtil.CONTROL_FOUR, controlFour);
         res.put(EventUtil.AWARENESS_ONE, awarenessOne);
         res.put(EventUtil.AWARENESS_TWO, awarenessTwo);
         res.put(EventUtil.AWARENESS_THREE, awarenessThree);

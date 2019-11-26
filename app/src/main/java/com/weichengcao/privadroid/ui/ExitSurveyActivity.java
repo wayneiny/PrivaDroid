@@ -48,12 +48,12 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     TextView mAnsweredOn;
     MaterialButton mSubmit;
 
-    MaterialButton mControlOptionsOne, mControlOptionsTwo, mControlOptionsThree;
+    MaterialButton mControlOptionsOne, mControlOptionsTwo, mControlOptionsThree, mControlOptionsFour;
     MaterialButton mAwarenessOptionsOne, mAwarenessOptionsTwo, mAwarenessOptionsThree;
     MaterialButton mCollectionOptionsOne, mCollectionOptionsTwo, mCollectionOptionsThree, mCollectionOptionsFour;
-//    MaterialButton mErrorOptionsOne, mErrorOptionsTwo, mErrorOptionsThree, mErrorOptionsFour;
+    //    MaterialButton mErrorOptionsOne, mErrorOptionsTwo, mErrorOptionsThree, mErrorOptionsFour;
     MaterialButton mSecondaryUseOptionsOne, mSecondaryUseOptionsTwo, mSecondaryUseOptionsThree, mSecondaryUseOptionsFour;//, mSecondaryUseOptionsFive;
-//    MaterialButton mImproperOptionsOne, mImproperOptionsTwo, mImproperOptionsThree;
+    //    MaterialButton mImproperOptionsOne, mImproperOptionsTwo, mImproperOptionsThree;
 //    MaterialButton mGlobalOptionsOne, mGlobalOptionsTwo, mGlobalOptionsThree, mGlobalOptionsFour, mGlobalOptionsFive;
     MaterialButton mAdditionalOptionsFamiliar, mAdditionalOptionsDontUnderstand;
 
@@ -91,6 +91,8 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
         mControlOptionsTwo.setOnClickListener(this);
         mControlOptionsThree = findViewById(R.id.exit_survey_control_button_three);
         mControlOptionsThree.setOnClickListener(this);
+        mControlOptionsFour = findViewById(R.id.exit_survey_control_button_four);
+        mControlOptionsFour.setOnClickListener(this);
         mAwarenessOptionsOne = findViewById(R.id.exit_survey_awareness_button_one);
         mAwarenessOptionsOne.setOnClickListener(this);
         mAwarenessOptionsTwo = findViewById(R.id.exit_survey_awareness_button_two);
@@ -173,7 +175,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
 
                                     exitSurveyServerEvent = new ExitSurveyServerEvent(documentSnapshot.getString(EventUtil.USER_AD_ID),
                                             documentSnapshot.getString(EventUtil.LOGGED_TIME),
-                                            documentSnapshot.getString(EventUtil.CONTROL_ONE), documentSnapshot.getString(EventUtil.CONTROL_TWO), documentSnapshot.getString(EventUtil.CONTROL_THREE),
+                                            documentSnapshot.getString(EventUtil.CONTROL_ONE), documentSnapshot.getString(EventUtil.CONTROL_TWO), documentSnapshot.getString(EventUtil.CONTROL_THREE), documentSnapshot.getString(EventUtil.CONTROL_FOUR),
                                             documentSnapshot.getString(EventUtil.AWARENESS_ONE), documentSnapshot.getString(EventUtil.AWARENESS_TWO), documentSnapshot.getString(EventUtil.AWARENESS_THREE),
                                             documentSnapshot.getString(EventUtil.COLLECTION_ONE), documentSnapshot.getString(EventUtil.COLLECTION_TWO), documentSnapshot.getString(EventUtil.COLLECTION_THREE), documentSnapshot.getString(EventUtil.COLLECTION_FOUR),
                                             documentSnapshot.getString(EventUtil.ERROR_ONE), documentSnapshot.getString(EventUtil.ERROR_TWO), documentSnapshot.getString(EventUtil.ERROR_THREE), documentSnapshot.getString(EventUtil.ERROR_FOUR),
@@ -192,6 +194,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_control_button_one);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_control_button_two);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_control_button_three);
+                                    setUpAnswerBasedOnButtonId(R.id.exit_survey_control_button_four);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_awareness_button_one);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_awareness_button_two);
                                     setUpAnswerBasedOnButtonId(R.id.exit_survey_awareness_button_three);
@@ -262,6 +265,8 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             showQuestionOptionsDialog(R.id.exit_survey_control_button_two);
         } else if (v == mControlOptionsThree) {
             showQuestionOptionsDialog(R.id.exit_survey_control_button_three);
+        } else if (v == mControlOptionsFour) {
+            showQuestionOptionsDialog(R.id.exit_survey_control_button_four);
         } else if (v == mAwarenessOptionsOne) {
             showQuestionOptionsDialog(R.id.exit_survey_awareness_button_one);
         } else if (v == mAwarenessOptionsTwo) {
@@ -335,6 +340,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                 if (!validateAnswerBasedOnQuestionId(R.id.exit_survey_control_question_one) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_control_question_two) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_control_question_three) ||
+                        !validateAnswerBasedOnQuestionId(R.id.exit_survey_control_question_four) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_awareness_question_one) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_awareness_question_two) ||
                         !validateAnswerBasedOnQuestionId(R.id.exit_survey_awareness_question_three) ||
@@ -392,6 +398,10 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             case R.id.exit_survey_control_question_three:
                 question = findViewById(R.id.exit_survey_control_question_three);
                 button = findViewById(R.id.exit_survey_control_button_three);
+                break;
+            case R.id.exit_survey_control_question_four:
+                question = findViewById(R.id.exit_survey_control_question_four);
+                button = findViewById(R.id.exit_survey_control_button_four);
                 break;
             case R.id.exit_survey_awareness_question_one:
                 question = findViewById(R.id.exit_survey_awareness_question_one);
@@ -522,6 +532,9 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
             case R.id.exit_survey_control_button_three:
                 button.setText(exitSurveyServerEvent.getControlThree());
                 break;
+            case R.id.exit_survey_control_button_four:
+                button.setText(exitSurveyServerEvent.getControlFour());
+                break;
             case R.id.exit_survey_awareness_button_one:
                 button.setText(exitSurveyServerEvent.getAwarenessOne());
                 break;
@@ -622,13 +635,13 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     @Override
     public HashMap<String, String> gatherResponse() {
         return ExperimentEventFactory.createExitSurveyEvent(
-                mControlOptionsOne.getText().toString(), mControlOptionsTwo.getText().toString(), mControlOptionsThree.getText().toString(),
+                mControlOptionsOne.getText().toString(), mControlOptionsTwo.getText().toString(), mControlOptionsThree.getText().toString(), mControlOptionsFour.getText().toString(),
                 mAwarenessOptionsOne.getText().toString(), mAwarenessOptionsTwo.getText().toString(), mAwarenessOptionsThree.getText().toString(),
                 mCollectionOptionsOne.getText().toString(), mCollectionOptionsTwo.getText().toString(), mCollectionOptionsThree.getText().toString(), mCollectionOptionsFour.getText().toString(),
                 null, null, null, null,
                 mSecondaryUseOptionsOne.getText().toString(), mSecondaryUseOptionsTwo.getText().toString(), mSecondaryUseOptionsThree.getText().toString(), mSecondaryUseOptionsFour.getText().toString(), null,
                 null, null, null,
-                null,null, null, null, null,
+                null, null, null, null, null,
                 mAdditionalOptionsFamiliar.getText().toString(), mAdditionalOptionsDontUnderstand.getText().toString());
     }
 
@@ -688,6 +701,24 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
                             return;
                         }
                         mControlOptionsThree.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedControlThree]);
+                    }
+                });
+                break;
+            case R.id.exit_survey_control_button_four:
+                alertDialogBuilder.setTitle(getString(R.string.select_an_option));
+                alertDialogBuilder.setSingleChoiceItems(R.array.uipc_question_options, selectedControlFour, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selectedControlFour = which;
+                    }
+                });
+                alertDialogBuilder.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (selectedControlFour == -1) {
+                            return;
+                        }
+                        mControlOptionsFour.setText(getResources().getStringArray(R.array.uipc_question_options)[selectedControlFour]);
                     }
                 });
                 break;
@@ -1183,7 +1214,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     String[] dontKnowOptions = PrivaDroidApplication.getAppContext().getResources().getStringArray(R.array.exit_survey_additional_question_dont_understand_options);
 
     int selectedFamiliar = -1;
-//    int selectedGlobalOne = -1;
+    //    int selectedGlobalOne = -1;
 //    int selectedGlobalTwo = -1;
 //    int selectedGlobalThree = -1;
 //    int selectedGlobalFour = -1;
@@ -1195,7 +1226,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     int selectedSecondaryUseTwo = -1;
     int selectedSecondaryUseThree = -1;
     int selectedSecondaryUseFour = -1;
-//    int selectedSecondaryUseFive = -1;
+    //    int selectedSecondaryUseFive = -1;
 //    int selectedErrorOne = -1;
 //    int selectedErrorTwo = -1;
 //    int selectedErrorThree = -1;
@@ -1207,6 +1238,7 @@ public class ExitSurveyActivity extends AppCompatActivity implements BaseSurveyA
     int selectedControlOne = -1;
     int selectedControlTwo = -1;
     int selectedControlThree = -1;
+    int selectedControlFour = -1;
     int selectedAwarenessOne = -1;
     int selectedAwarenessTwo = -1;
     int selectedAwarenessThree = -1;

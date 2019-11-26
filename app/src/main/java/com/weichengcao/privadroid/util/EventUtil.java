@@ -154,6 +154,7 @@ public class EventUtil {
     public static final String CONTROL_ONE = "control_q1";
     public static final String CONTROL_TWO = "control_q2";
     public static final String CONTROL_THREE = "control_q3";
+    public static final String CONTROL_FOUR = "control_q4";
     public static final String AWARENESS_ONE = "awareness_q1";
     public static final String AWARENESS_TWO = "awareness_q2";
     public static final String AWARENESS_THREE = "awareness_q3";

@@ -823,13 +823,16 @@
     <string name="exit_survey_screen_title">Exit Survey</string>
     <string name="exit_survey_control_group">Control</string>
     <string name="exit_survey_control_question_one">
-        1. Mobile app privacy is about a user right to exercise control over decisions about how their information is collected, used, and shared.
+        1. Mobile app privacy is about a user\’s right to exercise control over decisions about how their information is collected, used, and shared.
     </string>
     <string name="exit_survey_control_question_two">
-        2. Consumer control of personal information is essential to mobile app privacy.
+        2. User control of personal information is essential to mobile app privacy.
     </string>
     <string name="exit_survey_control_question_three">
-        3. I don\’t believe that mobile app privacy is compromised when the user loses control over their information as a result of an app usage.
+        3. I believe that mobile app privacy is compromised when the user loses control over their information as a result of app usage.
+    </string>
+    <string name="exit_survey_control_question_four_attention_checking">
+        4. I\’m not concerned that smartphone apps are collecting too much personal information about me.
     </string>
     <string name="exit_survey_awareness_group">Awareness of privacy practices</string>
     <string name="exit_survey_awareness_question_one">
@@ -839,7 +842,7 @@
         2. A good mobile app privacy policy should have a clear and conspicuous disclosure.
     </string>
     <string name="exit_survey_awareness_question_three">
-        3. It is not very important to me that I am aware and knowledgeable about how my personal information will be used.
+        3. It is very important to me that I am aware and knowledgeable about how my personal information will be used.
     </string>
     <string name="exit_survey_collection_group">Collection</string>
     <string name="exit_survey_collection_question_one">
@@ -852,7 +855,7 @@
         3. It bothers me to give personal information to so many mobile apps.
     </string>
     <string name="exit_survey_collection_question_four">
-        4. I\’m not concerned that smartphone apps are collecting too much personal information about me.
+        4. I\’m concerned that smartphone apps are collecting too much personal information about me.
     </string>
 <!--    <string name="exit_survey_error_group">Error</string>-->
 <!--    <string name="exit_survey_error_question_one">-->
@@ -875,7 +878,7 @@
         2. When people give personal information to a mobile app for some reason, the app developer should never use the information for any other reason.
     </string>
     <string name="exit_survey_secondary_use_question_three">
-        3. Mobile app developers should be allowed to sell the personal information in their computer databases to other companies.
+        3. Mobile app developers should never sell the personal information in their computer databases to other companies.
     </string>
     <string name="exit_survey_secondary_use_question_four">
         4. Mobile app developers should never share personal information with other companies unless it has been authorized by the individual who provided the information.
