@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exit_survey_control_question_four_attention_checking">
+        4. I\’m not concerned that smartphone apps are collecting too much personal information about me.
+    </string>
+
+    <string-array name="app_uninstall_options_why">
+        <item>I no longer use the app</item>
+        <item>To free up space or speed up my device</item>
+        <item>I didn\’t like the app</item>
+        <item>The app is not working as expected</item>
+        <item>The app is crashing/very slow</item>
+        <item>Because of advertisements in the app</item>
+        <item>Because of in-app purchases</item>
+        <item>The app required permissions I wasn\’t comfortable granting</item>
+        <item>None</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="app_uninstall_options_permission_remembered_requested">
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t remember</item>
+    </string-array>
+
+    <string-array name="permission_grant_options_why">
+        <item>I want to use a feature that needs this permission</item>
+        <item>I trust the developer</item>
+        <item>I think the app won\’t work otherwise</item>
+        <item>I have nothing to hide</item>
+        <item>The developer already has this information about me</item>
+        <item>I want the permission screen to go away</item>
+        <item>Because the app is popular</item>
+        <item>The app gave an explanation that made sense</item>
+        <item>None</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="permission_grant_options_temporary">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="permission_grant_options_reminder">
+        <item>No</item>
+        <item>In 1 hour</item>
+        <item>In 2 hours</item>
+        <item>In 4 hours</item>
+        <item>In 8 hours</item>
+        <item>In 24 hours</item>
+    </string-array>
+
+    <string-array name="permission_deny_options_why">
+        <item>I think the app shouldn\’t need this permission</item>
+        <item>I can always grant it afterwards if I change my mind</item>
+        <item>I do not use the specific feature associated with the permission</item>
+        <item>I consider the permission to be very sensitive</item>
+        <item>I don\’t trust the developer</item>
+        <item>I wanted the permission screen to go away</item>
+        <item>The app gave a poor explanation</item>
+        <item>I think something bad might happen</item>
+        <item>None</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="permission_options_expect_request">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="permission_options_comfortable">
+        <item>Very uncomfortable</item>
+        <item>Somewhat uncomfortable</item>
+        <item>Neutral</item>
+        <item>Somewhat comfortable</item>
+        <item>Very comfortable</item>
+    </string-array>
+
+    <string-array name="app_install_options_why">
+        <item>I want to try it out</item>
+        <item>The app is useful</item>
+        <item>The app is part of a product/service I use</item>
+        <item>The app is cool or fun to use</item>
+        <item>I trust the app or the company making the app</item>
+        <item>My friends/family use it</item>
+        <item>It was the only app of its kind (no other apps provide the same functionality)</item>
+        <item>I was required to install it</item>
+        <item>I was offered something in return (e.g. credits, monetary rewards, discount)</item>
+        <item>The app has fewer permissions than other apps like it</item>
+        <item>None</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="app_install_options_factors">
+        <item>App rating</item>
+        <item>App popularity</item>
+        <item>Individual user reviews</item>
+        <item>Requested permission</item>
+        <item>The company creating the app</item>
+        <item>The app is free / price is reasonable</item>
+        <item>App functionality</item>
+        <item>None</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="app_install_options_know_permission">
+        <item>Yes</item>
+        <item>No</item>
+        <item>Not sure</item>
+    </string-array>
+
+    <string-array name="app_install_options_which_permission_think">
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t know</item>
+    </string-array>
+
+    <string-array name="demographic_age_options">
+        <item>Select an option</item>
+        <item>Below 20</item>
+        <item>Between 20 and 30</item>
+        <item>Between 30 and 40</item>
+        <item>Between 40 and 50</item>
+        <item>Between 50 and 60</item>
+        <item>Above 60</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_gender_options">
+        <item>Select an option</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_income_options">
+        <item>Select an option</item>
+        <item>$0</item>
+        <item>$1 - $9999</item>
+        <item>$10000 - $24999</item>
+        <item>$25000 - $49999</item>
+        <item>$50000 - $74999</item>
+        <item>$75000 - $99999</item>
+        <item>$100000 - $149999</item>
+        <item>$150000 and above</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_education_options">
+        <item>Select an option</item>
+        <item>Less than a high school diploma</item>
+        <item>High school degree or equivalent</item>
+        <item>Bachelor\'s degree (e.g. BA, BS)</item>
+        <item>Master\'s degree (e.g. MA, MS)</item>
+        <item>Doctorate (e.g. PhD)</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_industry_options">
+        <item>Select an option</item>
+        <item>Agriculture, Forestry, Fishing and Hunting</item>
+        <item>Arts, Entertainment, and Recreation</item>
+        <item>College, University, and Adult Education</item>
+        <item>Computer and Electronics Manufacturing</item>
+        <item>Construction</item>
+        <item>Finance and Insurance</item>
+        <item>Government and Public Administration</item>
+        <item>Health Care and Social Assistance</item>
+        <item>Hotel and Food Services</item>
+        <item>Legal Services</item>
+        <item>Manufacturing</item>
+        <item>Others</item>
+        <item>Real Estate, Rental and Leasing</item>
+        <item>Retail</item>
+        <item>Scientific or Technical Services</item>
+        <item>Software</item>
+        <item>Transportation and Warehousing</item>
+        <item>Unemployed</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_status_options">
+        <item>Select an option</item>
+        <item>Employed full time (40 or more hours per week)</item>
+        <item>Employed part time (up to 39 hours per week)</item>
+        <item>Unemployed and currently looking for work</item>
+        <item>Unemployed and not currently looking for work</item>
+        <item>Student</item>
+        <item>Retired</item>
+        <item>Self-employed</item>
+        <item>Unable to work</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="demographic_usage_options">
+        <item>Select an option</item>
+        <item>Less than an hour</item>
+        <item>Between 1 and 2 hours</item>
+        <item>Between 2 and 3 hours</item>
+        <item>Between 3 and 4 hours</item>
+        <item>Between 4 and 5 hours</item>
+        <item>Between 5 and 6 hours</item>
+        <item>Over 6 hours</item>
+        <item>Prefer not to say</item>
+    </string-array>
+
+    <string-array name="android_permission_categories">
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Storage</item>
+        <item>Body Sensors</item>
+        <item>Calendar</item>
+        <item>SMS</item>
+        <item>Call Logs</item>
+    </string-array>
+
+    <string-array name="proactive_permission_request_dialog_grant_button_texts">
+        <item>allow</item>
+        <item>accept</item>
+        <item>continue</item>
+        <item>enable</item>
+        <item>grant</item>
+        <item>got it</item>
+        <item>ok</item>
+        <item>okay</item>
+        <item>permit</item>
+        <item>set up</item>
+        <item>setup</item>
+        <item>sounds good</item>
+        <item>sure</item>
+        <item>turn on</item>
+    </string-array>
+
+    <string-array name="proactive_permission_request_dialog_deny_button_texts">
+        <item>cancel</item>
+        <item>deny</item>
+        <item>decline</item>
+        <item>deny anyway</item>
+        <item>discard</item>
+        <item>done</item>
+        <item>don\'t allow</item>
+        <item>exit</item>
+        <item>ignore</item>
+        <item>later</item>
+        <item>no</item>
+        <item>not now</item>
+        <item>no thanks</item>
+        <item>maybe later</item>
+        <item>set up later</item>
+        <item>setup later</item>
+        <item>skip</item>
+    </string-array>
+
+    <string-array name="permission_related_keywords">
+        <item>body sensors</item>
+        <item>camera</item>
+        <item>calendar</item>
+        <item>call logs</item>
+        <item>contacts</item>
+        <item>device</item>
+        <item>file</item>
+        <item>location</item>
+        <item>microphone</item>
+        <item>permission</item>
+        <item>phone</item>
+        <item>storage</item>
+        <item>sms</item>
+        <item>photo</item>
+        <item>picture</item>
+        <item>video</item>
+        <item>voice</item>
+        <item>message</item>
+    </string-array>
+
+    <string-array name="permission_action_related_keywords">
+        <item>allow</item>
+        <item>access</item>
+        <item>control</item>
+        <item>confidential</item>
+        <item>check</item>
+        <item>enable</item>
+        <item>import</item>
+        <item>grant</item>
+        <item>misuse</item>
+        <item>must</item>
+        <item>need</item>
+        <item>purpose</item>
+        <item>promise</item>
+        <item>require</item>
+        <item>share</item>
+        <item>turn on</item>
+        <item>upload</item>
+        <item>use</item>
+        <item>using</item>
+        <item>would not work</item>
+        <item>wouldn\'t work</item>
+        <item>will not work</item>
+        <item>won\'t work</item>
+    </string-array>
+
+
+    <string name="exit_survey_control_question_three">
+        3. I believe that mobile app privacy is compromised when the user loses control over their information as a result of app usage.
+    </string>
+
+
+    <string name="exit_survey_awareness_question_three">
+        3. It is very important to me that I am aware and knowledgeable about how my personal information will be used.
+    </string>
+
+
+    <string name="exit_survey_collection_question_four">
+        4. I\’m concerned that smartphone apps are collecting too much personal information about me.
+    </string>
+
+
+    <string name="exit_survey_secondary_use_question_three">
+        3. Mobile app developers should never sell the personal information in their computer databases to other companies.
+    </string>
+</resources>

@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string description="App name. Don't need to translate." name="appName">PrivaDroid - UofT</string>
+    <string description="Facebook App ID." name="facebook_app_id">905466186491599</string>
+
+    <string description="Congratulation message." name="congratulations">¡Enhorabuena!</string>
+    <string description="Tell users to enable accessibility and app usage in set up screen." name="finish_setting_up_accessibility_and_app_usage">Termina de configurar los servicios de accesibilidad y uso para utilizar la aplicación.</string>
+    <string description="Error message when user failed to join the experiment." name="failed_to_join_make_sure_network">No se ha podido establecer la conexión. Asegúrate de estar conectado a internet.</string>
+
+    <string description="User needs to agree to the terms to proceed." name="agree_to_terms">Acepta los términos anteriores</string>
+    <string description="Continue button" name="continue_app_settings_button">Continuar</string>
+    <string description="Submit button" name="submit">Enviar</string>
+    <string description="Terms title" name="terms_title">Condiciones</string>
+
+    <string description="skip button" name="skip_tutorial">Omitir</string>
+    <string description="start button" name="join_app">Comenzar</string>
+    <string description="set up button" name="set_up">Preparar</string>
+    <string description="ok button" name="ok">De acuerdo</string>
+    <string description="done button" name="done">Hecho</string>
+
+    <string description="'How to use' tutorial card title" name="tutorial_how_title">¿Cómo se usa?</string>
+    <string description="How to use the application description" name="tutorial_how_description">La pestaña Instalación de aplicaciones muestra una lista de aplicaciones que se instalaron después de instalar PrivaDroid. Del mismo modo, la pestaña Desinstalación de aplicaciones muestra una lista de aplicaciones que se desinstalaron. La pantalla de permisos contiene las autorizaciones/denegaciones que otorgaste a las solicitudes de permisos. Puedes enviar una encuesta demográfica y ver tu ID de anuncio, fecha de ingreso y estado de recompensas en la pestaña Perfil.</string>
+
+    <string description="Accessibility service card title" name="tutorial_accessibility_service_title">Servicio de accesibilidad</string>
+    <string description="Why accessibility service is needed" name="tutorial_accessibility_service_description">El servicio de accesibilidad es obligatorio y se utiliza cuando la aplicación necesita leer el nombre del permiso y si otorgas/rechazas la solicitud de permiso de una aplicación. Por ejemplo, la aplicación Cámara te solicita acceso a la Ubicación a través de un cuadro de diálogo y PrivaDroid leerá el permiso solicitado (Ubicación) y si lo autorizaste/denegaste (Permitir/Denegar).</string>
+    <string description="Message shown to the user when toggling the accessibility permission for PrivaDroid" name="accessibility_rationale">Este permiso es necesario para que PrivaDroid pueda leer el nombre del permiso en la pantalla y detectar eventos de clic al autorizar/denegar solicitudes de permiso.</string>
+
+    <string description="App usage card title" name="tutorial_app_usage_title">Acceso al uso de la aplicación</string>
+    <string description="Why app access is needed" name="tutorial_app_usage_description">El acceso de uso permite a PrivaDroid rastrear qué otras aplicaciones estás utilizando y con qué frecuencia, así como tu operador, la configuración de idioma y otros detalles.</string>
+
+    <string name="community">Comunidad</string>
+    <string name="permission">Permiso</string>
+    <string name="app_uninstall">Desinstalar la aplicación</string>
+    <string name="app_install">Instalar aplicación</string>
+    <string name="profile">Perfil</string>
+
+    <string name="profile_screen_title">Perfil</string>
+    <string name="your_id">Nombre de usuario de PrivaDroid</string>
+    <string name="join_date">Fecha de Ingreso</string>
+    <string name="last_heartbeat">Recordatorio del último latido del corazón</string>
+    <string name="last_demographic">Último recordatorio demográfico</string>
+
+    <string name="app_install_screen_title">Instalar aplicación</string>
+    <string name="app_uninstall_screen_title">Desinstalar la aplicación</string>
+    <string name="community_screen_title">Comunidad</string>
+    <string name="permission_screen_title">Permiso</string>
+    <string name="surveyed">Encuestado</string>
+    <string name="surveyed_events">Eventos encuestados</string>
+    <string name="unsurveyed">Sin encuesta</string>
+    <string name="unsurveyed_events">Eventos no encuestados</string>
+    <string name="summary">Resumen</string>
+    <string name="view_data">Ver datos</string>
+    <string name="demographic_screen_title">Encuesta demográfica</string>
+    <string name="rewards_screen_title">Recompensas</string>
+    <string description="Let user enter email or bitcoin account to receive reward" name="rewards_method_question">A continuación, ingresa tu dirección de correo electrónico de PayPal o la dirección del monedero de Bitcoin con la que deseas recibir la recompensa:</string>
+    <string name="rewards_method_hint">Correo electrónico de PayPal o monedero Bitcoin</string>
+    <string name="rewards_method_confirm">Confirma tu correo electrónico o monedero</string>
+    <string name="rewards_method_not_match_error">Los valores de correo electrónico/monedero no coinciden.</string>
+    <string name="rewards_complete_join_date_text">Te unes al experimento en %1$s.</string>
+    <string name="rewards_join_date_invalid_contact_team">Fecha de ingreso inválida. Por favor contacta a nuestro equipo.</string>
+    <string name="rewards_days_left_text">%1$s días hasta recompensas.</string>
+    <string name="rewards_invalid_method">valor no válido</string>
+
+    <string name="surveyed_events_activity_title">Eventos encuestados</string>
+    <string name="unsurveyed_events_activity_title">Eventos no encuestados</string>
+
+    <plurals name="number_of_app_install_surveyed_events_card_description">
+        <item quantity="one">Tienes %d evento de instalación de la aplicación encuestado.</item>
+        <item quantity="other">Tienes %d eventos de instalación de aplicaciones encuestados.</item>
+    </plurals>
+
+    <plurals name="number_of_app_install_unsurveyed_events_card_description">
+        <item quantity="one">Tienes %d evento de instalación de aplicación no encuestado.</item>
+        <item quantity="other">Tienes %d eventos de instalación de aplicaciones no encuestados.</item>
+    </plurals>
+
+    <plurals name="number_of_app_uninstall_surveyed_events_card_description">
+        <item quantity="one">Tienes %d evento de desinstalación de aplicación encuestado.</item>
+        <item quantity="other">Tienes %d eventos de desinstalación de aplicaciones encuestados.</item>
+    </plurals>
+
+    <plurals name="number_of_app_uninstall_unsurveyed_events_card_description">
+        <item quantity="one">Tienes %d evento de desinstalación de aplicación no encuestado.</item>
+        <item quantity="other">Tienes %d eventos de desinstalación de aplicaciones no encuestados.</item>
+    </plurals>
+
+    <plurals name="number_of_permission_unsurveyed_events_card_description">
+        <item quantity="one">Tienes %d evento de solicitud de permiso no encuestado.</item>
+        <item quantity="other">Tienes %d eventos de solicitud de permiso no encuestados.</item>
+    </plurals>
+
+    <plurals name="number_of_permission_surveyed_events_card_description">
+        <item quantity="one">Tiene %d evento de solicitud de permiso encuestado.</item>
+        <item quantity="other">Tiene %d eventos de solicitud de permiso encuestados.</item>
+    </plurals>
+
+    <string name="empty"/>
+
+    <string description="format text for app install question" name="why_install_app_on_date_list_item_description">¿Por qué instalaste %1$s en %2$s?</string>
+    <string description="format text for app uninstall question" name="why_uninstall_app_on_date_list_item_description">¿Por qué desinstalaste %1$s en %2$s?</string>
+    <string description="format text for app install short question" name="why_install_app_description">¿Por qué instalaste %1$s?</string>
+    <string description="format text for app uninstall short question" name="why_uninstall_app_description">¿Por qué desinstalaste %1$s?</string>
+    <string description="Permission name of app name format text" name="permission_app_name_list_item_title">Permiso  solicitado por %2$s aplicación</string>
+    <string description="permission grant format question" name="why_grant_permission_for_app_description">¿Por qué concediste el permiso %1$s a la aplicación %2$s en %3$s?</string>
+    <string description="permission deny format question" name="why_deny_permission_for_app_description">¿Por qué denegaste el permiso %1$s a la aplicación %2$s en %3$s?</string>
+    <string name="why_always_grant_permission_for_app_description">¿Por qué decidiste otorgar siempre el permiso %1$s a la aplicación %2$s en %3$s?</string>
+    <string name="why_only_foreground_permission_for_app_description">¿Por qué decidiste permitir solo el permiso en primer plano %1$s para la aplicación %2$s en %3$s?</string>
+
+    <!--  App uninstall survey questions  -->
+    <string description="app uninstall survey question why" name="app_uninstall_question_why">1. ¿Por qué desinstalaste la aplicación?</string>
+    <array name="app_uninstall_options_why">
+        <item>I no longer use the app</item>
+        <item>To free up space or speed up my device</item>
+        <item>I didn\’t like the app</item>
+        <item>The app is not working as expected</item>
+        <item>The app is crashing/very slow</item>
+        <item>Because of advertisements in the app</item>
+        <item>Because of in-app purchases</item>
+        <item>The app required permissions I wasn\’t comfortable granting</item>
+        <item>None</item>
+        <item>Other</item>
+    </array>
+
+    <string description="app uninstall survey question remember" name="app_uninstall_question_permission_remembered_requested">2. ¿Recuerdas si la aplicación requiere alguno de los siguientes permisos?</string>
+    <array name="app_uninstall_options_permission_remembered_requested">
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t remember</item>
+    </array>
+
+    <!--  Permission survey questions  -->
+    <string description="permission grant survey event why" name="permission_grant_question_why">1. ¿Por qué concediste la solicitud de permiso?</string>
+    <array name="permission_grant_options_why">
+        <item>I want to use a feature that needs this permission</item>
+        <item>I trust the developer</item>
+        <item>I think the app won\’t work otherwise</item>
+        <item>I have nothing to hide</item>
+        <item>The developer already has this information about me</item>
+        <item>I want the permission screen to go away</item>
+        <item>Because the app is popular</item>
+        <item>The app gave an explanation that made sense</item>
+        <item>None</item>
+        <item>Other</item>
+    </array>
+
+    <string name="permission_grant_question_temporary">4. ¿Deseas otorgar el permiso temporalmente?</string>
+    <array name="permission_grant_options_temporary">
+        <item>Yes</item>
+        <item>No</item>
+    </array>
+
+    <string name="permission_grant_question_reminder">5. ¿Te gustaría recibir una notificación que te recuerde deshabilitar este permiso más adelante?</string>
+    <array name="permission_grant_options_reminder">
+        <item>No</item>
+        <item>In 1 hour</item>
+        <item>In 2 hours</item>
+        <item>In 4 hours</item>
+        <item>In 8 hours</item>
+        <item>In 24 hours</item>
+    </array>
+    <string name="revoke_permission_reminder_regex">En (.) Hora</string>
+
+    <string description="permission deny survey event why" name="permission_deny_question_why">1. ¿Por qué denegaste la solicitud de permiso?</string>
+    <array name="permission_deny_options_why">
+        <item>I think the app shouldn\’t need this permission</item>
+        <item>I can always grant it afterwards if I change my mind</item>
+        <item>I do not use the specific feature associated with the permission</item>
+        <item>I consider the permission to be very sensitive</item>
+        <item>I don\’t trust the developer</item>
+        <item>I wanted the permission screen to go away</item>
+        <item>The app gave a poor explanation</item>
+        <item>I think something bad might happen</item>
+        <item>None</item>
+        <item>Other</item>
+    </array>
+
+    <string description="permission why requested question" name="permission_question_expect_request">2. ¿Esperabas que la aplicación solicitara este permiso?</string>
+    <array name="permission_options_expect_request">
+        <item>Yes</item>
+        <item>No</item>
+    </array>
+
+    <string description="comfort level granting question" name="permission_grant_question_comfortable">3. ¿Qué tan cómodo te sientes al otorgar esta solicitud de permiso?</string>
+    <string description="comfort level denying question" name="permission_deny_question_comfortable">3. ¿Qué tan cómodo te sientes al negar esta solicitud de permiso?</string>
+    <array name="permission_options_comfortable">
+        <item>Very uncomfortable</item>
+        <item>Somewhat uncomfortable</item>
+        <item>Neutral</item>
+        <item>Somewhat comfortable</item>
+        <item>Very comfortable</item>
+    </array>
+
+    <!--  App install survey questions  -->
+    <string description="why install question" name="app_install_question_why">1. ¿Por qué instalaste la aplicación?</string>
+    <array name="app_install_options_why">
+        <item>I want to try it out</item>
+        <item>The app is useful</item>
+        <item>The app is part of a product/service I use</item>
+        <item>The app is cool or fun to use</item>
+        <item>I trust the app or the company making the app</item>
+        <item>My friends/family use it</item>
+        <item>It was the only app of its kind (no other apps provide the same functionality)</item>
+        <item>I was required to install it</item>
+        <item>I was offered something in return (e.g. credits, monetary rewards, discount)</item>
+        <item>The app has fewer permissions than other apps like it</item>
+        <item>None</item>
+        <item>Other</item>
+    </array>
+
+    <string description="factors of install question" name="app_install_question_factors">2. ¿Qué factores influyeron en tu decisión de instalar la aplicación?</string>
+    <array name="app_install_options_factors">
+        <item>App rating</item>
+        <item>App popularity</item>
+        <item>Individual user reviews</item>
+        <item>Requested permission</item>
+        <item>The company creating the app</item>
+        <item>The app is free / price is reasonable</item>
+        <item>App functionality</item>
+        <item>None</item>
+        <item>Other</item>
+    </array>
+
+    <string description="any permission required by user question" name="app_install_question_know_permission">3. ¿Sabes qué permisos requiere esta aplicación?</string>
+    <array name="app_install_options_know_permission">
+        <item>Yes</item>
+        <item>No</item>
+        <item>Not sure</item>
+    </array>
+
+    <string description="permissions required by user question" name="app_install_question_which_permission_think">4. ¿Cuál de los siguientes permisos crees que requiere la aplicación?</string>
+    <array name="app_install_options_which_permission_think">
+        <item>Calendar</item>
+        <item>Call Log</item>
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Sensors</item>
+        <item>SMS</item>
+        <item>Storage</item>
+        <item>None</item>
+        <item>I don\'t know</item>
+    </array>
+
+    <!--  Survey question select an option  -->
+    <string name="select_an_option">Selecciona una opción</string>
+
+    <!--  Demographic questions  -->
+    <string name="demographic_question_age">1. ¿Cuál es tu edad?</string>
+    <array name="demographic_age_options">
+        <item>Select an option</item>
+        <item>Below 20</item>
+        <item>Between 20 and 30</item>
+        <item>Between 30 and 40</item>
+        <item>Between 40 and 50</item>
+        <item>Between 50 and 60</item>
+        <item>Above 60</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_gender">2. ¿Cuál es tu género?</string>
+    <array name="demographic_gender_options">
+        <item>Select an option</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_country">3. ¿En qué país vives?</string>
+    <array name="demographic_country_options">
+        <item>Select an option</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Antigua &amp; Deps</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Azerbaijan</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>Brunei</item>
+        <item>Bulgaria</item>
+        <item>Burkina</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Cape Verde</item>
+        <item>Central African Rep</item>
+        <item>Chad</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo</item>
+        <item>Congo {Democratic Rep}</item>
+        <item>Costa Rica</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>East Timor</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Gabon</item>
+        <item>Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Greece</item>
+        <item>Grenada</item>
+        <item>Guatemala</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Ireland {Republic}</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Ivory Coast</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kiribati</item>
+        <item>Korea North</item>
+        <item>Korea South</item>
+        <item>Kosovo</item>
+        <item>Kuwait</item>
+        <item>Kyrgyzstan</item>
+        <item>Laos</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Macedonia</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Maldives</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Marshall Islands</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mexico</item>
+        <item>Micronesia</item>
+        <item>Moldova</item>
+        <item>Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Myanmar, {Burma}</item>
+        <item>Namibia</item>
+        <item>Nauru</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pakistan</item>
+        <item>Palau</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russian Federation</item>
+        <item>Rwanda</item>
+        <item>St Kitts &amp; Nevis</item>
+        <item>St Lucia</item>
+        <item>Saint Vincent &amp; the Grenadines</item>
+        <item>Samoa</item>
+        <item>San Marino</item>
+        <item>Sao Tome &amp; Principe</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>South Africa</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>Taiwan</item>
+        <item>Tajikistan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Togo</item>
+        <item>Tonga</item>
+        <item>Trinidad &amp; Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turkmenistan</item>
+        <item>Tuvalu</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>United Kingdom</item>
+        <item>United States</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Vanuatu</item>
+        <item>Vatican City</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_income">4. ¿Cuál es tu nivel de ingresos en USD?</string>
+    <array name="demographic_income_options">
+        <item>Select an option</item>
+        <item>$0</item>
+        <item>$1 - $9999</item>
+        <item>$10000 - $24999</item>
+        <item>$25000 - $49999</item>
+        <item>$50000 - $74999</item>
+        <item>$75000 - $99999</item>
+        <item>$100000 - $149999</item>
+        <item>$150000 and above</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_education">5. ¿Cuál es el grado o nivel de estudios más alto que has completado?</string>
+    <array name="demographic_education_options">
+        <item>Select an option</item>
+        <item>Less than a high school diploma</item>
+        <item>High school degree or equivalent</item>
+        <item>Bachelor\'s degree (e.g. BA, BS)</item>
+        <item>Master\'s degree (e.g. MA, MS)</item>
+        <item>Doctorate (e.g. PhD)</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_industry">6. ¿Cuál de las siguientes categorías describe mejor la industria en la que trabajas principalmente?</string>
+    <array name="demographic_industry_options">
+        <item>Select an option</item>
+        <item>Agriculture, Forestry, Fishing and Hunting</item>
+        <item>Arts, Entertainment, and Recreation</item>
+        <item>College, University, and Adult Education</item>
+        <item>Computer and Electronics Manufacturing</item>
+        <item>Construction</item>
+        <item>Finance and Insurance</item>
+        <item>Government and Public Administration</item>
+        <item>Health Care and Social Assistance</item>
+        <item>Hotel and Food Services</item>
+        <item>Legal Services</item>
+        <item>Manufacturing</item>
+        <item>Others</item>
+        <item>Real Estate, Rental and Leasing</item>
+        <item>Retail</item>
+        <item>Scientific or Technical Services</item>
+        <item>Software</item>
+        <item>Transportation and Warehousing</item>
+        <item>Unemployed</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_status">7. ¿Cuál es tu estado laboral actual?</string>
+    <array name="demographic_status_options">
+        <item>Select an option</item>
+        <item>Employed full time (40 or more hours per week)</item>
+        <item>Employed part time (up to 39 hours per week)</item>
+        <item>Unemployed and currently looking for work</item>
+        <item>Unemployed and not currently looking for work</item>
+        <item>Student</item>
+        <item>Retired</item>
+        <item>Self-employed</item>
+        <item>Unable to work</item>
+        <item>Other</item>
+        <item>Prefer not to say</item>
+    </array>
+    <string name="demographic_question_usage">8. ¿Cuánto tiempo al día pasas en tu teléfono?</string>
+    <array name="demographic_usage_options">
+        <item>Select an option</item>
+        <item>Less than an hour</item>
+        <item>Between 1 and 2 hours</item>
+        <item>Between 2 and 3 hours</item>
+        <item>Between 3 and 4 hours</item>
+        <item>Between 4 and 5 hours</item>
+        <item>Between 5 and 6 hours</item>
+        <item>Over 6 hours</item>
+        <item>Prefer not to say</item>
+    </array>
+
+    <string name="answered_on_prefix">Respondido en</string>
+    <string name="answered_on_prefix_new">Respondido el %1$s</string>
+
+    <!--  Toast  -->
+    <string name="finish_all_demographic_questions_toast">Por favor, termina todas las preguntas demográficas.</string>
+    <string name="finish_all_event_survey_questions_toast">Por favor, completa todas las preguntas de la encuesta.</string>
+    <string name="finished_survey_toast">¡Entregado!</string>
+    <string name="invalid_event_type">Tipo de evento no válido</string>
+
+    <!--  Accessibility screen texts  -->
+    <string name="apps_screen_text">Aplicaciones</string>
+    <string name="app_permissions_screen_text">Permisos de la aplicación</string>
+    <string name="permission_switch_status_on_screen_text">ACTIVADO</string>
+    <string name="permission_switch_status_off_screen_text">DESACTIVADO</string>
+    <string name="android_basic_feature_in_message_screen_text">característica básica</string>
+    <string name="android_m_deny_in_permission_deny_warning_dialog_screen_text">Denegar</string>
+    <string name="android_n_deny_anyway_in_permission_deny_warning_dialog_screen_text">Denegar de todos modos</string>
+    <string name="android_o_app_info_screen_text">Informacion de la applicacion</string>
+    <string name="android_o_app_permissions_screen_text">Permisos de la aplicación</string>
+    <string name="android_q_app_permissions_screen_text">Gerente de permisos</string>
+    <string name="android_o_apps_and_notifications_screen_text">Aplicaciones y notificaciones</string>
+    <string name="android_permissions_screen_text">Permisos</string>
+    <string name="android_storage_screen_text">Almacenamiento</string>
+    <string name="android_storage_and_cache_screen_text">Almacenamiento y caché</string>
+    <string name="android_camera_screen_text">Cámara</string>
+    <string name="android_body_sensors_screen_text">Sensores corporales</string>
+    <string name="android_dialog_allow_screen_text">Permitir</string>
+    <string name="android_dialog_deny_screen_text">Denegar</string>
+    <string name="android_permission_settings_screen_allowed">PERMITIDO</string>
+    <string name="android_permission_settings_screen_denied">DENEGADO</string>
+    <string name="android_dialog_deny_and_never_show_again">Denegar y no preguntar de nuevo</string>
+    <string name="android_dialog_allow_only_foreground">Permitir solo mientras usas la aplicación</string>
+    <string name="android_allow_x_to_x_screen_regex">¿Permitir a (.*) (.*)\\?</string>
+
+    <array name="android_permission_categories">
+        <item>Camera</item>
+        <item>Contacts</item>
+        <item>Location</item>
+        <item>Microphone</item>
+        <item>Phone</item>
+        <item>Storage</item>
+        <item>Body Sensors</item>
+        <item>Calendar</item>
+        <item>SMS</item>
+        <item>Call Logs</item>
+    </array>
+
+    <!--  Proactive permission request dialogs  -->
+    <array name="proactive_permission_request_dialog_grant_button_texts">
+        <item>allow</item>
+        <item>accept</item>
+        <item>continue</item>
+        <item>enable</item>
+        <item>grant</item>
+        <item>got it</item>
+        <item>ok</item>
+        <item>okay</item>
+        <item>permit</item>
+        <item>set up</item>
+        <item>setup</item>
+        <item>sounds good</item>
+        <item>sure</item>
+        <item>turn on</item>
+    </array>
+    <array name="proactive_permission_request_dialog_deny_button_texts">
+        <item>cancel</item>
+        <item>deny</item>
+        <item>decline</item>
+        <item>deny anyway</item>
+        <item>discard</item>
+        <item>done</item>
+        <item>don\'t allow</item>
+        <item>exit</item>
+        <item>ignore</item>
+        <item>later</item>
+        <item>no</item>
+        <item>not now</item>
+        <item>no thanks</item>
+        <item>maybe later</item>
+        <item>set up later</item>
+        <item>setup later</item>
+        <item>skip</item>
+    </array>
+
+    <!--  permission dialog strings  -->
+    <string description="runtime permission dialog camera text" name="permission_dialog_string_camera">tomar fotos y grabar vídeos</string>
+    <string description="runtime permission dialog contacts text" name="permission_dialog_string_contacts">acceder a tus contactos</string>
+    <string description="runtime permission dialog location text" name="permission_dialog_string_location">acceder a la ubicación de este dispositivo</string>
+    <string description="runtime permission dialog microphone text" name="permission_dialog_string_microphone">grabar audio</string>
+    <string description="runtime permission dialog phone text" name="permission_dialog_string_phone">realizar y administrar llamadas telefónicas</string>
+    <string description="runtime permission dialog storage first text" name="permission_dialog_string_storage_one">acceder a fotos, medios y archivos en tu dispositivo</string>
+    <string description="runtime permission dialog storage second text" name="permission_dialog_string_storage_two">acceder a fotos, medios y archivos en tu dispositivo</string>
+    <string description="runtime permission dialog body sensors text" name="permission_dialog_string_body_sensors">acceder a los datos del sensor sobre tus signos vitales</string>
+    <string description="runtime permission dialog calendar text" name="permission_dialog_string_calendar">acceder a tu calendario</string>
+    <string description="runtime permission dialog sms text" name="permission_dialog_string_sms">enviar y ver mensajes SMS</string>
+    <string description="runtime permission dialog call logs first text" name="permission_dialog_string_call_logs_one">acceder a tus registros de llamadas</string>
+    <string description="runtime permission dialog call logs second text" name="permission_dialog_string_call_logs_two">acceder a tus registros de llamadas telefónicas</string>
+
+    <!--  After translation  -->
+    <string description="Error message for no internet connection" name="no_internet_connection_error">PrivaDroid necesita una conexión de red para funcionar correctamente.</string>
+
+    <string description="Terms that user needs to agree with in order to join" name="terms_description">Este experimento es completamente voluntario y puedes unirte/salir del experimento en cualquier momento. Los participantes deben ser mayores de 18 años. El propósito de este experimento es estudiar las razones de las decisiones que toman los usuarios al responder solicitudes de permisos de tiempo de ejecución y al instalar y desinstalar aplicaciones. Las preguntas de la encuesta aparecerán en algunos eventos de instalación y desinstalación de aplicaciones, y a veces en el momento de una solicitud de permiso. Recopilamos información demográfica una vez al principio y te pedimos tu opinión sobre algunos elementos en una encuesta de salida. La aplicación no recopila datos de identificación personal, excepto tu identificación de publicidad de Google y no utilizaremos esta identificación para volver a identificarte. Tus datos y respuestas solo se comparten con nuestro equipo de investigación y el control de acceso se utiliza para proteger tus datos.\n\n Los participantes deben habilitar el servicio de accesibilidad y el acceso al uso de aplicaciones para que PrivaDroid funcione correctamente. Los participantes que respondan el cuestionario demográfico y permanezcan en el experimento durante 30 días calificarán para una recompensa de 10 USD en forma de pago de PayPal o pago de Bitcoin. SOLO admitimos estos dos métodos de pago. Las inscripciones múltiples en este experimento solo califican para un pago. Los pagos pueden demorar alrededor de tres semanas y más. Actualmente, solo aceptamos participantes de Canadá, Estados Unidos, Reino Unido, Corea del Sur, España, Francia, Hong Kong, India, Sudáfrica, Argentina y Singapur. Los usuarios fuera de los países anteriores aún pueden participar, pero no serán elegibles para recibir una recompensa. Durante el experimento, tu idioma de Android DEBE estar configurado en uno de los siguientes idiomas: inglés, español, francés, coreano y chino tradicional. De lo contrario, no serás elegible para la recompensa. ¡Gracias por unirte!</string>
+
+    <!--  Permission related keywords  -->
+    <array name="permission_related_keywords">
+        <item>body sensors</item>
+        <item>camera</item>
+        <item>calendar</item>
+        <item>call logs</item>
+        <item>contacts</item>
+        <item>device</item>
+        <item>file</item>
+        <item>location</item>
+        <item>microphone</item>
+        <item>permission</item>
+        <item>phone</item>
+        <item>storage</item>
+        <item>sms</item>
+        <item>photo</item>
+        <item>picture</item>
+        <item>video</item>
+        <item>voice</item>
+        <item>message</item>
+    </array>
+
+    <array name="permission_action_related_keywords">
+        <item>allow</item>
+        <item>access</item>
+        <item>control</item>
+        <item>confidential</item>
+        <item>check</item>
+        <item>enable</item>
+        <item>import</item>
+        <item>grant</item>
+        <item>misuse</item>
+        <item>must</item>
+        <item>need</item>
+        <item>purpose</item>
+        <item>promise</item>
+        <item>require</item>
+        <item>share</item>
+        <item>turn on</item>
+        <item>upload</item>
+        <item>use</item>
+        <item>using</item>
+        <item>would not work</item>
+        <item>wouldn\'t work</item>
+        <item>will not work</item>
+        <item>won\'t work</item>
+    </array>
+
+    <string name="language_is_not_supported_error">Tu idioma de Android debe estar configurado en inglés, español, francés, coreano o chino tradicional.</string>
+    <string name="confirm_country_restriction_awareness">Parece que no te encuentras en Canadá, Estados Unidos, Reino Unido, Corea del Sur, España, Francia, Hong Kong, India, Sudáfrica, Argentina o Singapur. No serás elegible para la recompensa si no eres de los países antes mencionados.</string>
+    <string name="confirm_language_settings_awareness">Durante el experimento, el idioma de tu dispositivo debe configurarse en uno de los siguientes idiomas: inglés, español, francés, coreano y chino tradicional para ser elegible para la recompensa.</string>
+
+    <string name="i_understand">Entiendo</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="foreground_service_notification_text">PrivaDroid se está ejecutando ...</string>
+    <string name="privadroid_package_name">com.weichengcao.privadroid</string>
+
+    <string name="select_multiple_allowed">Selecciona una o más opciones</string>
+
+    <string name="google_ad_id">ca-app-pub-1063585474940344 ~ 2699806720</string>
+
+    <string name="android_permission_screen_text_camera">Cámara</string>
+    <string name="android_permission_screen_text_contacts">Contactos</string>
+    <string name="android_permission_screen_text_location">Ubicación</string>
+    <string name="android_permission_screen_text_microphone">Micrófono</string>
+    <string name="android_permission_screen_text_phone">Teléfono</string>
+    <string name="android_permission_screen_text_storage">Almacenamiento</string>
+    <string name="android_permission_screen_text_body_sensors">Sensores corporales</string>
+    <string name="android_permission_screen_text_calendar">Calendario</string>
+    <string name="android_permission_screen_text_sms">SMS</string>
+    <string name="android_permission_screen_text_call_logs">Registros de llamadas</string>
+    <string name="android_permission_screen_text_shared">Compartido</string>
+
+    <string-array description="For context detection" name="camera_set_values">
+        <item>Cámara</item>
+        <item>Imagen</item>
+        <item>Vídeo</item>
+    </string-array>
+    <string-array name="contacts_set_values">
+        <item>Contactos</item>
+    </string-array>
+    <string-array name="location_set_values">
+        <item>Ubicación</item>
+    </string-array>
+    <string-array name="microphone_set_values">
+        <item>Micrófono</item>
+        <item>Voz</item>
+    </string-array>
+    <string-array name="phone_set_values">
+        <item>Teléfono</item>
+    </string-array>
+    <string-array name="storage_set_values">
+        <item>Almacenamiento</item>
+        <item>Expediente</item>
+        <item>Foto</item>
+        <item>Imagen</item>
+    </string-array>
+    <string-array name="body_sensors_set_values">
+        <item>Sensores corporales</item>
+    </string-array>
+    <string-array name="calendar_set_values">
+        <item>Calendario</item>
+    </string-array>
+    <string-array name="sms_set_values">
+        <item>SMS</item>
+        <item>Mensaje</item>
+    </string-array>
+    <string-array name="call_logs_set_values">
+        <item>Registros de llamadas</item>
+    </string-array>
+    <string-array name="shared_set_values">
+        <item>promesa</item>
+        <item>seguro</item>
+        <item>favorito</item>
+        <item>fácil</item>
+        <item>fácilmente</item>
+        <item>propósito</item>
+        <item>divertido</item>
+        <item>ayuda</item>
+        <item>confidencial</item>
+        <item>acceso</item>
+        <item>mal uso</item>
+        <item>utilizar</item>
+        <item>encender</item>
+        <item>debe</item>
+        <item>no funcionará</item>
+        <item>apropiado</item>
+        <item>amigo</item>
+        <item>familia</item>
+        <item>anónimo</item>
+        <item>subir</item>
+        <item>tienda</item>
+        <item>dar me gusta</item>
+        <item>permitir</item>
+    </string-array>
+
+    <string name="previous_screen_default_permission_message_regex">TextView: Permitir (. *) A (. *) \\?</string>
+
+    <string name="user_in_one_country_reaches_limit_message">Dejamos de reclutar participantes de tu región. Si participas ahora, no serás elegible para recibir una recompensa. Siempre serás bienvenido para volver más tarde cuando haya vacantes adicionales. ¡Gracias!</string>
+
+    <string name="exit_survey_screen_title">Encuesta de salida</string>
+    <string name="exit_survey_control_group">Controlar</string>
+    <string name="exit_survey_control_question_one">1. La privacidad de la aplicación móvil se trata del derecho del usuario a ejercer control sobre las decisiones sobre cómo se recopila, usa y comparte tu información.</string>
+    <string name="exit_survey_control_question_two">2. El control del consumidor de la información personal es esencial para la privacidad de la aplicación móvil.</string>
+    <string name="exit_survey_control_question_three">3. No creo que la privacidad de la aplicación móvil se vea comprometida cuando el usuario pierde el control sobre su información como resultado del uso de una aplicación.</string>
+    <string name="exit_survey_awareness_group">Conocimiento de las prácticas de privacidad.</string>
+    <string name="exit_survey_awareness_question_one">1. Los desarrolladores de aplicaciones móviles que buscan información deben revelar la forma en que se recopilan, procesan y utilizan los datos.</string>
+    <string name="exit_survey_awareness_question_two">2. Una buena política de privacidad de la aplicación móvil debe tener una divulgación clara y visible.</string>
+    <string name="exit_survey_awareness_question_three">3. No es muy importante para mí saber y conocer cómo se utilizará mi información personal.</string>
+    <string name="exit_survey_collection_group">Recogida</string>
+    <string name="exit_survey_collection_question_one">1. Por lo general, me molesta cuando las aplicaciones de teléfonos inteligentes me solicitan información personal.</string>
+    <string name="exit_survey_collection_question_two">2. Cuando las aplicaciones móviles me solicitan información personal, a veces lo pienso dos veces antes de proporcionarla.</string>
+    <string name="exit_survey_collection_question_three">3. Me molesta dar información personal a tantas aplicaciones móviles.</string>
+    <string name="exit_survey_collection_question_four">4. No me preocupa que las aplicaciones de teléfonos inteligentes estén recopilando demasiada información personal sobre mí.</string>
+    <!--    <string name="exit_survey_error_group">Error</string>-->
+    <!--    <string name="exit_survey_error_question_one">-->
+    <!--        1. All the personal information in computer databases should be double-checked for accuracy-no matter how much this costs.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_error_question_two">-->
+    <!--        2. Online companies should take more steps to make sure that the personal information in their files is accurate.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_error_question_three">-->
+    <!--        3. Online companies should have better procedures to correct errors in personal information.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_error_question_four">-->
+    <!--        4. Online companies should devote more time and effort to verify the accuracy of the personal information in their databases.-->
+    <!--    </string>-->
+    <string name="exit_survey_secondary_use_group">Uso secundario</string>
+    <string name="exit_survey_secondary_use_question_one">1. Las aplicaciones móviles no deben usar información personal para ningún propósito a menos que haya sido autorizado por las personas que proporcionaron información.</string>
+    <string name="exit_survey_secondary_use_question_two">2. Cuando las personas dan información personal a una aplicación móvil por algún motivo, el desarrollador de la aplicación nunca debe usar la información por ningún otro motivo.</string>
+    <string name="exit_survey_secondary_use_question_three">3. Los desarrolladores de aplicaciones móviles deberían poder vender la información personal en sus bases de datos informáticas a otras compañías.</string>
+    <string name="exit_survey_secondary_use_question_four">4. Los desarrolladores de aplicaciones móviles nunca deben compartir información personal con otras compañías a menos que haya sido autorizada por la persona que proporcionó la información.</string>
+    <!--    <string name="exit_survey_secondary_use_question_five">-->
+    <!--        5. Online companies should never share personal information with other companies unless it has been authorized by the individual who provided the information.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_improper_group">Improper access</string>-->
+    <!--    <string name="exit_survey_improper_question_one">-->
+    <!--        1. Online companies should devote more time and effort to preventing unauthorized access to personal information.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_improper_question_two">-->
+    <!--        2. Computer databases that contain personal information should be protected from unauthorized access-no matter how much it costs.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_improper_question_three">-->
+    <!--        3. Online companies should take more steps to make sure that unauthorized people cannot access personal information in their computers.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_global_group">Global information privacy concern</string>-->
+    <!--    <string name="exit_survey_global_question_one">-->
+    <!--        1. Compared to others, I am more sensitive about the way online companies handle my personal information.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_global_question_two">-->
+    <!--        2. To me, it is the most important thing to keep my privacy intact from online companies.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_global_question_three">-->
+    <!--        3. I believe other people are too much concerned with online privacy issues.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_global_question_four">-->
+    <!--        4. Compared with other subjects on my mind, personal privacy is very important.-->
+    <!--    </string>-->
+    <!--    <string name="exit_survey_global_question_five">-->
+    <!--        5. I am concerned about threats to my personal privacy today.-->
+    <!--    </string>-->
+    <string-array name="uipc_question_options">
+        <item>Totalmente de acuerdo</item>
+        <item>De acuerdo</item>
+        <item>Ni de acuerdo ni en desacuerdo</item>
+        <item>Discrepar</item>
+        <item>Muy en desacuerdo</item>
+    </string-array>
+    <string name="exit_survey_additional_group">Preguntas adicionales</string>
+    <string name="exit_survey_additional_question_familiar">1. ¿Qué tan familiarizado estás con el sistema de permisos de Android?</string>
+    <string-array name="exit_survey_additional_question_familiar_options">
+        <item>Muy familiarizado</item>
+        <item>Algo familiarizado</item>
+        <item>Poco familiarizado</item>
+        <item>Nunca he oído hablar de esto</item>
+    </string-array>
+    <string name="exit_survey_additional_question_dont_understand">2. ¿Hay permisos de Android que no entiendes lo que significa o lo que hacen? Selecciona todos los permisos que no entiendas.</string>
+    <string-array name="exit_survey_additional_question_dont_understand_options">
+        <item>Cámara</item>
+        <item>Contactos</item>
+        <item>Ubicación</item>
+        <item>Micrófono</item>
+        <item>Teléfono</item>
+        <item>Almacenamiento</item>
+        <item>Sensores corporales</item>
+        <item>Calendario</item>
+        <item>SMS</item>
+        <item>Registros de llamadas</item>
+        <item>Ninguna</item>
+    </string-array>
+    <string name="need_to_answer_the_demographic_survey_before_rewards">Debes responder la encuesta demográfica antes de obtener una recompensa.</string>
+    <string name="need_to_answer_the_exit_survey_before_rewards">Debes responder la encuesta de salida antes de obtener una recompensa.</string>
+    <string name="exit_survey_complete_join_date_text">Te unes al experimento en %1$s. Regresa para completar la encuesta de salida antes de enviar una solicitud de recompensa.</string>
+    <string name="exit_survey_completed_complete_join_date_text">Te unes al experimento en %1$s. Gracias por completar la encuesta de salida.</string>
+    <string name="user_decided_to_join_without_reward_fact">Aceptaste unirte al experimento sin pago. No elegible para recompensa.</string>
+
+    <string name="x_permission_access_for_this_app_regex">(. *) ACCESO A ESTA APLICACIÓN</string>
+    <string name="x_permission_title_regex">(. *) permiso</string>
+
+    <string name="please_complete_demographic_survey">Por favor completa la encuesta demográfica.</string>
+
+    <string name="demographic_reminder_notification_title">Encuesta demográfica PrivaDroid</string>
+    <string name="demographic_reminder_notification_text">No olvides completar la encuesta demográfica.</string>
+    <string name="accessibility_reminder_notification_title">Habilitar accesibilidad para PrivaDroid</string>
+    <string name="accessibility_reminder_notification_text">Se requiere el servicio de accesibilidad para que PrivaDroid funcione correctamente.</string>
+    <string name="app_usage_reminder_notification_title">Habilitar el uso de la aplicación para PrivaDroid</string>
+    <string name="app_usage_reminder_notification_text">Se requiere acceso a la aplicación de uso para que PrivaDroid funcione correctamente.</string>
+
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
+    <string name="not_applicable">N/A</string>
+
+    <string name="permission_revoke_reminder_notification_title">Deshabilitar el acceso %1$s de %2$s</string>
+    <string name="permission_revoke_reminder_notification_text">Esto es para recordarte que deshabilitaste el acceso %1$s de la aplicación %2$s.</string>
+</resources>

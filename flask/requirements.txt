@@ -1,0 +1,2 @@
+flask==1.0.3
+firebase-admin==3.0.0
